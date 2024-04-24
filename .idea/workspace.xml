@@ -4,89 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2c23871-78d6-4cc1-bb01-76209e8a1b64" name="Changes" comment="bulid gradle Spring, lombok, log4j, jstl(1.2), Tomcat(9.x), JDK(11), HikariCP, mariadb, mybatis, hibernate-validator, modelmapper, aspectjrt, aspectjweaver, cglib, fileupload">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/aop/AoP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/config/ModelMapperConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/BbsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/BbsReplyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/MemberController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/SampleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/exception/CommonException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/formatter/CheckBoxFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/controller/formatter/LocalDateFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/domain/BbsReplyVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/domain/BbsVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/domain/MemberVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/BbsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/BbsReplyDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/LoginDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/MemberDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/PageRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/dto/PageResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/filter/LoginCheckFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/lombok.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/BbsMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/BbsReplyMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/LoginMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/MemberMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/TimeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/mapper/TimeMapper2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/BbsReplyServiceIf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/BbsReplyServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/BbsServiceIf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/BbsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/LoginServiceIf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/LoginServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/MemberServiceIf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/fullstack4/lccbook/service/MemberServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lccbookDBSql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/BbsMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/BbsReplyMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/LoginMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/MemberMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/TimeMapper2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/root-context.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/servlet-context.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/bbs/fileupload.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/bbs/list.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/bbs/modify.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/bbs/regist.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/bbs/view.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/footer.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/header.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error/404Exception.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error/Exception.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login/login.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/modify.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/view.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/android2.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/valueCheck.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1e2482b5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/32c3b410github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/6a010fe9facebook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/mapper/BbsMapperTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/mapper/BbsReplyTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/mapper/TimeMapperTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/sample/SampleTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/service/BbsReplyServiceTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/service/BbsServiceTests.java" afterDir="false" />
+    <list default="true" id="f2c23871-78d6-4cc1-bb01-76209e8a1b64" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/fullstack4/lccbook/sample/SampleTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +43,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 9.0.74.executor": "Run",
+    "Tomcat Server.Tomcat 9.0.87.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -149,7 +70,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 9.0.74" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.74" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="Tomcat 9.0.87" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.87" ALTERNATIVE_JRE_ENABLED="false">
       <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -246,11 +167,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1713937510388</updated>
-      <workItem from="1713937511422" duration="1911000" />
+      <workItem from="1713937511422" duration="2905000" />
     </task>
+    <task id="LOCAL-00001" summary="bulid gradle Tomcat(9.x), JDK(11), jstl, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib">
+      <option name="closed" value="true" />
+      <created>1713939455277</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713939455277</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="bulid gradle Spring, lombok, log4j, jstl(1.2), Tomcat(9.x), JDK(11), HikariCP, mariadb, mybatis, hibernate-validator, modelmapper, aspectjrt, aspectjweaver, cglib, fileupload" />
+    <MESSAGE value="bulid gradle Tomcat(9.x), JDK(11), jstl, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib" />
+    <option name="LAST_COMMIT_MESSAGE" value="bulid gradle Tomcat(9.x), JDK(11), jstl, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib" />
   </component>
 </project>
