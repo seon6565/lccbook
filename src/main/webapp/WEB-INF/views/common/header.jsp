@@ -40,16 +40,24 @@
             opacity: 0;
             visibility: hidden;
             border: 1px solid #ccc;
+            padding: 20px;
+            margin-left: 10px;
+            z-index: 1;
+            
         }
 
         .sub-menu > li > a {
             text-decoration: none;
             color: black;
+            color: #6c757d;
         }
 
         #main-menu >  li:hover .sub-menu {
             opacity: 1;
             visibility: visible;
+        }
+        #sub-menu li {
+            margin-bottom: 10px;
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -100,21 +108,21 @@
                 <ul id="main-menu">
                     <li><a class="nav-link active" aria-current="page" href="/introduce/view">회사소개</a>
                     <ul class="sub-menu">
-                        <li><a href="/introduce/view">회사소개</a></li>
+                        <li><a href="/introduce/view" style="font-size: 14px;">회사소개</a></li>
                     </ul></li>
                     <li><a class="nav-link active" aria-current="page" href="/book/list">교재</a>
                         <ul class="sub-menu">
-                            <li><a href="/book/list">교재</a></li>
+                            <li><a href="/book/list" style="font-size: 14px;">교재</a></li>
                         </ul></li>
                     <li><a class="nav-link active" aria-current="page" href="#">커뮤니티</a>
-                        <ul class="sub-menu">
-                            <li><a href="/notice/list">공지사항</a></li>
-                            <li><a href="/qna/list">Q&A</a></li>
-                            <li><a href="/book/list">자주 묻는 질문</a></li>
+                        <ul class="sub-menu" id="sub-menu">
+                            <li><a href="/notice/list" style="font-size: 14px;">공지사항</a></li>
+                            <li><a href="/qna/list" style="font-size: 14px;">Q&A</a></li>
+                            <li><a href="/book/list" style="font-size: 14px;">자주 묻는 질문</a></li>
                         </ul></li>
                     <li><a class="nav-link active" aria-current="page" href="/bbs/list">자료실</a>
                         <ul class="sub-menu">
-                            <li><a href="/bbs/list">자료실</a></li>
+                            <li><a href="/bbs/list" style="font-size: 14px;">자료실</a></li>
                         </ul></li>
                 </ul>
             </div>
