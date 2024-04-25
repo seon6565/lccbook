@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<%@ include file="../common/header.jsp"%>
+<%@ include file="../../common/header.jsp"%>
 
 <div class="container">
 <form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
@@ -103,7 +103,7 @@
     </form>
 </div>
 
-<%@ include file="../common/footer.jsp"%>
+<%@ include file="../../common/footer.jsp"%>
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
