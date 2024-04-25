@@ -1,11 +1,13 @@
 package org.fullstack4.lccbook.mapper;
 
+import org.fullstack4.lccbook.domain.PaymentVO;
+
 import java.util.List;
 
 public interface PaymentMapper {
-    int regist(Object Object);
-    List<Object> list();
-    Object view(int idx);
-    int modify(Object Object);
+    int regist(PaymentVO paymentVO);
+    List<PaymentVO> list();
+    PaymentVO view(int idx);
+    int modify(PaymentVO paymentVO);
     int delete(int idx);
 }

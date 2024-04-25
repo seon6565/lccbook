@@ -1,11 +1,13 @@
 package org.fullstack4.lccbook.mapper;
 
+import org.fullstack4.lccbook.domain.QnaVO;
+
 import java.util.List;
 
 public interface QnaMapper {
-    int regist(Object Object);
-    List<Object> list();
-    Object view(int idx);
-    int modify(Object Object);
+    int regist(QnaVO qnaVO);
+    List<QnaVO> list();
+    QnaVO view(int idx);
+    int modify(QnaVO qnaVO);
     int delete(int idx);
 }

@@ -11,7 +11,7 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-    <h1>오류가 발생 하였습니다.</h1>
+    <h1>${param.error}</h1>
 </div>
 
 <%@ include file="../common/footer.jsp"%>
