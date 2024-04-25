@@ -3,7 +3,9 @@
         PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.BbsMapper">
-    <sql id="whereCondition">
+
+    <!-- 검색 sql문 -->
+    <!--<sql id="whereCondition">
         <where>
             1=1
             <if test="search_type !=null and search_type !=''">
@@ -27,50 +29,53 @@
                 </trim>
             </if>
         </where>
-    </sql>
+    </sql>-->
     <insert id="regist">
-        insert into tbl_bbs(user_id,title,content,display_date,read_cnt,interest,reg_date)
-        values (#{user_id},#{title},#{content},#{display_date},#{read_cnt},#{interest},now())
+        insert into lcc_bbs(user_id,title,content,display_date,read_cnt,interest,reg_date,image,video,file)
+        values (#{user_id},#{title},#{content},#{display_date},#{read_cnt},#{interest},now(),#{image},#{video},#{file})
     </insert>
 
     <select id="listAll" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx, user_id,title,content,display_date,read_cnt,interest,reg_date,modify_date
-        from tbl_bbs
+        select user_id,title,content,display_date,read_cnt,interest,reg_date,image,video,file
+        from lcc_bbs
         order by idx desc
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx, user_id,title,content,display_date,read_cnt,reg_date,modify_date,interest
-        from tbl_bbs
+        select user_id,title,content,display_date,read_cnt,interest,reg_date,image,video,file
+        from lcc_bbs
         where idx=#{idx}
     </select>
 
     <update id="modify">
-        update tbl_bbs
+        update lcc_bbs
         set title = #{title},
         content = #{content},
         interest = #{interest},
         display_date = #{display_date},
-        modify_date = now()
+        modify_date = now(),
+        image=#{image},
+        video=#{video},
+        file=#{file}
         where idx=#{idx}
     </update>
 
     <delete id="delete">
         delete
-        from tbl_bbs
+        from lcc_bbs
         where idx=#{idx}
     </delete>
 
     <select id="bbsTotalCount" resultType="int">
         select count(*)
-        from tbl_bbs
-        <include refid="whereCondition"></include>
+        from lcc_bbs
+  <!--      <include refid="whereCondition"></include>-->
     </select>
 
     <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx, user_id,title,content,display_date,read_cnt,interest,reg_date,modify_date
-        from tbl_bbs
-        <include refid="whereCondition"></include>
+        select user_id,title,content,display_date,read_cnt,interest,reg_date,image,video,file
+        from lcc_bbs
+ <!--       <include refid="whereCondition"></include>-->
         order by idx desc
         limit #{page_skip_count}, #{page_size}
     </select>

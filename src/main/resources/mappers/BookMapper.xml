@@ -10,7 +10,7 @@
         values (#{book_name},#{price},#{category_idx},now(),#{publisher},#{author},#{size},#{isbn},#{book_page},#{book_img},#{book_video},#{book_quantity})
     </insert>
 
-    <select id="listAll" resultType="org.fullstack4.lccbook.domain.BookVO">
+    <select id="list" resultType="org.fullstack4.lccbook.domain.BookVO">
         select book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
         from lcc_book
         order by book_idx desc
@@ -45,11 +45,11 @@
         where book_idx=#{book_idx}
     </delete>
 
-    <select id="bbsTotalCount" resultType="int">
+   <!-- <select id="bbsTotalCount" resultType="int">
         select count(*)
         from lcc_book
 
-        <!-- <include refid="whereCondition"></include>-->
+        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
 
-    </select>
+    </select>-->
 </mapper>

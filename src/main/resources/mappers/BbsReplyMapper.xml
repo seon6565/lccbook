@@ -3,18 +3,19 @@
         PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.BbsReplyMapper">
+
     <insert id="reply_regist">
-        insert into tbl_bbs_reply(bbs_idx,user_id,title)
+        insert into lcc_bbs_reply(bbs_idx,user_id,title)
         values (#{bbs_idx}, #{user_id}, #{title})
     </insert>
     <select id="reply_list" resultType="org.fullstack4.lccbook.domain.BbsReplyVO">
         select idx, bbs_idx, user_id, title, reg_date, modify_date
-        from tbl_bbs_reply
+        from lcc_bbs_reply
         where bbs_idx = #{bbs_idx}
         order by idx desc
     </select>
     <update id="update_reply_cnt">
-        update tbl_bbs set reply_cnt = reply_cnt+1 where idx=#{bbs_idx}
+        update lcc_bbs set reply_cnt = reply_cnt+1 where idx=#{bbs_idx}
     </update>
 
 </mapper>

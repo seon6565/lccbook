@@ -14,6 +14,7 @@ public class CartVO
     private int cart_idx;
     private String user_id;
     private int book_idx;
+    private String book_name;
     private int quantity;
     private LocalDate cart_regdate;
     private char checked;

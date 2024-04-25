@@ -35,4 +35,10 @@ public class BbsDTO {
     @PositiveOrZero
     @Min(value=0)
     private int reply_cnt=0;
+    @Builder.Default
+    private String image="";
+    @Builder.Default
+    private String video="";
+    @Builder.Default
+    private String file="";
 }

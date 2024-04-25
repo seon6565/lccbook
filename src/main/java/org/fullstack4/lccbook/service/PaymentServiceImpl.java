@@ -2,6 +2,8 @@ package org.fullstack4.lccbook.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.domain.PaymentVO;
+import org.fullstack4.lccbook.dto.PaymentDTO;
 import org.fullstack4.lccbook.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,7 @@
 package org.fullstack4.lccbook.service;
 
+import org.fullstack4.lccbook.dto.PaymentDTO;
+
 import java.util.List;
 
 public interface PaymentServiceIf {

@@ -20,4 +20,7 @@ public class BbsVO {
     private LocalDate modify_date;
     private String interest;
     private int reply_cnt;
+    private String image;
+    private String video;
+    private String file;
 }

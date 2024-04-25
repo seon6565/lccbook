@@ -5,11 +5,11 @@
 <mapper namespace="org.fullstack4.lccbook.mapper.CartMapper">
 
     <insert id="regist">
-        insert into lcc_cart(user_id,book_idx,quantity,cart_regdate,checked)
-        values (#{user_id},#{book_idx},#{quantity},#{cart_regdate},#{checked})
+        insert into lcc_cart(user_id,book_idx,quantity,checked,book_name)
+        values (#{user_id},#{book_idx},#{quantity},#{checked},#{book_name})
     </insert>
 
-    <select id="listAll" resultType="org.fullstack4.lccbook.domain.CartVO">
+    <select id="list" resultType="org.fullstack4.lccbook.domain.CartVO">
         select user_id,book_idx,quantity,cart_regdate,checked
         from lcc_cart
         order by cart_idx desc
@@ -26,7 +26,7 @@
     <!-- 카트에 담은 책 수량 변경 -->
     <update id="modify">
         update lcc_cart
-        set quantity=#{quantity},
+        set quantity=#{quantity}
         where book_idx=#{book_idx}
     </update>
 
@@ -36,11 +36,11 @@
         where cart_idx=#{cart_idx}
     </delete>
 
-    <select id="bbsTotalCount" resultType="int">
+<!--    <select id="bbsTotalCount" resultType="int">
         select count(*)
         from lcc_cart
-        <!-- <include refid="whereCondition"></include>-->
+        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
 
-    </select>
+    </select>-->
 
 </mapper>

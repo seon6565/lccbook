@@ -10,4 +10,6 @@ public interface QnaMapper {
     QnaVO view(int idx);
     int modify(QnaVO qnaVO);
     int delete(int idx);
+
+/*    int answer_regist(QnaVO qnaVO);*/
 }

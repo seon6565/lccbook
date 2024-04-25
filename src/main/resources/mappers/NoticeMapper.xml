@@ -9,7 +9,7 @@
         values (#{content},#{title},now(),#{notice_state})
     </insert>
 
-    <select id="listAll" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+    <select id="list" resultType="org.fullstack4.lccbook.domain.NoticeVO">
         select content,title,reg_date,notice_state
         from lcc_notice
         order by notice_idx desc
@@ -35,10 +35,10 @@
         where notice_idx=#{notice_idx}
     </delete>
 
-    <select id="bbsTotalCount" resultType="int">
+   <!-- <select id="bbsTotalCount" resultType="int">
         select count(*)
         from lcc_notice
-        <!-- <include refid="whereCondition"></include>-->
+        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
 
     </select>
 
@@ -46,10 +46,10 @@
         select idx, content,title,reg_date,notice_state
         from lcc_notice
 
-        <!--  <include refid="whereCondition"></include>-->
+        &lt;!&ndash;  <include refid="whereCondition"></include>&ndash;&gt;
 
         order by notice_idx desc
         limit #{page_skip_count}, #{page_size}
-    </select>
+    </select>-->
 
 </mapper>

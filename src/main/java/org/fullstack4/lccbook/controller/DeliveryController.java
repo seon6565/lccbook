@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping("/aqna")
+@RequestMapping("/delivery")
 @RequiredArgsConstructor
-public class AqnaController {
+public class DeliveryController {
     private final MemberServiceIf memberServiceIf;
 
     @GetMapping(value = "/view")

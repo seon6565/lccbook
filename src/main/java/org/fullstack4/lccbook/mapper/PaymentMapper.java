@@ -1,5 +1,7 @@
 package org.fullstack4.lccbook.mapper;
 
+import org.fullstack4.lccbook.domain.PaymentVO;
+
 import java.util.List;
 
 public interface PaymentMapper {
