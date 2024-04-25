@@ -1,116 +1,70 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Title</title>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>회사 소개</title>
+    <!-- Favicon-->
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/resources/css/styles.css" rel="stylesheet" />
 </head>
-<body>
-<%@ include file="../common/header.jsp"%>
-
-<div class="container">
-<form name="frmDelete" id="frmDelete" method="post" action="/bbs/delete">
-    <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
-<div class="mb-3">
-    idx
-    <span class="form-control">${bbsDTO.idx}</span>
-</div>
-<div class="mb-3">
-    아이디
-    <span class="form-control">${bbsDTO.user_id}</span>
-</div>
-<div class="mb-3">
-    제목
-    <span class="form-control"> ${bbsDTO.title} </span>
-</div>
-<div class="mb-3">
-    내용
-    <span class="form-control">${bbsDTO.content} </span>
-</div>
-<div class="mb-3">
-    출력날짜
-    <span class="form-control"> ${bbsDTO.display_date} </span>
-</div>
-<div class="mb-3">
-    관심사항
-    <span class="form-control">${bbsDTO.interest} </span>
-</div>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button class="btn btn-outline-primary" type="button"
-            onclick="location.href='/bbs/list?page=${param.page}&page_size=${param.page_size}&search_type=${paramValues.get('search_type')[0]}&search_type=${paramValues.get('search_type')[1]}&search_word=${param.search_word}&search_date1=${param.search_date1}&search_date2=${param.search_date2}'">목록</button>
-    <c:if test="${bbsDTO.user_id==memberDTO.user_id}">
-        <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/modify?idx=${bbsDTO.idx}'">수정</button>
-    </c:if>
-    <c:if test="${bbsDTO.user_id==memberDTO.user_id}">
-        <button class="btn btn-outline-primary" type="button" onclick="goDelete()">삭제</button>
-    </c:if>
-</div>
-</form>
-
-<h5>댓글 영역</h5>
-<form name="frmReplydelete" id="frmReplydelete" method="post" action="/bbs/delete">
-    <c:forEach var="list" items="${bbsReplyDTO}">
-    <input type="hidden" id="idx2" name="idx" value="${list.idx}">
-    <div class="card mb-3">
-        <div class="row g-0">
-            <div class="col-md-2">
-                <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">
-            </div>
-            <div class="col-md-10">
-                <div class="card-body">
-                    <h5 class="card-title">유저 아이디: ${list.user_id}</h5>
-                    <p class="card-text">${list.title}</p>
-                    <p class="card-text"><small class="text-body-secondary">${list.reg_date}</small></p>
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <c:if test="${list.user_id==memberDTO.user_id}">
-                        <button class="btn btn-outline-primary" type="submit">댓글 삭제</button>
-                    </c:if>
+<body class="d-flex flex-column">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <%@ include file="../common/header.jsp"%>
+    <!-- Header-->
+    <header class="py-5">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-6">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder mb-3">인사말</h1>
+                        <p class="lead fw-normal text-muted mb-4">LCC 쇼핑몰에 오신것을 환영합니다.
+                            <br>저희는 천재교육 도서 제품의 판매를 목적으로 제작된 사이트입니다.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    </c:forEach>
-</form>
-</div>
-
-<div class="container">
-    <h5>댓글 등록</h5>
-    <form name="frmReplyRegist" id="frmReplyRegist" method="post" action="/bbsreply/regist">
-        <input type="hidden" id="bbs_idx" name="bbs_idx" value="${bbsDTO.idx}">
-        <div class="mb-3">
-            <label for="user_id" class="form-label">아이디</label>
-            <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
-            <div id="div_err_user_id" style="display:none"></div>
+    </header>
+    <!-- About section one-->
+    <section class="py-5 bg-light" id="scroll-target">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid rounded mb-5 mb-lg-0" src="/resources/img/introduce/introduce01.png" alt="회사소개 연혁 이미지">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">2024</h2>
+                    <p class="lead fw-normal text-muted mb-0">LCC 쇼핑몰 사이트 개시</p>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="title" class="form-label">내용</label>
-            <textarea class="form-control" name="title" id="title" rows="5" cols="60" placeholder="댓글 내용을 입력하세요."></textarea>
-            <div id="div_err_title" style="display:none"></div>
+    </section>
+    <!-- About section two-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-first order-lg-last">
+                    <img class="img-fluid rounded mb-5 mb-lg-0" src="/resources/img/introduce/introduce02.png" alt="위치 이미지" /></div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bolder">오시는길</h2>
+                    <p class="lead fw-normal text-muted mb-0">서울 금천구 디지털로9길 23 마리오아울렛2관
+                        <br>천재IT교육센터 11층</p>
+                </div>
+            </div>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <c:if test="${memberDTO.user_id !=null}">
-                <button class="btn btn-outline-primary" type="submit">댓글 등록</button>
-            </c:if>
-            <c:if test="${memberDTO.user_id !=null}">
-                <button class="btn btn-outline-primary" type="reset">취소</button>
-            </c:if>
-        </div>
-    </form>
-</div>
-
+    </section>
+</main>
+<!-- Footer-->
 <%@ include file="../common/footer.jsp"%>
-<script>
-    function goDelete(){
-        const frm = document.getElementById("frmDelete");
-        if(confirm("해당 게시글을 삭제하시겠습니까?")){
-            frm.submit();
-        }
-    }
-</script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
 </body>
 </html>
