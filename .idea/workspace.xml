@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2c23871-78d6-4cc1-bb01-76209e8a1b64" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lccbookDBSql.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +63,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/java4/spring/lccbook",
+    "last_opened_file_path": "D:/java4/spring/lccbook",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -195,6 +194,7 @@
       <updated>1713937510388</updated>
       <workItem from="1713937511422" duration="2905000" />
       <workItem from="1713945068494" duration="361000" />
+      <workItem from="1713947551489" duration="1135000" />
     </task>
     <task id="LOCAL-00001" summary="bulid gradle Tomcat(9.x), JDK(11), jstl, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib">
       <option name="closed" value="true" />
