@@ -15,26 +15,24 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class MemberDTO {
+
+    private int member_idx;
     @Pattern(regexp = "^[A-Za-z0-9]{5,15}$")
     private String user_id;
-    @Pattern(regexp = "^[가-힣A-Za-z]{1,10}$")
-    private String name;
     @Pattern(regexp = "^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,16}$")
     private String pwd;
+    @Pattern(regexp = "^[가-힣A-Za-z]{1,10}$")
+    private String name;
     @Pattern(regexp = "\\w+@\\w+\\.\\w+(\\.\\w+)?")
     private String email;
-    private String interest;
-    private String jumin;
-    private String addr1;
-    private String addr2;
+    private String phone_number;
     @NotNull
     @PastOrPresent
-    private LocalDate brithday;
-    private String job_code;
-    private int mileage;
-    private String user_state;
+    private String birthday;
+    private String addr1;
+    private String addr2;
+    private int addr_number;
+    private char user_state;
     private LocalDate reg_date;
-    private LocalDate modify_date;
     private LocalDate leave_date;
-    private LocalDate pwd_change_date;
 }
