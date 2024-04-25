@@ -11,18 +11,8 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Log4j2
 @ControllerAdvice
 public class CommonException {
-    @ResponseBody
-    @ExceptionHandler(NumberFormatException.class)
-    public String exceptNumber(NumberFormatException numberFormatException){
-        log.info("============================");
-        log.info(numberFormatException.getMessage());
-        log.info("============================");
-        return "Number format Exception";
-    }
-
-    @ResponseBody
     @ExceptionHandler(Exception.class)
-    public String except(Exception exception){
+    public String exception(Exception exception){
 //        log.info("============================");
 //        log.info(exception.getMessage());
 //        StringBuffer sb = new StringBuffer("<ul>");
