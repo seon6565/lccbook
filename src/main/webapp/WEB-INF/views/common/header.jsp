@@ -21,6 +21,36 @@
             margin: 0 10px;
             font-size: large;
         }
+        #main-menu, .sub-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #main-menu > li {
+            float: left;
+        }
+        #main-menu > li > a {
+            display: block;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .sub-menu {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            border: 1px solid #ccc;
+        }
+
+        .sub-menu > li > a {
+            text-decoration: none;
+            color: black;
+        }
+
+        #main-menu >  li:hover .sub-menu {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -33,16 +63,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">회원가입</a>
+                    <a class="nav-link" href="/member/join">회원가입</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">로그인</a>
+                    <a class="nav-link" href="/login/login">로그인</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">주문조회</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">장바구니</a>
+                    <a class="nav-link" href="/cart/list/">장바구니</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" style="margin-right: 100px;">고객센터</a>
@@ -59,7 +89,7 @@
         <div class="container-fluid" style="width: 400px;">
             <a class="navbar-brand" href="#" style="font-weight: bold;">
                 <img src="icons8-glossary-96.png" alt="Logo" width="40" height="30" style="margin-right: 5px;margin-left: 100px;" class="d-inline-block align-text-top">
-                천재교육 쇼핑몰
+                LCC 쇼핑몰
             </a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,11 +97,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav" id="navbarNav-bottom">
-                <a class="nav-link active" aria-current="page" href="#">영유아</a>
-                <a class="nav-link active" aria-current="page" href="#">초등</a>
-                <a class="nav-link active" aria-current="page" href="#">중학</a>
-                <a class="nav-link active" aria-current="page" href="#">고등</a>
-                <a class="nav-link active" aria-current="page" href="#">교과서</a>
+                <ul id="main-menu">
+                    <li><a class="nav-link active" aria-current="page" href="/introduce/view">회사소개</a>
+                    <ul class="sub-menu">
+                        <li><a href="/introduce/view">회사소개</a></li>
+                    </ul></li>
+                    <li><a class="nav-link active" aria-current="page" href="/book/list">교재</a>
+                        <ul class="sub-menu">
+                            <li><a href="/book/list">교재</a></li>
+                        </ul></li>
+                    <li><a class="nav-link active" aria-current="page" href="#">커뮤니티</a>
+                        <ul class="sub-menu">
+                            <li><a href="/notice/list">공지사항</a></li>
+                            <li><a href="/qna/list">Q&A</a></li>
+                            <li><a href="/book/list">자주 묻는 질문</a></li>
+                        </ul></li>
+                    <li><a class="nav-link active" aria-current="page" href="/bbs/list">자료실</a>
+                        <ul class="sub-menu">
+                            <li><a href="/bbs/list">자료실</a></li>
+                        </ul></li>
+                </ul>
             </div>
         </div>
     </div>
