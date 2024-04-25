@@ -5,4 +5,51 @@
 <mapper namespace="org.fullstack4.lccbook.mapper.BookMapper">
 
 
+    <insert id="regist">
+        insert into lcc_book(book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity)
+        values (#{book_name},#{price},#{category_idx},now(),#{publisher},#{author},#{size},#{isbn},#{book_page},#{book_img},#{book_video},#{book_quantity})
+    </insert>
+
+    <select id="listAll" resultType="org.fullstack4.lccbook.domain.BookVO">
+        select book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
+        from lcc_book
+        order by book_idx desc
+    </select>
+
+    <select id="view" resultType="org.fullstack4.lccbook.domain.BookVO">
+        select book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
+        from lcc_book
+        where book_idx=#{book_idx}
+    </select>
+
+    <update id="modify">
+        update lcc_book
+        set book_name=#{book_name},
+        price =#{price},
+        category_idx =#{category_idx},
+        modify_date =now(),
+        publisher=#{publisher},
+        author=#{author},
+        size=#{size},
+        isbn=#{isbn},
+        book_page=#{book_page},
+        book_img=#{book_img},
+        book_video=#{book_video},
+        book_quantity=#{book_quantity}
+        where book_idx=#{book_idx}
+    </update>
+
+    <delete id="delete">
+        delete
+        from lcc_book
+        where book_idx=#{book_idx}
+    </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        select count(*)
+        from lcc_book
+
+        <!-- <include refid="whereCondition"></include>-->
+
+    </select>
 </mapper>

@@ -3,6 +3,75 @@
         PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.QnaMapper">
+    <insert id="regist">
+        insert into lcc_qna(user_id,question_title,question_content,question_regdate)
+        values (#{user_id},#{question_title},#{question_regdate},now())
+    </insert>
 
+    <select id="listAll" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select user_id, question_title,question_content,question_regdate
+        from lcc_qna
+        order by qna_idx desc
+    </select>
+
+    <select id="view" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select user_id, question_title,question_content,question_regdate
+        from lcc_qna
+        where qna_idx=#{qna_idx}
+    </select>
+
+    <update id="modify">
+        update lcc_qna
+        set question_title = #{question_title},
+        question_content = #{question_content},
+        modify_date = now()
+        where user_id=#{user_id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from lcc_qna
+        where qna_idx=#{qna_idx}
+    </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        select count(*)
+        from lcc_qna
+
+        <!-- <include refid="whereCondition"></include>-->
+
+    </select>
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+        select user_id, question_title,question_content,question_regdate
+        from lcc_notice
+
+        <!--  <include refid="whereCondition"></include>-->
+
+        order by qna_idx desc
+        limit #{page_skip_count}, #{page_size}
+    </select>
+
+    <!-- ################ 질문 등록 ###################################-->
+
+
+
+
+    <!-- 답변등록 -->
+
+
+    <!-- -->
+
+
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select idx, content,title,reg_date,notice_state
+        from lcc_notice
+
+        <!--  <include refid="whereCondition"></include>-->
+
+        order by notice_idx desc
+        limit #{page_skip_count}, #{page_size}
+    </select>
 
 </mapper>

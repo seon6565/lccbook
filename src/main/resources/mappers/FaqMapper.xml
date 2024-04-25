@@ -5,4 +5,41 @@
 <mapper namespace="org.fullstack4.lccbook.mapper.FaqMapper">
 
 
+    <insert id="regist">
+        insert into lcc_faq(faq_content,faq_title,answer_content)
+        values (#{book_name},#{price},#{category_idx},now(),#{publisher},#{author},#{size},#{isbn},#{book_page},#{book_img},#{book_video},#{book_quantity})
+    </insert>
+
+    <select id="listAll" resultType="org.fullstack4.lccbook.domain.FaqVO">
+        select faq_content,faq_title,answer_content
+        from lcc_faq
+        order by book_idx desc
+    </select>
+
+    <select id="view" resultType="org.fullstack4.lccbook.domain.FaqVO">
+        select faq_content,faq_title,answer_content
+        from lcc_faq
+        where faq_idx=#{faq_idx}
+    </select>
+
+    <update id="modify">
+        update lcc_faq
+        set faq_content=#{faq_content},
+        faq_title=#{faq_title},
+        answer_content= #{answer_content}
+        where faq_idx=#{faq_idx}
+    </update>
+
+    <delete id="delete">
+        delete
+        from lcc_faq
+        where faq_idx=#{faq_idx}
+    </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        select count(*)
+        from lcc_faq
+        <!-- <include refid="whereCondition"></include>-->
+
+    </select>
 </mapper>

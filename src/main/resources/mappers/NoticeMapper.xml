@@ -4,5 +4,52 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.NoticeMapper">
 
+    <insert id="regist">
+        insert into lcc_notice(content,title,reg_date,notice_state)
+        values (#{content},#{title},now(),#{notice_state})
+    </insert>
+
+    <select id="listAll" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+        select content,title,reg_date,notice_state
+        from lcc_notice
+        order by notice_idx desc
+    </select>
+
+    <select id="view" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+        select content,title,reg_date,notice_state
+        from lcc_notice
+        where notice_idx=#{notice_idx}
+    </select>
+
+    <update id="modify">
+        update lcc_notice
+        set content=#{content},
+        title=#{title},
+        modify_date=now();
+        where notice_idx=#{notice_idx}
+    </update>
+
+    <delete id="delete">
+        delete
+        from lcc_notice
+        where notice_idx=#{notice_idx}
+    </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        select count(*)
+        from lcc_notice
+        <!-- <include refid="whereCondition"></include>-->
+
+    </select>
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+        select idx, content,title,reg_date,notice_state
+        from lcc_notice
+
+        <!--  <include refid="whereCondition"></include>-->
+
+        order by notice_idx desc
+        limit #{page_skip_count}, #{page_size}
+    </select>
 
 </mapper>

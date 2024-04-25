@@ -16,5 +16,6 @@ public class NoticeVO
     private String content;
     private String title;
     private LocalDate reg_date;
+    private  LocalDate modify_date;
     private char notice_state;
 }

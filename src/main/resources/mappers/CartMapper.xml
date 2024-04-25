@@ -4,5 +4,43 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.CartMapper">
 
+    <insert id="regist">
+        insert into lcc_cart(user_id,book_idx,quantity,cart_regdate,checked)
+        values (#{user_id},#{book_idx},#{quantity},#{cart_regdate},#{checked})
+    </insert>
+
+    <select id="listAll" resultType="org.fullstack4.lccbook.domain.CartVO">
+        select user_id,book_idx,quantity,cart_regdate,checked
+        from lcc_cart
+        order by cart_idx desc
+    </select>
+
+
+    <!-- book_name같은 경우는 join으로 book테이블에서 가져와야함 -->
+    <select id="view" resultType="org.fullstack4.lccbook.domain.CartVO">
+        select user_id,book_idx,quantity,cart_regdate,checked
+        from lcc_cart
+        where cart_idx=#{cart_idx}
+    </select>
+
+    <!-- 카트에 담은 책 수량 변경 -->
+    <update id="modify">
+        update lcc_cart
+        set quantity=#{quantity},
+        where book_idx=#{book_idx}
+    </update>
+
+    <delete id="delete">
+        delete
+        from lcc_cart
+        where cart_idx=#{cart_idx}
+    </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        select count(*)
+        from lcc_cart
+        <!-- <include refid="whereCondition"></include>-->
+
+    </select>
 
 </mapper>
