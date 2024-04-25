@@ -68,8 +68,7 @@
         }
         .span span {
             margin-right: 15px;
-            font-size: small; .
-
+            font-size: small;
         }
         #real {
             display: flex;
@@ -78,6 +77,9 @@
         .div2 {
             margin-left: 80px;
             width: 650px;
+        }
+        .mb-0 {
+            color: #6c757d;
         }
 
     </style>
@@ -462,9 +464,9 @@
                     <div class="bluebox">
                         <p style="font-weight: bold">고객센터</p>
                         <div class="img">
-                            <img src="/resources/img/money_13364623%20(1).png">
-                            <img src="/resources/img/megaphone_2123872.png">
-                            <img src="/resources/img/calendar_5196054.png">
+                            <img src="/resources/img/truck_4288291.png">
+                            <img src="/resources/img/chat_4295103.png">
+                            <img src="/resources/img/cash_5952751.png">
                         </div>
                         <div class="span">
                             <span>주문/배송조회</span>
@@ -474,8 +476,7 @@
                     </div>
                         </div>
                         <div>
-
-                            <div class="div2">
+                 <div class="div2">
                     <div class="row gx-5 row-cols-1 row-cols-md-2" style="padding-bottom: 20px;">
                         <div class="col mb-5 h-100" style="width: 300px;">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3" style="width: 25px; "><i class="bi bi-collection"></i></div>
@@ -498,9 +499,8 @@
                             <p class="mb-0">회원등급에 따라 다양한 혜택을 확인해 보세요.</p>
                         </div>
                     </div>
-                            </div>
-
-                    </div>
+                     </div>
+                        </div>
                 </div>
             </div>
         </div>
