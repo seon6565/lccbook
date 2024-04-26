@@ -364,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `lcc_qna` (
   `question_regdate` datetime NOT NULL DEFAULT current_timestamp(),
   `answer_id` varchar(20) DEFAULT NULL,
   `answer_content` varchar(200) DEFAULT NULL,
-  `answer_regdate` datetime DEFAULT current_timestamp(),
+  `answer_regdate` datetime DEFAULT NULL,
   `answer_yn` char(1) NOT NULL DEFAULT 'N',
   `question_modifydate` datetime DEFAULT NULL,
   PRIMARY KEY (`qna_idx`)
