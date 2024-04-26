@@ -91,7 +91,7 @@ public class LoginController {
             return "redirect:"+uri;
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
-        return "redirect:/login/login";
+        return "redirect:"+uri;
     }
 
     @RequestMapping("/logout")

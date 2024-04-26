@@ -18,7 +18,7 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<p style="color: red">${errors}</p>
+
 <form id="frmLogin" name="frmLogin" method="post" action="/login/login">
     <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">
     <div class="mb-3">
@@ -41,6 +41,7 @@
             <input class="form-check-input" type="checkbox" role="switch" name="auto_login" id="auto_login" value="checked" ${cookie.auto_login_flag.value}>
         </div>
     </div>
+    <p style="color: red">${errors}</p>
     <div class="d-grid gap-2">
         <button class="btn btn-primary" id="btnLogin">로그인</button>
     </div>

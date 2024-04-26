@@ -1,15 +1,39 @@
-//
-// function errorMessage(errors){
-// 	const result = {};
-// 	for(let err in errors) {
-// 		if (document.getElementById("div_err_"+err.getField()) != null) {
-// 			document.getElementById("div_err_"+err.getField()).innerHTML = "<span style='color:red'>해당 영역은 필수 입력입니다."
-// 			document.getElementById("div_err_"+err.getField()).style.display = "block"
-// 		}
-// 		result['${err.getField()}'] = '${err.defaultMessage}';
-// 	}
-// 	console.log(result);
-// }
+function checkInputCommon(id,textid){
+	let Check = document.getElementById(id);
+	let Char = Check.value;
+	let text = document.getElementById(textid);
+	const regex = /^[가-힣]{1,10}$/;
+	if(regex.test(Char)){
+		text.style.display = "none";
+	}
+	else{
+		text.style.display = "block";
+		Check.focus();
+		return false;
+		event.preventDefault();
+	}
+	return true;
+}
+
+function checkInputAddrNumber(id,textid){
+	let Check = document.getElementById(id);
+	let Char = Check.value;
+	let text = document.getElementById(textid);
+	let now = Date.now();
+	let input = new Date(Char)
+	const regex = /^[0-9]{5}$/;
+	if(regex.test(Char)){
+		text.style.display = "none";
+	}
+	else{
+		text.style.display = "block";
+		Check.focus();
+		return false;
+		event.preventDefault();
+	}
+	return true;
+}
+
 function checkInputId(id,textid,okflagid){
 
 	document.getElementById(okflagid).value="0";
@@ -112,7 +136,6 @@ function checkInputBirth(id,textid){
 	let text = document.getElementById(textid);
 	let now = Date.now();
 	let input = new Date(Char)
-	const regex = /^[가-힣]{1,5}$/;
 	if(now>input){
 		text.style.display = "none";
 	}
@@ -235,9 +258,24 @@ function checkInputCheckBox(id,textid){
 	}
 	return true;
 }
-function checklast(user_id,div_err_user_id,pwd,div_err_pwd,name,div_err_name,email,div_err_email,brithday,div_err_brithday,okflagid){
-	if(checkInputPw(pwd,div_err_pwd)&&checkInputName(name,div_err_name)&&checkInputEmail(email,div_err_email)&&
-		checkInputBirth(brithday,div_err_brithday)){
+function checklast(user_id,div_err_user_id
+				   ,pwd,div_err_pwd
+				   ,name,div_err_name
+				   ,email,div_err_email
+				   ,phone_number,div_err_phone_number
+				   ,birthday,div_err_birthday
+				   ,okflagid
+				   ,addr_number,div_err_addr_number
+					,addr1,div_err_addr1
+					,addr2,div_err_addr2){
+	if(checkInputPw(pwd,div_err_pwd)
+		&&checkInputName(name,div_err_name)
+		&&checkInputEmail(email,div_err_email)
+		&&checkInputPhone(phone_number,div_err_phone_number)
+		&&checkInputBirth(birthday,div_err_birthday)
+		&&checkInputAddrNumber(addr_number,div_err_addr_number)
+		&&checkInputCommon(addr1,div_err_addr1)
+		&&checkInputCommon(addr2,div_err_addr2)){
 		if(document.getElementById(okflagid).value >0) {
 			if(checkInputId(user_id,div_err_user_id,okflagid)) {
 				alert("가입되었습니다.");
@@ -257,20 +295,4 @@ function checklast(user_id,div_err_user_id,pwd,div_err_pwd,name,div_err_name,ema
 		event.preventDefault();
 	}
 }
-// function checklast(iname,idn,password,password2,selectborn1,selectborn2,selectborn3,telnumber,email,interest1,interest2,
-// cc1,cc2,textid,textid2,textid3,textid4,textid5,textid6,textid7,textid8,textid9,textid10,hiddenFlagId){
-// 	if(checkInputIname(iname,textid)&& checkInputIdn(idn,textid2)&& checkInputPw(password,textid3) && checkInputPw2(password,password2,textid4)
-// 			&&checkInputbirth(selectborn1,selectborn2,selectborn3,textid5) && checkInputPhone(telnumber,textid6)&& checkInputEmail(email,textid7)
-// 			&&checkInputinterest(interest1,interest2,textid8)&& checkInputcc(cc1,textid9) && checkInputcc(cc2,textid10)){
-// 		let result = document.getElementById(hiddenFlagId).value;
-//    		if(result==1){
-//    			alert("가입되었습니다.");
-//    		}
-// 	}
-// 	else{
-// 		alert("조건에 맞게 수정해주세요.");
-// 		event.preventDefault();
-// 	}
-//
-// }
 

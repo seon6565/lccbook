@@ -10,7 +10,7 @@
 
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.MemberVO">
-        select user_id,pwd,name,email,brithday,phone_number,addr1,addr2,addr_number,user_state,reg_date
+        select user_id,pwd,name,email,birthday,phone_number,addr1,addr2,addr_number,user_state,reg_date
         from lcc_member
         where user_id=#{user_id}
     </select>
@@ -25,8 +25,7 @@
         phone_number=#{phone_number},
         addr1 = #{addr1},
         addr2 = #{addr2},
-        addr_number =#{addr_number},
-        user_state=#{user_state}
+        addr_number =#{addr_number}
         where user_id=#{user_id}
     </update>
 

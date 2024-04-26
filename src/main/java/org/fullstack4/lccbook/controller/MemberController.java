@@ -125,7 +125,7 @@ public class MemberController {
         int result = memberServiceIf.delete(user_id);
         if(result > 0 ){
             request.getSession().invalidate();
-            return "redirect:/bbs/list";
+            return "redirect:/login/logout";
         }
         else{
             return "/member/view?user_id="+user_id;

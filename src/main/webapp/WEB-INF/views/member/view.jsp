@@ -33,16 +33,16 @@
     <span class="form-control"> ${memberDTO.email} </span>
 </div>
 <div class="mb-3">
-    생년월일
-    <span class="form-control">${memberDTO.brithday} </span>
+    번호
+    <span class="form-control"> ${memberDTO.phone_number} </span>
 </div>
 <div class="mb-3">
-    관심사항
-    <span class="form-control"> ${memberDTO.interest} </span>
+    생년월일
+    <span class="form-control">${memberDTO.birthday} </span>
 </div>
 <div class="mb-3">
     주소
-    <span class="form-control">${memberDTO.addr1} + ${memberDTO.addr2} </span>
+    <span class="form-control">${memberDTO.addr_number}+${memberDTO.addr1} + ${memberDTO.addr2} </span>
 </div>
 <div class="d-grid gap-2 d-md-flex">
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">메인 화면</button>

@@ -16,7 +16,7 @@ public class MemberVO {
     private String name;
     private String email;
     private String phone_number;
-    private String birthday;
+    private LocalDate birthday;
     private String addr1;
     private String addr2;
     private int addr_number;

@@ -2,7 +2,6 @@ package org.fullstack4.lccbook.mapper;
 
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.domain.BbsVO;
-import org.fullstack4.lccbook.domain.BookVO;
 import org.fullstack4.lccbook.dto.*;
 import org.fullstack4.lccbook.service.*;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.lang.reflect.Member;
+import java.time.LocalDate;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -130,7 +129,7 @@ public class BbsMapperTests {
                 .name("최세아")
                 .email("adf@naver.com")
                 .phone_number("010-111-1122")
-                .birthday("1998-02-05")
+                .birthday(LocalDate.parse("1998-02-05"))
                 .addr1("주소1")
                 .addr2("상세주소")
                 .addr_number(132101)
