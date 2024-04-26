@@ -31,6 +31,11 @@ public class QnaServiceImpl implements QnaServiceIf {
         return qnaDTOList;
     }
 
+    public List<QnaDTO> listUser(String user_id) {
+        List<QnaDTO> qnaDTOListUser = qnaMapper.listUser(user_id).stream().map(vo->modelMapper.map(vo,QnaDTO.class)).collect(Collectors.toList());
+        return qnaDTOListUser;
+    }
+
     @Override
     public QnaDTO view(int idx) {
         QnaVO qnaVO = qnaMapper.view(idx);

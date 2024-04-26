@@ -7,6 +7,7 @@ import java.util.List;
 public interface QnaServiceIf {
     int regist(QnaDTO qnaDTO);
     List<QnaDTO> list();
+    List<QnaDTO> listUser(String user_id);
     QnaDTO view(int idx);
     int modify(QnaDTO qnaDTO);
     int delete(int idx);

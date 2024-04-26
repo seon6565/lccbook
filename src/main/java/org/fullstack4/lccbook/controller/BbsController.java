@@ -8,6 +8,7 @@ import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.BbsReplyServiceIf;
 import org.fullstack4.lccbook.service.BbsServiceIf;
+import org.fullstack4.lccbook.util.FileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,14 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.File;
+import java.io.*;
 import java.util.List;
-import java.util.UUID;
 
 @Log4j2
 @Controller
@@ -31,6 +32,7 @@ import java.util.UUID;
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
     private final BbsReplyServiceIf bbsReplyServiceIf;
+    private final FileUtil fileUtil;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         log.info("===============================");
@@ -78,19 +80,19 @@ public class BbsController {
         log.info("============================");
     }
     @PostMapping("/regist")
-    public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult,MultipartHttpServletRequest files, RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("bbsController registPOST");
         log.info("bbsDTO : " +bbsDTO);
         log.info("============================");
+        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        fileUtil.fileuploads(files,saveDirectory);
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bbsDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
             return "redirect:/bbs/regist";
         }
-
-
         int result = bbsServiceIf.regist(bbsDTO);
         if(result > 0 ){
             return "redirect:/bbs/list";
@@ -144,78 +146,47 @@ public class BbsController {
         }
     }
 
-    @GetMapping("/fileupload")
-    public String fileUploadGET(){
-        return "bbs/fileupload";
-    }
-
-
-    @PostMapping(value = "/fileupload")
-    public String fileUploadPost(@RequestParam("file")MultipartFile file){
-        String uploadFolder = "D:\\java4\\spring\\springweb\\lccbook\\src\\main\\webapp\\uploads";
-        //경로수정필요
-        String fileRealName = file.getOriginalFilename();
-        long size = file.getSize();
-        String fileExt = fileRealName.substring(fileRealName.indexOf("."),fileRealName.length());
-        log.info("===========================");
-        log.info("uploadFolder : "+uploadFolder);
-        log.info("fileRealName : "+fileRealName);
-        log.info("size : "+size);
-        log.info("fileExt : "+fileExt);
-
-        UUID uuid = UUID.randomUUID();
-        String[] uuids = uuid.toString().split("-");
-        String newName = uuids[0]+fileRealName;
-
-        log.info("uuid : "+uuid);
-        log.info("uuids : "+uuids);
-        log.info("newName : "+newName);
-
-        File saveFile = new File(uploadFolder+"\\"+newName);
+    @GetMapping(value = "/fileDownload")
+    public void fileDownload(String saveFileName, HttpServletResponse response, HttpServletRequest request){
+        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        String orgFileName = saveFileName;
         try{
-            file.transferTo(saveFile);
-        }catch (IllegalStateException e){
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        log.info("===========================");
-        return "/bbs/fileupload";
-    }
-
-    @PostMapping(value = "/fileupload2")
-    public String fileUploadPost2(MultipartHttpServletRequest files){
-        String uploadFolder = "D:\\java4\\spring\\springweb\\lccbook\\src\\main\\webapp\\uploads";
-        //경로수정필요
-        log.info("===========================");
-        log.info("uploadFolder : "+uploadFolder);
-        List<MultipartFile> list = files.getFiles("files");
-        for(MultipartFile file : list){
-            String fileRealName = file.getOriginalFilename();
-            long size = file.getSize();
-            String fileExt = fileRealName.substring(fileRealName.indexOf("."),fileRealName.length());
-
-            log.info("fileRealName : "+fileRealName);
-            log.info("size : "+size);
-            log.info("fileExt : "+fileExt);
-            UUID uuid = UUID.randomUUID();
-            String[] uuids = uuid.toString().split("-");
-            String newName = uuids[0]+fileRealName;
-
-            log.info("uuid : "+uuid);
-            log.info("uuids : "+uuids);
-            log.info("newName : "+newName);
-            File saveFile = new File(uploadFolder+"\\"+newName);
-            try{
-                file.transferTo(saveFile);
-            }catch (IllegalStateException e){
-                e.printStackTrace();
-            }catch (Exception e){
-                e.printStackTrace();
+            File file = new File(saveDirectory, saveFileName);
+            InputStream is = new FileInputStream(file);
+            String client = request.getHeader("User-Agent");
+            if(client.indexOf("WOW64") == -1){
+                orgFileName = new String(orgFileName.getBytes("UTF-8"),"ISO-8859-1");
             }
+            else{
+                orgFileName = new String(orgFileName.getBytes("KSC5601"),"ISO-8859-1");
+            }
+            //출력헤더 설정
+            response.reset();
+            response.setContentType("application/octect-stream");
+            response.setHeader("Content-Disposition","attachment; filename=\""+orgFileName + "\"");
+            response.setHeader("Content-Length",""+file.length());
+
+            //out.clear();
+            //out = pageContext.pushBody();
+
+
+            OutputStream oStream = response.getOutputStream();
+            byte b[] = new byte[(int)file.length()];
+            int readBuffer = 0;
+            while ((readBuffer = is.read(b)) > 0){
+                oStream.write(b,0,readBuffer);
+            }
+            is.close();
+            oStream.close();
         }
-        log.info("===========================");
-        return "/bbs/fileupload";
+        catch(FileNotFoundException e){
+            System.out.println("파일을 찾을 수 없습니다.");
+        }
+
+        catch(Exception e){
+            System.out.println("파일 다운로드시 에러 발생");
+            e.printStackTrace();
+        }
     }
 
 

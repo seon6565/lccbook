@@ -48,7 +48,7 @@
                     <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">
                 </div>
                 <div class="col-md-10">
-                    <a class="text-break text-decoration-none text-muted" href="/bbs/view${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">
+                    <a class="text-break text-decoration-none text-muted" href="/bbs/view?${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">
                         <div class="card-body">
                             <h5 class="card-title">${list.title}</h5>
                             <p class="card-text">${list.content}</p>

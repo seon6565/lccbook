@@ -2,9 +2,9 @@ package org.fullstack4.lccbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.JoinagreeDTO;
-import org.fullstack4.lccbook.dto.MemberDTO;
+import org.fullstack4.lccbook.dto.*;
 import org.fullstack4.lccbook.service.MemberServiceIf;
+import org.fullstack4.lccbook.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -25,6 +26,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberServiceIf memberServiceIf;
+    private final QnaServiceIf qnaServiceIf;
     @GetMapping("/view")
     public void view(@RequestParam(name="user_id", defaultValue = "") String user_id, Model model){
         log.info("============================");
@@ -150,5 +152,11 @@ public class MemberController {
         else{
             return "/member/view?user_id="+user_id;
         }
+    }
+    @GetMapping("/qna")
+    public void qnalist(String user_id, RedirectAttributes redirectAttributes, Model model){
+        List<QnaDTO> qnaUserlist = qnaServiceIf.listUser(user_id);
+        model.addAttribute("qnaUserlist", qnaUserlist);
+
     }
 }
