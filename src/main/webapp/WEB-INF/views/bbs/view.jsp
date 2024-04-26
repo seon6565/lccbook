@@ -39,6 +39,21 @@
     관심사항
     <span class="form-control">${bbsDTO.interest} </span>
 </div>
+<div class="mb-3">
+    파일 리스트
+    <c:forEach var="list" items="${bbsFileDTOList}">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-2">
+                    <ul>
+                        <li><a href="/bbs/fileDownload?file_name=${list.file_name}">${list.file_name}</a></li>
+                        <li><a href="/bbs/fileDelete?file_idx=${list.file_idx}&idx=${bbsDTO.idx}">파일삭제</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+</div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="btn btn-outline-primary" type="button"
             onclick="location.href='/bbs/list?page=${param.page}&page_size=${param.page_size}&search_type=${paramValues.get('search_type')[0]}&search_type=${paramValues.get('search_type')[1]}&search_word=${param.search_word}&search_date1=${param.search_date1}&search_date2=${param.search_date2}'">목록</button>

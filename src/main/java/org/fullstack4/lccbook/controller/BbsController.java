@@ -72,6 +72,11 @@ public class BbsController {
         log.info("============================");
         model.addAttribute("bbsDTO",bbsDTO);
         model.addAttribute("bbsReplyDTO",bbsReplyDTO);
+        int bbs_idx = idx;
+        List<BbsFileDTO> bbsFileDTOList = bbsFileServiceIf.list(bbs_idx);
+        log.info("bbsFileDTOList : " +bbsFileDTOList);
+        log.info("============================");
+        model.addAttribute("bbsFileDTOList", bbsFileDTOList);
     }
     @GetMapping("/regist")
     public void registGET(){
@@ -81,7 +86,8 @@ public class BbsController {
     }
     @Transactional
     @PostMapping("/regist")
-    public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult,MultipartHttpServletRequest files, RedirectAttributes redirectAttributes){
+    public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, MultipartHttpServletRequest files
+            ,RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("bbsController registPOST");
         log.info("bbsDTO : " +bbsDTO);
@@ -93,14 +99,19 @@ public class BbsController {
             redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
             return "redirect:/bbs/regist";
         }
+
         String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
-        List<String> filenames = fileUtil.fileuploads(files,saveDirectory);
+        List<String> filenames = null;
+        filenames = fileUtil.fileuploads(files,saveDirectory);;
         int result = bbsServiceIf.regist(bbsDTO);
+        log.info("test result : "+result);
         if(result > 0 ){
-            for(String filename : filenames) {
-                BbsFileDTO bbsFileDTO = BbsFileDTO.builder().bbs_idx(bbsFileServiceIf.lastindex()).file_directory(saveDirectory)
-                        .file_name(filename).build();
-                int file_result = bbsFileServiceIf.regist(bbsFileDTO);
+            if(filenames!=null) {
+                for (String filename : filenames) {
+                    BbsFileDTO bbsFileDTO = BbsFileDTO.builder().bbs_idx(bbsFileServiceIf.lastindex()).file_directory(saveDirectory)
+                            .file_name(filename).build();
+                    int file_result = bbsFileServiceIf.regist(bbsFileDTO);
+                }
             }
             return "redirect:/bbs/list";
         }
@@ -154,11 +165,11 @@ public class BbsController {
     }
 
     @GetMapping(value = "/fileDownload")
-    public void fileDownload(String saveFileName, HttpServletResponse response, HttpServletRequest request){
+    public void fileDownload(String file_name, HttpServletResponse response, HttpServletRequest request){
         String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
-        String orgFileName = saveFileName;
+        String orgFileName = file_name;
         try{
-            File file = new File(saveDirectory, saveFileName);
+            File file = new File(saveDirectory, file_name);
             InputStream is = new FileInputStream(file);
             String client = request.getHeader("User-Agent");
             if(client.indexOf("WOW64") == -1){
@@ -196,5 +207,18 @@ public class BbsController {
         }
     }
 
+    @GetMapping(value = "/fileDelete")
+    public String fileDelete(int file_idx, String idx){
+        BbsFileDTO bbsFileDTO = bbsFileServiceIf.view(file_idx);
+        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        int result = bbsFileServiceIf.delete(file_idx);
+        if(result>0) {
+            fileUtil.fileDelite(bbsFileDTO.getFile_directory(), bbsFileDTO.getFile_name());
+        }
+        else{
+            log.info("파일삭제실패");
+        }
+        return "redirect:/bbs/view?idx="+idx;
+    }
 
 }

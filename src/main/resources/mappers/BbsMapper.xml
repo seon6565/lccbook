@@ -34,6 +34,12 @@
         values (#{user_id},#{title},#{content},#{display_date},#{interest})
     </insert>
 
+<!--    <insert id="regist" parameterType="org.fullstack4.lccbook.domain.BbsVO" useGeneratedKeys="true" keyProperty="int">-->
+<!--        insert into lcc_bbs(user_id,title,content,display_date,interest)-->
+<!--        values (#{user_id},#{title},#{content},#{display_date},#{interest})-->
+<!--        returning idx-->
+<!--    </insert>-->
+
     <select id="listAll" resultType="org.fullstack4.lccbook.domain.BbsVO">
         select idx,user_id,title,content,display_date,read_cnt,interest,reg_date
         from lcc_bbs

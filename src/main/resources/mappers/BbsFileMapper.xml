@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.fullstack4.lccbook.mapper.BbsMapper">
+<mapper namespace="org.fullstack4.lccbook.mapper.BbsFileMapper">
 
     <insert id="regist">
         insert into lcc_bbs_file(file_idx,bbs_idx,file_directory,file_name)
@@ -12,10 +12,11 @@
     <select id="list" resultType="org.fullstack4.lccbook.domain.BbsFileVO">
         select file_idx,bbs_idx,file_directory,file_name,reg_date
         from lcc_bbs_file
-        order by idx desc
+        where bbs_idx = #{bbs_idx}
+        order by bbs_idx desc
     </select>
 
-    <select id="view" resultType="org.fullstack4.lccbook.domain.BbsVO">
+    <select id="view" resultType="org.fullstack4.lccbook.domain.BbsFileVO">
         select file_idx,bbs_idx,file_directory,file_name,reg_date
         from lcc_bbs_file
         where file_idx=#{file_idx}
@@ -23,7 +24,7 @@
 
     <delete id="delete">
         delete
-        from lcc_bbs
+        from lcc_bbs_file
         where file_idx=#{file_idx}
     </delete>
 

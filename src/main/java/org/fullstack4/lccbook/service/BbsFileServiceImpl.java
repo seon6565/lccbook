@@ -27,8 +27,8 @@ public class BbsFileServiceImpl implements BbsFileServiceIf{
     }
 
     @Override
-    public List<BbsFileDTO> list() {
-        List<BbsFileDTO> bbsFileDTOList = bbsFileMapper.list().stream().map(vo->modelMapper.map(vo,BbsFileDTO.class)).collect(Collectors.toList());
+    public List<BbsFileDTO> list(int bbs_idx) {
+        List<BbsFileDTO> bbsFileDTOList = bbsFileMapper.list(bbs_idx).stream().map(vo->modelMapper.map(vo,BbsFileDTO.class)).collect(Collectors.toList());
         return bbsFileDTOList;
     }
 

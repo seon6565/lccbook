@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,8 +18,11 @@ public class FileUtil {
         log.info("===========================");
         log.info("uploadFolder : " + uploadFolder);
         log.info("files : " + files);
-        List<String> filenames = null;
+        List<String> filenames = new ArrayList<>();
         List<MultipartFile> list = files.getFiles("files");
+        if(files.getFile("files").getSize()<=0){
+            return null;
+        }
         for (MultipartFile file : list) {
             String fileRealName = file.getOriginalFilename();
             long size = file.getSize();
@@ -46,5 +50,10 @@ public class FileUtil {
         }
         return filenames;
 
+    }
+
+    public void fileDelite(String file_directory, String file_name){
+        File file = new File(file_directory+File.separator+file_name);
+        file.delete();
     }
 }
