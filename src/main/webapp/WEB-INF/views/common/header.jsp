@@ -82,14 +82,17 @@
                         <div id="name">
                             <span style="font-weight: bold;">${memberDTO.name}</span>님
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login/logout">로그아웃</a>
-                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/logout">로그아웃</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/view?user_id=${memberDTO.user_id}">마이페이지</a>
                     </li>
                 </c:if>
                 <c:if test="${empty memberDTO}">
                     <li class="nav-item">
-                        <a class="nav-link" href="/member/join">회원가입</a>
+                        <a class="nav-link" href="/member/joinagree">회원가입</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login/login">로그인</a>
