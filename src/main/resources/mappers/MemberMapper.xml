@@ -12,7 +12,7 @@
     <select id="view" resultType="org.fullstack4.lccbook.domain.MemberVO">
         select user_id,pwd,name,email,brithday,phone_number,addr1,addr2,addr_number,user_state,reg_date
         from lcc_member
-        where user_id=#{user_id}
+        where member_idx=#{member_idx}
     </select>
 
 
@@ -20,20 +20,18 @@
     <update id="modify">
         update lcc_member
         set pwd = #{pwd},
-        name = #{name},
         email = #{email},
         phone_number=#{phone_number},
         addr1 = #{addr1},
         addr2 = #{addr2},
-        addr_number =#{addr_number},
-        user_state=#{user_state}
-        where user_id=#{user_id}
+        addr_number =#{addr_number}
+        where member_idx=#{member_idx}
     </update>
 
     <delete id="delete">
         delete
         from lcc_member
-        where user_id=#{user_id}
+        where member_idx=#{member_idx}
     </delete>
 
     <select id="idCheck">

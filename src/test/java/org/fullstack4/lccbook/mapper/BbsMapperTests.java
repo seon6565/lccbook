@@ -64,6 +64,89 @@ public class BbsMapperTests {
         log.info("testBbsTotalCount : "+totalCount);
         log.info("======================================");
     }
+
+    @Test
+    public void testModify(){
+        BookDTO bookDTO = new BookDTO().builder()
+                .price(6000)
+                .book_name("책이름수정")
+                .category_idx(2)
+                .publisher("출판수정")
+                .author("작가수정")
+                .size("77x77")
+                .isbn(22222)
+                .book_page(77)
+                .book_img("modify.jpg")
+                .book_video("modify.mp4")
+                .book_quantity(77)
+                .book_idx(1)
+                .build();
+        int bookModify = bookServiceIf.modify(bookDTO);
+        log.info("bookModify :" + bookModify);
+
+        //수량변경
+        CartDTO cartDTO = new CartDTO().builder()
+                .quantity(8)
+                .book_idx(1)
+                .cart_idx(1)
+                .build();
+        int cartModify =  cartServiceIf.modify(cartDTO);
+        log.info("cartModify : " + cartModify);
+
+        QnaDTO qnaDTO = new QnaDTO().builder()
+                .question_title("질문 수정제목")
+                .qna_idx(1)
+                .question_content("질문 수정내용")
+                .build();
+        int qnaModify  = qnaServiceIf.modify(qnaDTO);
+        log.info("qnaModify : " + qnaModify);
+
+        NoticeDTO noticeDTO = new NoticeDTO().builder()
+                .content("공지사항 수정내용")
+                .notice_idx(1)
+                .title("공지사항 수정제목")
+                .build();
+        int noticeModify = noticeServiceIf.modify(noticeDTO);
+        log.info("noticeModify : " + noticeModify);
+
+        FaqDTO faqDTO = new FaqDTO().builder()
+                .faq_idx(1)
+                .faq_title("faq 수정제목")
+                .faq_content("faq 수정내용")
+                .answer_content("답변 수정내용")
+                .build();
+        int faqModify = faqServiceIf.modify(faqDTO);
+        log.info("faqModify : " + faqModify);
+        DeliveryDTO deliveryDTO = new DeliveryDTO().builder()
+                .delivery_idx(1)
+                .state("출고")
+                .build();
+        int deliveryModify = deliveryServiceIf.modify(deliveryDTO);
+        log.info("deliveryModify : " + deliveryModify);
+
+        MemberDTO memberDTO = new MemberDTO().builder()
+                .member_idx(1)
+                .pwd("1234")
+                .email("modify@naver.com")
+                .phone_number("010-7777-7777")
+                .birthday("2000-02-05")
+                .addr1("수정 주소1")
+                .addr2("수정 상세주소")
+                .addr_number(777)
+                .build();
+        int memberModify= memberServiceIf.modify(memberDTO);
+        log.info("memberModify" + memberModify);
+
+        PaymentDTO paymentDTO =new PaymentDTO().builder()
+                .payment_idx(1)
+                .payment_status("판매완료")
+                .order_state("배송완료")
+                .build();
+        int paymentModify = paymentServiceIf.modify(paymentDTO);
+        log.info("paymentModify" + paymentModify);
+
+    }
+
     @Test
     public void testRegist(){
             BookDTO bookDTO = new BookDTO().builder()
