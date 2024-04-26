@@ -13,5 +13,4 @@ public interface BookServiceIf {
     int modify(BookDTO bookDTO);
     int delete(int idx);
 
-
 }
