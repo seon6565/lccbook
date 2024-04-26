@@ -2,14 +2,13 @@ package org.fullstack4.lccbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.BbsDTO;
-import org.fullstack4.lccbook.dto.BbsReplyDTO;
-import org.fullstack4.lccbook.dto.PageRequestDTO;
-import org.fullstack4.lccbook.dto.PageResponseDTO;
+import org.fullstack4.lccbook.dto.*;
+import org.fullstack4.lccbook.service.BbsFileServiceIf;
 import org.fullstack4.lccbook.service.BbsReplyServiceIf;
 import org.fullstack4.lccbook.service.BbsServiceIf;
 import org.fullstack4.lccbook.util.FileUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +31,7 @@ import java.util.List;
 public class BbsController {
     private final BbsServiceIf bbsServiceIf;
     private final BbsReplyServiceIf bbsReplyServiceIf;
+    private final BbsFileServiceIf bbsFileServiceIf;
     private final FileUtil fileUtil;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
@@ -79,22 +79,29 @@ public class BbsController {
         log.info("bbsController registGET");
         log.info("============================");
     }
+    @Transactional
     @PostMapping("/regist")
     public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult,MultipartHttpServletRequest files, RedirectAttributes redirectAttributes){
         log.info("============================");
         log.info("bbsController registPOST");
         log.info("bbsDTO : " +bbsDTO);
         log.info("============================");
-        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
-        fileUtil.fileuploads(files,saveDirectory);
+
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bbsDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("bbsDTO",bbsDTO);
             return "redirect:/bbs/regist";
         }
+        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        List<String> filenames = fileUtil.fileuploads(files,saveDirectory);
         int result = bbsServiceIf.regist(bbsDTO);
         if(result > 0 ){
+            for(String filename : filenames) {
+                BbsFileDTO bbsFileDTO = BbsFileDTO.builder().bbs_idx(bbsFileServiceIf.lastindex()).file_directory(saveDirectory)
+                        .file_name(filename).build();
+                int file_result = bbsFileServiceIf.regist(bbsFileDTO);
+            }
             return "redirect:/bbs/list";
         }
         else{

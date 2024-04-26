@@ -13,10 +13,11 @@ import java.util.UUID;
 @Log4j2
 public class FileUtil {
 
-    public void fileuploads(MultipartHttpServletRequest files, String uploadFolder) {
+    public List<String> fileuploads(MultipartHttpServletRequest files, String uploadFolder) {
         log.info("===========================");
         log.info("uploadFolder : " + uploadFolder);
         log.info("files : " + files);
+        List<String> filenames = null;
         List<MultipartFile> list = files.getFiles("files");
         for (MultipartFile file : list) {
             String fileRealName = file.getOriginalFilename();
@@ -36,11 +37,14 @@ public class FileUtil {
             File saveFile = new File(uploadFolder + "\\" + newName);
             try {
                 file.transferTo(saveFile);
+                filenames.add(newName);
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return filenames;
+
     }
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.lccbook.mapper.BbsMapper">
+
+    <insert id="regist">
+        insert into lcc_bbs_file(file_idx,bbs_idx,file_directory,file_name)
+        values (#{file_idx},#{bbs_idx},#{file_directory},#{file_name})
+    </insert>
+
+    <select id="list" resultType="org.fullstack4.lccbook.domain.BbsFileVO">
+        select file_idx,bbs_idx,file_directory,file_name,reg_date
+        from lcc_bbs_file
+        order by idx desc
+    </select>
+
+    <select id="view" resultType="org.fullstack4.lccbook.domain.BbsVO">
+        select file_idx,bbs_idx,file_directory,file_name,reg_date
+        from lcc_bbs_file
+        where file_idx=#{file_idx}
+    </select>
+
+    <delete id="delete">
+        delete
+        from lcc_bbs
+        where file_idx=#{file_idx}
+    </delete>
+
+    <select id="lastindex">
+        SELECT LAST_INSERT_ID(idx) FROM lcc_bbs order by idx desc LIMIT 1
+    </select>
+
+</mapper>
