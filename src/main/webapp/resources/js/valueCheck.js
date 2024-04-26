@@ -245,6 +245,7 @@ function checkInputInterest(id,id2,textid){
 	return true;
 }
 function checkInputCheckBox(id,textid){
+
 	let Check = document.getElementById(id);
 	let text = document.getElementById(textid);
 	if(Check.checked==true){
@@ -253,8 +254,8 @@ function checkInputCheckBox(id,textid){
 	else{
 		text.style.display = "block";
 		Check.focus();
-		return false;
 		event.preventDefault();
+		return false;
 	}
 	return true;
 }

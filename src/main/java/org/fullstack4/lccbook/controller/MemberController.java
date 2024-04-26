@@ -2,6 +2,7 @@ package org.fullstack4.lccbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.dto.JoinagreeDTO;
 import org.fullstack4.lccbook.dto.MemberDTO;
 import org.fullstack4.lccbook.service.MemberServiceIf;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,25 @@ public class MemberController {
             return "/member/join";
         }
     }
+
+    @GetMapping("/joinagree") public void joinagreeGET(){
+        log.info("============================");
+        log.info("MemberController joinagreeGET");
+        log.info("============================");
+    }
+
+    @PostMapping("/joinagree")
+    public String joinagreePOST(@Valid JoinagreeDTO joinagreeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            log.info("bindingResult Errors : " +joinagreeDTO);
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("memberDTO",joinagreeDTO);
+            return "redirect:/member/joinagree";
+        }
+            return "redirect:/member/join";
+    }
+
     @GetMapping("/duplecheck")
     public void duplecheckGET(HttpServletRequest request, HttpServletResponse response){
         log.info("============================");
