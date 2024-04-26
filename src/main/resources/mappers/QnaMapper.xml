@@ -10,13 +10,20 @@
     </insert>
 
     <select id="list" resultType="org.fullstack4.lccbook.domain.QnaVO">
-        select user_id, question_title,question_content,question_regdate
+        select user_id, question_title,question_content,question_regdate,answer_id,answer_content,answer_regdate,answer_yn
         from lcc_qna
         order by qna_idx desc
     </select>
 
+    <select id="listUser" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select user_id, question_title,question_content,question_regdate,answer_id,answer_content,answer_regdate,answer_yn
+        from lcc_qna
+        where user_id = #{user_id}
+        order by qna_idx desc
+    </select>
+
     <select id="view" resultType="org.fullstack4.lccbook.domain.QnaVO">
-        select user_id, question_title,question_content,question_regdate
+        select user_id, question_title,question_content,question_regdate,answer_id,answer_content,answer_regdate,answer_yn
         from lcc_qna
         where qna_idx=#{qna_idx}
     </select>

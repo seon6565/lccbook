@@ -11,5 +11,7 @@ public interface QnaMapper {
     int modify(QnaVO qnaVO);
     int delete(int idx);
 
+    List<QnaVO> listUser(String user_id);
+
 /*    int answer_regist(QnaVO qnaVO);*/
 }

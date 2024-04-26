@@ -13,7 +13,7 @@
 <%@ include file="../common/header.jsp"%>
 
 <div class="container">
-<form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist">
+<form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="user_id" class="form-label">아이디</label>
         <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
@@ -53,10 +53,13 @@
         <div class="form-check form-switch form-check-inline">
             <label class="form-check-label" for="interest_3">음악</label>
             <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악">
-
         </div>
     </div>
     <div id="div_err_interest" style="display:none"></div>
+    <div class="form-check form-switch form-check-inline">
+        <label class="form-control" for="files">파일</label>
+        <input class="form-control" type="file" name="files" id="files" multiple>
+    </div>
     <div class="d-grid gap-2">
         <button class="btn btn-primary" type="submit">글 등록</button>
     </div>

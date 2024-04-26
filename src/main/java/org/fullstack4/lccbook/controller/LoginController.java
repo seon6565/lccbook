@@ -88,10 +88,10 @@ public class LoginController {
             //model.addAttribute("user_id",LoginMemberDTO);
             //redirectAttributes.addFlashAttribute("loginInfo",LoginMemberDTO);
             //return "redirect:"+uri;
-            return "redirect:"+uri;
+            return "redirect:/";
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
-        return "redirect:"+uri;
+        return "redirect:/";
     }
 
     @RequestMapping("/logout")
@@ -131,7 +131,7 @@ public class LoginController {
         log.info("LoginController logout");
         log.info("============================");
 
-        return "redirect:/bbs/list";
+        return "redirect:/";
     }
 
     @RequestMapping("/autologin")

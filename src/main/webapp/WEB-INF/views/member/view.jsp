@@ -44,8 +44,12 @@
     주소
     <span class="form-control">${memberDTO.addr_number}+${memberDTO.addr1} + ${memberDTO.addr2} </span>
 </div>
+<div class="mb-3">
+    QnA보기
+    <a class="form-control" href="/member/qna?user_id=${memberDTO.user_id}">QnA 리스트 페이지</a>
+</div>
 <div class="d-grid gap-2 d-md-flex">
-    <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/list'">메인 화면</button>
+    <button class="btn btn-outline-primary" type="button" onclick="location.href='/'">메인 화면</button>
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/member/modify?user_id=${memberDTO.user_id}'">회원정보수정</button>
     <button class="btn btn-outline-primary" type="button" onclick="goDelete()">회원탈퇴</button>
 </div>

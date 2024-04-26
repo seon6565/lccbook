@@ -154,7 +154,7 @@ public class BbsMapperTests {
                     .book_page(11)
                     .book_quantity(11)
                     .category_idx(1)
-                    .isbn(61651)
+                    .isbn("61651")
                     .price(5000)
                     .publisher("출판")
                     .size("12x12")
