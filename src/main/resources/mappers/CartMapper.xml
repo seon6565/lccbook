@@ -27,7 +27,7 @@
     <update id="modify">
         update lcc_cart
         set quantity=#{quantity}
-        where book_idx=#{book_idx}
+        where book_idx=#{book_idx} and cart_idx=#{cart_idx}
     </update>
 
     <delete id="delete">

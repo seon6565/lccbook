@@ -25,7 +25,7 @@
         update lcc_notice
         set content=#{content},
         title=#{title},
-        modify_date=now();
+        modify_date=now()
         where notice_idx=#{notice_idx}
     </update>
 

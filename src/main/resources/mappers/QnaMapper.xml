@@ -25,8 +25,8 @@
         update lcc_qna
         set question_title = #{question_title},
         question_content = #{question_content},
-        modify_date = now()
-        where user_id=#{user_id}
+        question_modifydate = now()
+        where qna_idx=#{qna_idx}
     </update>
 
     <delete id="delete">
