@@ -118,7 +118,7 @@
                     <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
                 </div>
                 <div class="box" style="border-bottom: none">
-                    <button type="button" class="btn btn-outline-secondary">장바구니</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/cart/list'">장바구니</button>
                     <button type="button" class="btn btn-outline-secondary">관심등록</button>
                     <button class="btn btn-primary" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
@@ -158,8 +158,7 @@
             </div>
 
             <div id="review">
-                <form id="frm" name="frm" action="bookReview/regist" method="post">
-                    <h5>교재후기</h5>
+                <h5>교재후기</h5>
                 <c:choose>
                 <c:when test="${not empty bookReview}">
                     <c:forEach items="${bookReview}" var="list">
@@ -177,6 +176,11 @@
                                     </c:forEach>
                                 </p>
                             </div>
+                            <form id="delete" name="delete" action="/bookReview/delete" method="post">
+                                <input type="hidden" name="review_idx" id="review_idx"  value="${list['review_idx']}">
+                                <input type="hidden" name="book_idx"   value="${list['book_idx']}">
+                                <button type="submit">삭제</button>
+                            </form>
                         </div>
                     </c:forEach>
                 </c:when>
@@ -186,11 +190,13 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <form id="frm" name="frm" action="/bookReview/regist" method="post">
                     <div class="form-floating mb-3" id="regist">
-                        <input type="text" class="form-control" name="comment" id="comment" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
+                        <input type="hidden" name="user_id" id="user_id" value="${memberDTO.user_id}">
+                        <input type="hidden" name="book_idx" id="book_idx"  value="${param['book_idx']}">
+                        <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
                         <button class="btn btn-primary" type="submit" style="background-color :#d63384;border: #fff;float: right; width: 180px; height: 57px;margin-left: 10px;">후기등록</button>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -256,5 +262,8 @@
 <%--</div>--%>
 
 <%@ include file="../common/footer.jsp"%>
+<script>
+
+</script>
 </body>
 </html>
