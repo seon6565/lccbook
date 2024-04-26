@@ -20,7 +20,7 @@ public class BookVO {
     private String publisher;
     private String author;
     private String size;
-    private int isbn;
+    private String isbn;
     private int book_page;
     private String book_img;
     private String book_video;

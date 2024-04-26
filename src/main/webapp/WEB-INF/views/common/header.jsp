@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -60,6 +61,11 @@
         .sub-menu1 li {
             margin-bottom: 10px;
         }
+        #name{
+            font-size: small;
+            padding-top: 10px;
+            padding-right: 3px;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -71,12 +77,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/member/join">회원가입</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login/login">로그인</a>
-                </li>
+                <c:if test="${not empty memberDTO}">
+                    <li class="nav-item">
+                        <div id="name">
+                            <span style="font-weight: bold;">${memberDTO.name}</span>님
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/logout">로그아웃</a>
+                        </li>
+                    </li>
+                </c:if>
+                <c:if test="${empty memberDTO}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/member/join">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login/login">로그인</a>
+                    </li>
+                </c:if>
                 <li class="nav-item">
                     <a class="nav-link" href="/payment/list">주문조회</a>
                 </li>
