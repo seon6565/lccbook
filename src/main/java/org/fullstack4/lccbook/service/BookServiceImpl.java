@@ -6,6 +6,8 @@ import org.fullstack4.lccbook.domain.BbsVO;
 import org.fullstack4.lccbook.domain.BookVO;
 import org.fullstack4.lccbook.dto.BbsDTO;
 import org.fullstack4.lccbook.dto.BookDTO;
+import org.fullstack4.lccbook.dto.PageRequestDTO;
+import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.mapper.BbsMapper;
 import org.fullstack4.lccbook.mapper.BookMapper;
 import org.modelmapper.ModelMapper;
@@ -53,6 +55,27 @@ public class BookServiceImpl implements BookServiceIf{
     @Override
     public int delete(int idx) {
         return bookMapper.delete(idx);
+    }
+
+
+    @Override
+    public int bbsTotalCount(PageRequestDTO requestDTO) {
+        return bookMapper.bbsTotalCount(requestDTO);
+    }
+
+    @Override
+    public PageResponseDTO<BookDTO> bbsListByPage(PageRequestDTO pageRequestDTO) {
+        List<BookVO> voList = bookMapper.bbsListByPage(pageRequestDTO);
+        List<BookDTO> dtoList = voList.stream()
+                .map(vo -> modelMapper.map(vo, BookDTO.class))
+                .collect(Collectors.toList());
+        int total_count = bookMapper.bbsTotalCount(pageRequestDTO);
+        PageResponseDTO<BookDTO> responseDTO = PageResponseDTO.<BookDTO>withAll()
+                .requestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+        return responseDTO;
     }
 
 }

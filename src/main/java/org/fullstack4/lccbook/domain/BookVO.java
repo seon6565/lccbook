@@ -14,6 +14,7 @@ public class BookVO {
     private int book_idx;
     private String book_name;
     private int price;
+    private int sale_price;
     private int category_idx;
     private LocalDate reg_date;
     private LocalDate modify_date;

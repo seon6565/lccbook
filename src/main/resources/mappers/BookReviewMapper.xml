@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.lccbook.mapper.BookReviewMapper">
+
+    <insert id="review_regist">
+        INSERT INTO lcc_bookreview(user_id, reg_date, review_content, rating)
+        VALUES(#{user_id}, now() ,#{review_content},#{rating},)
+    </insert>
+    <select id="review_list" resultType="org.fullstack4.lccbook.domain.BookReviewVO">
+        SELECT review_idx,book_idx,user_id, reg_date, review_content, rating
+        FROM lcc_bookreview
+        WHERE book_idx = #{book_idx}
+        ORDER BY review_idx ASC
+    </select>
+
+    <delete id="delete">
+        delete from lcc_bookreview
+        where review_idx=#{review_idx}
+    </delete>
+</mapper>

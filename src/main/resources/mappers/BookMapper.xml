@@ -6,8 +6,8 @@
 
 
     <insert id="regist">
-        insert into lcc_book(book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity)
-        values (#{book_name},#{price},#{category_idx},now(),#{publisher},#{author},#{size},#{isbn},#{book_page},#{book_img},#{book_video},#{book_quantity})
+        insert into lcc_book(book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity)
+        values (#{book_name},#{price},#{sale_price},#{category_idx},now(),#{publisher},#{author},#{size},#{isbn},#{book_page},#{book_img},#{book_video},#{book_quantity})
     </insert>
 
     <select id="list" resultType="org.fullstack4.lccbook.domain.BookVO">
@@ -17,7 +17,7 @@
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.BookVO">
-        select book_name,price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
+        select book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
         from lcc_book
         where book_idx=#{book_idx}
     </select>
@@ -26,6 +26,7 @@
         update lcc_book
         set book_name=#{book_name},
         price =#{price},
+        sale_price =#{sale_price},
         category_idx =#{category_idx},
         modify_date =now(),
         publisher=#{publisher},
@@ -52,4 +53,17 @@
         &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
 
     </select>-->
+
+    <select id="bbsTotalCount" resultType="int">
+        SELECT COUNT(*) FROM lcc_book
+<!--        <include refid="whereCondition"></include>-->
+    </select>
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.BookVO">
+        SELECT book_idx,book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
+        FROM lcc_book
+<!--        <include refid="whereCondition"></include>-->
+        ORDER BY reg_date DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 </mapper>
