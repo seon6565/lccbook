@@ -50,10 +50,6 @@ public class LoginController {
         log.info("LoginController loginPOST");
         log.info("============================");
         MemberDTO LoginMemberDTO = loginServiceIf.login_info(loginDTO);
-//        if(bindingResult.hasErrors()){
-//            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
-//            return "/login/login";
-//        }
         String uri = acc_url;
 //        try {
 //            uri = URLEncoder.encode(acc_url, "UTF-8");
@@ -85,13 +81,11 @@ public class LoginController {
                 response.addCookie(cookie4);
             }
             session.setAttribute("memberDTO",LoginMemberDTO);
-            //model.addAttribute("user_id",LoginMemberDTO);
-            //redirectAttributes.addFlashAttribute("loginInfo",LoginMemberDTO);
             //return "redirect:"+uri;
             return "redirect:/";
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
-        return "redirect:/";
+        return "redirect:/login/login";
     }
 
     @RequestMapping("/logout")

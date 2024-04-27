@@ -35,29 +35,7 @@
         <div id="div_err_display_date" style="display:none"></div>
     </div>
     <div class="mb-3">
-        <div class="form-check form-switch form-check-inline" >
-            <label class="form-check-label" for="interest_0">스포츠</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_0" value="스포츠">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_1">여행</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_1" value="여행">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_2">영화</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_2" value="영화">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_3">음악</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악">
-        </div>
-    </div>
-    <div id="div_err_interest" style="display:none"></div>
-    <div class="form-check form-switch form-check-inline">
-        <label class="form-control" for="files">파일</label>
+        <label for="files" class="form-label">파일</label>
         <input class="form-control" type="file" name="files" id="files" multiple>
     </div>
     <div class="d-grid gap-2">

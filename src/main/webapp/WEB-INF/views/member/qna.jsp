@@ -11,56 +11,18 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<div class="container">
-    <ul class="list-group">
-        <c:forEach var="list" items="${qnaUserlist}">
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-10">
-                        <a class="text-break text-decoration-none text-muted" href="/qna/view?qna_idx=${list.qna_idx}">
-                            <div class="card-body">
-                                <h5 class="card-title">${list.question_title}</h5>
-                                <p class="card-text">${list.question_content}</p>
-                                <p class="card-text"><small class="text-body-secondary">${list.question_regdate}</small></p>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">${list.answer_id}</h5>
-                                <p class="card-text">${list.answer_content}</p>
-                                <p class="card-text"><small class="text-body-secondary">${list.answer_regdate}</small></p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+<div class="list-group">
+    <c:forEach var="list" items="${qnaUserlist}">
+    <a href="/qna/view?qna_idx=${list.qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+                <h6 class="mb-0">${list.question_title}</h6>
+                <p class="mb-0 opacity-75">${list.question_content}</p>
             </div>
-        </c:forEach>
-    </ul>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-        <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/regist'">등록</button>
-    </div>
-    <nav>
-        <ul class="pagination justify-content-center">
-            <li class="page-item
-        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-                <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-                <a class="page-link"
-                   data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-                   href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-            </li>
-            <c:forEach begin="${responseDTO.page_block_start}"
-                       end="${responseDTO.page_block_end}"
-                       var="page_num">
-                <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                    <a class="page-link" data-num="${page_num}"
-                       href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-                </li>
-            </c:forEach>
-            <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-                <a class="page-link"
-                   data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-                   href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-            </li>
-        </ul>
-    </nav>
+            <small class="opacity-50 text-nowrap">${list.question_regdate}</small>
+        </div>
+    </a>
+    </c:forEach>
 </div>
 <%@ include file="../common/footer.jsp"%>
 </body>

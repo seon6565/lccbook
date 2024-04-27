@@ -8,5 +8,5 @@ public interface BbsReplyServiceIf {
     int reply_regist(BbsReplyDTO BbsReplyDTO);
     List<BbsReplyDTO> reply_list(int bbs_idx);
 
-
+    int delete(int idx);
 }

@@ -35,14 +35,14 @@ public class BbsReplyController {
         return "redirect:/bbs/view?idx="+bbsReplyDTO.getBbs_idx();
 
     }
-    @PostMapping("/delete")//수정필요
-    public String deletePOST(@RequestParam(name="idx", defaultValue = "0") int idx){
+    @PostMapping("/delete")
+    public String deletePOST(@RequestParam(name="idx", defaultValue = "0") int idx, @RequestParam(name="bbs_idx") int bbs_idx){
         log.info("============================");
         log.info("bbsController deletePOST");
         log.info("============================");
-        //int result = bbsReplyServiceIf.delete(idx);
+        int result = bbsReplyServiceIf.delete(idx);
 
-        return "redirect:/bbs/view?idx="+idx;
+        return "redirect:/bbs/view?idx="+bbs_idx;
 
     }
 

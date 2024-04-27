@@ -22,22 +22,22 @@
 <form id="frmLogin" name="frmLogin" method="post" action="/login/login">
     <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">
     <div class="mb-3">
-        <label for="user_id" class="form-label">아이디:</label>
+        <label for="user_id" class="form-label">아이디</label>
         <input type="text" class="form-control" name="user_id" id="user_id" value="${cookie.save_id.value}">
         <div id="div_err_user_id" style="display:none"></div>
     </div>
     <div class="mb-3">
-        <label for="pwd" class="form-label">비밀번호:</label>
+        <label for="pwd" class="form-label">비밀번호</label>
         <input type="text" class="form-control" name="pwd" id="pwd" value="${loginDTO.pwd}">
         <div id="div_err_pwd" style="display:none"></div>
     </div>
     <div class="mb-3">
         <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="save_id">아이디저장:</label>
+            <label class="form-check-label" for="save_id">아이디저장</label>
             <input class="form-check-input" type="checkbox" role="switch" name="save_id" id="save_id" value="checked" ${cookie.save_id_flag.value}>
         </div>
         <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="auto_login">자동로그인:</label>
+            <label class="form-check-label" for="auto_login">자동로그인</label>
             <input class="form-check-input" type="checkbox" role="switch" name="auto_login" id="auto_login" value="checked" ${cookie.auto_login_flag.value}>
         </div>
     </div>

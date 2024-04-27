@@ -23,7 +23,7 @@
     <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
     <div class="mb-3">
         <label for="user_id" class="form-label">아이디</label>
-        <input type="text" class="form-control" name="user_id" id="user_id" value="${bbsDTO.user_id}" readonly>
+        <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
         <div id="div_err_user_id" style="display:none"></div>
     </div>
     <div class="mb-3">
@@ -42,30 +42,8 @@
         <div id="div_err_display_date" style="display:none"></div>
     </div>
     <div class="mb-3">
-        <div class="form-check form-switch form-check-inline" >
-            <label class="form-check-label" for="interest_0">스포츠</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_0" value="스포츠"
-            <c:out value="${bbsDTO.interest.contains(\"스포츠\")?'checked':''}"/>>
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_1">여행</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_1" value="여행"
-            <c:out value="${bbsDTO.interest.contains(\"여행\")?'checked':''}"/>>
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_2">영화</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_2" value="영화"
-            <c:out value="${bbsDTO.interest.contains(\"영화\")?'checked':''}"/>>
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_3">음악</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악"
-            <c:out value="${bbsDTO.interest.contains(\"음악\")?'checked':''}"/>>
-        </div>
-        <div id="div_err_interest" style="display:none"></div>
+        <label for="files" class="form-label">파일</label>
+        <input class="form-control" type="file" name="files" id="files" multiple>
     </div>
     <div class="d-grid gap-2">
         <button class="btn btn-primary" type="submit">글 수정</button>
