@@ -27,4 +27,7 @@ public class BookVO {
     private String book_video;
     private int book_quantity;
 
+    private CategoryVO categoryVO;
+    private String category;
+
 }

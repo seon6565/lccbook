@@ -27,6 +27,7 @@ public class BookDTO {
     private String book_img;
     private String book_video;
     private int book_quantity;
-
     private LocalDate modify_date;
+
+    private String category;
 }

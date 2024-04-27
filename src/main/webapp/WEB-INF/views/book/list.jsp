@@ -79,7 +79,7 @@
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">전체</li>
-                        <li data-filter=".oranges">영유아</li>
+                        <li data-filter=".kids">영유아</li>
                         <li data-filter=".fresh-meat">초등</li>
                         <li data-filter=".vegetables">중학</li>
                         <li data-filter=".fastfood">고등</li>
@@ -90,7 +90,7 @@
         <div class="row featured__filter" style="margin-left: 15px;">
             <c:forEach items="${responseDTO.dtoList}" var="list">
                 <a href="/book/view?book_idx=${list.book_idx}" style="width: 0;">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" style="width: 205px;padding: 15px;">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" >
                             <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
@@ -110,7 +110,7 @@
                         </div>
                         <div class="featured__item__text card-body p-4" style="width: 200px;">
                             <div class="text-center">
-                                <span style="color: #6c757d">영유아</span>
+                                <span style="color: #6c757d">${list.category}</span>
                                 <h6 class="fw-bolder">${list.book_name}</h6>
                                 <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                 -> <span style="color: #0d6efd">${list.sale_price}원</span>
