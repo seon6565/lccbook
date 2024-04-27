@@ -4,6 +4,30 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.BookMapper">
 
+    <sql id="whereCondition">
+        <where>
+            <if test="search_type != null">
+                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
+                    <if test="type == 'all'.toString()">
+                        book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'kids'.toString()">
+                        book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'ele'.toString()">
+                        book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'mid'.toString()">
+                        book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'hi'.toString()">
+                        book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                </foreach>
+            </if>
+            and 1=1
+        </where>
+    </sql>
 
     <insert id="regist">
         insert into lcc_book(book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity)
@@ -56,13 +80,13 @@
 
     <select id="bbsTotalCount" resultType="int">
         SELECT COUNT(*) FROM lcc_book
-<!--        <include refid="whereCondition"></include>-->
+        <include refid="whereCondition"></include>
     </select>
 
     <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.BookVO">
         SELECT book_idx,book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
         FROM lcc_book
-<!--        <include refid="whereCondition"></include>-->
+        <include refid="whereCondition"></include>
         ORDER BY reg_date DESC
         LIMIT #{page_skip_count}, #{page_size}
     </select>
