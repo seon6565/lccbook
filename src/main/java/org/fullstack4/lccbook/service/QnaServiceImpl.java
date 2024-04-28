@@ -2,7 +2,11 @@ package org.fullstack4.lccbook.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.domain.BbsVO;
 import org.fullstack4.lccbook.domain.QnaVO;
+import org.fullstack4.lccbook.dto.BbsDTO;
+import org.fullstack4.lccbook.dto.PageRequestDTO;
+import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.dto.QnaDTO;
 import org.fullstack4.lccbook.mapper.QnaMapper;
 import org.modelmapper.ModelMapper;
@@ -53,5 +57,20 @@ public class QnaServiceImpl implements QnaServiceIf {
     @Override
     public int delete(int idx) {
         return qnaMapper.delete(idx);
+    }
+
+    @Override
+    public int bbsTotalCount(PageRequestDTO requestDTO) {
+        return qnaMapper.bbsTotalCount(requestDTO);
+    }
+
+    @Override
+    public PageResponseDTO<QnaDTO> bbsListByPage(PageRequestDTO pageRequestDTO) {
+        List<QnaVO> voList = qnaMapper.bbsListByPage(pageRequestDTO);
+        List<QnaDTO> dtoList = voList.stream().map(vo->modelMapper.map(vo,QnaDTO.class)).collect(Collectors.toList());
+        int total_count = qnaMapper.bbsTotalCount(pageRequestDTO);
+        PageResponseDTO<QnaDTO> responseDTO = PageResponseDTO.<QnaDTO>withAll().requestDTO(pageRequestDTO)
+                .dtoList(dtoList).total_count(total_count).build();
+        return responseDTO;
     }
 }

@@ -4,6 +4,32 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.QnaMapper">
 
+    <sql id="whereCondition">
+        <where>
+            1=1
+            <if test="search_type !=null and search_type !=''">
+                <foreach collection="search_type" item="type">
+                    <if test="type=='t'.toString()">
+                        and question_title like concat('%', #{search_word},'%')
+                    </if>
+                    <if test="type=='u'.toString()">
+                        or user_id like concat('%', #{search_word},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="search_date1 !=null and search_date1 !='' ">
+                <trim prefix=" and ">
+                    question_regdate >= #{search_date1}
+                </trim>
+            </if>
+            <if test="search_date2 !=null and search_date2 !='' ">
+                <trim prefix=" and ">
+                    ADDDATE(#{search_date2},1) >= question_regdate
+                </trim>
+            </if>
+        </where>
+    </sql>
+
     <insert id="regist">
         insert into lcc_qna(user_id,question_title,question_content,question_regdate)
         values (#{user_id},#{question_title},#{question_content},now())
@@ -42,24 +68,20 @@
         where qna_idx=#{qna_idx}
     </delete>
 
-   <!-- <select id="bbsTotalCount" resultType="int">
+   <select id="bbsTotalCount" resultType="int">
         select count(*)
         from lcc_qna
-
-
-        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
+       <include refid="whereCondition"></include>
 
     </select>
 
-    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.NoticeVO">
-        select user_id, question_title,question_content,question_regdate
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select qna_idx,user_id,question_title,question_content,question_regdate,answer_yn
         from lcc_qna
-
-        &lt;!&ndash;  <include refid="whereCondition"></include>&ndash;&gt;
-
+        <include refid="whereCondition"></include>
         order by qna_idx desc
         limit #{page_skip_count}, #{page_size}
-    </select>-->
+    </select>
 
     <!-- ################ 질문 등록 ###################################-->
 

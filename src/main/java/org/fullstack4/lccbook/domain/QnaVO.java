@@ -18,5 +18,5 @@ public class QnaVO {
     private String answer_id;
     private String answer_content;
     private LocalDate answer_regdate;
-    private char answer_yn;
+    private String answer_yn;
 }

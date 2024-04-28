@@ -13,52 +13,24 @@
 <%@ include file="../common/header.jsp"%>
 
 <div class="container">
-<form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist">
+<form name="frmRegist" id="frmRegist" method="post" action="/qna/regist">
     <div class="mb-3">
         <label for="user_id" class="form-label">아이디</label>
         <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
         <div id="div_err_user_id" style="display:none"></div>
     </div>
     <div class="mb-3">
-        <label for="user_id" class="form-label">제목</label>
-        <input type="text" class="form-control" name="title" id="title" value="${bbsDTO.title}">
+        <label for="question_title" class="form-label">문의 제목</label>
+        <input type="text" class="form-control" name="question_title" id="question_title" value="${qnaDTO.question_title}">
         <div id="div_err_title" style="display:none"></div>
     </div>
     <div class="mb-3">
-        <label for="content" class="form-label">내용</label>
-        <textarea class="form-control" name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
+        <label for="question_content" class="form-label">문의 내용</label>
+        <textarea class="form-control" name="question_content" id="question_content" rows="10" cols="60">${qnaDTO.question_content}</textarea>
         <div id="div_err_content" style="display:none"></div>
     </div>
-    <div class="mb-3">
-        <label for="display_date" class="form-label">출력날짜</label>
-        <input type="date" class="form-control" name="display_date" id="display_date" value="${bbsDTO.display_date}">
-        <div id="div_err_display_date" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <div class="form-check form-switch form-check-inline" >
-            <label class="form-check-label" for="interest_0">스포츠</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_0" value="스포츠">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_1">여행</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_1" value="여행">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_2">영화</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_2" value="영화">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_3">음악</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악">
-
-        </div>
-    </div>
-    <div id="div_err_interest" style="display:none"></div>
     <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">글 등록</button>
+        <button class="btn btn-primary" type="submit">등록하기</button>
     </div>
 </form>
 </div>
@@ -76,6 +48,5 @@
 
     console.log(result);
 </script>
-
 </body>
 </html>
