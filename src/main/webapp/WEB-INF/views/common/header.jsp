@@ -102,7 +102,7 @@
                     <a class="nav-link" href="/payment/list">주문조회</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart/list/">장바구니</a>
+                    <a class="nav-link" href="/cart/list">장바구니</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/qna/list" style="margin-right: 100px;">고객센터</a>

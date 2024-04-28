@@ -21,10 +21,18 @@ public class CartServiceImpl implements CartServiceIf{
     @Override
     public int regist(CartDTO cartDTO) {
         CartVO cartVO = modelMapper.map(cartDTO, CartVO.class);
-        int result = cartMapper.regist(cartVO);
 
-        return result;
-    }
+        int checkBook = cartMapper.checkBookExists(cartVO);
+        if(checkBook>0){
+
+            return -1;
+        }
+        else {
+            int result = cartMapper.regist(cartVO);
+            return result;
+        }
+        }
+
 
     @Override
     public List<CartDTO> list() {
@@ -50,5 +58,12 @@ public class CartServiceImpl implements CartServiceIf{
     @Override
     public int delete(int idx) {
         return cartMapper.delete(idx);
+    }
+
+    @Override
+    public int checkBookExists(CartDTO cartDTO) {
+        CartVO cartVO = modelMapper.map(cartDTO, CartVO.class);
+        int result = cartMapper.checkBookExists(cartVO);
+        return result;
     }
 }

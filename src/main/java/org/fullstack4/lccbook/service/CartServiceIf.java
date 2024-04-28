@@ -11,6 +11,8 @@ public interface CartServiceIf {
     int modify(CartDTO cartDTO);
     int delete(int idx);
 
+    int checkBookExists(CartDTO cartDTO);
+
 
 
 }
