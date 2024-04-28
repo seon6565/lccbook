@@ -25,6 +25,7 @@ public class PageResponseDTO<E> {
     private String search_word;
     private String search_date1;
     private String search_date2;
+    private String category;
 
     List<E> dtoList;
 
@@ -55,6 +56,8 @@ public class PageResponseDTO<E> {
         search_word = requestDTO.getSearch_word()!=null?requestDTO.getSearch_word():null;
         search_date1 = requestDTO.getSearch_date1()!=null?requestDTO.getSearch_date1():null;
         search_date2 = requestDTO.getSearch_date2()!=null?requestDTO.getSearch_date2():null;
+        category = requestDTO.getSearch_type()!=null?requestDTO.getCategory():null;
+
         StringBuilder search_type_String = new StringBuilder();
         if(search_type!=null) {
             for (String i : search_type) {
@@ -69,6 +72,9 @@ public class PageResponseDTO<E> {
         }
         if(search_date2!=null) {
             search_type_String.append("&search_date2=" + search_date2);
+        }
+        if(category != null) {
+            search_type_String.append("&category=" + category);
         }
 
         this.linkParams = "?page_size="+ this.page_size+search_type_String.toString();
