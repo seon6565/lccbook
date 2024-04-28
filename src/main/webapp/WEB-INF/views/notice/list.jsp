@@ -19,7 +19,7 @@
                 <div class="input-group-text">
                     <div class="form-check form-switch form-check-inline" >
                         <label class="form-check-label" for="search_type_0">제목</label>
-                        <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0}>
+                        <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0} checked>
                     </div>
                 </div>
                 <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">

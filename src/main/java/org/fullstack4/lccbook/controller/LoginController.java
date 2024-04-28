@@ -81,8 +81,11 @@ public class LoginController {
                 response.addCookie(cookie4);
             }
             session.setAttribute("memberDTO",LoginMemberDTO);
+            log.info("test" + uri);
+            if(uri.equals("/login/login")){
+                return "redirect:/";
+            }
             return "redirect:"+uri;
-            //return "redirect:/";
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
         return "redirect:/login/login";
