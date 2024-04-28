@@ -20,9 +20,10 @@ public class CartDTO
     private LocalDate cart_regdate;
     private char checked;
     private int total_price;
-    private String book_img;
     private int sale_price;
     private int price;
+    private int total_sale_price;
+    private String book_img;
 
 
 

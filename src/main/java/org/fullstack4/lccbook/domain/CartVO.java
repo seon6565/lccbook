@@ -22,6 +22,9 @@ public class CartVO
     private String book_img;
     private int sale_price;
     private int price;
+    private int total_sale_price;
+
+
 
 
 }

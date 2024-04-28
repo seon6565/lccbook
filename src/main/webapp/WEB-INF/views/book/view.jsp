@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         h3 {
             border-bottom: 1px solid #ccc;
@@ -90,10 +91,13 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <form id="cart" name="cart" action="/cart/list" method="post">
+            <input type="hidden"  id="book_idx1" name="book_idx" value="${book.book_idx}">
+            <input type="hidden" id="user_id1" name="user_id" value="${sessionScope.memberDTO.user_id}">
         <h3>${book.book_name}</h3>
         <div id="intro">
             <div id="img">
                 <img src="${book.book_img}" width="300px" height="400px">
+
             </div>
             <div id="text">
                 <div class="box">
@@ -111,14 +115,14 @@
                     <span style="margin-right: 37px;">배송비</span><span>2500원(15,000원 이상 구매 시 무료배송)</span><span style="font-size: small; color: #5c636a">[제주&도서산간지역 추가 3,000원]</span><br>
                     <span style="color: darkgray;margin-right: 20px;">구매수량</span>
                         <div id="btn_acount">
-                            <button id="minus" name="minus">-</button>
-                            1
-                            <button id="plus" name="plus">+</button>
+                            <button type="button" id="quantity_minus" name="minus">-</button>
+                            <input type="text" id="quantity" name="quantity" value="1" readonly style="width: 30px; text-align: center;">
+                            <button type="button" id="quantity_plus" name="plus">+</button>
                         </div><br>
                     <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
                 </div>
                 <div class="box" style="border-bottom: none">
-                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/cart/list'">장바구니</button>
+                    <button type="button" class="btn btn-outline-secondary" id="cart_button" >장바구니</button>
                     <button type="button" class="btn btn-outline-secondary">관심등록</button>
                     <button class="btn btn-primary" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
@@ -263,6 +267,72 @@
 
 <%@ include file="../common/footer.jsp"%>
 <script>
+    const cart_button =document.querySelector("#cart_button");
+    cart_button.addEventListener("click",function (e){
+       e.preventDefault();
+
+
+
+
+           const book_idx = $('#book_idx1').val();
+           const quantity = $('#quantity').val();
+           const user_id=  $('#user_id1').val();
+
+           // AJAX 요청을 사용하여 서버로 데이터를 전송합니다.
+           $.ajax({
+               url: '/cart/regist', // 장바구니 등록을 처리하는 서버의 URL
+               type: 'POST',
+               contentType: 'application/json',
+               dataType: 'json',
+               data: JSON.stringify({ // JSON 문자열로 변환
+                   book_idx: book_idx,
+                   quantity: quantity,
+                   user_id : user_id
+               }),
+               success: function(response) {
+
+                   if(response.success) {
+                       const confirm_msg = confirm("장바구니에 상품을 담았습니다\n장바구니로 이동하시겠습니까?");
+                       if(confirm_msg) {
+                           window.location.href = response.redirect; // 지정된 URL로 리다이렉트
+                       }
+
+                       } else {
+                       alert(response.message); // 실패 메시지 출력
+                   }
+               },
+               error: function(xhr, status, error) {
+                   alert("장바구니 등록에 실패하였습니다.");
+               }
+           });
+
+
+    });
+
+    const quantity_minus = document.querySelector("#quantity_minus");
+
+    const quantity_plus = document.querySelector("#quantity_plus");
+
+
+    quantity_plus.addEventListener("click",function(e){
+        e.preventDefault();
+
+        const quantity =  document.querySelector("#quantity");
+       const number = parseInt(quantity.value);
+       quantity.value = number+1;
+
+    });
+
+    quantity_minus.addEventListener("click",function(e){
+        e.preventDefault();
+
+        const quantity =  document.querySelector("#quantity");
+        const number = parseInt(quantity.value);
+        if(quantity.value >1) {
+            quantity.value = number - 1;
+        }
+    });
+
 
 </script>
 </body>

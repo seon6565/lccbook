@@ -10,4 +10,5 @@ public interface CartMapper {
     CartVO view(int idx);
     int modify(CartVO cartVO);
     int delete(int idx);
+    int checkBookExists(CartVO cartVO);
 }
