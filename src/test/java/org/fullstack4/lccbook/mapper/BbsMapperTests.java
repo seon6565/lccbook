@@ -248,7 +248,7 @@ public class BbsMapperTests {
     @Test
     public void testList(){
 
-        List<BookDTO> bookList = bookServiceIf.list();
+        /*List<BookDTO> bookList = bookServiceIf.list();
         bookList.forEach(list->log.info("bookList" + list));
 
         List<QnaDTO> qnaList = qnaServiceIf.list();
@@ -264,7 +264,7 @@ public class BbsMapperTests {
         faqList.forEach(list->log.info("faqList: " + faqList));
 
         List<DeliveryDTO> deliverLIst = deliveryServiceIf.list();
-        deliverLIst.forEach(list->log.info("deliverList : " + deliverLIst));
+        deliverLIst.forEach(list->log.info("deliverList : " + deliverLIst));*/
 
         List<CartDTO> cartList = cartServiceIf.list();
         cartList.forEach(list->log.info("cartList : " + cartList));
