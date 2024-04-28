@@ -6,14 +6,13 @@
 
     <sql id="whereCondition">
         <where>
-            1=1
             <if test="search_type !=null and search_type !=''">
-                <foreach collection="search_type" item="type">
+                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
                     <if test="type=='t'.toString()">
-                        and title like concat('%', #{search_word},'%')
+                        title like concat('%', #{search_word},'%')
                     </if>
                     <if test="type=='u'.toString()">
-                        or user_id like concat('%', #{search_word},'%')
+                        user_id like concat('%', #{search_word},'%')
                     </if>
                 </foreach>
             </if>
@@ -27,6 +26,7 @@
                     ADDDATE(#{search_date2},1) >= reg_date
                 </trim>
             </if>
+            and 1=1
         </where>
     </sql>
     <insert id="regist">
