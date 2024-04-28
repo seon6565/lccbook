@@ -33,6 +33,8 @@ public class MemberController {
         log.info("MemberController view");
         log.info("user_id : " +user_id);
         MemberDTO memberDTO = memberServiceIf.view(user_id);
+        List<QnaDTO> qnaUserlist = qnaServiceIf.listUser(user_id);
+        model.addAttribute("qnaUserlist", qnaUserlist);
         log.info("memberDTO : " +memberDTO);
         log.info("============================");
         model.addAttribute("memberDTO",memberDTO);
@@ -157,6 +159,5 @@ public class MemberController {
     public void qnalist(String user_id, RedirectAttributes redirectAttributes, Model model){
         List<QnaDTO> qnaUserlist = qnaServiceIf.listUser(user_id);
         model.addAttribute("qnaUserlist", qnaUserlist);
-
     }
 }

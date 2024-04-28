@@ -42,22 +42,15 @@
 </div>
 <ul class="list-group">
     <c:forEach var="list" items="${responseDTO.dtoList}">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">
+        <a href="/bbs/view?${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${list.title}</h6>
+                    <p class="mb-0 opacity-75">${list.content}</p>
                 </div>
-                <div class="col-md-10">
-                    <a class="text-break text-decoration-none text-muted" href="/bbs/view?${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">
-                        <div class="card-body">
-                            <h5 class="card-title">${list.title}</h5>
-                            <p class="card-text">${list.content}</p>
-                            <p class="card-text"><small class="text-body-secondary">${list.reg_date}</small></p>
-                        </div>
-                    </a>
-                </div>
+                <small class="opacity-50 text-nowrap">${list.reg_date}</small>
             </div>
-        </div>
+        </a>
     </c:forEach>
 </ul>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">

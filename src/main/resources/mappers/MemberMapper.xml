@@ -22,16 +22,17 @@
         set pwd = #{pwd},
         email = #{email},
         phone_number=#{phone_number},
+        birthday = #{birthday},
         addr1 = #{addr1},
         addr2 = #{addr2},
         addr_number =#{addr_number}
-        where member_idx=#{member_idx}
+        where user_id=#{user_id}
     </update>
 
     <delete id="delete">
         delete
         from lcc_member
-        where member_idx=#{member_idx}
+        where user_id=#{user_id}
     </delete>
 
     <select id="idCheck">

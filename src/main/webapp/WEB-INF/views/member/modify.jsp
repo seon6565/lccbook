@@ -23,7 +23,7 @@
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">이름</label>
-                <input type="text" class="form-control" name="name" id="name" value="${memberDTO.name}" onkeyup="checkInputName('name','div_err_name')">
+                <input type="text" readonly class="form-control" name="name" id="name" value="${memberDTO.name}" onkeyup="checkInputName('name','div_err_name')">
                 <div class="form-text" id="div_err_name" style="display:none; color:red">한글 5자이내, 영문10자이내 로만 입력하세요</div>
             </div>
             <div class="mb-3">

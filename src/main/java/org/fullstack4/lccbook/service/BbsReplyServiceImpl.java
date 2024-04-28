@@ -41,5 +41,8 @@ public class BbsReplyServiceImpl implements BbsReplyServiceIf{
         return BbsReplyDTOList;
     }
 
-
+    @Override
+    public int delete(int idx) {
+        return bbsReplyXMLMapper.delete(idx);
+    }
 }

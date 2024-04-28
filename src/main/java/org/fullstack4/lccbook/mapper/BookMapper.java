@@ -1,5 +1,6 @@
 package org.fullstack4.lccbook.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.fullstack4.lccbook.domain.BookVO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 

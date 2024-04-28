@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -11,89 +12,127 @@
         .py-5 a {
             text-decoration: none;
         }
+        .featured__item__text card-body p-4 {
+            width: 203px;
+            padding: 0 !important;
+        }
+
+        .featured__item__pic.set-bg {
+            width: 202px;
+        }
+
+        .fw-bolder {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .featured__controls ul li:hover, li:focus {
+            color: #000;
+        }
+
+        .featured__controls ul li:active, li:target {
+            background: #007bff !important;
+        }
+
+        #search_word {
+            border-radius: 0;
+            height: 60px;
+        }
+        #search_btn {
+            border-radius: 0;
+            height: 60px;
+            width: 100px;
+            background: #285fb1;
+            color: #fff;
+        }
+        #search_form {
+            display: flex;
+            height: 60px;
+        }
+        .featured__controls a {
+            color: #000;
+            text-decoration: none;
+        }
     </style>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<div>
-    <form name="frmSearch" id="search" action="/bbs/list">
-        <div class="input-group mb-1">
-            <span class="input-group-text ">검색범위</span>
-            <div class="input-group-text">
-                <div class="form-check form-switch form-check-inline" >
-                    <label class="form-check-label" for="search_type_0">제목</label>
-                    <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0}>
-                </div>
-                <div class="form-check form-switch form-check-inline" >
-                    <label class="form-check-label" for="search_type_1">작성자</label>
-                    <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
+    <div id="search">
+        <form id="search_form" name="search_form" action="/book/list" method="get">
+            <select name="search_type" class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" style="width: 100px !important;border-radius: 0 !important;font-size: small !important; height : 60px;">
+                <option value="all">전체</option>
+                <option value="kids" ${fn:contains(search_type, "kids") ? "selected" : ""}>영유아</option>
+                <option value="ele" >초등</option>
+                <option value="mid">중학</option>
+                <option value="hi">고등</option>
+            </select>
+            <div class="input-group mb-3">
+                <input type="text" name="search_word" id="search_word" value='<c:out value="${pageRequestDTO.search_word}"/>'class="form-control" id="input" placeholder="카테고리 내 교재 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" id="search_btn" type="submit" id="button-addon2">검색</button>
+            </div>
+        </form>
+    </div>
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="featured__controls">
+                    <ul>
+                        <li><a href="/book/list">전체</a></li>
+                        <li ><a href="/book/list?category=kids">영유아</a></li>
+                        <li><a href="/book/list?category=ele">초등</a></li>
+                        <li><a href="/book/list?category=mid">중학</a></li>
+                        <li><a href="/book/list?category=hi">고등</a></li>
+                    </ul>
                 </div>
             </div>
-        <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
         </div>
-        <div class="input-group mb-1">
-            <span class="input-group-text">검색기간</span>
-            <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
-            <span class="input-group-text">~</span>
-            <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-            <button class="btn btn-outline-primary" type="submit">검색</button>
-            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/bbs/list'">검색 초기화</button>
-        </div>
-    </form>
-</div>
-<section class="py-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+        <div class="row featured__filter" style="margin-left: 15px;">
             <c:forEach items="${responseDTO.dtoList}" var="list">
-                <a href="/book/view?book_idx=${list.book_idx}">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
-                            </div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="${list.book_img}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <span style="color: #6c757d">영유아</span>
+                <a href="/book/view?book_idx=${list.book_idx}" style="width: 0;">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" >
+                            <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
+<%--                            <div class="card-body p-4">--%>
+<%--                                <div class="text-center">--%>
+<%--                                    <!-- Product name-->--%>
                                     <h6 class="fw-bolder">${list.book_name}</h6>
                                     <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                     -> <span style="color: #0d6efd">${list.sale_price}원</span>
-                                </div>
+<%--                                </div>--%>
+<%--                            </div>--%>
+                            <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="featured__item__text card-body p-4" style="width: 200px;">
+                            <div class="text-center">
+                                <span style="color: #6c757d">${list.category}</span>
+                                <h6 class="fw-bolder">${list.book_name}</h6>
+                                <span class="text-muted text-decoration-line-through">${list.price}원</span>
+                                -> <span style="color: #0d6efd">${list.sale_price}원</span>
                             </div>
                         </div>
+
                     </div>
+                </div>
                 </a>
             </c:forEach>
         </div>
     </div>
 </section>
-<%--<ul class="list-group">--%>
-<%--    <c:forEach var="list" items="${responseDTO.dtoList}">--%>
-<%--        <div class="card mb-3">--%>
-<%--            <div class="row g-0">--%>
-<%--                <div class="col-md-2">--%>
-<%--                    <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">--%>
-<%--                </div>--%>
-<%--                <div class="col-md-10">--%>
-<%--                    <a class="text-break text-decoration-none text-muted" href="/bbs/view${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">--%>
-<%--                        <div class="card-body">--%>
-<%--                            <h5 class="card-title">${list.title}</h5>--%>
-<%--                            <p class="card-text">${list.content}</p>--%>
-<%--                            <p class="card-text"><small class="text-body-secondary">${list.reg_date}</small></p>--%>
-<%--                        </div>--%>
-<%--                    </a>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </c:forEach>--%>
-<%--</ul>--%>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-        <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/regist'">등록</button>
-    </div>
 <nav>
     <ul class="pagination justify-content-center">
         <li class="page-item
@@ -120,5 +159,13 @@
 </nav>
 </div>
 <%@ include file="../common/footer.jsp"%>
+<script src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/resources/js/bootstrap.min.js"></script>
+<%--<script src="/resources/js/jquery.nice-select.min.js"></script>--%>
+<script src="/resources/js/jquery-ui.min.js"></script>
+<script src="/resources/js/jquery.slicknav.js"></script>
+<script src="/resources/js/mixitup.min.js"></script>
+<script src="/resources/js/owl.carousel.min.js"></script>
+<script src="/resources/js/main.js"></script>
 </body>
 </html>

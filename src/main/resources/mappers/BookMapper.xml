@@ -4,6 +4,88 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.BookMapper">
 
+    <sql id="whereCondition">
+        <where>
+            <if test="search_type != null">
+                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
+                    <if test="type == 'all'.toString()">
+                        lb.book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'kids'.toString()">
+                        lb.category_idx <![CDATA[<]]> 200000 and lb.book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'ele'.toString()">
+                        lb.category_idx <![CDATA[>=]]> 200000 and lb.category_idx <![CDATA[<]]> 300000
+                        and book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'mid'.toString()">
+                        lb.category_idx <![CDATA[>=]]> 300000 and lb.category_idx <![CDATA[<]]> 400000
+                        and book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                    <if test="type == 'hi'.toString()">
+                        lb.category_idx <![CDATA[>=]]> 400000 and book_name LIKE CONCAT('%', #{search_word}, '%')
+                    </if>
+                </foreach>
+            </if>
+            <choose>
+                <when test="category == 'kids'">
+                    lb.category_idx <![CDATA[<]]> 200000
+                </when>
+                <when test="category == 'ele'">
+                    lb.category_idx <![CDATA[>=]]> 200000 and lb.category_idx <![CDATA[<]]> 300000
+                </when>
+                <when test="category == 'mid'">
+                    lb.category_idx <![CDATA[>=]]> 300000 and lb.category_idx <![CDATA[<]]> 400000
+                </when>
+                <when test="category == 'hi'">
+                    lb.category_idx <![CDATA[>=]]> 400000
+                </when>
+            </choose>
+            and 1=1
+        </where>
+    </sql>
+
+    <resultMap id="BookVO" type="org.fullstack4.lccbook.domain.BookVO">
+        <id column="book_idx" property="book_idx"/>
+        <result column="book_name" property="book_name"/>
+        <result column="price" property="price"/>
+        <result column="sale_price" property="sale_price"/>
+        <result column="category_idx" property="category_idx"/>
+        <result column="reg_date" property="reg_date"/>
+        <result column="publisher" property="publisher"/>
+        <result column="author" property="author"/>
+        <result column="size" property="size"/>
+        <result column="isbn" property="isbn"/>
+        <result column="book_page" property="book_page"/>
+        <result column="book_img" property="book_img"/>
+        <result column="book_video" property="book_video"/>
+        <result column="book_quantity" property="book_quantity"/>
+        <result column="category" property="category"/>
+        <association property="categoryVO" resultMap="CategoryVO"/>
+    </resultMap>
+
+    <resultMap id="CategoryVO" type="org.fullstack4.lccbook.domain.CategoryVO">
+        <id column="category_idx" property="category_idx"/>
+        <result column="category_name" property="category_name"/>
+    </resultMap>
+
+    <select id="bbsListByPage" resultMap="BookVO">
+        SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
+        ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        FROM lcc_book AS lb
+        INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
+        <include refid="whereCondition"></include>
+        ORDER BY lb.reg_date DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
+
+    <select id="view" resultMap="BookVO">
+        SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
+        ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        FROM lcc_book AS lb
+        INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
+        where book_idx=#{book_idx}
+    </select>
 
     <insert id="regist">
         insert into lcc_book(book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity)
@@ -16,11 +98,11 @@
         order by book_idx desc
     </select>
 
-    <select id="view" resultType="org.fullstack4.lccbook.domain.BookVO">
-        select book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
-        from lcc_book
-        where book_idx=#{book_idx}
-    </select>
+<!--    <select id="view" resultType="org.fullstack4.lccbook.domain.BookVO">-->
+<!--        select book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity-->
+<!--        from lcc_book-->
+<!--        where book_idx=#{book_idx}-->
+<!--    </select>-->
 
     <update id="modify">
         update lcc_book
@@ -46,24 +128,11 @@
         where book_idx=#{book_idx}
     </delete>
 
-   <!-- <select id="bbsTotalCount" resultType="int">
-        select count(*)
-        from lcc_book
-
-        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
-
-    </select>-->
 
     <select id="bbsTotalCount" resultType="int">
         SELECT COUNT(*) FROM lcc_book
 <!--        <include refid="whereCondition"></include>-->
     </select>
 
-    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.BookVO">
-        SELECT book_idx,book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity
-        FROM lcc_book
-<!--        <include refid="whereCondition"></include>-->
-        ORDER BY reg_date DESC
-        LIMIT #{page_skip_count}, #{page_size}
-    </select>
+
 </mapper>

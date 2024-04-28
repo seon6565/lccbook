@@ -18,4 +18,9 @@
         update lcc_bbs set reply_cnt = reply_cnt+1 where idx=#{bbs_idx}
     </update>
 
+    <delete id="delete">
+        delete
+        from lcc_bbs_reply
+        where idx=#{idx}
+    </delete>
 </mapper>

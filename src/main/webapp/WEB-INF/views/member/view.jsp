@@ -44,11 +44,40 @@
     주소
     <span class="form-control">${memberDTO.addr_number}+${memberDTO.addr1} + ${memberDTO.addr2} </span>
 </div>
-<div class="mb-3">
-    QnA보기
-    <a class="form-control" href="/member/qna?user_id=${memberDTO.user_id}">QnA 리스트 페이지</a>
+<div class="list-group">
+    <a href="/member/qna?user_id=${memberDTO.user_id}" class="icon-link">
+        QnA전체보기
+        <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+    </a>
+    <a href="/qna/view?qna_idx=${qnaUserlist[0].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+                <h6 class="mb-0">${qnaUserlist[0].question_title}</h6>
+                <p class="mb-0 opacity-75">${qnaUserlist[0].question_content}</p>
+            </div>
+            <small class="opacity-50 text-nowrap">${qnaUserlist[0].question_regdate}</small>
+        </div>
+    </a>
+    <a href="/qna/view?qna_idx=${qnaUserlist[1].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+                <h6 class="mb-0">${qnaUserlist[1].question_title}</h6>
+                <p class="mb-0 opacity-75">${qnaUserlist[1].question_content}</p>
+            </div>
+            <small class="opacity-50 text-nowrap">${qnaUserlist[1].question_regdate}</small>
+        </div>
+    </a>
+    <a href="/qna/view?qna_idx=${qnaUserlist[2].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+                <h6 class="mb-0">${qnaUserlist[2].question_title}</h6>
+                <p class="mb-0 opacity-75">${qnaUserlist[2].question_content}</p>
+            </div>
+            <small class="opacity-50 text-nowrap">${qnaUserlist[2].question_regdate}</small>
+        </div>
+    </a>
 </div>
-<div class="d-grid gap-2 d-md-flex">
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/'">메인 화면</button>
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/member/modify?user_id=${memberDTO.user_id}'">회원정보수정</button>
     <button class="btn btn-outline-primary" type="button" onclick="goDelete()">회원탈퇴</button>

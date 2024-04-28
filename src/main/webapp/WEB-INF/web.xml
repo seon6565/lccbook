@@ -33,6 +33,10 @@
         <url-pattern>/member/view</url-pattern>
         <url-pattern>/member/modify</url-pattern>
         <url-pattern>/member/delete</url-pattern>
+        <url-pattern>/qna/view</url-pattern>
+        <url-pattern>/qna/regist</url-pattern>
+        <url-pattern>/qna/modify</url-pattern>
+        <url-pattern>/qna/delete</url-pattern>
     </filter-mapping>
 
     <servlet>

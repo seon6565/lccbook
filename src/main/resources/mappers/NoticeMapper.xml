@@ -4,19 +4,45 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.NoticeMapper">
 
+    <sql id="whereCondition">
+        <where>
+            notice_state = 'Y'
+            <if test="search_type !=null and search_type !=''">
+                <foreach collection="search_type" item="type" separator=" OR ">
+                    <if test="type=='t'.toString()">
+                        and title like concat('%', #{search_word},'%')
+                    </if>
+                    <if test="type=='u'.toString()">
+                        and user_id like concat('%', #{search_word},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="search_date1 !=null and search_date1 !='' ">
+                <trim prefix=" and ">
+                    reg_date >= #{search_date1}
+                </trim>
+            </if>
+            <if test="search_date2 !=null and search_date2 !='' ">
+                <trim prefix=" and ">
+                    ADDDATE(#{search_date2},1) >= reg_date
+                </trim>
+            </if>
+        </where>
+    </sql>
+
     <insert id="regist">
         insert into lcc_notice(content,title,reg_date,notice_state)
         values (#{content},#{title},now(),#{notice_state})
     </insert>
 
     <select id="list" resultType="org.fullstack4.lccbook.domain.NoticeVO">
-        select content,title,reg_date,notice_state
+        select notice_idxmcontent,title,reg_date,notice_state,modify_date
         from lcc_notice
         order by notice_idx desc
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.NoticeVO">
-        select content,title,reg_date,notice_state
+        select notice_idx,content,title,reg_date,notice_state,modify_date
         from lcc_notice
         where notice_idx=#{notice_idx}
     </select>
@@ -35,21 +61,21 @@
         where notice_idx=#{notice_idx}
     </delete>
 
-   <!-- <select id="bbsTotalCount" resultType="int">
+   <select id="bbsTotalCount" resultType="int">
         select count(*)
         from lcc_notice
-        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
+        <include refid="whereCondition"></include>
 
     </select>
 
     <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.NoticeVO">
-        select idx, content,title,reg_date,notice_state
+        select notice_idx, content,title,reg_date,notice_state,modify_date
         from lcc_notice
 
-        &lt;!&ndash;  <include refid="whereCondition"></include>&ndash;&gt;
+        <include refid="whereCondition"></include>
 
         order by notice_idx desc
         limit #{page_skip_count}, #{page_size}
-    </select>-->
+    </select>
 
 </mapper>
