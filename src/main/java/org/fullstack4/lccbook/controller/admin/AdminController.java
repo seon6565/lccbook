@@ -1,4 +1,4 @@
-package org.fullstack4.lccbook.controller;
+package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
