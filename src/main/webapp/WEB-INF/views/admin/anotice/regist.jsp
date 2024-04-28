@@ -4,78 +4,231 @@
 <html>
 <head>
     <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
 <body>
-<%@ include file="../../common/header.jsp"%>
-
 <div class="container">
-<form name="frmRegist" id="frmRegist" method="post" action="/bbs/regist">
-    <div class="mb-3">
-        <label for="user_id" class="form-label">아이디</label>
-        <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
-        <div id="div_err_user_id" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="user_id" class="form-label">제목</label>
-        <input type="text" class="form-control" name="title" id="title" value="${bbsDTO.title}">
-        <div id="div_err_title" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="content" class="form-label">내용</label>
-        <textarea class="form-control" name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
-        <div id="div_err_content" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="display_date" class="form-label">출력날짜</label>
-        <input type="date" class="form-control" name="display_date" id="display_date" value="${bbsDTO.display_date}">
-        <div id="div_err_display_date" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <div class="form-check form-switch form-check-inline" >
-            <label class="form-check-label" for="interest_0">스포츠</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_0" value="스포츠">
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                    <a href="/admin/afaq/list" class="text-nowrap logo-img">
+                        <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
+                    </a>
+                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                        <i class="ti ti-x fs-8"></i>
+                    </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Menu</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                                <span class="hide-menu">공지사항</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/admin/afaq/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                                <span class="hide-menu">FAQ</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-alert-circle"></i>
+                </span>
+                                <span class="hide-menu">Q&A</span>
+                            </a>
+                        </li>
 
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_1">여행</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_1" value="여행">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_2">영화</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_2" value="영화">
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_3">음악</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악">
-
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/admin/member/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                                <span class="hide-menu">회원관리</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-typography"></i>
+                </span>
+                                <span class="hide-menu">배송관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">AUTH</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-login"></i>
+                </span>
+                                <span class="hide-menu">Login</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-user-plus"></i>
+                </span>
+                                <span class="hide-menu">Register</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">EXTRA</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-mood-happy"></i>
+                </span>
+                                <span class="hide-menu">Icons</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                <span>
+                  <i class="ti ti-aperture"></i>
+                </span>
+                                <span class="hide-menu">Sample Page</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <header class="app-header">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-block d-xl-none">
+                            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                                <i class="ti ti-menu-2"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                                <i class="ti ti-bell-ringing"></i>
+                                <div class="notification bg-primary rounded-circle"></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                            <a href="/faq/list" target="_blank" class="btn btn-primary">Home</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-user fs-6"></i>
+                                            <p class="mb-0 fs-3">My Profile</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-mail fs-6"></i>
+                                            <p class="mb-0 fs-3">My Account</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-list-check fs-6"></i>
+                                            <p class="mb-0 fs-3">My Task</p>
+                                        </a>
+                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!--  Header End -->
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between;margin-bottom: 15px;">
+                                <h5 class="card-title fw-semibold mb-4">공지사항</h5>
+                                <button class="btn btn-primary" type="button">글 등록</button>
+                            </div>
+                            <form id="frm" action="/admin/anotice/regist" method="post">
+                            <div class="card">
+                                <div class="card-body p-4">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">제목</label>
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="content" class="form-label">내용</label>
+                                        <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 10자 이상 입력해주세요."></textarea>
+                                    </div>
+                                    <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
+                                        <button class="btn btn-primary" type="submit" id="btn_regist">등록</button>
+                                        <button class="btn btn-primary" type="reset">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="div_err_interest" style="display:none"></div>
-    <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">글 등록</button>
-    </div>
-</form>
 </div>
-
 <%@ include file="../../common/footer.jsp"%>
+<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/assets/js/sidebarmenu.js"></script>
+<script src="/resources/assets/js/app.min.js"></script>
+<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
-    const result = {};
-    <c:forEach items="${errors}" var="err">
-        if(document.getElementById("div_err_${err.getField()}") != null){
-            document.getElementById("div_err_${err.getField()}").innerHTML = "<span style='color:red'>${err.defaultMessage}"
-            document.getElementById("div_err_${err.getField()}").style.display= "block"
+    document.querySelector("#btn_regist").addEventListener("click", function (e){
+        e.preventDefault();
+        let title = document.querySelector("#title");
+        let content = document.querySelector("#content");
+
+        if(title.value.length < 2 || title.value == "") {
+            alert("제목은 2자 이상 입력해주세요.");
+            return false;
         }
-        result['${err.getField()}'] = '${err.defaultMessage}';
-    </c:forEach>
 
-    console.log(result);
+        if(content.value.length < 10 || content.value == "") {
+            alert("내용은 10자 이상 입력해주세요.");
+            return false;
+        }
+
+        let frm = document.querySelector("#frm");
+        alert("글이 정상적으로 등록되었습니다.");
+        frm.submit();
+    })
 </script>
-
 </body>
 </html>
