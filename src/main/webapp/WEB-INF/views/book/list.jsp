@@ -25,7 +25,12 @@
             border-bottom: 1px solid #ccc;
             padding-bottom: 15px;
         }
-        .featured__controls ul li.active:after {
+
+        .featured__controls ul li:hover, li:focus {
+            color: #000;
+        }
+
+        .featured__controls ul li:active, li:target {
             background: #007bff !important;
         }
 
@@ -43,6 +48,10 @@
         #search_form {
             display: flex;
             height: 60px;
+        }
+        .featured__controls a {
+            color: #000;
+            text-decoration: none;
         }
     </style>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
@@ -78,11 +87,11 @@
             <div class="col-lg-12">
                 <div class="featured__controls">
                     <ul>
-                        <li class="active" data-filter="*">전체</li>
-                        <li data-filter=".kids">영유아</li>
-                        <li data-filter=".fresh-meat">초등</li>
-                        <li data-filter=".vegetables">중학</li>
-                        <li data-filter=".fastfood">고등</li>
+                        <li><a href="/book/list">전체</a></li>
+                        <li ><a href="/book/list?category=kids">영유아</a></li>
+                        <li><a href="/book/list?category=ele">초등</a></li>
+                        <li><a href="/book/list?category=mid">중학</a></li>
+                        <li><a href="/book/list?category=hi">고등</a></li>
                     </ul>
                 </div>
             </div>

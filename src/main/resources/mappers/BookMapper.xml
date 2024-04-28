@@ -27,6 +27,20 @@
                     </if>
                 </foreach>
             </if>
+            <choose>
+                <when test="category == 'kids'">
+                    lb.category_idx <![CDATA[<]]> 200000
+                </when>
+                <when test="category == 'ele'">
+                    lb.category_idx <![CDATA[>=]]> 200000 and lb.category_idx <![CDATA[<]]> 300000
+                </when>
+                <when test="category == 'mid'">
+                    lb.category_idx <![CDATA[>=]]> 300000 and lb.category_idx <![CDATA[<]]> 400000
+                </when>
+                <when test="category == 'hi'">
+                    lb.category_idx <![CDATA[>=]]> 400000
+                </when>
+            </choose>
             and 1=1
         </where>
     </sql>

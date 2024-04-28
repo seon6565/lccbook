@@ -56,6 +56,7 @@ public class PageRequestDTO {
     private String search_word;
     private String search_date1;
     private String search_date2;
+    private String category;
 
     public void setTotal_count(int total_count) {
         this.total_count = total_count;
