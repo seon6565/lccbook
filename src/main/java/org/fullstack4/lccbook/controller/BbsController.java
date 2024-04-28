@@ -6,7 +6,7 @@ import org.fullstack4.lccbook.dto.*;
 import org.fullstack4.lccbook.service.BbsFileServiceIf;
 import org.fullstack4.lccbook.service.BbsReplyServiceIf;
 import org.fullstack4.lccbook.service.BbsServiceIf;
-import org.fullstack4.lccbook.util.FileUtil;
+import org.fullstack4.lccbook.util.CommonFileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.*;
 import java.util.List;
 
 @Log4j2
@@ -32,7 +31,7 @@ public class BbsController {
     private final BbsServiceIf bbsServiceIf;
     private final BbsReplyServiceIf bbsReplyServiceIf;
     private final BbsFileServiceIf bbsFileServiceIf;
-    private final FileUtil fileUtil;
+    private final CommonFileUtil commonFileUtil;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         log.info("===============================");
@@ -102,7 +101,7 @@ public class BbsController {
 
         String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
         List<String> filenames = null;
-        filenames = fileUtil.fileuploads(files,saveDirectory);;
+        filenames = commonFileUtil.fileuploads(files,saveDirectory);;
         int result = bbsServiceIf.regist(bbsDTO);
         log.info("test result : "+result);
         if(result > 0 ){
@@ -167,44 +166,7 @@ public class BbsController {
     @GetMapping(value = "/fileDownload")
     public void fileDownload(String file_name, HttpServletResponse response, HttpServletRequest request){
         String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
-        String orgFileName = file_name;
-        try{
-            File file = new File(saveDirectory, file_name);
-            InputStream is = new FileInputStream(file);
-            String client = request.getHeader("User-Agent");
-            if(client.indexOf("WOW64") == -1){
-                orgFileName = new String(orgFileName.getBytes("UTF-8"),"ISO-8859-1");
-            }
-            else{
-                orgFileName = new String(orgFileName.getBytes("KSC5601"),"ISO-8859-1");
-            }
-            //출력헤더 설정
-            response.reset();
-            response.setContentType("application/octect-stream");
-            response.setHeader("Content-Disposition","attachment; filename=\""+orgFileName + "\"");
-            response.setHeader("Content-Length",""+file.length());
-
-            //out.clear();
-            //out = pageContext.pushBody();
-
-
-            OutputStream oStream = response.getOutputStream();
-            byte b[] = new byte[(int)file.length()];
-            int readBuffer = 0;
-            while ((readBuffer = is.read(b)) > 0){
-                oStream.write(b,0,readBuffer);
-            }
-            is.close();
-            oStream.close();
-        }
-        catch(FileNotFoundException e){
-            System.out.println("파일을 찾을 수 없습니다.");
-        }
-
-        catch(Exception e){
-            System.out.println("파일 다운로드시 에러 발생");
-            e.printStackTrace();
-        }
+        commonFileUtil.fileDownload(saveDirectory,file_name,response,request);
     }
 
     @GetMapping(value = "/fileDelete")
@@ -213,7 +175,7 @@ public class BbsController {
         String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
         int result = bbsFileServiceIf.delete(file_idx);
         if(result>0) {
-            fileUtil.fileDelite(bbsFileDTO.getFile_directory(), bbsFileDTO.getFile_name());
+            commonFileUtil.fileDelite(bbsFileDTO.getFile_directory(), bbsFileDTO.getFile_name());
         }
         else{
             log.info("파일삭제실패");

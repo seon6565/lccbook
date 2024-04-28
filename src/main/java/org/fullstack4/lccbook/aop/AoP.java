@@ -28,12 +28,12 @@ public class AoP {
 //
     @After("within(org.fullstack4.lccbook..*)")
     public void springAop(JoinPoint jpt){
-        log.info("메소드 끝===============================");
         Signature signature = jpt.getSignature();
         log.info("===============================");
         log.info("JoinPoint 정보 출력 : ");
         log.info("실행 타입 : " + signature.getDeclaringType());
         log.info("실행 메소드 : " + signature.getName());
         log.info("===============================");
+        log.info("메소드 끝===============================");
     }
 }
