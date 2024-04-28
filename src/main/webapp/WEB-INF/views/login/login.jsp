@@ -42,6 +42,7 @@
         </div>
     </div>
     <p style="color: red">${errors}</p>
+    ${errorAlert}
     <div class="d-grid gap-2">
         <button class="btn btn-primary" id="btnLogin">로그인</button>
     </div>

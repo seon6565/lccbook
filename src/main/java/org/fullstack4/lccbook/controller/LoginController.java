@@ -39,7 +39,7 @@ public class LoginController {
     }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String loginPOST(LoginDTO loginDTO,
-                            @RequestParam(name="acc_url", defaultValue = "/bbs/list", required = false) String acc_url,
+                            @RequestParam(name="acc_url", defaultValue = "/", required = false) String acc_url,
                             HttpServletRequest req,
                             Model model,
                             RedirectAttributes redirectAttributes,
@@ -81,13 +81,13 @@ public class LoginController {
                 response.addCookie(cookie4);
             }
             session.setAttribute("memberDTO",LoginMemberDTO);
-            log.info("test" + uri);
-            if(uri.equals("/login/login")){
+            if(req.getServletPath().equals("/login/login")){
                 return "redirect:/";
             }
             return "redirect:"+uri;
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
+        redirectAttributes.addFlashAttribute("errorAlert","<script> alert('사용자 정보가 일치하지 않습니다.') </script>");
         return "redirect:/login/login";
     }
 

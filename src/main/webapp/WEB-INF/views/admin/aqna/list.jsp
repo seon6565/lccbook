@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<%@ include file="../common/header.jsp"%>
+<%@ include file="../../common/header.jsp"%>
 <div class="container">
 <div>
     <form name="frmSearch" id="search" action="/bbs/list">
@@ -88,6 +88,6 @@
     </ul>
 </nav>
 </div>
-<%@ include file="../common/footer.jsp"%>
+<%@ include file="../../common/footer.jsp"%>
 </body>
 </html>
