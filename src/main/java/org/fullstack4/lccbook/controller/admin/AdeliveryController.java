@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping("/admin/delivery")
+@RequestMapping("/admin/adelivery")
 @RequiredArgsConstructor
 public class AdeliveryController {
 
