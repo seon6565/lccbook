@@ -3,7 +3,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="/admin/afaq/list" class="text-nowrap logo-img">
+            <a href="/admin/anotice/list" class="text-nowrap logo-img">
                 <img src="/resources/img/icon2-removebg-preview.png" width="180" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">

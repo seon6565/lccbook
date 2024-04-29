@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -80,19 +81,17 @@
                                         <div class="mb-3">
                                             <label for="company_name" class="form-label">배송회사</label>
                                             <select class="form-select" id="company_name" name="company_name" value="${deliveryDTO.company_name} aria-label="Default select example">
-                                                <option selected disabled>배송회사</option>
-                                                <option value="한진택배">한진택배</option>
-                                                <option value="롯데택배">롯데택배</option>
-                                                <option value="우체국택배">우체국택배</option>
+                                                <option ${deliveryDTO.company_name=="한진택배" ? "selected" : ""} value="한진택배">한진택배</option>
+                                                <option value="롯데택배" ${deliveryDTO.company_name=="롯데택배" ? "selected" : ""}>롯데택배</option>
+                                                <option value="우체국택배" ${deliveryDTO.company_name=="우체국택배" ? "selected" : ""}>우체국택배</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="phone_number" class="form-label">배송회사번호</label>
                                             <select class="form-select" id="phone_number" name="phone_number" value="${deliveryDTO.phone_number} aria-label="Default select example">
-                                                <option selected disabled>배송회사 전화번호</option>
-                                                <option value="한진택배">한진택배 : 02-156-4507</option>
-                                                <option value="롯데택배">롯데택배 : 02-189-5366</option>
-                                                <option value="우체국택배">우체국택배 : 02-666-7894</option>
+                                                <option ${deliveryDTO.phone_number=="한진택배:02-156-4507" ? "selected" : ""} value="한진택배:02-156-4507">한진택배:02-156-4507</option>
+                                                <option ${deliveryDTO.phone_number=="롯데택배:02-189-5366" ? "selected" : ""} value="롯데택배:02-189-5366">롯데택배:02-189-5366</option>
+                                                <option ${deliveryDTO.phone_number=="우체국택배:02-666-7894" ? "selected" : ""} value="우체국택배:02-666-7894">우체국택배:02-666-7894</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
@@ -105,12 +104,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="state" class="form-label">배송상태</label>
-                                            <select class="form-select" id="state" name="state" aria-label="Default select example">
-                                                <option selected disabled>운송상태</option>
-                                                <option value="결제완료">결제완료</option>
-                                                <option value="입고">입고</option>
-                                                <option value="배송중">배송중</option>
-                                                <option value="배송완료">배송완료</option>
+                                            <select class="form-select" id="state" name="state" value="${deliveryDTO.state}" aria-label="Default select example">
+                                                <option ${deliveryDTO.state=="결제완료" ? "selected" : ""} value="결제완료">결제완료</option>
+                                                <option ${deliveryDTO.state=="입고" ? "selected" : ""} value="입고">입고</option>
+                                                <option ${deliveryDTO.state=="배송중" ? "selected" : ""} value="배송중">배송중</option>
+                                                <option ${deliveryDTO.state=="배송완료" ? "selected" : ""} value="배송완료">배송완료</option>
                                             </select>
                                         </div>
                                         <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
@@ -135,7 +133,7 @@
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
     document.querySelector("#btn_regist").addEventListener("click", function(e) {
-        confirm("해당 글을 수정하시겠습니까?");
+        alert("정상적으로 수정되었습니다.");
     });
 </script>
 </body>

@@ -138,12 +138,13 @@ CREATE TABLE IF NOT EXISTS `lcc_bookreview` (
   `review_content` varchar(300) NOT NULL,
   `rating` int(11) DEFAULT 0,
   PRIMARY KEY (`review_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_bookreview:~2 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_bookreview:~3 rows (대략적) 내보내기
 INSERT IGNORE INTO `lcc_bookreview` (`review_idx`, `book_idx`, `user_id`, `reg_date`, `review_content`, `rating`) VALUES
 	(2, 9, 'test', '2024-04-26 15:55:18', '돌잡이로 엄마표수학 시작했어요', 4),
-	(9, 11, '', '2024-04-27 17:49:46', '후기 등록', 0);
+	(9, 11, '', '2024-04-27 17:49:46', '후기 등록', 0),
+	(23, 19, 'test', '2024-04-29 17:15:08', 'asdaaaaaaaaaaaaa', 0);
 
 -- 테이블 lccbook.lcc_cart 구조 내보내기
 DROP TABLE IF EXISTS `lcc_cart`;
@@ -259,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `lcc_delivery` (
 
 -- 테이블 데이터 lccbook.lcc_delivery:~1 rows (대략적) 내보내기
 INSERT IGNORE INTO `lcc_delivery` (`delivery_idx`, `company_name`, `phone_number`, `start_date`, `end_date`, `delivery_number`, `state`, `create_date`, `update_date`) VALUES
-	(2, '회사이름', '010-1111-1111', NULL, NULL, 5465, '입고', '2024-04-25 21:27:31', NULL);
+	(2, '우체국택배', '롯데택배:02-189-5366', '2024-04-12 00:00:00', '2024-04-19 00:00:00', 5465, '배송중', '2024-04-25 21:27:31', '2024-04-29 16:42:58');
 
 -- 테이블 lccbook.lcc_faq 구조 내보내기
 DROP TABLE IF EXISTS `lcc_faq`;
@@ -269,11 +270,10 @@ CREATE TABLE IF NOT EXISTS `lcc_faq` (
   `faq_title` varchar(20) NOT NULL,
   `answer_content` varchar(1000) NOT NULL,
   PRIMARY KEY (`faq_idx`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_faq:~9 rows (대략적) 내보내기
 INSERT IGNORE INTO `lcc_faq` (`faq_idx`, `faq_content`, `faq_title`, `answer_content`) VALUES
-	(3, 'faq내용', 'faq제목', '답변내용'),
 	(4, '아이디와 비밀번호 확인은 어디서 하나요?', '아이디/비밀번호찾기', '홈페이지에서는 [아이디/비밀번호 찾기]를 통해 확인이 가능합니다.'),
 	(5, '이벤트 당첨 확인은 어디서 하나요?', '이벤트', '이벤트 당첨자 확인은 [쇼핑이벤트] > [당첨자발표] 또는 홈페이지 [공지사항]에서 확인이 가능합니다.'),
 	(6, 'SMS 문자 서비스를 해지하고 싶어요.', '이벤트', 'SMS 문자 서비스는 [마이페이지] > [회원정보] > [회원정보수정] 에서 해지가 가능합니다.'),
@@ -281,7 +281,8 @@ INSERT IGNORE INTO `lcc_faq` (`faq_idx`, `faq_content`, `faq_title`, `answer_con
 	(8, '배송비는 얼마인가요?', '배송비', '1만 5천원 이상 구매 시 무료배송이고, 1만 5천원 미만 구매 시 2,500원 입니다. '),
 	(9, '비회원일 경우, 결제 영수증 발급은 어디에서 하나요?', '결제/입금확인', '홈페이지 상단 카테고리 > 마이페이지 > 주문배송조회 > 비회원 주문 조회화면 이동 '),
 	(10, '비회원일 경우, 구매내역 확인은 어디에서 하나요?', '주문/배송', '홈페이지 상단 카테고리 > 마이페이지 > 주문배송조회 > 비회원 주문 조회화면 이동 하신 후'),
-	(11, '교사용 교재를 구하고 싶어요', '초등', '교사용 교재는 지역 총판에서 영업용으로 사용하는 것으로 따로 판매하지 않으며 담당 총판을 통해 구하실 수 있습니다.  ');
+	(11, '교사용 교재를 구하고 싶어요', '초등', '교사용 교재는 지역 총판에서 영업용으로 사용하는 것으로 따로 판매하지 않으며 담당 총판을 통해 구하실 수 있습니다.  '),
+	(12, '배송 관련 질문드려요', '배송비', 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ이번이 진짜');
 
 -- 테이블 lccbook.lcc_instock 구조 내보내기
 DROP TABLE IF EXISTS `lcc_instock`;
@@ -322,15 +323,15 @@ INSERT IGNORE INTO `lcc_member` (`member_idx`, `user_id`, `pwd`, `name`, `email`
 DROP TABLE IF EXISTS `lcc_notice`;
 CREATE TABLE IF NOT EXISTS `lcc_notice` (
   `notice_idx` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(500) NOT NULL,
+  `content` varchar(700) NOT NULL,
   `title` varchar(20) NOT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   `notice_state` char(1) NOT NULL DEFAULT 'Y',
   `modify_date` datetime DEFAULT NULL,
   PRIMARY KEY (`notice_idx`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_notice:~206 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_notice:~196 rows (대략적) 내보내기
 INSERT IGNORE INTO `lcc_notice` (`notice_idx`, `content`, `title`, `reg_date`, `notice_state`, `modify_date`) VALUES
 	(4, '공지1', '공지1', '2024-04-28 10:32:45', 'Y', NULL),
 	(5, '공지2', '공지2', '2024-04-28 10:32:45', 'Y', NULL),
@@ -466,8 +467,7 @@ INSERT IGNORE INTO `lcc_notice` (`notice_idx`, `content`, `title`, `reg_date`, `
 	(135, '게시글 내용 126', '게시글 제목 126', '2024-04-28 10:41:15', 'Y', NULL),
 	(136, '게시글 내용 127', '게시글 제목 127', '2024-04-28 10:41:15', 'Y', NULL),
 	(137, '게시글 내용 128', '게시글 제목 128', '2024-04-28 10:41:15', 'Y', NULL),
-	(138, '게시글 내용 129', '게시글 제목 129', '2024-04-28 10:41:16', 'Y', NULL),
-	(139, '게시글 내용 130', '게시글 제목 130', '2024-04-28 10:41:16', 'Y', NULL),
+	(139, '게시글 내용 130', '게시글 제목 130 수정', '2024-04-28 10:41:16', 'Y', '2024-04-29 10:22:01'),
 	(140, '게시글 내용 131', '게시글 제목 131', '2024-04-28 10:41:16', 'Y', NULL),
 	(141, '게시글 내용 132', '게시글 제목 132', '2024-04-28 10:41:16', 'Y', NULL),
 	(142, '게시글 내용 133', '게시글 제목 133', '2024-04-28 10:41:16', 'Y', NULL),
@@ -528,16 +528,21 @@ INSERT IGNORE INTO `lcc_notice` (`notice_idx`, `content`, `title`, `reg_date`, `
 	(197, '게시글 내용 188', '게시글 제목 188', '2024-04-28 10:41:16', 'Y', NULL),
 	(198, '게시글 내용 189', '게시글 제목 189', '2024-04-28 10:41:16', 'Y', NULL),
 	(199, '게시글 내용 190', '게시글 제목 190', '2024-04-28 10:41:16', 'Y', NULL),
-	(200, '게시글 내용 191', '게시글 제목 191', '2024-04-28 10:41:16', 'Y', NULL),
-	(201, '게시글 내용 192', '게시글 제목 192', '2024-04-28 10:41:16', 'Y', NULL),
-	(202, '게시글 내용 193', '게시글 제목 193', '2024-04-28 10:41:16', 'Y', NULL),
-	(203, '게시글 내용 194', '게시글 제목 194', '2024-04-28 10:41:16', 'Y', NULL),
-	(204, '게시글 내용 195', '게시글 제목 195', '2024-04-28 10:41:16', 'Y', NULL),
-	(205, '게시글 내용 196', '게시글 제목 196', '2024-04-28 10:41:16', 'Y', NULL),
-	(206, '게시글 내용 197', '게시글 제목 197', '2024-04-28 10:41:16', 'Y', NULL),
-	(207, '게시글 내용 198', '게시글 제목 198', '2024-04-28 10:41:16', 'Y', NULL),
-	(208, '게시글 내용 199', '게시글 제목 199', '2024-04-28 10:41:16', 'Y', NULL),
-	(209, '게시글 내용 200', '게시글 제목 200', '2024-04-28 10:41:16', 'Y', NULL);
+	(200, '게시글 내용 191', '게시글 제목 191', '2024-04-28 10:41:16', 'Y', NULL);
+
+-- 테이블 lccbook.lcc_order 구조 내보내기
+DROP TABLE IF EXISTS `lcc_order`;
+CREATE TABLE IF NOT EXISTS `lcc_order` (
+  `order_idx` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_idx` int(11) NOT NULL,
+  `product_idx` int(11) NOT NULL,
+  `sale_price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  PRIMARY KEY (`order_idx`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 테이블 데이터 lccbook.lcc_order:~0 rows (대략적) 내보내기
 
 -- 테이블 lccbook.lcc_outstock 구조 내보내기
 DROP TABLE IF EXISTS `lcc_outstock`;
@@ -556,10 +561,6 @@ DROP TABLE IF EXISTS `lcc_payment`;
 CREATE TABLE IF NOT EXISTS `lcc_payment` (
   `payment_idx` int(11) NOT NULL AUTO_INCREMENT,
   `product_idx` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
-  `product_name` varchar(50) NOT NULL,
   `user_id` varchar(50) NOT NULL,
   `recipient_name` varchar(20) DEFAULT NULL,
   `recipient_phone` varchar(20) DEFAULT NULL,
@@ -575,9 +576,9 @@ CREATE TABLE IF NOT EXISTS `lcc_payment` (
   PRIMARY KEY (`payment_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_payment:~1 rows (대략적) 내보내기
-INSERT IGNORE INTO `lcc_payment` (`payment_idx`, `product_idx`, `price`, `quantity`, `total`, `product_name`, `user_id`, `recipient_name`, `recipient_phone`, `payment_method`, `payment_company`, `payment_number`, `payment_amount`, `payment_status`, `payment_date`, `recipient_addr`, `recipient_addrnum`, `order_state`) VALUES
-	(2, 2, 777, 888, 9999, '동화책임', 'test', '최세아친구', '010-7777-7777', '카드', '주식회사', 2312321, 9999, '판매중', '2024-04-25 21:27:31', '수신자 주소', 2323, '입고전');
+-- 테이블 데이터 lccbook.lcc_payment:~0 rows (대략적) 내보내기
+INSERT IGNORE INTO `lcc_payment` (`payment_idx`, `product_idx`, `user_id`, `recipient_name`, `recipient_phone`, `payment_method`, `payment_company`, `payment_number`, `payment_amount`, `payment_status`, `payment_date`, `recipient_addr`, `recipient_addrnum`, `order_state`) VALUES
+	(2, 2, 'test', '최세아친구', '010-7777-7777', '카드', '주식회사', 2312321, 9999, '판매중', '2024-04-25 21:27:31', '수신자 주소', 2323, '입고전');
 
 -- 테이블 lccbook.lcc_qna 구조 내보내기
 DROP TABLE IF EXISTS `lcc_qna`;

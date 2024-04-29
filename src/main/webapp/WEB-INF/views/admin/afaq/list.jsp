@@ -71,23 +71,21 @@
                     <div class="card">
                         <div class="card-body">
                             <div style="display: flex; justify-content: space-between;margin-bottom: 15px;">
-                                <h5 class="card-title fw-semibold mb-4">공지사항</h5>
+                                <h5 class="card-title fw-semibold mb-4">FAQ</h5>
                                 <button class="btn btn-primary" type="button" onclick="location.href='/admin/afaq/regist'">글 등록</button>
                             </div>
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <form name="frm" name="frm" action="/admin/afaq/delete" method="post">
-                                        <input type="hidden" id="faq_idx" name="faq_idx" value="${faqList[faq_idx]}">
+                                    <form id="frm" name="frm" action="/admin/afaq/deleteCheck" method="post">
                                         <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
-                                            <button class="btn btn-primary" id="btn_modify" type="button">수정</button>
-                                            <button class="btn btn-primary" id="btn_delete" type="submit">삭제</button>
+                                            <button class="btn btn-primary" id="btn_delete" type="submit" onclick="godelete(event)">삭제</button>
                                         </div>
                                     <div class="accordion accordion-flush" id="accordionFlushExample">
                                         <c:forEach items="${responseDTO.dtoList}" var="list">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                    <input type="checkbox" id="${list.faq_idx}" value="${list.faq_idx}" style="margin-right: 5px;"/>
+                                                    <input type="checkbox" id="faq_idx" name="faq_idx" value="${list.faq_idx}" style="margin-right: 5px;"/>
                                                     <span style="font-size: small">Q. [${list.faq_title}]</span>
                                                     ${list.faq_content}
                                                 </button>
@@ -142,20 +140,16 @@
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
-    document.querySelector("#btn_modify").addEventListener("click", function(e) {
+    function godelete(e) {
         e.preventDefault();
-        if(confirm("해당 글을 수정하시겠습니까?")){
-            location.href='/admin/afaq/modify?faq_idx=${faqList.faq_idx}';
-        };
-    });
-
-    document.querySelector("#btn_delete").addEventListener("click", function (e) {
-        e.preventDefault();
-        if(confirm("해당 글을 정말 삭제하시겠습니까?")){
-            document.querySelector("#frm").submit();
+        if(confirm("해당 글을 정말 삭제하시겠습니까?")) {
+            alert("삭제되었습니다.");
+            document.getElementById("frm").submit();
+        } else {
+            return false;
         }
+    }
 
-    });
 </script>
 </body>
 </html>

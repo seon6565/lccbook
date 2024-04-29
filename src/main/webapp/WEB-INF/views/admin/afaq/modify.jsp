@@ -82,13 +82,13 @@
                                             <label for="faq_title" class="form-label">Q. 카테고리</label>
                                             <select class="form-select" id="faq_title" name="faq_title" aria-label="Default select example">
                                                 <option selected>전체</option>
-                                                <option value="아이디/비밀번호찾기">아이디/비밀번호찾기</option>
-                                                <option value="회원가입/회원탈퇴">회원가입/회원탈퇴</option>
-                                                <option value="주문/배송">주문/배송</option>
-                                                <option value="결제/입금확인">결제/입금확인</option>
-                                                <option value="배송비">배송비</option>
-                                                <option value="이벤트">이벤트</option>
-                                                <option value="초등">초등</option>
+                                                <option ${faq.faq_title=="아이디/비밀번호찾기" ? "selected" : ""} value="아이디/비밀번호찾기">아이디/비밀번호찾기</option>
+                                                <option ${faq.faq_title=="회원가입/회원탈퇴" ? "selected" : ""} value="회원가입/회원탈퇴">회원가입/회원탈퇴</option>
+                                                <option ${faq.faq_title=="주문/배송" ? "selected" : ""} value="주문/배송">주문/배송</option>
+                                                <option ${faq.faq_title=="결제/입금확인" ? "selected" : ""} value="결제/입금확인">결제/입금확인</option>
+                                                <option ${faq.faq_title=="배송비" ? "selected" : ""} value="배송비">배송비</option>
+                                                <option ${faq.faq_title=="이벤트" ? "selected" : ""} value="이벤트">이벤트</option>
+                                                <option ${faq.faq_title=="초등" ? "selected" : ""} value="초등">초등</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
