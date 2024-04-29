@@ -25,8 +25,6 @@ public class BbsDTO {
     @PositiveOrZero
     @Min(value=0)
     private int read_cnt=0;
-    @PastOrPresent
-    @NotNull
     private LocalDate display_date;
     private LocalDate reg_date;
     private LocalDate modify_date;
