@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/resources/js/valueCheck.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -50,16 +51,16 @@
     </div>
     <div class="mb-3">
         <label for="addr_number" class="form-label">우편번호</label>
-        <input type="text" class="form-control" name="addr_number" id="addr_number" value="${memberDTO.addr_number}" onkeyup="checkInputAddrNumber('addr_number','div_err_addr_number')">
+        <input type="text" class="form-control" name="addr_number" id="addr_number" onclick="addressSearch()" value="${memberDTO.addr_number}" readonly>
         <div class="form-text" id="div_err_addr_number" style="display:none; color:red">우편번호 5자리숫자를 입력해 주세요.</div>
     </div>
     <div class="mb-3">
-        <label for="addr1" class="form-label">주소1</label>
-        <input type="text" class="form-control" name="addr1" id="addr1" value="${memberDTO.addr1}" onkeyup="checkInputCommon('addr1','div_err_addr1')">
+        <label for="addr1" class="form-label">주소</label>
+        <input type="text" class="form-control" name="addr1" id="addr1" value="${memberDTO.addr1}" onclick="addressSearch()" readonly>
         <div class="form-text" id="div_err_addr1" style="display:none; color:red">주소는 한글로 입력해 주세요.</div>
     </div>
     <div class="mb-3">
-        <label for="addr2" class="form-label">주소2</label>
+        <label for="addr2" class="form-label">상세주소</label>
         <input type="text" class="form-control" name="addr2" id="addr2" value="${memberDTO.addr2}" onkeyup="checkInputCommon('addr2','div_err_addr2')">
         <div class="form-text" id="div_err_addr2" style="display:none; color:red">주소는 한글로 입력해 주세요.</div>
     </div>
@@ -82,6 +83,16 @@
     console.log(result);
     <%--console.log(${errors});--%>
     <%--errorMessage(${errors});--%>
+</script>
+<script>
+    function addressSearch() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.getElementById("addr_number").value =data.zonecode;
+                document.getElementById("addr1").value = data.address;
+            }
+        }).open();
+    }
 </script>
 
 </body>
