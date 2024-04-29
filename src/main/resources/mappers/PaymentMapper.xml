@@ -7,12 +7,9 @@
 
 
     <insert id="regist">
-        insert into lcc_payment(product_idx,price,quantity,total,product_name , user_id, recipient_name,recipient_phone ,payment_method ,payment_company ,payment_number
-        , payment_amount,payment_status ,recipient_addr ,recipient_addrnum ,order_state )
+        insert into lcc_payment(order_idx, user_id,total_sale_price )
 
-        values (#{product_idx},#{price},#{quantity},#{total}
-        ,#{product_name} ,#{user_id} ,#{recipient_name} ,#{recipient_phone} ,#{payment_method} ,#{payment_company} ,#{payment_number} ,#{payment_amount} ,#{payment_status}
-        ,#{recipient_addr} ,#{recipient_addrnum} ,#{order_state} )
+        values (#{order_idx},#{user_id},#{quantity},#{total_sale_price})
     </insert>
 
 

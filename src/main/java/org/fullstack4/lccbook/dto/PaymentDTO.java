@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class PaymentDTO
 {
 
-    private int payment_idx;
+  /*  private int payment_idx;
     private int product_idx;
     private int price;
     private int quantity;
@@ -31,5 +31,16 @@ public class PaymentDTO
     private LocalDate payment_date;
     private String recipient_addr;
     private int recipient_addrnum;
-    private String order_state;
+    private String order_state;*/
+
+
+    private int payment_idx;
+    private int order_idx;
+    private String user_id;
+    private String payment_method;
+    private String payment_company;
+    private int payment_number;
+    private int total_sale_price;
+    private String payment_status;
+    private LocalDate payment_date;
 }
