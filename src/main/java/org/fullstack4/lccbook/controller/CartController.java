@@ -35,9 +35,6 @@ public class CartController {
              RedirectAttributes redirectAttributes
             , Model model) {
 
-
-        System.out.println("book list get method");
-
         List<CartDTO> cartList = cartServiceIf.list();
 
         cartList.forEach(list -> System.out.println("quantity : " +list.getQuantity()));

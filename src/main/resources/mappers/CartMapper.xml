@@ -23,16 +23,22 @@
 
     <!-- book_name같은 경우는 join으로 book테이블에서 가져와야함 -->
     <select id="view" resultType="org.fullstack4.lccbook.domain.CartVO">
-        select user_id,book_idx,quantity,cart_regdate,checked
-        from lcc_cart
-        where cart_idx=#{cart_idx}
+        select A.cart_idx,A.user_id,A.book_idx,A.quantity,A.cart_regdate,A.checked,B.book_name,B.book_img,B.sale_price,B.price,A.total_price,A.total_sale_price
+        from lcc_cart AS A
+        INNER JOIN lcc_book AS B ON A.book_idx = B.book_idx
+        where cart_idx =#{cart_idx}
+        order by cart_idx desc
     </select>
 
     <!-- 카트에 담은 책 수량 변경 -->
     <update id="modify">
-        update lcc_cart
-        set quantity=#{quantity}
-        where book_idx=#{book_idx} and cart_idx=#{cart_idx}
+        update lcc_cart as A
+        inner join lcc_book as B
+        ON A.book_idx = B.book_idx
+        set A.quantity=#{quantity},
+        A.total_price = B.price * ${quantity},
+        A.total_sale_price = B.sale_price * ${quantity}
+        where cart_idx=#{cart_idx}
     </update>
 
     <delete id="delete">
@@ -52,5 +58,9 @@
         select count(*) from lcc_cart
         where user_id = #{user_id} and book_idx = #{book_idx}
     </select>
+
+ <!--   &lt;!&ndash; 장바구니 -> 주문하기 목록 &ndash;&gt;
+    <select id="cartOrderList" resultType="org.fullstack4.lccbook.domain.CartVO-->
+
 
 </mapper>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -7,87 +8,167 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <link href="/resources/css/payment/style.css" rel="stylesheet">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <style>
+        .origin_price{
+            font-size:14px;
+            color: gray;
+        }
+        .sale_price{
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<div class="container">
-<div>
-    <form name="frmSearch" id="search" action="/bbs/list">
-        <div class="input-group mb-1">
-            <span class="input-group-text ">검색범위</span>
-            <div class="input-group-text">
-                <div class="form-check form-switch form-check-inline" >
-                    <label class="form-check-label" for="search_type_0">제목</label>
-                    <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0}>
-                </div>
-                <div class="form-check form-switch form-check-inline" >
-                    <label class="form-check-label" for="search_type_1">작성자</label>
-                    <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
-                </div>
-            </div>
-        <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
-        </div>
-        <div class="input-group mb-1">
-            <span class="input-group-text">검색기간</span>
-            <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
-            <span class="input-group-text">~</span>
-            <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
-        </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-            <button class="btn btn-outline-primary" type="submit">검색</button>
-            <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/bbs/list'">검색 초기화</button>
-        </div>
-    </form>
-</div>
-<ul class="list-group">
-    <c:forEach var="list" items="${responseDTO.dtoList}">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">
-                </div>
-                <div class="col-md-10">
-                    <a class="text-break text-decoration-none text-muted" href="/bbs/view${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">
-                        <div class="card-body">
-                            <h5 class="card-title">${list.title}</h5>
-                            <p class="card-text">${list.content}</p>
-                            <p class="card-text"><small class="text-body-secondary">${list.reg_date}</small></p>
+<div class="untree_co-section">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">배송지</h2>
+                <div class="p-3 p-lg-5 border bg-white">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_fname" class="text-black"> 성함 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="c_fname" name="c_fname">
                         </div>
-                    </a>
+
+                    </div>
+                    <br>
+
+                    <div class="form-group row">
+                        <div class="col-md-9">
+                            <label for="inputAddress" class="text-black">주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="inputAddress"name="addr1" onclick="address();" >
+                        </div>
+                        <div class="col-md-3">
+                            <label for="post_number" class="text-black">우편번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="post_number" name="post_number"  >
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group mt-3">
+                        <label for="recipient_addr2" class="text-black">상세 주소 <span class="text-danger">*</span></label>
+                        <input type="text" id="recipient_addr2" name="recipient_addr2" class="form-control" >
+                    </div>
+
+                    <br>
+
+                    <div class="form-group row mb-5">
+                        <div class="col-md-6">
+                            <label for="c_email_address" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="c_phone" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="-를 빼고 입력해주세요.">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="c_order_notes" class="text-black">배송 메모</label>
+                        <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
+                    </div>
+
                 </div>
             </div>
+            <div class="col-md-6">
+
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-3 text-black">주문 상품</h2>
+                        <div class="p-3 p-lg-5 border bg-white">
+                            <table class="table site-block-order-table mb-5">
+                                <thead>
+                                <th>상품</th>
+                                <th>금액</th>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${cartList}" var="list">
+                                <tr>
+
+                                    <td > <img src="${list.book_img}" alt="" width="100" height="100">  ${list.book_name} <strong class="mx-2">x ${list.quantity} </strong></td>
+                                    <td><br><br><br><del class="origin_price"><fmt:formatNumber value="${list.price * list.quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${list.sale_price * list.quantity}"/>원</span></td>
+                                  <%--  <td><input type="hidden" name="product_name" value="${list.cartId}"/></td>--%>
+                                </tr>
+
+                                    </c:forEach>
+
+                                </tr>
+
+                                <tr>
+                                    <c:set var="totalPrice" value="0"/>
+                                    <c:forEach items="${cartList}" var="list">
+                                        <c:set var="totalPrice" value="${list.total_sale_price + totalPrice}"></c:set>
+                                    </c:forEach>
+                                    <c:set var="delivery_fee" value="0"/>
+                                    <c:choose>
+                                        <c:when test="${totalPrice >= 15000}">
+                                            <c:set var="delivery_fee" value="0"></c:set>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="delivery_fee" value="2500"></c:set>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <td class="text-black font-weight-bold"><strong>배송비</strong></td>
+                                    <td class="text-black">${delivery_fee}원</td>
+                                </tr>
+                                    <c:set var="total_price" value="${delivery_fee + totalPrice}"></c:set>
+                                <tr>
+                                    <td class="text-black font-weight-bold"><strong>총 주문 금액</strong></td>
+                                    <td class="text-black font-weight-bold"><strong style="color:rgb(40,95,177)"><fmt:formatNumber value="${total_price}"/>원</strong></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <span>결제수단</span><br><br>
+                            <div class="border p-3 mb-3">
+                                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">무통장입금</a></h3>
+
+
+                            </div>
+
+
+
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <input type="submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </c:forEach>
-</ul>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-        <button class="btn btn-outline-primary" type="button" onclick="location.href='/bbs/regist'">등록</button>
+        <!-- </form> -->
     </div>
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item
-        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-        </li>
-        <c:forEach begin="${responseDTO.page_block_start}"
-                   end="${responseDTO.page_block_end}"
-                   var="page_num">
-            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                <a class="page-link" data-num="${page_num}"
-                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-            </li>
-        </c:forEach>
-        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-        </li>
-    </ul>
-</nav>
 </div>
+<script>
+
+
+    function address() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                if(data.userSelectedType == "R"){
+                    document.querySelector("#inputAddress").value= data.roadAddress;
+                    document.querySelector("#post_number").value=data.zonecode;
+
+                }
+                else{
+                    document.querySelector("#inputAddress").value= data.jibunAddress;
+                }
+            }
+        }).open();
+    }
+    //data.zonecode; //우편번호
+</script>
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>

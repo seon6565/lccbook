@@ -42,15 +42,18 @@ public class CartServiceImpl implements CartServiceIf{
 
     @Override
     public CartDTO view(int idx) {
+
+
         CartVO cartVO = cartMapper.view(idx);
         CartDTO cartDTO = modelMapper.map(cartVO,CartDTO.class);
         return cartDTO;
     }
 
+
+
     @Override
-    public int modify(CartDTO cartDTO) {
-        CartVO cartVO = modelMapper.map(cartDTO, CartVO.class);
-        int result = cartMapper.modify(cartVO);
+    public int modify(int cart_idx, int quantity,int book_idx) {
+        int result = cartMapper.modify(cart_idx,quantity,book_idx);
 
         return result;
     }
@@ -66,4 +69,6 @@ public class CartServiceImpl implements CartServiceIf{
         int result = cartMapper.checkBookExists(cartVO);
         return result;
     }
+
+
 }

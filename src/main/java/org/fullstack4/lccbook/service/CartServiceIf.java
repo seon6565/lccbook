@@ -8,10 +8,12 @@ public interface CartServiceIf {
     int regist(CartDTO CartDTO);
     List<CartDTO> list();
     CartDTO view(int idx);
-    int modify(CartDTO cartDTO);
+    int modify(int cart_idx, int quantity,int book_idx) ;
     int delete(int idx);
 
     int checkBookExists(CartDTO cartDTO);
+
+
 
 
 

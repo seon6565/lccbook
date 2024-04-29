@@ -77,7 +77,8 @@
 <%@ include file="../common/header.jsp"%>
 <div class="container">
     <div>
-        <form id="frm" class="frm" method="post" >
+        <form id="frm" class="frm" method="get" action="/payment/list" >
+
         <section class="shoping-cart spad">
             <div class="container">
                 <div class="row">
@@ -102,9 +103,12 @@
 
                                 <c:forEach items="${cartList}" var="list" varStatus="status">
 
+
                                     <tr>
                                         <td style="width: 20px ">
                                             <input name="product_id[]" class="product_check" id="product_check${status.count}" data-cart_idx="${list.cart_idx}" type="checkbox" checked/>
+                                            <input type="hidden" name="cart_idx" id="cart_idx${status.count}" value ="${list.cart_idx}"/>
+                                            <input type="hidden" name="book_idx" id="book_idx${list.book_idx}" value="${list.book_idx}"/>
                                         </td>
                                         <td class="shoping__cart__item">
                                             <img src="${list.book_img}" alt="" width="100" height="100">
@@ -115,10 +119,10 @@
                                             <span id="sale_price${status.count}"> <fmt:formatNumber value="${list.sale_price}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
                                         </td>
                                         <td class="shoping__cart__quantity">
-                                            <div class="quantity">
+                                            <div class="quantity1">
                                                 <div class="pro-qty">
                                                     <span id="quantity_minus" class="dec qtybtn" data-index="${status.count}">-</span>
-                                                    <input type="text" id="quantity" name="quantity" value="${list.quantity}" data-index="${status.count}">
+                                                    <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}">
 
                                                     <span id="quantity_plus" class="dec qtybtn" data-index="${status.count}">+</span>
                                                 </div>
@@ -167,19 +171,19 @@
                                 <h5>총 상품금액</h5>
                                 <ul>
                                     <li>선택상품금액 <label>
-                                        <input type="text" id="select_value" class="select_value" value="" readonly>
+                                        <input type="text" name ="select_value" id="select_value" class="select_value" value="" readonly>
                                     </label></li>
                                     <li>배송비 <label>
-                                        <input type="text" id="delivery_fee" class="select_value" value="2,500원" readonly>
+                                        <input type="text" name="delivery_fee" id="delivery_fee" class="select_value" value="2,500원" readonly>
                                     </label></li>
                                     <li>할인금액 <label>
-                                        <input type="text" id="discount" class="select_value" value="" readonly>
+                                        <input type="text" name="discount" id="discount" class="select_value" value="" readonly>
                                     </label></li>
                                     <li>주문금액<label for="total_order"></label>
-                                        <input type="text" id="total_order" class="select_value" value="" readonly></li>
+                                        <input type="text" name="total_order" id="total_order" class="select_value" value="" readonly></li>
                                 </ul>
                                 <%-- <a href="#" id="order_butto n1" class="primary-btn" style="background:gray">선택상품주문</a> <br>--%>
-                                <input id="order_submit" type="button" class="primary-btn" value="주문하기">
+                                <input id="order_submit" type="submit" class="primary-btn" value="주문하기">
 
                             </div>
 
@@ -216,7 +220,7 @@
         document.querySelectorAll('.dec.qtybtn').forEach(button => {
             button.addEventListener('click', function () {
                 const index = this.getAttribute('data-index'); // 현재 버튼의 data-index 값을 가져옵니다.
-                const quantityInput = document.querySelector('input[name="quantity"][data-index="' + index + '"]');
+                const quantityInput = document.querySelector('input[class="quantity"][data-index="' + index + '"]');
                 var quantity = parseInt(quantityInput.value);
 
                 if (this.id === 'quantity_minus' && quantity > 1) {
@@ -328,6 +332,15 @@
 
         });
     }
+
+    //주문하기
+   /* const order_submit = document.querySelector("#order_submit");
+    order_submit.addEventListener("click",function (e){
+       e.preventDefault();
+        e.method="GET";
+        location.href='/payment/list';
+
+    });*/
 
 
 
