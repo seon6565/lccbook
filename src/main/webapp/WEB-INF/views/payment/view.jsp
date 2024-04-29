@@ -22,8 +22,16 @@
     <span class="form-control">${paymentDTO.user_id}</span>
 </div>
 <div class="mb-3">
-    가격
-    <span class="form-control"> ${paymentDTO.price} </span>
+    상품명
+    <span class="form-control"> ${paymentDTO.product_name} </span>
+</div>
+<div class="mb-3">
+    수량
+    <span class="form-control"> ${paymentDTO.quantity} </span>
+</div>
+<div class="mb-3">
+    총가격
+    <span class="form-control"> ${paymentDTO.total} </span>
 </div>
 
 <%@ include file="../common/footer.jsp"%>
