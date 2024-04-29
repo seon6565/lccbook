@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-04-17
-  Time: 오전 9:30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -14,76 +7,136 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
 <body>
-<%@ include file="../../common/header.jsp"%>
 <div class="container">
-<form name="frmModify" id="frmModify" method="post" action="/bbs/modify">
-    <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
-    <div class="mb-3">
-        <label for="user_id" class="form-label">아이디</label>
-        <input type="text" class="form-control" name="user_id" id="user_id" value="${bbsDTO.user_id}" readonly>
-        <div id="div_err_user_id" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="user_id" class="form-label">제목</label>
-        <input type="text" class="form-control" name="title" id="title" value="${bbsDTO.title}">
-        <div id="div_err_title" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="content" class="form-label">내용</label>
-        <textarea class="form-control" name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
-        <div id="div_err_content" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="display_date" class="form-label">출력날짜</label>
-        <input type="date" class="form-control" name="display_date" id="display_date" value="${bbsDTO.display_date}">
-        <div id="div_err_display_date" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <div class="form-check form-switch form-check-inline" >
-            <label class="form-check-label" for="interest_0">스포츠</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_0" value="스포츠"
-            <c:out value="${bbsDTO.interest.contains(\"스포츠\")?'checked':''}"/>>
-
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <%@ include file="../../common/adminsidebar.jsp"%>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <header class="app-header">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-block d-xl-none">
+                            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                                <i class="ti ti-menu-2"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                                <i class="ti ti-bell-ringing"></i>
+                                <div class="notification bg-primary rounded-circle"></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                            <a href="/faq/list" target="_blank" class="btn btn-primary">Home</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-user fs-6"></i>
+                                            <p class="mb-0 fs-3">My Profile</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-mail fs-6"></i>
+                                            <p class="mb-0 fs-3">My Account</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-list-check fs-6"></i>
+                                            <p class="mb-0 fs-3">My Task</p>
+                                        </a>
+                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!--  Header End -->
+            <div class="container-fluid">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between;margin-bottom: 15px;">
+                                <h5 class="card-title fw-semibold mb-4">배송관리</h5>
+                            </div>
+                            <form id="frm" action="/admin/adelivery/modify" method="post">
+                                <input type="hidden" name="delivery_idx" id="delivery_idx" value="${deliveryDTO['delivery_idx']}"/>
+                                <div class="card">
+                                    <div class="card-body p-4">
+                                        <div class="mb-3">
+                                            <label for="company_name" class="form-label">배송회사</label>
+                                            <select class="form-select" id="company_name" name="company_name" value="${deliveryDTO.company_name} aria-label="Default select example">
+                                                <option selected disabled>배송회사</option>
+                                                <option value="한진택배">한진택배</option>
+                                                <option value="롯데택배">롯데택배</option>
+                                                <option value="우체국택배">우체국택배</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phone_number" class="form-label">배송회사번호</label>
+                                            <select class="form-select" id="phone_number" name="phone_number" value="${deliveryDTO.phone_number} aria-label="Default select example">
+                                                <option selected disabled>배송회사 전화번호</option>
+                                                <option value="한진택배">한진택배 : 02-156-4507</option>
+                                                <option value="롯데택배">롯데택배 : 02-189-5366</option>
+                                                <option value="우체국택배">우체국택배 : 02-666-7894</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="start_date" class="form-label">배송출발일</label>
+                                            <input type="date" class="form-control" name="start_date" id="start_date" value="${deliveryDTO.start_date}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="end_date" class="form-label">배송도착일</label>
+                                            <input type="date" class="form-control" name="end_date" id="end_date" value="${deliveryDTO.end_date}">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="state" class="form-label">배송상태</label>
+                                            <select class="form-select" id="state" name="state" aria-label="Default select example">
+                                                <option selected disabled>운송상태</option>
+                                                <option value="결제완료">결제완료</option>
+                                                <option value="입고">입고</option>
+                                                <option value="배송중">배송중</option>
+                                                <option value="배송완료">배송완료</option>
+                                            </select>
+                                        </div>
+                                        <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
+                                            <button class="btn btn-primary" type="submit" id="btn_regist">등록</button>
+                                            <button class="btn btn-primary" type="reset">취소</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_1">여행</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_1" value="여행"
-            <c:out value="${bbsDTO.interest.contains(\"여행\")?'checked':''}"/>>
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_2">영화</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_2" value="영화"
-            <c:out value="${bbsDTO.interest.contains(\"영화\")?'checked':''}"/>>
-
-        </div>
-        <div class="form-check form-switch form-check-inline">
-            <label class="form-check-label" for="interest_3">음악</label>
-            <input class="form-check-input" type="checkbox" role="switch" name="interest" id="interest_3" value="음악"
-            <c:out value="${bbsDTO.interest.contains(\"음악\")?'checked':''}"/>>
-        </div>
-        <div id="div_err_interest" style="display:none"></div>
     </div>
-    <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit">글 수정</button>
-    </div>
-</form>
 </div>
 <%@ include file="../../common/footer.jsp"%>
+<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/assets/js/sidebarmenu.js"></script>
+<script src="/resources/assets/js/app.min.js"></script>
+<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
-    const result = {};
-    <c:forEach items="${errors}" var="err">
-    if(document.getElementById("div_err_${err.getField()}") != null){
-        document.getElementById("div_err_${err.getField()}").innerHTML = "<span style='color:red'>${err.defaultMessage}"
-        document.getElementById("div_err_${err.getField()}").style.display= "block"
-    }
-    result['${err.getField()}'] = '${err.defaultMessage}';
-    </c:forEach>
-
-    console.log(result);
+    document.querySelector("#btn_regist").addEventListener("click", function(e) {
+        confirm("해당 글을 수정하시겠습니까?");
+    });
 </script>
 </body>
 </html>
