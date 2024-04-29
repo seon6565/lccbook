@@ -12,7 +12,6 @@ public interface NoticeMapper {
     NoticeVO view(int idx);
     int modify(NoticeVO noticeVO);
     int delete(int idx);
-
     int bbsTotalCount(PageRequestDTO requestDTO);
     List<NoticeVO> bbsListByPage(PageRequestDTO requestDTO);
 }

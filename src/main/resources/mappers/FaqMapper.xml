@@ -11,13 +11,13 @@
     </insert>
 
     <select id="list" resultType="org.fullstack4.lccbook.domain.FaqVO">
-        select faq_content,faq_title,answer_content
+        select faq_idx, faq_content,faq_title,answer_content
         from lcc_faq
         order by faq_idx desc
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.FaqVO">
-        select faq_content,faq_title,answer_content
+        select faq_idx, faq_content,faq_title,answer_content
         from lcc_faq
         where faq_idx=#{faq_idx}
     </select>
@@ -36,10 +36,15 @@
         where faq_idx=#{faq_idx}
     </delete>
 
-   <!-- <select id="bbsTotalCount" resultType="int">
-        select count(*)
-        from lcc_faq
-        &lt;!&ndash; <include refid="whereCondition"></include>&ndash;&gt;
+    <select id="bbsTotalCount" resultType="int">
+        SELECT COUNT(*) FROM lcc_faq
+    </select>
 
-    </select>-->
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.FaqVO">
+        SELECT faq_idx, faq_content,faq_title,answer_content
+        FROM lcc_faq
+        ORDER BY faq_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
+
 </mapper>
