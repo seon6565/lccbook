@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
+<div class="container">
 <div class="list-group">
     <c:forEach var="list" items="${qnaUserlist}">
     <a href="/qna/view?qna_idx=${list.qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -23,6 +24,7 @@
         </div>
     </a>
     </c:forEach>
+</div>
 </div>
 <%@ include file="../common/footer.jsp"%>
 </body>

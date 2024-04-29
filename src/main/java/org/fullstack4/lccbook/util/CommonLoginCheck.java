@@ -16,7 +16,7 @@ public class CommonLoginCheck {
             return "redirect:/admin/login";
         }
         else{
-            return "/admin/main";
+            return "/admin/anotice/list";
         }
     }
 }
