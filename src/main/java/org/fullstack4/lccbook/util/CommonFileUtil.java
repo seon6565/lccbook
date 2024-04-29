@@ -17,9 +17,6 @@ import java.util.UUID;
 public class CommonFileUtil {
 
     public List<String> fileuploads(MultipartHttpServletRequest files, String uploadFolder) {
-        log.info("===========================");
-        log.info("uploadFolder : " + uploadFolder);
-        log.info("files : " + files);
         List<String> filenames = new ArrayList<>();
         List<MultipartFile> list = files.getFiles("files");
         if(files.getFile("files").getSize()<=0){
@@ -30,16 +27,10 @@ public class CommonFileUtil {
             long size = file.getSize();
             String fileExt = fileRealName.substring(fileRealName.indexOf("."), fileRealName.length());
 
-            log.info("fileRealName : " + fileRealName);
-            log.info("size : " + size);
-            log.info("fileExt : " + fileExt);
             UUID uuid = UUID.randomUUID();
             String[] uuids = uuid.toString().split("-");
             String newName = uuids[0] + fileRealName;
 
-            log.info("uuid : " + uuid);
-            log.info("uuids : " + uuids);
-            log.info("newName : " + newName);
             File saveFile = new File(uploadFolder + "\\" + newName);
             try {
                 file.transferTo(saveFile);

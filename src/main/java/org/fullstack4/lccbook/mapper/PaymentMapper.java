@@ -10,4 +10,5 @@ public interface PaymentMapper {
     PaymentVO view(int idx);
     int modify(PaymentVO paymentVO);
     int delete(int idx);
+    List<PaymentVO> listUser(String user_id);
 }

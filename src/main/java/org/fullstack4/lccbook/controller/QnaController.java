@@ -2,24 +2,23 @@ package org.fullstack4.lccbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.*;
-import org.fullstack4.lccbook.service.MemberServiceIf;
+import org.fullstack4.lccbook.dto.MemberDTO;
+import org.fullstack4.lccbook.dto.PageRequestDTO;
+import org.fullstack4.lccbook.dto.PageResponseDTO;
+import org.fullstack4.lccbook.dto.QnaDTO;
 import org.fullstack4.lccbook.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 @Log4j2
 @Controller

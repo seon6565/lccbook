@@ -7,12 +7,12 @@
     <sql id="whereCondition">
         <where>
             <if test="search_type !=null and search_type !=''">
-                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
+                <foreach collection="search_type" item="type" separator=" OR ">
                     <if test="type=='t'.toString()">
                         and question_title like concat('%', #{search_word},'%')
                     </if>
                     <if test="type=='u'.toString()">
-                        or user_id like concat('%', #{search_word},'%')
+                        user_id like concat('%', #{search_word},'%')
                     </if>
                 </foreach>
             </if>
@@ -83,30 +83,24 @@
         limit #{page_skip_count}, #{page_size}
     </select>
 
-    <!-- ################ 질문 등록 ###################################-->
 
-   <!-- <insert id="answer_regist">
-        insert into lcc_qna(answer_id,answer_content,answer_regdate,answer_yn)
-        values (#{answer_id},#{answer_content},now(),"Y")
+   <update id="regist_answer">
+       update lcc_qna
+       set answer_id = #{answer_id},
+       answer_content = #{answer_content},
+       answer_regdate = now(),
+       answer_yn = 'Y'
+       where qna_idx =#{qna_idx}
+   </update>
+
+    <update id="delete_answer">
+        update lcc_qna
+        set answer_id = null,
+        answer_content = null,
+        answer_regdate = null,
+        answer_yn = 'N'
         where qna_idx =#{qna_idx}
-    </insert>-->
+    </update>
 
-
-    <!-- 답변등록 -->
-
-
-    <!-- -->
-
-
-<!--
-    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.QnaVO">
-        select idx, content,title,reg_date,notice_state
-        from lcc_notice
-
-        &lt;!&ndash;  <include refid="whereCondition"></include>&ndash;&gt;
-
-        order by notice_idx desc
-        limit #{page_skip_count}, #{page_size}
-    </select>-->
 
 </mapper>

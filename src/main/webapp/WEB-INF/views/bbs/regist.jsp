@@ -26,13 +26,8 @@
     </div>
     <div class="mb-3">
         <label for="content" class="form-label">내용</label>
-        <textarea class="form-control" name="content" id="content" rows="10" cols="60">${bbsDTO.content}</textarea>
+        <textarea class="form-control" name="content" id="content" rows="10" cols="60" style="resize: none;">${bbsDTO.content}</textarea>
         <div id="div_err_content" style="display:none"></div>
-    </div>
-    <div class="mb-3">
-        <label for="display_date" class="form-label">출력날짜</label>
-        <input type="date" class="form-control" name="display_date" id="display_date" value="${bbsDTO.display_date}">
-        <div id="div_err_display_date" style="display:none"></div>
     </div>
     <div class="mb-3">
         <label for="files" class="form-label">파일</label>

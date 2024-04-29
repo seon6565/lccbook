@@ -25,8 +25,8 @@
                 <div class="col-lg-8 col-xxl-6">
                     <div class="text-center my-5">
                         <h1 class="fw-bolder mb-3">인사말</h1>
-                        <p class="lead fw-normal text-muted mb-4">LCC 쇼핑몰에 오신것을 환영합니다.
-                            <br>저희는 천재교육 도서 제품의 판매를 목적으로 제작된 사이트입니다.</p>
+                        <p class="lead fw-normal text-muted mb-4">보리북 쇼핑몰에 오신것을 환영합니다.
+                            <br>보리북 쇼핑몰은 유아, 초등, 중등, 고등 학생을 대상으로 <br> 도서 제품의 판매를 목적으로 제작된 사이트입니다.</p>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h2 class="fw-bolder">2024</h2>
-                    <p class="lead fw-normal text-muted mb-0">LCC 쇼핑몰 사이트 개시</p>
+                    <p class="lead fw-normal text-muted mb-0">보리북 쇼핑몰 사이트 제작</p>
                 </div>
             </div>
         </div>

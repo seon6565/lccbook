@@ -12,19 +12,19 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
-<div class="list-group">
-    <c:forEach var="list" items="${qnaUserlist}">
-    <a href="/qna/view?qna_idx=${list.qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-        <div class="d-flex gap-2 w-100 justify-content-between">
-            <div>
-                <h6 class="mb-0">${list.question_title}</h6>
-                <p class="mb-0 opacity-75">${list.question_content}</p>
-            </div>
-            <small class="opacity-50 text-nowrap">${list.question_regdate}</small>
-        </div>
-    </a>
-    </c:forEach>
-</div>
+    <div class="list-group">
+        <c:forEach var="list" items="${paymentDTOList}">
+            <a href="/payment/view?idx=${list.payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                        <h6 class="mb-0">${list.product_name}</h6>
+                        <p class="mb-0 opacity-75">${list.recipient_name}</p>
+                    </div>
+                    <small class="opacity-50 text-nowrap">${list.payment_date}</small>
+                </div>
+            </a>
+        </c:forEach>
+    </div>
 </div>
 <%@ include file="../common/footer.jsp"%>
 </body>

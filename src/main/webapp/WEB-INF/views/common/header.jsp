@@ -141,7 +141,7 @@
                             <li><a href="/book/list?category=mid" style="font-size: 14px;">중학</a></li>
                             <li><a href="/book/list?category=hi" style="font-size: 14px;">고등</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="#">커뮤니티</a>
+                    <li><a class="nav-link active" aria-current="page" href="/notice/list">커뮤니티</a>
                         <ul class="sub-menu" class="sub-menu1">
                             <li><a href="/notice/list" style="font-size: 14px;">공지사항</a></li>
                             <li><a href="/qna/list" style="font-size: 14px;">Q&A</a></li>

@@ -15,111 +15,7 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="/admin/afaq/list" class="text-nowrap logo-img">
-                        <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Menu</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-cards"></i>
-                </span>
-                                <span class="hide-menu">공지사항</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/afaq/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-article"></i>
-                </span>
-                                <span class="hide-menu">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-alert-circle"></i>
-                </span>
-                                <span class="hide-menu">Q&A</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/amember/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-file-description"></i>
-                </span>
-                                <span class="hide-menu">회원관리</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-typography"></i>
-                </span>
-                                <span class="hide-menu">배송관리</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">AUTH</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
-                                <span class="hide-menu">Login</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                                <span class="hide-menu">Icons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                                <span class="hide-menu">Sample Page</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <%@ include file="../../common/adminsidebar.jsp"%>
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
@@ -177,7 +73,34 @@
                             <h5 class="card-title fw-semibold mb-4">배송관리</h5>
                             <div class="card">
                                 <div class="card-body p-4">
-
+                                    <div class="card-body p-4">
+                                        <table class="table">
+                                            <thead>
+                                            <tr class="table-secondary">
+                                                <th scope="col">결제번호</th>
+                                                <th scope="col">배송회사</th>
+                                                <th scope="col">배송회사번호</th>
+                                                <th scope="col">배송시작일</th>
+                                                <th scope="col">배송도착일</th>
+                                                <th scope="col">운송번호</th>
+                                                <th scope="col">배송상태</th>
+                                            </tr>
+                                            </thead>
+                                            <c:forEach items="${responseDTO.dtoList}" var="list">
+                                                <tbody>
+                                                <tr>
+                                                    <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
+                                                    <td>${list.company_name}</td>
+                                                    <td>${list.phone_number}</td>
+                                                    <td>${list.start_date}</td>
+                                                    <td>${list.end_date}</td>
+                                                    <td>${list.delivery_number}</td>
+                                                    <td>${list.state}</td>
+                                                </tr>
+                                                </tbody>
+                                            </c:forEach>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -186,34 +109,30 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <%--<nav>--%>
-    <%--    <ul class="pagination justify-content-center">--%>
-    <%--        <li class="page-item--%>
-    <%--        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">--%>
-    <%--            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->--%>
-    <%--            <a class="page-link"--%>
-    <%--               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"--%>
-    <%--               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>--%>
-    <%--        </li>--%>
-    <%--        <c:forEach begin="${responseDTO.page_block_start}"--%>
-    <%--                   end="${responseDTO.page_block_end}"--%>
-    <%--                   var="page_num">--%>
-    <%--            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">--%>
-    <%--                <a class="page-link" data-num="${page_num}"--%>
-    <%--                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>--%>
-    <%--            </li>--%>
-    <%--        </c:forEach>--%>
-    <%--        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">--%>
-    <%--            <a class="page-link"--%>
-    <%--               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"--%>
-    <%--               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>--%>
-    <%--        </li>--%>
-    <%--    </ul>--%>
-    <%--</nav>--%>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item
+            <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
+                <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
+                <a class="page-link"
+                   data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
+                   href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
+            </li>
+            <c:forEach begin="${responseDTO.page_block_start}"
+                       end="${responseDTO.page_block_end}"
+                       var="page_num">
+                <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
+                    <a class="page-link" data-num="${page_num}"
+                       href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
+                </li>
+            </c:forEach>
+            <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
+                <a class="page-link"
+                   data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
+                   href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <%@ include file="../../common/footer.jsp"%>
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>

@@ -61,13 +61,10 @@ public class BookController {
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("search_type", responseDTO.getSearch_type());
-        log.info("responseDTO : " + responseDTO);
+
         if(responseDTO.getSearch_type()!=null){
             model.addAttribute("search_type", responseDTO.getSearch_type()[0]);
-            log.info("search_type : " + responseDTO.getSearch_type()[0]);
         }
-
-
 
     }
 }

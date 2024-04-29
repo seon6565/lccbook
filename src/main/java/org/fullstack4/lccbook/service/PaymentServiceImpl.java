@@ -34,6 +34,12 @@ public class PaymentServiceImpl implements PaymentServiceIf {
     }
 
     @Override
+    public List<PaymentDTO> listUser(String user_id) {
+        List<PaymentDTO> paymentDTOList = paymentMapper.listUser(user_id).stream().map(vo->modelMapper.map(vo,PaymentDTO.class)).collect(Collectors.toList());
+        return paymentDTOList;
+    }
+
+    @Override
     public PaymentDTO view(int idx) {
         PaymentVO paymentVO = paymentMapper.view(idx);
         PaymentDTO paymentDTO = modelMapper.map(paymentVO,PaymentDTO.class);

@@ -15,111 +15,7 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="/admin/afaq/list" class="text-nowrap logo-img">
-                        <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Menu</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-cards"></i>
-                </span>
-                                <span class="hide-menu">공지사항</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/afaq/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-article"></i>
-                </span>
-                                <span class="hide-menu">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-alert-circle"></i>
-                </span>
-                                <span class="hide-menu">Q&A</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/member/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-file-description"></i>
-                </span>
-                                <span class="hide-menu">회원관리</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-typography"></i>
-                </span>
-                                <span class="hide-menu">배송관리</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">AUTH</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
-                                <span class="hide-menu">Login</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                                <span class="hide-menu">Icons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                                <span class="hide-menu">Sample Page</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <%@ include file="../../common/adminsidebar.jsp"%>
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
@@ -199,7 +95,7 @@
 
                                     </table>
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
-                                        <button class="btn btn-primary" type="button" id="btn_modify" onclick="location.href='/admin/anotice/modify?notice_idx=${notice.notice_idx}'">수정</button>
+                                        <button class="btn btn-primary" type="button" id="btn_modify">수정</button>
                                         <button class="btn btn-primary" type="submit" id="btn_delete">삭제</button>
                                     </div>
                                     </form>
@@ -219,12 +115,19 @@
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
-    document.querySelector("#btn_modify").addEventListener("click", function() {
-        confirm("해당 글을 수정하시겠습니까?");
+    document.querySelector("#btn_modify").addEventListener("click", function(e) {
+        e.preventDefault();
+        if(confirm("해당 글을 수정하시겠습니까?")){
+            location.href='/admin/afaq/modify?faq_idx=${faq.faq_idx}';
+        };
     });
 
-    document.querySelector("#btn_delete").addEventListener("click", function () {
-        confirm("해당 글을 정말 삭제하시겠습니까?");
+    document.querySelector("#btn_delete").addEventListener("click", function (e) {
+        e.preventDefault();
+        if(confirm("해당 글을 정말 삭제하시겠습니까?")){
+            document.querySelector("#frm").submit();
+        }
+
     });
 </script>
 </body>

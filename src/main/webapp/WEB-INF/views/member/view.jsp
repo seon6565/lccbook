@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2024-04-17
-  Time: 오전 9:30
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -44,21 +38,25 @@
     주소
     <span class="form-control">${memberDTO.addr_number}+${memberDTO.addr1} + ${memberDTO.addr2} </span>
 </div>
+<div class="mb-3">
 <div class="list-group">
     <a href="/member/qna?user_id=${memberDTO.user_id}" class="icon-link">
         QnA전체보기
         <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
     </a>
-    <a href="/qna/view?qna_idx=${qnaUserlist[0].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-        <div class="d-flex gap-2 w-100 justify-content-between">
-            <div>
-                <h6 class="mb-0">${qnaUserlist[0].question_title}</h6>
-                <p class="mb-0 opacity-75">${qnaUserlist[0].question_content}</p>
+    <c:if test="${not empty qnaUserlist[0].qna_idx}">
+        <a href="/qna/view?idx=${qnaUserlist[0].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${qnaUserlist[0].question_title}</h6>
+                    <p class="mb-0 opacity-75">${qnaUserlist[0].question_content}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">${qnaUserlist[0].question_regdate}</small>
             </div>
-            <small class="opacity-50 text-nowrap">${qnaUserlist[0].question_regdate}</small>
-        </div>
-    </a>
-    <a href="/qna/view?qna_idx=${qnaUserlist[1].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        </a>
+    </c:if>
+    <c:if test="${not empty qnaUserlist[1].qna_idx}">
+    <a href="/qna/view?idx=${qnaUserlist[1].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
         <div class="d-flex gap-2 w-100 justify-content-between">
             <div>
                 <h6 class="mb-0">${qnaUserlist[1].question_title}</h6>
@@ -67,15 +65,60 @@
             <small class="opacity-50 text-nowrap">${qnaUserlist[1].question_regdate}</small>
         </div>
     </a>
-    <a href="/qna/view?qna_idx=${qnaUserlist[2].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-        <div class="d-flex gap-2 w-100 justify-content-between">
-            <div>
-                <h6 class="mb-0">${qnaUserlist[2].question_title}</h6>
-                <p class="mb-0 opacity-75">${qnaUserlist[2].question_content}</p>
+    </c:if>
+    <c:if test="${not empty qnaUserlist[2].qna_idx}">
+        <a href="/qna/view?idx=${qnaUserlist[2].qna_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${qnaUserlist[2].question_title}</h6>
+                    <p class="mb-0 opacity-75">${qnaUserlist[2].question_content}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">${qnaUserlist[2].question_regdate}</small>
             </div>
-            <small class="opacity-50 text-nowrap">${qnaUserlist[2].question_regdate}</small>
-        </div>
+        </a>
+    </c:if>
+</div>
+</div>
+<div class="mb-3">
+<div class="list-group">
+    <a href="/member/payment?user_id=${memberDTO.user_id}" class="icon-link">
+        결제내역 전체보기
+        <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
     </a>
+    <c:if test="${not empty paymentDTOList[0].payment_idx}">
+        <a href="/payment/view?idx=${paymentDTOList[0].payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${paymentDTOList[0].product_name}</h6>
+                    <p class="mb-0 opacity-75">${paymentDTOList[0].recipient_name}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">${paymentDTOList[0].payment_date}</small>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${not empty paymentDTOList[1].payment_idx}">
+        <a href="/payment/view?idx=${paymentDTOList[1].payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${paymentDTOList[1].product_name}</h6>
+                    <p class="mb-0 opacity-75">${paymentDTOList[1].recipient_name}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">${paymentDTOList[1].payment_date}</small>
+            </div>
+        </a>
+    </c:if>
+    <c:if test="${not empty paymentDTOList[2].payment_idx}">
+        <a href="/payment/view?idx=${paymentDTOList[2].payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">${paymentDTOList[2].product_name}</h6>
+                    <p class="mb-0 opacity-75">${paymentDTOList[2].recipient_name}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">${paymentDTOList[2].payment_date}</small>
+            </div>
+        </a>
+    </c:if>
+</div>
 </div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="btn btn-outline-primary" type="button" onclick="location.href='/'">메인 화면</button>

@@ -16,15 +16,15 @@
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.DeliveryVO">
-        select company_name,phone_number,start_date,end_date,delivery_number,state,create_date
+        select delivery_idx,company_name,phone_number,start_date,end_date,delivery_number,state,create_date
         from lcc_delivery
         where delivery_idx=#{delivery_idx}
     </select>
 
     <update id="modify">
         update lcc_delivery
-        set state = #{state},
-        update_date = now()
+        set state = #{state}, company_name=#{company_name}, phone_number=#{phone_number}
+        , start_date=#{start_date}, end_date = #{end_date}, update_date = now()
         where delivery_idx=#{delivery_idx}
     </update>
 
@@ -33,6 +33,17 @@
         from lcc_delivery
         where delivery_idx=#{delivery_idx}
     </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        SELECT COUNT(*) FROM lcc_delivery
+    </select>
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.DeliveryVO">
+        SELECT delivery_idx,company_name,phone_number,start_date,end_date,delivery_number,state,create_date
+        FROM lcc_delivery
+        ORDER BY delivery_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 
 
 </mapper>

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.*;
 import org.fullstack4.lccbook.service.MemberServiceIf;
+import org.fullstack4.lccbook.service.PaymentServiceIf;
 import org.fullstack4.lccbook.service.QnaServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import java.util.List;
 public class MemberController {
     private final MemberServiceIf memberServiceIf;
     private final QnaServiceIf qnaServiceIf;
+    private final PaymentServiceIf paymentServiceIf;
     @GetMapping("/view")
     public void view(@RequestParam(name="user_id", defaultValue = "") String user_id, Model model){
         log.info("============================");
@@ -35,6 +37,8 @@ public class MemberController {
         MemberDTO memberDTO = memberServiceIf.view(user_id);
         List<QnaDTO> qnaUserlist = qnaServiceIf.listUser(user_id);
         model.addAttribute("qnaUserlist", qnaUserlist);
+        List<PaymentDTO> paymentDTOList = paymentServiceIf.listUser(user_id);
+        model.addAttribute("paymentDTOList", paymentDTOList);
         log.info("memberDTO : " +memberDTO);
         log.info("============================");
         model.addAttribute("memberDTO",memberDTO);
@@ -159,5 +163,11 @@ public class MemberController {
     public void qnalist(String user_id, RedirectAttributes redirectAttributes, Model model){
         List<QnaDTO> qnaUserlist = qnaServiceIf.listUser(user_id);
         model.addAttribute("qnaUserlist", qnaUserlist);
+    }
+
+    @GetMapping("/payment")
+    public void paymentlist(String user_id, RedirectAttributes redirectAttributes, Model model){
+        List<PaymentDTO> paymentDTOList = paymentServiceIf.listUser(user_id);
+        model.addAttribute("paymentDTOList", paymentDTOList);
     }
 }

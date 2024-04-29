@@ -6,7 +6,7 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
@@ -15,110 +15,7 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="/admin/afaq/list" class="text-nowrap logo-img">
-                        <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Menu</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-cards"></i>
-                </span>
-                                <span class="hide-menu">공지사항</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/afaq/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-article"></i>
-                </span>
-                                <span class="hide-menu">FAQ</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-alert-circle"></i>
-                </span>
-                                <span class="hide-menu">Q&A</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/amember/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-file-description"></i>
-                </span>
-                                <span class="hide-menu">회원관리</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
-                <span>
-                  <i class="ti ti-typography"></i>
-                </span>
-                                <span class="hide-menu">배송관리</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">AUTH</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
-                                <span class="hide-menu">Login</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-mood-happy"></i>
-                </span>
-                                <span class="hide-menu">Icons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-aperture"></i>
-                </span>
-                                <span class="hide-menu">Sample Page</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
+        <%@ include file="../../common/adminsidebar.jsp"%>
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
@@ -174,32 +71,32 @@
                     <div class="card">
                         <div class="card-body">
                             <div style="display: flex; justify-content: space-between;margin-bottom: 15px;">
-                                <h5 class="card-title fw-semibold mb-4">공지사항</h5>
+                                <h5 class="card-title fw-semibold mb-4">FAQ</h5>
                                 <button class="btn btn-primary" type="button" onclick="location.href='/admin/afaq/regist'">글 등록</button>
                             </div>
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <form name="frm" name="frm" method="post">
+                                    <form id="frm" name="frm" action="/admin/afaq/deleteCheck" method="post">
                                         <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
-                                            <button class="btn btn-primary" type="button">수정</button>
-                                            <button class="btn btn-primary" id="btn_delete" type="button">삭제</button>
+                                            <button class="btn btn-primary" id="btn_delete" type="submit" onclick="godelete(event)">삭제</button>
                                         </div>
                                     <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <c:forEach items="${responseDTO.dtoList}" var="list">
                                         <div class="accordion-item">
-                                            <c:forEach items="${faqList}" var="list">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    <input type="checkbox" id="faq_idx" name="faq_idx" value="${list.faq_idx}" style="margin-right: 5px;"/>
                                                     <span style="font-size: small">Q. [${list.faq_title}]</span>
                                                     ${list.faq_content}
                                                 </button>
                                             </h2>
                                             <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                                 <div class="accordion-body">
-                                                    A. ${list.answer_content}
+                                                    <a href="/admin/afaq/view?faq_idx=${list.faq_idx}">A. ${list.answer_content}</a>
                                                 </div>
                                             </div>
-                                            </c:forEach>
                                         </div>
+                                        </c:forEach>
                                     </div>
                                     </form>
                                 </div>
@@ -210,41 +107,49 @@
             </div>
         </div>
     </div>
-
-
-
-
-<%--<nav>--%>
-<%--    <ul class="pagination justify-content-center">--%>
-<%--        <li class="page-item--%>
-<%--        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">--%>
-<%--            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->--%>
-<%--            <a class="page-link"--%>
-<%--               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"--%>
-<%--               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>--%>
-<%--        </li>--%>
-<%--        <c:forEach begin="${responseDTO.page_block_start}"--%>
-<%--                   end="${responseDTO.page_block_end}"--%>
-<%--                   var="page_num">--%>
-<%--            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">--%>
-<%--                <a class="page-link" data-num="${page_num}"--%>
-<%--                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>--%>
-<%--            </li>--%>
-<%--        </c:forEach>--%>
-<%--        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">--%>
-<%--            <a class="page-link"--%>
-<%--               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"--%>
-<%--               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>--%>
-<%--        </li>--%>
-<%--    </ul>--%>
-<%--</nav>--%>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item
+        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
+            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
+            <a class="page-link"
+               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
+               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
+        </li>
+        <c:forEach begin="${responseDTO.page_block_start}"
+                   end="${responseDTO.page_block_end}"
+                   var="page_num">
+            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
+                <a class="page-link" data-num="${page_num}"
+                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
+            </li>
+        </c:forEach>
+        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
+            <a class="page-link"
+               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
+               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
+        </li>
+    </ul>
+</nav>
 </div>
 <%@ include file="../../common/footer.jsp"%>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/assets/js/sidebarmenu.js"></script>
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
+<script>
+    function godelete(e) {
+        e.preventDefault();
+        if(confirm("해당 글을 정말 삭제하시겠습니까?")) {
+            alert("삭제되었습니다.");
+            document.getElementById("frm").submit();
+        } else {
+            return false;
+        }
+    }
+
+</script>
 </body>
 </html>

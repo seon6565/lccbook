@@ -1,6 +1,5 @@
 package org.fullstack4.lccbook.mapper;
 
-import org.fullstack4.lccbook.domain.BbsVO;
 import org.fullstack4.lccbook.domain.QnaVO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 
@@ -15,6 +14,6 @@ public interface QnaMapper {
     List<QnaVO> listUser(String user_id);
     int bbsTotalCount(PageRequestDTO requestDTO);
     List<QnaVO> bbsListByPage(PageRequestDTO requestDTO);
-
-/*    int answer_regist(QnaVO qnaVO);*/
+    int regist_answer(QnaVO qnaVO);
+    int delete_answer(int idx);
 }
