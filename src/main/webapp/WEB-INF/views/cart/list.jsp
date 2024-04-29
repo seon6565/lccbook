@@ -193,7 +193,8 @@
     <%@ include file="../common/footer.jsp"%>
 
 
-</div>
+
+ </div>
 </body>
 <script>
     window.onload=function() {
@@ -308,18 +309,23 @@
                 alert('삭제할 상품을 선택해주세요.');
                 return;
             }
+            const confirm_msg = confirm("상품을 삭제하시겠습니가?");
+                if(confirm_msg){
+                    let selectedValues = [];
+                    checkboxes.forEach((checkbox) => {
+                        // cart_idx 값을 배열에 추가
+                        selectedValues.push(checkbox.getAttribute('data-cart_idx'));
+                    });
 
-            let selectedValues = [];
-            checkboxes.forEach((checkbox) => {
-                // cart_idx 값을 배열에 추가
-                selectedValues.push(checkbox.getAttribute('data-cart_idx'));
-            });
+                    // 선택된 cart_idx 값을 쿼리 스트링으로 변환
+                    const queryString = selectedValues.join(',');
 
-            // 선택된 cart_idx 값을 쿼리 스트링으로 변환
-            const queryString = selectedValues.join(',');
+                    // GET 요청을 위한 URL 생성 및 이동
+                    location.href = '/cart/delete?cart_idx='+queryString;
 
-            // GET 요청을 위한 URL 생성 및 이동
-            location.href = '/cart/delete?cart_idx='+queryString;
+                }
+            
+
         });
     }
 
