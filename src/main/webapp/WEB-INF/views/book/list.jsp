@@ -70,10 +70,10 @@
         <form id="search_form" name="search_form" action="/book/list" method="get">
             <select name="search_type" class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" style="width: 100px !important;border-radius: 0 !important;font-size: small !important; height : 60px;">
                 <option value="all">전체</option>
-                <option value="kids" ${fn:contains(search_type, "kids") ? "selected" : ""}>영유아</option>
-                <option value="ele" >초등</option>
-                <option value="mid">중학</option>
-                <option value="hi">고등</option>
+                <option value="kids" ${search_type=="kids" ? "selected" : ""}>영유아</option>
+                <option value="ele" ${search_type=="ele" ? "selected" : ""}>초등</option>
+                <option value="mid" ${search_type=="mid" ? "selected" : ""}>중학</option>
+                <option value="hi" ${search_type=="hi" ? "selected" : ""}>고등</option>
             </select>
             <div class="input-group mb-3">
                 <input type="text" name="search_word" id="search_word" value='<c:out value="${pageRequestDTO.search_word}"/>'class="form-control" id="input" placeholder="카테고리 내 교재 검색" aria-label="Recipient's username" aria-describedby="button-addon2">

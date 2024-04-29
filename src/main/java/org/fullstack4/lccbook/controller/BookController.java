@@ -58,13 +58,15 @@ public class BookController {
             log.info("BookController >> list errors");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
-
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+        model.addAttribute("search_type", responseDTO.getSearch_type());
+        log.info("responseDTO : " + responseDTO);
+        if(responseDTO.getSearch_type()!=null){
+            model.addAttribute("search_type", responseDTO.getSearch_type()[0]);
+            log.info("search_type : " + responseDTO.getSearch_type()[0]);
+        }
 
-        log.info("responseDTO : " + responseDTO.toString());
-        log.info("BookController >> list() END");
-        log.info("==========");
 
 
     }
