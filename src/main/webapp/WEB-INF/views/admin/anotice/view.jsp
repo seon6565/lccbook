@@ -19,7 +19,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="/admin/afaq/list" class="text-nowrap logo-img">
+                    <a href="/admin/anotice/list" class="text-nowrap logo-img">
                         <img src="/resources/assets/images/logos/dark-logo.svg" width="180" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -199,7 +199,7 @@
 
                                     </table>
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
-                                        <button class="btn btn-primary" type="button" id="btn_modify" onclick="location.href='/admin/anotice/modify?notice_idx=${notice.notice_idx}'">수정</button>
+                                        <button class="btn btn-primary" type="button" id="btn_modify">수정</button>
                                         <button class="btn btn-primary" type="submit" id="btn_delete">삭제</button>
                                     </div>
                                     </form>
@@ -219,12 +219,19 @@
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
-    document.querySelector("#btn_modify").addEventListener("click", function() {
-        confirm("해당 글을 수정하시겠습니까?");
+    document.querySelector("#btn_modify").addEventListener("click", function(e) {
+        e.preventDefault();
+        if(confirm("해당 글을 수정하시겠습니까?")){
+            location.href='/admin/afaq/modify?faq_idx=${faq.faq_idx}';
+        };
     });
 
-    document.querySelector("#btn_delete").addEventListener("click", function () {
-        confirm("해당 글을 정말 삭제하시겠습니까?");
+    document.querySelector("#btn_delete").addEventListener("click", function (e) {
+        e.preventDefault();
+        if(confirm("해당 글을 정말 삭제하시겠습니까?")){
+            document.querySelector("#frm").submit();
+        }
+
     });
 </script>
 </body>

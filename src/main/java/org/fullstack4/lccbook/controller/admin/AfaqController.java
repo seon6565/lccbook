@@ -2,17 +2,22 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.dto.BookDTO;
 import org.fullstack4.lccbook.dto.FaqDTO;
+import org.fullstack4.lccbook.dto.PageRequestDTO;
+import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.FaqServiceIf;
 import org.fullstack4.lccbook.service.NoticeServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Log4j2
@@ -23,15 +28,33 @@ public class AfaqController {
     private final FaqServiceIf faqService;
 
 
-    @GetMapping(value ="/list")
-    public void afaqList(Model model){
-        log.info("==========");
-        log.info("AdminController >> afaqList()");
-        List<FaqDTO> faqDTOList = faqService.list();
-        log.info("faqDTOList :" + faqDTOList.toString());
+//    @GetMapping(value ="/list")
+//    public void afaqList(Model model){
+//        log.info("==========");
+//        log.info("AdminController >> afaqList()");
+//        List<FaqDTO> faqDTOList = faqService.list();
+//        log.info("faqDTOList :" + faqDTOList.toString());
+//
+//        model.addAttribute("faqList", faqDTOList);
+//        log.info("==========");
+//    }
 
-        model.addAttribute("faqList", faqDTOList);
+    @GetMapping(value = "/list")
+    public void list(@Valid PageRequestDTO pageRequestDTO
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model) {
         log.info("==========");
+        log.info("BookController >> list() START");
+        log.info("pageRequestDTO : " + pageRequestDTO.toString());
+
+        if (bindingResult.hasErrors()) {
+            log.info("BookController >> list errors");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+        }
+        PageResponseDTO<FaqDTO> responseDTO = faqService.bbsListByPage(pageRequestDTO);
+        model.addAttribute("responseDTO", responseDTO);
+
     }
 
     @GetMapping(value = "/view")
