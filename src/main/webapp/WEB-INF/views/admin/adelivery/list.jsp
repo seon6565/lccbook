@@ -74,39 +74,32 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="card-body p-4">
-                                        <form name="frm" name="frm" action="/admin/anotice/delete" method="post">
-                                            <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
-                                                <button class="btn btn-primary" id="btn_modify" type="button">수정</button>
-                                            </div>
-                                            <table class="table">
-                                                <thead>
-                                                <tr class="table-secondary">
-                                                    <th></th>
-                                                    <th scope="col">결제번호</th>
-                                                    <th scope="col">배송회사</th>
-                                                    <th scope="col">배송회사번호</th>
-                                                    <th scope="col">배송시작일</th>
-                                                    <th scope="col">배송도착일</th>
-                                                    <th scope="col">운송번호</th>
-                                                    <th scope="col">배송상태</th>
+                                        <table class="table">
+                                            <thead>
+                                            <tr class="table-secondary">
+                                                <th scope="col">결제번호</th>
+                                                <th scope="col">배송회사</th>
+                                                <th scope="col">배송회사번호</th>
+                                                <th scope="col">배송시작일</th>
+                                                <th scope="col">배송도착일</th>
+                                                <th scope="col">운송번호</th>
+                                                <th scope="col">배송상태</th>
+                                            </tr>
+                                            </thead>
+                                            <c:forEach items="${responseDTO.dtoList}" var="list">
+                                                <tbody>
+                                                <tr>
+                                                    <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
+                                                    <td>${list.company_name}</td>
+                                                    <td>${list.phone_number}</td>
+                                                    <td>${list.start_date}</td>
+                                                    <td>${list.end_date}</td>
+                                                    <td>${list.delivery_number}</td>
+                                                    <td>${list.state}</td>
                                                 </tr>
-                                                </thead>
-                                                <c:forEach items="${responseDTO.dtoList}" var="list">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td><input type="checkbox" value="${list.delivery_idx}"/></td>
-                                                        <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
-                                                        <td>${list.company_name}</td>
-                                                        <td>${list.phone_number}</td>
-                                                        <td>${list.start_date}</td>
-                                                        <td>${list.end_date}</td>
-                                                        <td>${list.delivery_number}</td>
-                                                        <td>${list.state}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </c:forEach>
-                                            </table>
-                                        </form>
+                                                </tbody>
+                                            </c:forEach>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

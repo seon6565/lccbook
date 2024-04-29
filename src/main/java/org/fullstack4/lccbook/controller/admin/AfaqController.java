@@ -115,4 +115,15 @@ public class AfaqController {
             return "/admin/afaq/view?faq_idx="+faq_idx;
         }
     }
+
+    @PostMapping("/deleteCheck")
+    public String deleteCheck(@RequestParam(name="faq_idx", defaultValue = "0") int[] faq_idx){
+        log.info("==========");
+        log.info("AdminController >> deleteCheck()");
+
+        for(int i : faq_idx) {
+            faqService.delete(i);
+        }
+        return "redirect:/admin/afaq/list";
+    }
 }

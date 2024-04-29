@@ -3,7 +3,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="/admin/afaq/list" class="text-nowrap logo-img">
+            <a href="/admin/anotice/list" class="text-nowrap logo-img">
                 <img src="/resources/img/icon2-removebg-preview.png" width="180" alt="" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -18,7 +18,7 @@
                     <span class="hide-menu">Menu</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
                 </span>

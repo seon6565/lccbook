@@ -76,10 +76,9 @@
                             </div>
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <form name="frm" name="frm" action="/admin/anotice/delete" method="post">
+                                    <form name="frm" id="frm" action="/admin/anotice/deleteCheck" method="post">
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
-                                        <button class="btn btn-primary" id="btn_modify" type="button">수정</button>
-                                        <button class="btn btn-primary" id="btn_delete" type="submit">삭제</button>
+                                        <button class="btn btn-primary" id="btn_delete" type="submit" onclick="godelete(event)">삭제</button>
                                     </div>
                                     <table class="table">
                                         <thead>
@@ -93,7 +92,7 @@
                                         <c:forEach items="${responseDTO.dtoList}" var="list">
                                         <tbody>
                                         <tr>
-                                            <td><input type="checkbox" id="${list.notice_idx}" value="${list.notice_idx}"/></td>
+                                            <td><input type="checkbox" id="notice_idx" name="notice_idx" value="${list.notice_idx}"/></td>
                                             <th scope="row">공지</th>
                                             <td><a href="/admin/anotice/view?notice_idx=${list.notice_idx}">${list.title}</a></td>
                                             <td>${list.reg_date}</td>
@@ -143,19 +142,16 @@
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
 
-    document.querySelector("#btn_modify").addEventListener("click", function(e) {
-        e.preventDefault();
-        if(confirm("해당 글을 수정하시겠습니까?")){
-            location.href='/admin/anotice/modify?notice_idx=${faqList['notice_idx']}';
-        };
-    });
-
-    document.querySelector("#btn_delete").addEventListener("click", function (e) {
+    function godelete(e) {
         e.preventDefault();
         if(confirm("해당 글을 정말 삭제하시겠습니까?")) {
             alert("삭제되었습니다.");
+            document.getElementById("frm").submit();
+        } else {
+            return false;
         }
-    });
+    }
+
 </script>
 </body>
 </html>

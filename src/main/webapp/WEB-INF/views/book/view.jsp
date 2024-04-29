@@ -199,21 +199,13 @@
                         <input type="hidden" name="user_id" id="user_id" value="${memberDTO.user_id}">
                         <input type="hidden" name="book_idx" id="book_idx"  value="${param['book_idx']}">
                         <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
-                        <button class="btn btn-primary" type="submit" style="background-color :#d63384;border: #fff;float: right; width: 180px; height: 57px;margin-left: 10px;">후기등록</button>
+                        <button class="btn btn-primary" type="submit" id="btn_comment" style="background-color :#d63384;border: #fff;float: right; width: 180px; height: 57px;margin-left: 10px;">후기등록</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
 <%--<form name="frmReplydelete" id="frmReplydelete" method="post" action="/bbs/delete">--%>
 <%--    <c:forEach var="list" items="${bbsReplyDTO}">--%>
 <%--    <input type="hidden" id="idx2" name="idx" value="${list.idx}">--%>
@@ -332,6 +324,27 @@
             quantity.value = number - 1;
         }
     });
+
+
+    //댓글
+    document.querySelector("#btn_comment").addEventListener("click", function (e){
+        e.preventDefault();
+
+        let user_id = `${memberDTO.user_id}`;
+        let frm = document.querySelector("#frm");
+        let review_content = document.querySelector("#review_content");
+
+        if(user_id == "") {
+            alert("로그인 후 이용하세요.");
+            return false;
+        }
+
+        if(review_content.value == "" ||  review_content.value.length < 10 || review_content.value == null ){
+            alert("후기는 10자 이상 입력해주세요.");
+            return false;
+        }
+        frm.submit();
+    })  ;
 
 
 </script>

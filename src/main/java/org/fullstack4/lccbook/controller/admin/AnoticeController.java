@@ -115,4 +115,15 @@ public class AnoticeController {
             return "/admin/anotice/view?notice_idx="+notice_idx;
         }
     }
+
+    @PostMapping("/deleteCheck")
+    public String deleteCheck(@RequestParam(name="notice_idx", defaultValue = "0") int[] notice_idx){
+        log.info("==========");
+        log.info("AdminController >> deleteCheck()");
+
+        for(int i : notice_idx) {
+            noticeService.delete(i);
+        }
+        return "redirect:/admin/anotice/list";
+    }
 }
