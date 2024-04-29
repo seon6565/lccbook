@@ -7,7 +7,7 @@
     <sql id="whereCondition">
         <where>
             <if test="search_type !=null and search_type !=''">
-                <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
+                <foreach collection="search_type" item="type" separator=" OR ">
                     <if test="type=='t'.toString()">
                         title like concat('%', #{search_word},'%')
                     </if>

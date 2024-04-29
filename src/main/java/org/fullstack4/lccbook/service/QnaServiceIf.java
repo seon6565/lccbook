@@ -16,7 +16,6 @@ public interface QnaServiceIf {
     int bbsTotalCount(PageRequestDTO requestDTO);
     PageResponseDTO<QnaDTO> bbsListByPage(PageRequestDTO pageRequestDTO);
     int regist_answer(QnaDTO qnaDTO);
-
     int delete_answer(int idx);
 
 }
