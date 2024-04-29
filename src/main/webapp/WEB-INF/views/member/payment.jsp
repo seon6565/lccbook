@@ -11,21 +11,21 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-
 <div class="container">
-<div class="mb-3">
-    결제번호
-    <span class="form-control">${paymentDTO.payment_idx}</span>
+    <div class="list-group">
+        <c:forEach var="list" items="${paymentDTOList}">
+            <a href="/payment/view?idx=${list.payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                        <h6 class="mb-0">${list.product_name}</h6>
+                        <p class="mb-0 opacity-75">${list.recipient_name}</p>
+                    </div>
+                    <small class="opacity-50 text-nowrap">${list.payment_date}</small>
+                </div>
+            </a>
+        </c:forEach>
+    </div>
 </div>
-<div class="mb-3">
-    아이디
-    <span class="form-control">${paymentDTO.user_id}</span>
-</div>
-<div class="mb-3">
-    가격
-    <span class="form-control"> ${paymentDTO.price} </span>
-</div>
-
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>

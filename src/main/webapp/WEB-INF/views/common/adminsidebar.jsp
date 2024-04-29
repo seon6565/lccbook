@@ -18,7 +18,7 @@
                     <span class="hide-menu">Menu</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/admin/aqna/list" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/anotice/list" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
                 </span>
@@ -59,9 +59,9 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/apayment/list" aria-expanded="false">
                 <span>
-                  <i class="ti ti-typography"></i>
+                  <i class="ti ti-aperture"></i>
                 </span>
                         <span class="hide-menu">결제내역</span>
                     </a>
@@ -71,15 +71,15 @@
                     <span class="hide-menu">AUTH</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/logout" aria-expanded="false">
                 <span>
                   <i class="ti ti-login"></i>
                 </span>
-                        <span class="hide-menu">Login</span>
+                        <span class="hide-menu">logout</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                    <a class="sidebar-link" href="/admin/regist" aria-expanded="false">
                 <span>
                   <i class="ti ti-user-plus"></i>
                 </span>
