@@ -8,6 +8,7 @@ import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.FaqServiceIf;
 import org.fullstack4.lccbook.service.NoticeServiceIf;
+import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -26,27 +29,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AfaqController {
     private final FaqServiceIf faqService;
-
-
-//    @GetMapping(value ="/list")
-//    public void afaqList(Model model){
-//        log.info("==========");
-//        log.info("AdminController >> afaqList()");
-//        List<FaqDTO> faqDTOList = faqService.list();
-//        log.info("faqDTOList :" + faqDTOList.toString());
-//
-//        model.addAttribute("faqList", faqDTOList);
-//        log.info("==========");
-//    }
+    private final CommonLoginCheck commonLoginCheck;
 
     @GetMapping(value = "/list")
-    public void list(@Valid PageRequestDTO pageRequestDTO
+    public String list(@Valid PageRequestDTO pageRequestDTO
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes
-            , Model model) {
-        log.info("==========");
-        log.info("BookController >> list() START");
-        log.info("pageRequestDTO : " + pageRequestDTO.toString());
+            , Model model
+            , HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         if (bindingResult.hasErrors()) {
             log.info("BookController >> list errors");
@@ -55,6 +50,7 @@ public class AfaqController {
         PageResponseDTO<FaqDTO> responseDTO = faqService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
 
+        return "admin/afaq/list";
     }
 
     @GetMapping(value = "/view")

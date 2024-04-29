@@ -7,6 +7,7 @@ import org.fullstack4.lccbook.dto.NoticeDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.NoticeServiceIf;
+import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -25,21 +28,19 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AnoticeController {
     private final NoticeServiceIf noticeService;
-
-//    @GetMapping(value ="/list")
-//    public void anoticeList(Model model){
-//        List<NoticeDTO> noticeDTOList = noticeService.list();
-//        model.addAttribute("noticeList", noticeDTOList);
-//    }
+    private final CommonLoginCheck commonLoginCheck;
 
     @GetMapping(value = "/list")
-    public void list(@Valid PageRequestDTO pageRequestDTO
+    public String list(@Valid PageRequestDTO pageRequestDTO
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes
-            , Model model) {
-        log.info("==========");
-        log.info("AnoticeController >> list() START");
-        log.info("pageRequestDTO : " + pageRequestDTO.toString());
+            , Model model
+            , HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         if (bindingResult.hasErrors()) {
             log.info("BookController >> list errors");
@@ -47,6 +48,8 @@ public class AnoticeController {
         }
         PageResponseDTO<NoticeDTO> responseDTO = noticeService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+
+        return "admin/anotice/list";
     }
 
 

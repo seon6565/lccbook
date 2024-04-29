@@ -7,6 +7,7 @@ import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.DeliveryServiceIf;
 import org.fullstack4.lccbook.service.DeliveryServiceImpl;
+import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Log4j2
@@ -25,12 +28,19 @@ import javax.validation.Valid;
 public class AdeliveryController {
 
     private final DeliveryServiceIf deliveryService;
+    private final CommonLoginCheck commonLoginCheck;
 
     @GetMapping(value ="/list")
-    public void adeliveryList(@Valid PageRequestDTO pageRequestDTO
+    public String adeliveryList(@Valid PageRequestDTO pageRequestDTO
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes
-            , Model model){
+            , Model model
+            , HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         if (bindingResult.hasErrors()) {
             log.info("BookController >> list errors");
@@ -38,6 +48,7 @@ public class AdeliveryController {
         }
         PageResponseDTO<DeliveryDTO> responseDTO = deliveryService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+        return "admin/adelivery/list";
 
     }
 
