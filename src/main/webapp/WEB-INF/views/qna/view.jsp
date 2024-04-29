@@ -25,7 +25,7 @@
 </div>
 <div class="mb-3">
     내용
-    <span class="form-control">${qnaDTO.question_content} </span>
+    <textarea rows="10" cols="60" style="resize: none;" class="form-control">${qnaDTO.question_content}</textarea>
 </div>
 <div class="mb-3">
     질문날짜

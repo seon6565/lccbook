@@ -26,7 +26,7 @@
     </div>
     <div class="mb-3">
         <label for="question_content" class="form-label">문의 내용</label>
-        <textarea class="form-control" name="question_content" id="question_content" rows="10" cols="60">${qnaDTO.question_content}</textarea>
+        <textarea class="form-control" name="question_content" id="question_content" rows="10" cols="60" style="resize: none;">${qnaDTO.question_content}</textarea>
         <div id="div_err_content" style="display:none"></div>
     </div>
     <div class="d-grid gap-2">

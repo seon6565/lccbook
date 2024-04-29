@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
 <body>
-${adminDTO}
-<%@ include file="../common/adminheader.jsp"%>
 <div class="container">
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
@@ -240,7 +238,6 @@ ${adminDTO}
     <%--    </ul>--%>
     <%--</nav>--%>
 </div>
-<%@ include file="../common/footer.jsp"%>
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/assets/js/sidebarmenu.js"></script>

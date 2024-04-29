@@ -29,11 +29,11 @@
 </div>
 <div class="mb-3">
     내용
-    <span class="form-control">${bbsDTO.content} </span>
+    <textarea rows="10" cols="60" style="resize: none;" class="form-control">${bbsDTO.content} </textarea>
 </div>
 <div class="mb-3">
     출력날짜
-    <span class="form-control"> ${bbsDTO.display_date} </span>
+    <span class="form-control"> ${bbsDTO.reg_date} </span>
 </div>
 <div class="mb-3">
     파일 리스트
@@ -96,7 +96,7 @@
         <div class="mb-3">
             <label for="user_id" class="form-label">아이디</label>
             <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
-            <textarea class="form-control" name="title" id="title" rows="5" cols="60" placeholder="댓글 내용을 입력하세요."></textarea>
+            <textarea class="form-control" name="title" id="title" rows="5" cols="60" style="resize: none;" placeholder="댓글 내용을 입력하세요."></textarea>
             <div id="div_err_title" style="display:none"></div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
