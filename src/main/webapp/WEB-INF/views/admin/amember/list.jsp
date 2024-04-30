@@ -69,12 +69,12 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title fw-semibold mb-4">Q&A</h5>
+                            <h5 class="card-title fw-semibold mb-4">회원 관리</h5>
 
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div>
-                                        <form name="frmSearch" id="search" action="/admin/aqna/list">
+                                        <form name="frmSearch" id="search" action="/admin/amember/list">
                                             <div class="input-group mb-1">
                                                 <span class="input-group-text ">검색범위</span>
                                                 <div class="input-group-text">
@@ -108,19 +108,22 @@
                                             <th scope="col">탈퇴일</th>
                                         </tr>
                                         </thead>
-                                        <form action="/admin/aqna/deletecheck" method="post" id="frmDelete" name="frmDelete">
+                                        <form action="/admin/amember/deletecheck" method="post" id="frmDelete" name="frmDelete">
                                             <c:forEach var="list" items="${responseDTO.dtoList}">
                                                 <tbody>
                                                 <tr>
                                                     <td><input type="checkbox" value="${list.user_id}" name="user_id" id="user_id${list.user_id}"></td>
                                                     <td>${list.user_id}</td>
                                                     <td>${list.name}</td>
-                                                    <td>${list.reg_date}</td>
                                                     <td>${list.user_state}</td>
+                                                    <td>${list.reg_date}</td>
                                                     <td>${list.leave_date}</td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">유저 삭제</button>
+                                            </div>
                                         </form>
                                     </table>
 
@@ -165,5 +168,13 @@
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 ${errorAlert}
+<script>
+    function goDelete(){
+        const frm = document.getElementById("frmDelete");
+        if(confirm("!경고 유저를 삭제하시겠습니까?")){
+            frm.submit();
+        }
+    }
+</script>
 </body>
 </html>

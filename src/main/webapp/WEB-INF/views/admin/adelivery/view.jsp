@@ -76,10 +76,9 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <table class="table">
-                                        <input type="hidden" name="delivery_idx" id="delivery_idx" value="${deliveryDTO['delivery_idx']}"/>
                                         <thead>
                                         <tr class="table-secondary">
-                                            <th scope="col">결제번호 : ${deliveryDTO.delivery_idx}</th>
+                                            <th scope="col">결제번호 : ${deliveryDTO.payment_idx}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -87,7 +86,7 @@
                                             <td><span style="font-weight: bold;margin-right: 5px;">배송회사</span>&nbsp;&nbsp;${deliveryDTO.company_name}</td>
                                         </tr>
                                         <tr>
-                                            <td><span style="font-weight: bold;margin-right: 5px;">배송회사번호</span>&nbsp;&nbsp;${deliveryDTO.phone_number}</td>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">배송회사번호</span>&nbsp;&nbsp;${deliveryDTO.company_number}</td>
                                         </tr>
                                         <tr>
                                             <td><span style="font-weight: bold;margin-right: 5px;">배송시작일</span>&nbsp;&nbsp;${deliveryDTO.start_date}</td>
@@ -96,15 +95,36 @@
                                             <td><span style="font-weight: bold;margin-right: 5px;">배송도착일</span>&nbsp;&nbsp;${deliveryDTO.end_date}</td>
                                         </tr>
                                         <tr>
-                                            <td><span style="font-weight: bold;margin-right: 5px;">운송번호</span>&nbsp;&nbsp;${deliveryDTO.delivery_number}</td>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">배송상태</span>&nbsp;&nbsp;${deliveryDTO.delivery_state}</td>
                                         </tr>
                                         <tr>
-                                            <td><span style="font-weight: bold;margin-right: 5px;">배송상태</span>&nbsp;&nbsp;${deliveryDTO.state}</td>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">운송장번호</span>&nbsp;&nbsp;${deliveryDTO.delivery_number}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">수신인 이름</span>&nbsp;&nbsp;${deliveryDTO.recipient_name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">수신인 번호</span>&nbsp;&nbsp;${deliveryDTO.recipient_number}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">주소</span>&nbsp;&nbsp;${deliveryDTO.addr1}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">상세주소</span>&nbsp;&nbsp;${deliveryDTO.addr2}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">우편번호</span>&nbsp;&nbsp;${deliveryDTO.zip_code}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">이메일</span>&nbsp;&nbsp;${deliveryDTO.email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="font-weight: bold;margin-right: 5px;">배송메모</span>&nbsp;&nbsp;${deliveryDTO.memo}</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
-                                        <button class="btn btn-primary" type="button" id="btn_modify">수정</button>
+                                        <button class="btn btn-primary" type="submit" id="btn_modify" onclick="location.href='/admin/adelivery/modify?delivery_idx=${deliveryDTO.delivery_idx}'">수정</button>
                                     </div>
                                 </div>
                             </div>
@@ -121,13 +141,5 @@
 <script src="/resources/assets/js/sidebarmenu.js"></script>
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
-<script>
-    document.querySelector("#btn_modify").addEventListener("click", function(e) {
-        e.preventDefault();
-        if(confirm("해당 글을 수정하시겠습니까?")){
-            location.href='/admin/adelivery/modify?delivery_idx=${deliveryDTO.delivery_idx}';
-        };
-    });
-</script>
 </body>
 </html>

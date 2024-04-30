@@ -6,7 +6,6 @@ import org.fullstack4.lccbook.dto.PageRequestDTO;
 import java.util.List;
 
 public interface DeliveryMapper {
-    int regist(DeliveryVO DeliveryVO);
     List<DeliveryVO> list();
     DeliveryVO view(int idx);
     int modify(DeliveryVO deliveryVO);

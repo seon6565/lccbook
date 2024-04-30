@@ -6,11 +6,14 @@ import org.fullstack4.lccbook.dto.MemberDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.MemberServiceIf;
+import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,12 +25,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AmemberController {
     private final MemberServiceIf memberServiceIf;
+    private final CommonLoginCheck commonLoginCheck;
     @GetMapping("/list")
     public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("adminDTO")==null){
-            redirectAttributes.addFlashAttribute("errorAlert","<script> alert('해당페이지는 관리자 로그인이 필요합니다.') </script>");
-            return "redirect:/admin/login";
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
         if(bindingResult.hasErrors()) {
             log.info("BbsController >> list Error");
@@ -47,5 +50,18 @@ public class AmemberController {
             }
         }
         return "/admin/amember/list";
+    }
+
+    @PostMapping("/deletecheck")
+    public String deleteCheckPOST(@RequestParam(name="user_id", defaultValue = "0") String[] user_id, RedirectAttributes redirectAttributes, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        for(String i : user_id) {
+            log.info("user_id = " +i);
+            memberServiceIf.delete(i);
+        }
+        return "redirect:/admin/amember/list";
     }
 }

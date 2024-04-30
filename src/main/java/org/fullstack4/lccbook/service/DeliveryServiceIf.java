@@ -5,7 +5,6 @@ import org.fullstack4.lccbook.dto.*;
 import java.util.List;
 
 public interface DeliveryServiceIf {
-    int regist(DeliveryDTO deliveryDTO);
     List<DeliveryDTO> list();
     DeliveryDTO view(int idx);
     int modify(DeliveryDTO deliveryDTO);

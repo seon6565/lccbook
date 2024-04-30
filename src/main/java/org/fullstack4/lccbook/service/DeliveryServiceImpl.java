@@ -3,9 +3,7 @@ package org.fullstack4.lccbook.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.domain.DeliveryVO;
-import org.fullstack4.lccbook.domain.FaqVO;
 import org.fullstack4.lccbook.dto.DeliveryDTO;
-import org.fullstack4.lccbook.dto.FaqDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.mapper.DeliveryMapper;
@@ -22,13 +20,6 @@ public class DeliveryServiceImpl implements DeliveryServiceIf {
     private final DeliveryMapper deliveryMapper;
     private final ModelMapper modelMapper;
 
-    @Override
-    public int regist(DeliveryDTO deliveryDTO) {
-        DeliveryVO deliveryVO = modelMapper.map(deliveryDTO, DeliveryVO.class);
-        int result = deliveryMapper.regist(deliveryVO);
-
-        return result;
-    }
     @Override
     public List<DeliveryDTO> list() {
         List<DeliveryDTO> deliveryDTOList = deliveryMapper.list().stream().map(vo->modelMapper.map(vo,DeliveryDTO.class)).collect(Collectors.toList());

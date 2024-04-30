@@ -66,11 +66,12 @@ public class AdeliveryController {
 
     @PostMapping(value = "/modify")
     public String deliveryModify(@Valid DeliveryDTO deliveryDTO){
+        log.info("test delivertdto" + deliveryDTO);
         int result = deliveryService.modify(deliveryDTO);
         if(result > 0 ) {
             return "redirect:/admin/adelivery/view?delivery_idx=" + deliveryDTO.getDelivery_idx();
         } else {
-            return "/admin/adelivery/modify?=delivery_idx=" + deliveryDTO.getDelivery_idx();
+            return "/admin/adelivery/modify?delivery_idx=" + deliveryDTO.getDelivery_idx();
         }
 
     }

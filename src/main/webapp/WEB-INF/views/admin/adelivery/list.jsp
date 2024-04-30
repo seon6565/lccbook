@@ -91,11 +91,11 @@
                                                 <tr>
                                                     <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
                                                     <td>${list.company_name}</td>
-                                                    <td>${list.phone_number}</td>
+                                                    <td>${list.company_number}</td>
                                                     <td>${list.start_date}</td>
                                                     <td>${list.end_date}</td>
                                                     <td>${list.delivery_number}</td>
-                                                    <td>${list.state}</td>
+                                                    <td>${list.delivery_state}</td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
