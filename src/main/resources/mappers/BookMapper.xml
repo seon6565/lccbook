@@ -6,43 +6,55 @@
 
     <sql id="whereCondition">
         <where>
+            1=1
+            <if test="cate != null">
+                and left(lb.category_idx, LENGTH(#{cate}))= #{cate}
+            </if>
+            <if test="cate1 != null">
+                and left(lb.category_idx, 2) = #{cate1}
+            </if>
+            <if test="cate2 != null">
+                and mid(lb.category_idx, 3, 2) = #{cate2}
+            </if>
+            <if test="cate3 != null">
+                and right(lb.category_idx, 2) = #{cate3}
+            </if>
             <if test="search_type != null">
                 <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
                     <if test="type == 'all'.toString()">
                         lb.book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                     <if test="type == 'kids'.toString()">
-                        lb.category_idx <![CDATA[<]]> 200000 and lb.book_name LIKE CONCAT('%', #{search_word}, '%')
+                        left(lb.category_idx,2)='10' and lb.book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                     <if test="type == 'ele'.toString()">
-                        lb.category_idx <![CDATA[>=]]> 200000 and lb.category_idx <![CDATA[<]]> 300000
+                        left(lb.category_idx,2)='20'
                         and book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                     <if test="type == 'mid'.toString()">
-                        lb.category_idx <![CDATA[>=]]> 300000 and lb.category_idx <![CDATA[<]]> 400000
+                        left(lb.category_idx,2)='30'
                         and book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                     <if test="type == 'hi'.toString()">
-                        lb.category_idx <![CDATA[>=]]> 400000 and book_name LIKE CONCAT('%', #{search_word}, '%')
+                        left(lb.category_idx,2)='40' and book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                 </foreach>
             </if>
-            <choose>
-                <when test="category == 'kids'">
-                    lb.category_idx <![CDATA[<]]> 200000
-                </when>
-                <when test="category == 'ele'">
-                    lb.category_idx <![CDATA[>=]]> 200000 and lb.category_idx <![CDATA[<]]> 300000
-                </when>
-                <when test="category == 'mid'">
-                    lb.category_idx <![CDATA[>=]]> 300000 and lb.category_idx <![CDATA[<]]> 400000
-                </when>
-                <when test="category == 'hi'">
-                    lb.category_idx <![CDATA[>=]]> 400000
-                </when>
-            </choose>
-            and 1=1
         </where>
+    </sql>
+
+    <sql id="orderCondition">
+
+        <if test="order == 'new'">
+            order by lb.reg_date desc
+        </if>
+        <if test="order == 'cheap'">
+            order by lb.sale_price asc
+        </if>
+        <if test="order == 'expensive'">
+            order by lb.sale_price desc
+        </if>
+
     </sql>
 
     <resultMap id="BookVO" type="org.fullstack4.lccbook.domain.BookVO">
@@ -61,6 +73,11 @@
         <result column="book_video" property="book_video"/>
         <result column="book_quantity" property="book_quantity"/>
         <result column="category" property="category"/>
+        <result column="age" property="age"/>
+        <result column="cate" property="cate"/>
+        <result column="cate1" property="cate1"/>
+        <result column="cate2" property="cate2"/>
+        <result column="cate3" property="cate3"/>
         <association property="categoryVO" resultMap="CategoryVO"/>
     </resultMap>
 
@@ -72,16 +89,22 @@
     <select id="bbsListByPage" resultMap="BookVO">
         SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
         ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        ,substring_index(substring_index(lc.category_name, ',',-2),',',1) AS age
+        ,lb.category_idx AS cate
+        ,left(lb.category_idx, 2) AS cate1
+        ,mid(lb.category_idx, 3, 2) AS cate2
+        ,right(lb.category_idx, 2) AS cate3
         FROM lcc_book AS lb
         INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
         <include refid="whereCondition"></include>
-        ORDER BY lb.reg_date DESC
+        <include refid="orderCondition"></include>
         LIMIT #{page_skip_count}, #{page_size}
     </select>
 
     <select id="view" resultMap="BookVO">
         SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
         ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        ,substring_index(substring_index(lc.category_name, ',',-2),',',1) AS age
         FROM lcc_book AS lb
         INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
         where book_idx=#{book_idx}
@@ -97,12 +120,6 @@
         from lcc_book
         order by book_idx desc
     </select>
-
-<!--    <select id="view" resultType="org.fullstack4.lccbook.domain.BookVO">-->
-<!--        select book_name,price,sale_price,category_idx,reg_date,publisher,author,size,isbn,book_page,book_img,book_video,book_quantity-->
-<!--        from lcc_book-->
-<!--        where book_idx=#{book_idx}-->
-<!--    </select>-->
 
     <update id="modify">
         update lcc_book
@@ -130,8 +147,8 @@
 
 
     <select id="bbsTotalCount" resultType="int">
-        SELECT COUNT(*) FROM lcc_book
-<!--        <include refid="whereCondition"></include>-->
+        SELECT COUNT(*) FROM lcc_book as lb
+        <include refid="whereCondition"></include>
     </select>
 
 

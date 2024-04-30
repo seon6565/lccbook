@@ -21,6 +21,8 @@
         set company_name=#{company_name}, company_number=#{company_number}, start_date=#{start_date}
         , end_date=#{end_date}, delivery_state=#{delivery_state}, delivery_number=#{delivery_number}
         where delivery_idx=#{delivery_idx}
+
+        
     </update>
 
     <delete id="delete">
