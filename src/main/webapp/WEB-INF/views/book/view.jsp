@@ -97,6 +97,7 @@
         <div id="intro">
             <div id="img">
                 <img src="${book.book_img}" width="300px" height="400px">
+                <input type="hidden" id="book_img" name="book_img" value="${book.book_img}"/>
 
             </div>
             <div id="text">
@@ -108,7 +109,9 @@
                 <div class="box">
                     <span style="margin-right: 37px;">적립금</span><span style="font-size: small; color: #5c636a">[VIP회원 5% / 골드회원 4% / 일반회원 3%]</span><br>
                     <span style="margin-right: 54px;">정가</span><span class="text-muted text-decoration-line-through">${book.price}원</span><br>
+                    <input type="hidden" id="price" name="price" value="${book.price}"/>
                     <span style="margin-right: 37px;">판매가</span><span>${book.sale_price}원</span><br>
+                    <input type="hidden" id="sale_price" name="sale_price" value="${book.sale_price}"/>
                     <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span>
                 </div>
                 <div class="box" style="border-bottom: none">
@@ -124,7 +127,7 @@
                 <div class="box" style="border-bottom: none">
                     <button type="button" class="btn btn-outline-secondary" id="cart_button" >장바구니</button>
                     <button type="button" class="btn btn-outline-secondary">관심등록</button>
-                    <button class="btn btn-primary" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
+                    <button class="btn btn-primary" id="purchase_button" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
             </div>
         </div>
@@ -206,56 +209,6 @@
         </div>
     </div>
 </section>
-<%--<form name="frmReplydelete" id="frmReplydelete" method="post" action="/bbs/delete">--%>
-<%--    <c:forEach var="list" items="${bbsReplyDTO}">--%>
-<%--    <input type="hidden" id="idx2" name="idx" value="${list.idx}">--%>
-<%--    <div class="card mb-3">--%>
-<%--        <div class="row g-0">--%>
-<%--            <div class="col-md-2">--%>
-<%--                <img src="${pageContext.request.contextPath}/resources/img/android2.svg" width="128" class="img-fluid rounded-start" alt="Error">--%>
-<%--            </div>--%>
-<%--            <div class="col-md-10">--%>
-<%--                <div class="card-body">--%>
-<%--                    <h5 class="card-title">유저 아이디: ${list.user_id}</h5>--%>
-<%--                    <p class="card-text">${list.title}</p>--%>
-<%--                    <p class="card-text"><small class="text-body-secondary">${list.reg_date}</small></p>--%>
-<%--                </div>--%>
-<%--                <div class="d-grid gap-2 d-md-flex justify-content-md-end">--%>
-<%--                    <c:if test="${list.user_id==memberDTO.user_id}">--%>
-<%--                        <button class="btn btn-outline-primary" type="submit">댓글 삭제</button>--%>
-<%--                    </c:if>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--    </c:forEach>--%>
-<%--</form>--%>
-<%--</div>--%>
-
-<%--<div class="container">--%>
-<%--    <h5>댓글 등록</h5>--%>
-<%--    <form name="frmReplyRegist" id="frmReplyRegist" method="post" action="/bbsreply/regist">--%>
-<%--        <input type="hidden" id="bbs_idx" name="bbs_idx" value="${bbsDTO.idx}">--%>
-<%--        <div class="mb-3">--%>
-<%--            <label for="user_id" class="form-label">아이디</label>--%>
-<%--            <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>--%>
-<%--            <div id="div_err_user_id" style="display:none"></div>--%>
-<%--        </div>--%>
-<%--        <div class="mb-3">--%>
-<%--            <label for="title" class="form-label">내용</label>--%>
-<%--            <textarea class="form-control" name="title" id="title" rows="5" cols="60" placeholder="댓글 내용을 입력하세요."></textarea>--%>
-<%--            <div id="div_err_title" style="display:none"></div>--%>
-<%--        </div>--%>
-<%--        <div class="d-grid gap-2 d-md-flex justify-content-md-end">--%>
-<%--            <c:if test="${memberDTO.user_id !=null}">--%>
-<%--                <button class="btn btn-outline-primary" type="submit">댓글 등록</button>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${memberDTO.user_id !=null}">--%>
-<%--                <button class="btn btn-outline-primary" type="reset">취소</button>--%>
-<%--            </c:if>--%>
-<%--        </div>--%>
-<%--    </form>--%>
-<%--</div>--%>
 
 <%@ include file="../common/footer.jsp"%>
 <script>
@@ -304,6 +257,18 @@
     const quantity_minus = document.querySelector("#quantity_minus");
 
     const quantity_plus = document.querySelector("#quantity_plus");
+
+    const purchase_button = document.querySelector("#purchase_button");
+
+    purchase_button.addEventListener("click",function (e){
+
+        e.preventDefault();
+
+        const form = document.querySelector("#cart");
+        form.action = '/payment/directList';
+        form.method = 'GET';
+        form.submit();
+    });
 
 
     quantity_plus.addEventListener("click",function(e){

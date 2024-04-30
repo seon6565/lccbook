@@ -34,36 +34,44 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         String user_id = paymentDTO.getUser_id();
 
         result1 = paymentMapper.registOrder(user_id);
-        System.out.println("result1  : " + result1);
+       // System.out.println("result1  : " + result1);
 
         int result3= 0;
 
         result3= paymentMapper.lastindex();
 
+        if(paymentDTO.getBook_idxs() != null) {
+            System.out.println("여기로 들어오면 안됨");
+            int[] book_idxs = paymentDTO.getBook_idxs();
+            int[] product_prices = paymentDTO.getProduct_prices();
+            int[] product_sale_prices = paymentDTO.getProduct_sale_prices();
+            String[] product_names = paymentDTO.getProduct_names();
+            int[] product_quantitys = paymentDTO.getProduct_quantitys();
 
-       int[] book_idxs = paymentDTO.getBook_idxs();
-       int[] product_prices = paymentDTO.getProduct_prices();
-       int[] product_sale_prices = paymentDTO.getProduct_sale_prices();
-       String[] product_names = paymentDTO.getProduct_names();
-       int[] product_quantitys = paymentDTO.getProduct_quantitys();
+            for (int i = 0; i < book_idxs.length; i++) {
 
-       for(int i=0; i<book_idxs.length;i++){
+                System.out.println("여기 실행됨?");
+                paymentDTO.setBook_idx(book_idxs[i]);
 
-           System.out.println("여기 실행됨?");
-           paymentDTO.setBook_idx(book_idxs[i]);
+                paymentDTO.setPayment_idx(result3);
+                paymentDTO.setProduct_price(product_prices[i]);
+                paymentDTO.setProduct_sale_price(product_sale_prices[i]);
+                paymentDTO.setProduct_name(product_names[i]);
+                paymentDTO.setProduct_quantity(product_quantitys[i]);
 
-           paymentDTO.setPayment_idx(result3);
-           paymentDTO.setProduct_price(product_prices[i]);
-           paymentDTO.setProduct_sale_price(product_sale_prices[i]);
-           paymentDTO.setProduct_name(product_names[i]);
-           paymentDTO.setProduct_quantity(product_quantitys[i]);
+                // System.out.println("payMentDTO : " + paymentDTO.toString());
+                PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+                result = paymentMapper.regist(paymentVO);
 
-           System.out.println("payMentDTO : " + paymentDTO.toString());
-           PaymentVO paymentVO = modelMapper.map(paymentDTO,PaymentVO.class);
-           result =paymentMapper.regist(paymentVO);
+            }
 
-       }
+        }
+        else{
+            System.out.println("여기로 들어와야함");
 
+            PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+            result = paymentMapper.regist(paymentVO);
+        }
 
 
         return result;
