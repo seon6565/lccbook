@@ -3,12 +3,14 @@ package org.fullstack4.lccbook.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.CartDTO;
+import org.fullstack4.lccbook.dto.PaymentDTO;
 import org.fullstack4.lccbook.service.CartServiceIf;
 import org.fullstack4.lccbook.service.MemberServiceIf;
 import org.fullstack4.lccbook.service.PaymentServiceIf;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,8 +61,13 @@ public class PaymentController {
 
     }
 
-    @GetMapping(value = "/regist")
-    public void regist() {
+    @PostMapping(value = "/regist")
+    public void regist( PaymentDTO paymentDTO
+                                    ,Model model) {
+
+        System.out.println("paymentDTO : " + paymentDTO.toString());
+        int result = paymentServiceIf.regist(paymentDTO);
+
 
     }
     @GetMapping(value = "/modify")

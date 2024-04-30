@@ -12,31 +12,30 @@ import java.time.LocalDate;
 public class PaymentVO
 {
 
-  /*  private int payment_idx;
-    private int product_idx;
-    private int price;
-    private int quantity;
-    private int total;
-    private String product_name;
-    private	String user_id;
-    private	String recipient_name;
-    private	String recipient_phone;
-    private	String payment_method;
-    private	String payment_company;
-    private int	payment_number;
-    private int	payment_amount;
-    private	String payment_status;
-    private LocalDate payment_date;
-    private String recipient_addr;
-    private int recipient_addrnum;
-    private String order_state;*/
-  private int payment_idx;
-  private int order_idx;
+/*  private int payment_idx;*/
+  private int book_idx;
+  private int product_price;
+  private int product_sale_price;
+  private String product_name;
+  private String product_quantity;
   private String user_id;
+  private String user_phone_number;
+  private String user_name;
+  private String user_email;
+  private String recipient_name;
+  private String recipient_phone;
+  private String recipient_addr1;
+  private String recipient_addr2;
+  private String recipient_email;
+  private int recipient_zipcode;
   private String payment_method;
   private String payment_company;
   private int payment_number;
-  private int total_sale_price;
+  private int payment_amount;
+  private int payment_delivery_fee;
   private String payment_status;
   private LocalDate payment_date;
+  private String delivery_memo;
+  private LocalDate refund_date;
+
 }

@@ -11,4 +11,6 @@ public interface PaymentMapper {
     int modify(PaymentVO paymentVO);
     int delete(int idx);
     List<PaymentVO> listUser(String user_id);
+
+    int registOrder (String user_id);
 }

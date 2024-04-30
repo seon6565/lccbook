@@ -12,9 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class OrderDTO {
-    private int order_idx;
+
+    private int payment_idx;
     private String user_id;
-    private LocalDate order_date;
-    private String order_status;
-    private int total_sale_price;
+    private LocalDate reg_date;
+
+
 }

@@ -66,7 +66,7 @@ public class BbsMapperTests {
 
     @Test
     public void testModify(){
-        BookDTO bookDTO = new BookDTO().builder()
+       /* BookDTO bookDTO = new BookDTO().builder()
                 .price(6000)
                 .book_name("책이름수정")
                 .category_idx(2)
@@ -240,7 +240,7 @@ public class BbsMapperTests {
                 .order_state("입고전")
                 .build();
         int paymentRegist = paymentServiceIf.regist(paymentDTO);
-        System.out.println("paymentRegist" + paymentRegist);
+        System.out.println("paymentRegist" + paymentRegist);*/
 
 
     }

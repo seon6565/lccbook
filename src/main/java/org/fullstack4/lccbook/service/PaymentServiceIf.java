@@ -13,7 +13,9 @@ public interface PaymentServiceIf {
     int modify(PaymentDTO paymentDTO);
     int delete(int idx);
     /*List<CartDTO> cartOrderList(int idx);
+
 */
+
 
 
 }

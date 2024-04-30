@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="/resources/css/payment/style.css" rel="stylesheet">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
         .origin_price{
             font-size:14px;
@@ -24,7 +26,8 @@
 <%@ include file="../common/header.jsp"%>
 <div class="untree_co-section">
     <div class="container">
-
+        <form id="frm" name="frm" method="post" action="/payment/regist">
+            <input type="hidden" id="user_id" name="user_id" value="${sessionScope.memberDTO.user_id}">
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">배송지</h2>
@@ -32,8 +35,8 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <label for="c_fname" class="text-black"> 성함 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_fname" name="c_fname">
+                            <label for="recipient_name" class="text-black"> 성함 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="recipient_name" name="recipient_name">
                         </div>
 
                     </div>
@@ -41,12 +44,12 @@
 
                     <div class="form-group row">
                         <div class="col-md-9">
-                            <label for="inputAddress" class="text-black">주소 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="inputAddress"name="addr1" onclick="address();" >
+                            <label for="recipient_addr1" class="text-black">주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="recipient_addr1"name="recipient_addr1" onclick="address();" >
                         </div>
                         <div class="col-md-3">
-                            <label for="post_number" class="text-black">우편번호 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="post_number" name="post_number"  >
+                            <label for="recipient_zipcode" class="text-black">우편번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="recipient_zipcode" name="recipient_zipcode"  >
                         </div>
                     </div>
 
@@ -60,20 +63,20 @@
 
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
-                            <label for="c_email_address" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                            <label for="recipient_email" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="recipient_email" name="recipient_email">
                         </div>
                         <div class="col-md-6">
-                            <label for="c_phone" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="-를 빼고 입력해주세요.">
+                            <label for="recipient_phone" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="recipient_phone" name="recipient_phone" placeholder="-를 빼고 입력해주세요.">
                         </div>
                     </div>
 
 
 
                     <div class="form-group">
-                        <label for="c_order_notes" class="text-black">배송 메모</label>
-                        <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
+                        <label for="delivery_memo" class="text-black">배송 메모</label>
+                        <textarea name="c_order_notes" name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
                     </div>
 
                 </div>
@@ -90,12 +93,16 @@
                                 <th>금액</th>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${cartList}" var="list">
+                                    <c:forEach items="${cartList}" var="list" varStatus="status">
                                 <tr>
-
+                                    <input type="hidden" id="book_idxs${status.count}"  name="book_idxs" value="${list.book_idx}"/>
                                     <td > <img src="${list.book_img}" alt="" width="100" height="100">  ${list.book_name} <strong class="mx-2">x ${list.quantity} </strong></td>
+                                    <input type="hidden" id="product_names${status.count}" name="product_names" value="${list.book_name}">
+                                    <input type="hidden" id="product_quantitys${status.count}" name="product_quantitys" value="${list.quantity}">
                                     <td><br><br><br><del class="origin_price"><fmt:formatNumber value="${list.price * list.quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${list.sale_price * list.quantity}"/>원</span></td>
-                                  <%--  <td><input type="hidden" name="product_name" value="${list.cartId}"/></td>--%>
+                                    <input type="hidden" id="product_prices${status.count}" name="product_prices" value="${list.price}">
+                                    <input type="hidden" id="product_sale_prices${status.count}" name="product_sale_prices" value="${list.sale_price}">
+
                                 </tr>
 
                                     </c:forEach>
@@ -118,11 +125,13 @@
                                     </c:choose>
                                     <td class="text-black font-weight-bold"><strong>배송비</strong></td>
                                     <td class="text-black">${delivery_fee}원</td>
+                                    <input type="hidden" name="payment_delivery_fee" id="payment_delivery_fee" value="${delivery_fee}"/>
                                 </tr>
                                     <c:set var="total_price" value="${delivery_fee + totalPrice}"></c:set>
                                 <tr>
                                     <td class="text-black font-weight-bold"><strong>총 주문 금액</strong></td>
                                     <td class="text-black font-weight-bold"><strong style="color:rgb(40,95,177)"><fmt:formatNumber value="${total_price}"/>원</strong></td>
+                                    <input type="hidden" name="payment_amount" id="payment_amount" value="${total_price}"/>
                                 </tr>
 
                                 </tbody>
@@ -147,7 +156,7 @@
 
             </div>
         </div>
-        <!-- </form> -->
+         </form>
     </div>
 </div>
 <script>
@@ -157,12 +166,12 @@
         new daum.Postcode({
             oncomplete: function (data) {
                 if(data.userSelectedType == "R"){
-                    document.querySelector("#inputAddress").value= data.roadAddress;
-                    document.querySelector("#post_number").value=data.zonecode;
+                    document.querySelector("#recipient_addr1").value= data.roadAddress;
+                    document.querySelector("#recipient_zipcode").value=data.zonecode;
 
                 }
                 else{
-                    document.querySelector("#inputAddress").value= data.jibunAddress;
+                    document.querySelector("#recipient_addr1").value= data.jibunAddress;
                 }
             }
         }).open();
