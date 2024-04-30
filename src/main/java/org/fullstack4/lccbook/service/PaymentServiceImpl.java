@@ -24,16 +24,21 @@ public class PaymentServiceImpl implements PaymentServiceIf {
     @Override
     @Transactional
     public int regist(PaymentDTO paymentDTO) {
-        //  private int[] book_idxs;
-        //  private int[] product_prices;
-        //  private int[] product_sale_prices;
-        //  private String[] product_names;
-        //  private int[] product_quantitys;
+
 
         int result= 0;
         int result1=0;
-        System.out.println("lcc_order_user_id : " + paymentDTO.getUser_id());
-        result1 = paymentMapper.registOrder(paymentDTO.getUser_id());
+
+      /*  System.out.println("paymentDTO  : " + paymentDTO.toString());
+        System.out.println("paymentDTO.getUser_id()  : " + paymentDTO.getUser_id());*/
+        String user_id = paymentDTO.getUser_id();
+
+        result1 = paymentMapper.registOrder(user_id);
+        System.out.println("result1  : " + result1);
+
+        int result3= 0;
+
+        result3= paymentMapper.lastindex();
 
 
        int[] book_idxs = paymentDTO.getBook_idxs();
@@ -44,13 +49,16 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
        for(int i=0; i<book_idxs.length;i++){
 
-           paymentDTO.setBook_idx(book_idxs[i-1]);
-           paymentDTO.setProduct_price(product_prices[i-1]);
-           paymentDTO.setProduct_sale_price(product_sale_prices[i-1]);
-           paymentDTO.setProduct_name(product_names[i-1]);
-           paymentDTO.setProduct_quantity(product_quantitys[i-1]);
+           System.out.println("여기 실행됨?");
+           paymentDTO.setBook_idx(book_idxs[i]);
 
-           System.out.println(paymentDTO.toString());
+           paymentDTO.setPayment_idx(result3);
+           paymentDTO.setProduct_price(product_prices[i]);
+           paymentDTO.setProduct_sale_price(product_sale_prices[i]);
+           paymentDTO.setProduct_name(product_names[i]);
+           paymentDTO.setProduct_quantity(product_quantitys[i]);
+
+           System.out.println("payMentDTO : " + paymentDTO.toString());
            PaymentVO paymentVO = modelMapper.map(paymentDTO,PaymentVO.class);
            result =paymentMapper.regist(paymentVO);
 

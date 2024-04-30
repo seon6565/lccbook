@@ -4,7 +4,7 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.DeliveryMapper">
 
-    <insert id="regist">
+    <insert id="regist" >
         insert into lcc_delivery(company_name,phone_number,delivery_number,state,create_date)
         values (#{company_name},#{phone_number},#{delivery_number},#{state},now())
     </insert>

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class PaymentDTO
 {
 
- /* private int payment_idx;*/
+  private int payment_idx;
   private int book_idx;
   private int product_price;
   private int product_sale_price;
