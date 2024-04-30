@@ -77,6 +77,7 @@
                     <div class="form-group">
                         <label for="delivery_memo" class="text-black">배송 메모</label>
                         <textarea name="c_order_notes" name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
+
                     </div>
 
                 </div>
