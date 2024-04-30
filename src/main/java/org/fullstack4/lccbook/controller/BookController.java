@@ -60,10 +60,20 @@ public class BookController {
         }
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
-        model.addAttribute("search_type", responseDTO.getSearch_type());
+        model.addAttribute("category", responseDTO.getCategory());
+        model.addAttribute("sub", responseDTO.getSub());
+        model.addAttribute("age", responseDTO.getAge());
+        model.addAttribute("cate", responseDTO.getCate());
+        model.addAttribute("cate2", responseDTO.getCate2());
+        model.addAttribute("order", responseDTO.getOrder());
+
 
         if(responseDTO.getSearch_type()!=null){
             model.addAttribute("search_type", responseDTO.getSearch_type()[0]);
+        }
+
+        if(responseDTO.getCategory()!=null){
+            model.addAttribute("category", responseDTO.getCategory());
         }
 
     }

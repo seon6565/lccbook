@@ -26,6 +26,8 @@
         set state = #{state}, company_name=#{company_name}, phone_number=#{phone_number}
         , start_date=#{start_date}, end_date = #{end_date}, update_date = now()
         where delivery_idx=#{delivery_idx}
+
+        
     </update>
 
     <delete id="delete">

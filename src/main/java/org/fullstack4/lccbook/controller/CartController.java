@@ -69,6 +69,38 @@ public class CartController {
         }
 
     }
+
+    /*@PostMapping(value = "/directRegist")
+    public void directRegist(@Valid  CartDTO cartDTO,
+
+                                    BindingResult bindingResult
+            , RedirectAttributes redirectAttributes) {
+        System.out.println("cartDTO" + cartDTO.toString());
+
+
+        int result = cartServiceIf.regist(cartDTO);
+        if(result>0){
+            // 장바구니에 상품 추가 성공
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "장바구니에 상품을 담았습니다.");
+            response.put("redirect", "/cart/list");
+
+
+        }else{
+            // 장바구니에 이미 상품이 있어서 추가 실패
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "해당 상품은 이미 장바구니에 추가되어있습니다.");
+
+
+        }
+
+    }*/
+
+
+
+
     @GetMapping(value = "/modify")
     public void modify() {
 

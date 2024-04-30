@@ -15,7 +15,7 @@ public class BookVO {
     private String book_name;
     private int price;
     private int sale_price;
-    private int category_idx;
+    private String category_idx;
     private LocalDate reg_date;
     private LocalDate modify_date;
     private String publisher;
@@ -29,5 +29,10 @@ public class BookVO {
 
     private CategoryVO categoryVO;
     private String category;
+    private String age;
+    private String cate;
+    private String cate1;
+    private String cate2;
+    private String cate3;
 
 }

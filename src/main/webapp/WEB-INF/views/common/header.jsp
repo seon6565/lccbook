@@ -136,10 +136,10 @@
                     </ul></li>
                     <li><a class="nav-link active" aria-current="page" href="/book/list">교재</a>
                         <ul class="sub-menu" class="sub-menu1">
-                            <li><a href="/book/list?category=kids" style="font-size: 14px;">영유아</a></li>
-                            <li><a href="/book/list?category=ele" style="font-size: 14px;">초등</a></li>
-                            <li><a href="/book/list?category=mid" style="font-size: 14px;">중학</a></li>
-                            <li><a href="/book/list?category=hi" style="font-size: 14px;">고등</a></li>
+                            <li><a href="/book/list?cate=10" style="font-size: 14px;">영유아</a></li>
+                            <li><a href="/book/list?cate=20" style="font-size: 14px;">초등</a></li>
+                            <li><a href="/book/list?cate=30" style="font-size: 14px;">중학</a></li>
+                            <li><a href="/book/list?cate=40" style="font-size: 14px;">고등</a></li>
                         </ul></li>
                     <li><a class="nav-link active" aria-current="page" href="/notice/list">커뮤니티</a>
                         <ul class="sub-menu" class="sub-menu1">

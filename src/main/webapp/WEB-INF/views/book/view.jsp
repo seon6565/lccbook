@@ -101,7 +101,7 @@
             </div>
             <div id="text">
                 <div class="box">
-                    <span style="margin-right: 54px;">대상</span><span>${book.category}</span><br>
+                    <span style="margin-right: 54px;">대상</span><span>[${book.category}] ${book.age}</span><br>
                     <span style="margin-right: 37px;">출간일</span><span>${book.reg_date}</span><br>
                     <span style="margin-right: 37px;">페이지</span><span>${book.book_page}</span>
                 </div>
