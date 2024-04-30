@@ -10,7 +10,7 @@
     </insert>
 
     <select id="lastindex">
-        SELECT LAST_INSERT_ID(idx) FROM lcc_bbs order by idx desc LIMIT 1
+        SELECT LAST_INSERT_ID(payment_idx) FROM lcc_order order by payment_idx desc LIMIT 1
     </select>
 
 <!--    <insert id="registOrder" useGeneratedKeys="true" keyProperty="payment_idx" keyColumn="payment_idx" >-->

@@ -68,7 +68,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         }
         else{
             System.out.println("여기로 들어와야함");
-
+            paymentDTO.setPayment_idx(result3);
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
             result = paymentMapper.regist(paymentVO);
         }
