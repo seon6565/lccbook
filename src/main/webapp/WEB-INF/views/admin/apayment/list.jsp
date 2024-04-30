@@ -40,7 +40,7 @@
                                                         <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0}>
                                                     </div>
                                                     <div class="form-check form-switch form-check-inline" >
-                                                        <label class="form-check-label" for="search_type_1">작성자</label>
+                                                        <label class="form-check-label" for="search_type_1">주문자</label>
                                                         <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
                                                     </div>
                                                 </div>
@@ -48,9 +48,9 @@
                                             </div>
                                             <div class="input-group mb-1">
                                                 <span class="input-group-text">검색기간</span>
-                                                <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
+                                                <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="결제일 시작" value="${responseDTO.search_date1}">
                                                 <span class="input-group-text">~</span>
-                                                <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
+                                                <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="결제일 끝" value="${responseDTO.search_date2}">
                                             </div>
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
                                                 <button class="btn btn-outline-primary" type="submit">검색</button>
@@ -62,26 +62,28 @@
                                         <thead>
                                         <tr class="table-secondary">
                                             <th scope="col"></th>
-                                            <th scope="col">작성자</th>
-                                            <th scope="col">답변여부</th>
-                                            <th scope="col">제목</th>
-                                            <th scope="col">등록일</th>
+                                            <th scope="col">주문자</th>
+                                            <th scope="col">주문상품</th>
+                                            <th scope="col">총주문금액</th>
+                                            <th scope="col">환불승인</th>
+                                            <th scope="col">결제일</th>
                                         </tr>
                                         </thead>
-                                        <form action="/admin/aqna/deletecheck" method="post" id="frmDelete" name="frmDelete">
+                                        <form action="/admin/apayment/cancelall" method="post" id="frmDelete" name="frmDelete">
                                             <c:forEach var="list" items="${responseDTO.dtoList}">
                                                 <tbody>
                                                 <tr>
-                                                    <td><input type="checkbox" value="${list.qna_idx}" name="qna_idx" id="qna_idx${list.qna_idx}"></td>
+                                                    <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${list.qna_idx}"></td>
                                                     <td>${list.user_id}</td>
                                                     <td>${list.answer_yn}</td>
-                                                    <td> <a href="/admin/aqna/view${responseDTO.linkParams}&idx=${list.qna_idx}&page=${responseDTO.page}">${list.question_title}</a></td>
+                                                    <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>
+                                                    <td> <a href="admin/apayment/refund"> 환불 승인</a></td>
                                                     <td>${list.question_regdate}</td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">질문삭제하기</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">주문취소하기</button>
                                             </div>
                                         </form>
                                     </table>
@@ -130,7 +132,7 @@ ${errorAlert}
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
-        if(confirm("해당 질문을 삭제하시겠습니까?")){
+        if(confirm("해당 주문을 취소하시겠습니까?")){
             frm.submit();
         }
     }

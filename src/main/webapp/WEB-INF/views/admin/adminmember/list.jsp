@@ -5,6 +5,8 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
@@ -35,7 +37,6 @@
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <a href="/faq/list" target="_blank" class="btn btn-primary">Home</a>
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                                    aria-expanded="false">
@@ -68,86 +69,71 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <div style="display: flex; justify-content: space-between;margin-bottom: 15px;">
-                                <h5 class="card-title fw-semibold mb-4">FAQ</h5>
-                                <button class="btn btn-primary" type="button" onclick="location.href='/admin/afaq/regist'">글 등록</button>
-                            </div>
+                            <h5 class="card-title fw-semibold mb-4">Q&A</h5>
+
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <form id="frm" name="frm" action="/admin/afaq/deleteCheck" method="post">
-                                        <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
-                                            <button class="btn btn-primary" id="btn_delete" type="submit" onclick="godelete(event)">삭제</button>
-                                        </div>
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <c:forEach items="${responseDTO.dtoList}" var="list">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#btn${list.faq_idx}" aria-expanded="false" aria-controls="btn${list.faq_idx}">
-                                                    <input type="checkbox" id="faq_idx" name="faq_idx" value="${list.faq_idx}" style="margin-right: 5px;"/>
-                                                    <span style="font-size: small">Q. [${list.faq_title}]</span>
-                                                    ${list.faq_content}
-                                                </button>
-                                            </h2>
-                                            <div id="btn${list.faq_idx}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                                <div class="accordion-body">
-                                                    <a href="/admin/afaq/view?faq_idx=${list.faq_idx}">A. ${list.answer_content}</a>
+                                    <div>
+                                        <form name="frmSearch" id="search" action="/admin/aqna/list">
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text ">검색범위</span>
+                                                <div class="input-group-text">
+                                                    <div class="form-check form-switch form-check-inline" >
+                                                        <label class="form-check-label" for="search_type_1">유저이름</label>
+                                                        <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1} >
+                                                    </div>
                                                 </div>
+                                                <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
                                             </div>
-                                        </div>
-                                        </c:forEach>
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text">검색기간</span>
+                                                <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
+                                                <span class="input-group-text">~</span>
+                                                <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
+                                            </div>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                                <button class="btn btn-outline-primary" type="submit">검색</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="window.location.href='admin/aqna/list'">검색 초기화</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    </form>
+                                    <table class="table">
+                                        <thead>
+                                        <tr class="table-secondary">
+                                            <th scope="col"></th>
+                                            <th scope="col">아이디</th>
+                                            <th scope="col">등록일</th>
+                                        </tr>
+                                        </thead>
+                                        <form action="/admin/aqna/deletecheck" method="post" id="frmDelete" name="frmDelete">
+                                            <c:forEach var="list" items="${adminDTOList}">
+                                                <tbody>
+                                                <tr>
+                                                    <td><input type="checkbox" value="${list.admin_id}" name="user_id" id="user_id${list.admin_id}"></td>
+                                                    <td>${list.admin_id}</td>
+                                                    <td>${list.admin_regdate}</td>
+                                                </tr>
+                                                </tbody>
+                                            </c:forEach>
+                                        </form>
+                                    </table>
+
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item
-        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-        </li>
-        <c:forEach begin="${responseDTO.page_block_start}"
-                   end="${responseDTO.page_block_end}"
-                   var="page_num">
-            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                <a class="page-link" data-num="${page_num}"
-                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-            </li>
-        </c:forEach>
-        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-        </li>
-    </ul>
-</nav>
 </div>
-<%@ include file="../../common/footer.jsp"%>
-
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/assets/js/sidebarmenu.js"></script>
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
-<script>
-    function godelete(e) {
-        e.preventDefault();
-        if(confirm("해당 글을 정말 삭제하시겠습니까?")) {
-            alert("삭제되었습니다.");
-            document.getElementById("frm").submit();
-        } else {
-            return false;
-        }
-    }
-
-</script>
+${errorAlert}
 </body>
 </html>

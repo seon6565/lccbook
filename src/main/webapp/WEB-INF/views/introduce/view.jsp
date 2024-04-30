@@ -19,7 +19,7 @@
     <!-- Navigation-->
     <%@ include file="../common/header.jsp"%>
     <!-- Header-->
-    <header class="py-5">
+    <header class="py-3">
         <div class="container px-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xxl-6">

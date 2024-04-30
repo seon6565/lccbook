@@ -29,47 +29,42 @@
                             <h5 class="card-title fw-semibold mb-4">Q&A</h5>
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <form name="frmDelete" id="frmDelete" method="post" action="/admin/aqna/deleteanswer">
-                                        <input type="hidden" id="idx" name="idx" value="${qnaDTO.qna_idx}">
-                                        <div class="mb-3">
-                                            아이디
-                                            <span class="form-control">${qnaDTO.user_id}</span>
-                                        </div>
-                                        <div class="mb-3">
-                                            제목
-                                            <span class="form-control"> ${qnaDTO.question_title} </span>
-                                        </div>
-                                        <div class="mb-3">
-                                            내용
-                                            <textarea class="form-control" rows="10" cols="60" style="resize: none;">${qnaDTO.question_content} </textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            질문날짜
-                                            <span class="form-control"> ${qnaDTO.question_regdate} </span>
-                                        </div>
-                                        <div class="mb-3">
-                                            답변여부
-                                            <span class="form-control"> ${qnaDTO.answer_yn} </span>
-                                        </div>
-                                        <div class="mb-3">
-                                            답변내용
-                                            <span class="form-control"> ${qnaDTO.answer_content} </span>
-                                        </div>
-                                        <div class="mb-3">
-                                            답변일
-                                            <span class="form-control"> ${qnaDTO.answer_regdate} </span>
-                                        </div>
+                                    <table class="table">
+                                        <thead>
+                                        <tr class="table-secondary">
+                                            <th scope="col"></th>
+                                            <th scope="col">주문자</th>
+                                            <th scope="col">주문상품</th>
+                                            <th scope="col">주문수량</th>
+                                            <th scope="col">주문금액</th>
+                                            <th scope="col">주문상태</th>
+                                            <th scope="col">결제일</th>
+                                        </tr>
+                                        </thead>
+                                        <form action="/admin/apayment/cancel" method="post" id="frmDelete" name="frmDelete">
+                                            <c:forEach var="list" items="${responseDTO.dtoList}">
+                                                <tbody>
+                                                <tr>
+                                                    <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${list.qna_idx}"></td>
+                                                    <td>${list.user_id}</td>
+                                                    <td>${list.answer_yn}</td>
+                                                    <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>
+                                                    <td>${list.question_regdate}</td>
+                                                    <td>${list.question_regdate}</td>
+                                                    <td>${list.question_regdate}</td>
+                                                </tr>
+                                                </tbody>
+                                            </c:forEach>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">부분취소하기</button>
+                                            </div>
+                                        </form>
+                                    </table>
 
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                             <button class="btn btn-outline-primary" type="button"
-                                                    onclick="location.href='/admin/aqna/list?page=${param.page}&page_size=${param.page_size}&search_type=${paramValues.get('search_type')[0]}&search_type=${paramValues.get('search_type')[1]}&search_word=${param.search_word}&search_date1=${param.search_date1}&search_date2=${param.search_date2}'">목록</button>
-                                            <button class="btn btn-outline-primary" type="button" onclick="location.href='/admin/aqna/regist?idx=${qnaDTO.qna_idx}'">답변등록</button>
-                                            <button class="btn btn-outline-primary" type="button" onclick="goDelete()">답변삭제</button>
-                                            <button class="btn btn-outline-primary" type="button" onclick="goDelete2()">질문삭제</button>
+                                                    onclick="location.href='/admin/apayment/list?page=${param.page}&page_size=${param.page_size}&search_type=${paramValues.get('search_type')[0]}&search_type=${paramValues.get('search_type')[1]}&search_word=${param.search_word}&search_date1=${param.search_date1}&search_date2=${param.search_date2}'">목록</button>
                                         </div>
-                                    </form>
-
-
                                 </div>
                             </div>
                         </div>
@@ -88,13 +83,8 @@ ${errorAlert}
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
-        if(confirm("해당 답변을 삭제하시겠습니까?")){
+        if(confirm("해당 제품들을 취소하시겠습니까?")){
             frm.submit();
-        }
-    }
-    function goDelete2(){
-        if(confirm("해당 질문을 삭제하시겠습니까?")){
-            location.href="/admin/aqna/delete?idx=${qnaDTO.qna_idx}";
         }
     }
 </script>

@@ -6,7 +6,6 @@ import org.fullstack4.lccbook.dto.DeliveryDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.DeliveryServiceIf;
-import org.fullstack4.lccbook.service.DeliveryServiceImpl;
 import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +47,7 @@ public class AdeliveryController {
         }
         PageResponseDTO<DeliveryDTO> responseDTO = deliveryService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
-        return "admin/adelivery/list";
+        return "/admin/adelivery/list";
 
     }
 

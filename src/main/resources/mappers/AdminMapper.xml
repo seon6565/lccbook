@@ -8,4 +8,21 @@
         from lcc_admin_member
         where admin_id=#{admin_id}
     </select>
+
+    <select id="list" resultType="org.fullstack4.lccbook.domain.AdminVO">
+        select admin_id, admin_regdate
+        from lcc_admin_member
+        order by admin_id desc
+    </select>
+
+    <insert id="regist">
+        insert into lcc_admin_member(admin_id, admin_pwd)
+        values (#{admin_id},#{admin_pwd})
+    </insert>
+
+    <delete id="delete">
+        delete
+        from lcc_admin_member
+        where admin_id=#{admin_id}
+    </delete>
 </mapper>

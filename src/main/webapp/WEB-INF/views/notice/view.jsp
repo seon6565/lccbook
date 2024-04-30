@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3">
             내용
-            <span class="form-control">${noticeDTO.content} </span>
+            <textarea rows="10" cols="60" style="resize: none;" class="form-control">${noticeDTO.content} </textarea>
         </div>
         <div class="mb-3">
             등록일
