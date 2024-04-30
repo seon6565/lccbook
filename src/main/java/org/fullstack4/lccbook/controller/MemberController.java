@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -166,8 +167,16 @@ public class MemberController {
     }
 
     @GetMapping("/payment")
-    public void paymentlist(String user_id, RedirectAttributes redirectAttributes, Model model){
-        List<PaymentDTO> paymentDTOList = paymentServiceIf.listUser(user_id);
+    public void paymentlist( RedirectAttributes redirectAttributes, Model model,HttpServletRequest req){
+        HttpSession session = req.getSession();
+        MemberDTO memberDTO  = (MemberDTO) session.getAttribute("memberDTO");
+        System.out.println("paymentList controller :  " + memberDTO.getUser_id());
+
+        List<PaymentDTO> paymentDTOList = paymentServiceIf.listUser(memberDTO.getUser_id());
+        for(PaymentDTO dto : paymentDTOList){
+            System.out.println("유저 결제내역  :" + paymentDTOList);
+        }
+
         model.addAttribute("paymentDTOList", paymentDTOList);
     }
 }

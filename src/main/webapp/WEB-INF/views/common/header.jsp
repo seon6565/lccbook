@@ -99,7 +99,7 @@
                     </li>
                 </c:if>
                 <li class="nav-item">
-                    <a class="nav-link" href="/payment/list">주문조회</a>
+                    <a class="nav-link" href="/member/payment">주문조회</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cart/list">장바구니</a>
