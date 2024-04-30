@@ -93,7 +93,8 @@
         <form id="cart" name="cart" action="/cart/list" method="post">
             <input type="hidden"  id="book_idx1" name="book_idx" value="${book.book_idx}">
             <input type="hidden" id="user_id1" name="user_id" value="${sessionScope.memberDTO.user_id}">
-        <h3>${book.book_name}</h3>
+            <input type="hidden" id="book_name" name="book_name" value="${book.book_name}">
+            <h3>${book.book_name}</h3>
         <div id="intro">
             <div id="img">
                 <img src="${book.book_img}" width="300px" height="400px">

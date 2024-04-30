@@ -44,6 +44,7 @@ public class PaymentController {
 
             model.addAttribute("book_idx",book_idx);
             model.addAttribute("book_name",book_name);
+
             model.addAttribute("price",price);
             model.addAttribute("sale_price",sale_price);
             model.addAttribute("quantity",quantity);
