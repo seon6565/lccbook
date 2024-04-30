@@ -5,8 +5,6 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
 </head>
@@ -84,13 +82,13 @@
                                         <c:forEach items="${responseDTO.dtoList}" var="list">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#btn${list.faq_idx}" aria-expanded="false" aria-controls="btn${list.faq_idx}">
                                                     <input type="checkbox" id="faq_idx" name="faq_idx" value="${list.faq_idx}" style="margin-right: 5px;"/>
                                                     <span style="font-size: small">Q. [${list.faq_title}]</span>
                                                     ${list.faq_content}
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                            <div id="btn${list.faq_idx}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                                 <div class="accordion-body">
                                                     <a href="/admin/afaq/view?faq_idx=${list.faq_idx}">A. ${list.answer_content}</a>
                                                 </div>

@@ -10,8 +10,7 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<div class="container">
-
+<div class="container my-3">
     <form id="frmLogin" name="frmLogin" method="post" action="/admin/login">
         <div class="mb-3">
             <label for="admin_id" class="form-label">관리자 아이디</label>
@@ -27,6 +26,7 @@
             <button class="btn btn-primary" id="btnLogin">로그인</button>
         </div>
     </form>
+    </div>
 </div>
 <%@ include file="../common/footer.jsp"%>
 <script>

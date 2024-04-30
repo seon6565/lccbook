@@ -17,8 +17,7 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<div class="container">
-
+<div class="container my-3">
 <form id="frmLogin" name="frmLogin" method="post" action="/login/login">
     <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">
     <div class="mb-3">

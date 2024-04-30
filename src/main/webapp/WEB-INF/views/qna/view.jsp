@@ -37,7 +37,7 @@
 </div>
 <div class="mb-3">
     답변내용
-    <span class="form-control"> ${qnaDTO.answer_content} </span>
+    <textarea rows="10" cols="60" style="resize: none;" class="form-control"> ${qnaDTO.answer_content} </textarea>
 </div>
 <div class="mb-3">
     답변일
