@@ -58,8 +58,9 @@
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.PaymentVO">
-        select payment_idx,book_idx,price,quantity,quantity,total,product_name , user_id, recipient_name,recipient_phone ,payment_method ,payment_company ,payment_number
-        , payment_amount,payment_status ,payment_date,recipient_addr ,recipient_addrnum ,order_state
+        select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
+        recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
+        payment_amount,payment_delivery_fee,delivery_memo
         from lcc_payment
         where payment_idx=#{payment_idx}
     </select>

@@ -28,7 +28,7 @@ public class PaymentController {
 
 
     @GetMapping(value = "/view")
-    public void view() {
+    public void view(@RequestParam(name="idx") int idx, Model model) {
 
     }
 
