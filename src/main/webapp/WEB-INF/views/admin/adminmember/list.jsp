@@ -69,7 +69,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title fw-semibold mb-4">Q&A</h5>
+                            <h5 class="card-title fw-semibold mb-4">관리자 관리</h5>
 
                             <div class="card">
                                 <div class="card-body p-4">
@@ -105,16 +105,20 @@
                                             <th scope="col">등록일</th>
                                         </tr>
                                         </thead>
-                                        <form action="/admin/aqna/deletecheck" method="post" id="frmDelete" name="frmDelete">
+                                        <form action="/admin/adminmember/deletecheck" method="post" id="frmDelete" name="frmDelete">
                                             <c:forEach var="list" items="${adminDTOList}">
                                                 <tbody>
                                                 <tr>
-                                                    <td><input type="checkbox" value="${list.admin_id}" name="user_id" id="user_id${list.admin_id}"></td>
+                                                    <td><input type="checkbox" value="${list.admin_id}" name="admin_id" id="admin_id${list.admin_id}"></td>
                                                     <td>${list.admin_id}</td>
                                                     <td>${list.admin_regdate}</td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                                <button class="btn btn-outline-primary" type="button" onclick="location.href='/admin/adminmember/regist'">관리자 등록</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">관리자 삭제</button>
+                                            </div>
                                         </form>
                                     </table>
 
@@ -129,11 +133,20 @@
         </div>
     </div>
 </div>
+
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/assets/js/sidebarmenu.js"></script>
 <script src="/resources/assets/js/app.min.js"></script>
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 ${errorAlert}
+<script>
+    function goDelete(){
+        const frm = document.getElementById("frmDelete");
+        if(confirm("해당 관리자들을 삭제하시겠습니까?")){
+            frm.submit();
+        }
+    }
+</script>
 </body>
 </html>
