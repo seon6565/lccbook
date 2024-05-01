@@ -151,4 +151,10 @@
         where user_id = #{user_id} and payment_idx = #{payment_idx}
         order by payment_idx desc
     </select>
+
+    <update id="updateQuantity">
+        update lcc_book
+        set book_quantity= book_quantity - ${book_quantity}
+        where book_quantity >= #{book_quantity} and book_idx =#{book_idx}
+    </update>
 </mapper>

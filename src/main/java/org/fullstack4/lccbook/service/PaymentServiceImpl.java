@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.domain.DeliveryVO;
 import org.fullstack4.lccbook.domain.PaymentVO;
 import org.fullstack4.lccbook.dto.*;
+import org.fullstack4.lccbook.mapper.BookMapper;
 import org.fullstack4.lccbook.mapper.CartMapper;
 import org.fullstack4.lccbook.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class PaymentServiceImpl implements PaymentServiceIf {
     private final PaymentMapper paymentMapper;
     private final ModelMapper modelMapper;
+    private final BookMapper bookMapper;
     private final CartMapper cartMapper;
     @Override
     @Transactional
@@ -28,13 +30,16 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
         int result= 0;
         int result1=0;
+        int quantity_result =0;
 
-      /*  System.out.println("paymentDTO  : " + paymentDTO.toString());
-        System.out.println("paymentDTO.getUser_id()  : " + paymentDTO.getUser_id());*/
+
         String user_id = paymentDTO.getUser_id();
 
-        result1 = paymentMapper.registOrder(user_id);
-       // System.out.println("result1  : " + result1);
+        result1 = paymentMapper.registOrder(user_id); //주문테이블 등록
+        if(result1 <=0){
+            throw new RuntimeException("RuntimeException for rollback");
+        }
+
 
         int result3= 0;
 
@@ -42,11 +47,17 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
         if(paymentDTO.getBook_idxs() != null) {
 
+
             int[] book_idxs = paymentDTO.getBook_idxs();
             int[] product_prices = paymentDTO.getProduct_prices();
             int[] product_sale_prices = paymentDTO.getProduct_sale_prices();
             String[] product_names = paymentDTO.getProduct_names();
             int[] product_quantitys = paymentDTO.getProduct_quantitys();
+            /*for(int i=0; i<product_prices.length; i++) {
+                total_quantity += product_prices[i];
+                System.out.println("paymentServiceImpl total_quantity : " + total_quantity);
+
+            }*/
 
             for (int i = 0; i < book_idxs.length; i++) {
 
@@ -61,7 +72,23 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
                 // System.out.println("payMentDTO : " + paymentDTO.toString());
                 PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
-                result = paymentMapper.regist(paymentVO);
+
+
+                result = paymentMapper.regist(paymentVO); // 결제 처리
+                if(result <=0){
+                    throw new RuntimeException("RuntimeException for rollback");
+                }
+
+                System.out.println("quantity_result 업데이트 전 product_quantitys[i] 값 : " + product_quantitys[i]);
+                System.out.println("quantity_result 업데이트 전 book_idxs[i] 값 : " + book_idxs[i]);
+                //수량업데이트
+                quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]); //재고 업데이트
+
+
+                if(quantity_result <=0){
+                    throw new RuntimeException("RuntimeException for rollback");
+                }
+                System.out.println("quantity_result 업데이트 후 값 : " + quantity_result);
 
             }
 
@@ -70,7 +97,16 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
             paymentDTO.setPayment_idx(result3);
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+
             result = paymentMapper.regist(paymentVO);
+            if(result <=0){
+                throw new RuntimeException("RuntimeException for rollback");
+            }
+            quantity_result =  paymentMapper.updateQuantity(paymentDTO.getProduct_quantity(),paymentDTO.getPayment_idx());
+            if(quantity_result <=0){
+                throw new RuntimeException("RuntimeException for rollback");
+            }
+
         }
 
 

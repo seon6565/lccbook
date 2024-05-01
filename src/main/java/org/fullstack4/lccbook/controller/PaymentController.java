@@ -68,6 +68,9 @@ public class PaymentController {
                      Model model) {
 
 
+        System.out.println("paymentContoller : "+cart_idx.length);
+        System.out.println("paymentContoller : "+quantity.length);
+        System.out.println("paymentContoller : "+book_idx.length);
 
         for(int i =0; i<quantity.length;i++){
             int result = cartServiceIf.modify(cart_idx[i],quantity[i],book_idx[i]);

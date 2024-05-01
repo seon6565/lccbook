@@ -26,4 +26,7 @@ public interface PaymentMapper {
     int statusModify(PaymentVO paymentVO);
 
     List<PaymentVO> complete(@Param(value="user_id") String user_id, @Param(value = "payment_idx") int payment_idx);
+
+
+    int updateQuantity(@Param(value="book_quantity")int book_quantity ,@Param(value="book_idx") int book_idx);
 }

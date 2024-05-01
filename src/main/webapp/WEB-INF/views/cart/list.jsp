@@ -334,13 +334,25 @@
     }
 
     //주문하기
-   /* const order_submit = document.querySelector("#order_submit");
+   const order_submit = document.querySelector("#order_submit");
     order_submit.addEventListener("click",function (e){
-       e.preventDefault();
-        e.method="GET";
-        location.href='/payment/list';
 
-    });*/
+        document.querySelectorAll('input.product_check').forEach(function(checkbox) {
+            if (!checkbox.checked) {
+                // 체크되지 않은 체크박스의 부모인 <td>를 찾기
+                let parentTd = checkbox.closest('td');
+                // 그 <td>의 부모인 <tr>을 찾아 모든 입력 요소 비활성화 또는 제거
+                let parentTr = parentTd.closest('tr');
+
+                // 비활성화 대신 제거를 원한다면 이 부분을 수정
+                parentTr.querySelectorAll('input').forEach(function(input) {
+                    input.disabled = true; //
+                });
+            }
+        });
+        return true;
+
+    });
 
 
 
