@@ -3,6 +3,7 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.dto.NoticeDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.dto.PaymentDTO;
@@ -39,7 +40,7 @@ public class ApaymentController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        PageResponseDTO<PaymentDTO> responseDTO = null;//paymentServiceIf.bbsListByPage(pageRequestDTO);
+        PageResponseDTO<PaymentDTO> responseDTO =paymentServiceIf.bbsListByPage(pageRequestDTO);
         log.info("responseDTO test"+responseDTO);
         model.addAttribute("responseDTO", responseDTO);
         if(responseDTO.getSearch_type()!=null) {
@@ -89,5 +90,24 @@ public class ApaymentController {
         else{
             return "/admin/apayment/view?payment_idx="+payment_idx;
         }
+    }
+    @PostMapping(value = "/modify")
+    public String statusModify(@RequestParam(name="payment_idx", defaultValue = "0") int[] payment_idx,
+                               @RequestParam(name="book_idx", defaultValue = "0") int[] book_idx,
+                               @RequestParam(name="payment_status", defaultValue = "0") String[] payment_status,
+                                    Model model,
+                                    RedirectAttributes redirectAttributes){
+
+
+        for(int i=0; i < payment_idx.length; i++) {
+           int result = paymentServiceIf.statusModify(payment_idx[i],book_idx[i],payment_status[i]);
+        }
+     /*   int result = noticeService.modify(noticeDTO);
+        if(result > 0) {
+            return "redirect:/admin/anotice/view?notice_idx=" + noticeDTO.getNotice_idx();
+        } else {
+            return "/admin/anotice/modify?notice_idx=" + noticeDTO.getNotice_idx();
+        }*/
+        return "redirect:/admin/apayment/list";
     }
 }

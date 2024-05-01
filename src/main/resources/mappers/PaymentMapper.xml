@@ -4,6 +4,32 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.PaymentMapper">
 
+    <sql id="whereCondition">
+        <where>
+            <if test="search_type !=null and search_type !=''">
+                <foreach collection="search_type" item="type" separator=" OR ">
+                    <if test="type=='t'.toString()">
+                        product_name like concat('%', #{search_word},'%')
+                    </if>
+                    <if test="type=='u'.toString()">
+                        user_id like concat('%', #{search_word},'%')
+                    </if>
+                </foreach>
+            </if>
+            <if test="search_date1 !=null and search_date1 !='' ">
+                <trim prefix=" and ">
+                    reg_date >= #{search_date1}
+                </trim>
+            </if>
+            <if test="search_date2 !=null and search_date2 !='' ">
+                <trim prefix=" and ">
+                    ADDDATE(#{search_date2},1) >= reg_date
+                </trim>
+            </if>
+            and 1=1
+        </where>
+    </sql>
+
     <insert id="registOrder" >
         insert into lcc_order(user_id)
         values (#{user_id})
@@ -51,7 +77,7 @@
     <select id="listUser" resultType="org.fullstack4.lccbook.domain.PaymentVO">
         select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
         recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
-        payment_amount,payment_delivery_fee,delivery_memo
+        payment_amount,payment_delivery_fee,delivery_memo,payment_status
         from lcc_payment
         where user_id = #{user_id}
         order by payment_idx desc
@@ -60,9 +86,19 @@
     <select id="view" resultType="org.fullstack4.lccbook.domain.PaymentVO">
         select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
         recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
-        payment_amount,payment_delivery_fee,delivery_memo
+        payment_amount,payment_delivery_fee,delivery_memo,payment_status
         from lcc_payment
         where payment_idx=#{payment_idx}
+     <!--   where payment_idx=#{payment_idx} and book_idx=#{book_idx}-->
+    </select>
+
+    <!-- 결제 내역 상세뷰 -->
+    <select id="DetailView" resultType="org.fullstack4.lccbook.domain.PaymentVO">
+        select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
+        recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
+        payment_amount,payment_delivery_fee,delivery_memo,payment_date,payment_status
+        from lcc_payment
+           where payment_idx=#{payment_idx} and book_idx=#{book_idx}
     </select>
 
     <!-- 결제상태,주문상태 변경 -->
@@ -74,11 +110,31 @@
         where payment_idx=#{payment_idx}
     </update>
 
+    <update id="statusModify">
+        update lcc_payment
+        set payment_status=#{payment_status}
+        where payment_idx=#{payment_idx} and book_idx =#{book_idx}
+    </update>
+
     <delete id="delete">
         delete
         from lcc_payment
         where payment_idx=#{payment_idx}
     </delete>
+
+    <select id="bbsTotalCount" resultType="int">
+        SELECT COUNT(*) FROM lcc_payment
+    </select>
+
+    <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.PaymentVO">
+        select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
+        recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
+        payment_amount,payment_delivery_fee,delivery_memo,payment_date,payment_status
+        FROM lcc_payment
+        <include refid="whereCondition"></include>
+        ORDER BY payment_idx DESC
+        LIMIT #{page_skip_count}, #{page_size}
+    </select>
 
 <!--    <select id="bbsTotalCount" resultType="int">
         select count(*)

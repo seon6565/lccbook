@@ -28,7 +28,13 @@ public class PaymentController {
 
 
     @GetMapping(value = "/view")
-    public void view(@RequestParam(name="idx") int idx, Model model) {
+    public void view(@RequestParam(name="payment_idx") int payment_idx,
+                     @RequestParam(name="book_idx") int book_idx,
+                     Model model) {
+        PaymentDTO paymentDTO = paymentServiceIf.DetailView(payment_idx,book_idx );
+        System.out.println("paymentDTO controller : " + paymentDTO);
+
+        model.addAttribute("paymentDTO",paymentDTO);
 
     }
 
