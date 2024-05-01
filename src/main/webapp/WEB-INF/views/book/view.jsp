@@ -7,6 +7,7 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
@@ -38,7 +39,7 @@
             margin-right: 10px;
         }
 
-        .nav-item > a {
+        .nav-item1 > a {
             width: 200px;
             text-align: center;
             font-size: large !important;
@@ -82,6 +83,15 @@
             padding: 20px;
             display: flex;
             border: 1px solid #ccc;
+        }
+
+        .rating {
+            width: 180px;
+        }
+
+        .rating__star {
+            cursor: pointer;
+            color: #dabd18b2;
         }
 
     </style>
@@ -135,16 +145,16 @@
         </form>
         <div>
             <ul class="nav nav-tabs">
-                <li class="nav-item">
+                <li class="nav-item1">
                     <a class="nav-link active" aria-current="page" href="#">상세정보</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item1">
                     <a class="nav-link active" aria-current="page" href="#">교재후기(550)</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item1">
                     <a class="nav-link active" aria-current="page" href="#">FAQ</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item1">
                     <a class="nav-link active" aria-current="page" href="#">배송/환불정책</a>
                 </li>
             </ul>
@@ -168,10 +178,10 @@
             <div id="review">
                 <h5>교재후기</h5>
                 <c:choose>
-                <c:when test="${not empty bookReview}">
-                    <c:forEach items="${bookReview}" var="list">
+                <c:when test="${not empty responseDTO.dtoList}">
+                    <c:forEach items="${responseDTO.dtoList}" var="list">
                         <div id="reviewContent">
-                            <img src="/resources/img/book/book1.png" style="width: 100px;">
+                            <img src="${book.book_img}" style="width: 100px;">
                             <div id="reviewText">
                                 <h6>${list.review_content}</h6>
                                 <span>${list.user_id}</span><span> | ${list.reg_date}</span>
@@ -198,8 +208,41 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item
+                        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
+                            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
+                            <a class="page-link"
+                               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
+                               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
+                        </li>
+                        <c:forEach begin="${responseDTO.page_block_start}"
+                                   end="${responseDTO.page_block_end}"
+                                   var="page_num">
+                            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
+                                <a class="page-link" data-num="${page_num}"
+                                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
+                            </li>
+                        </c:forEach>
+                        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
+                            <a class="page-link"
+                               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
+                               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
                 <form id="frm" name="frm" action="/bookReview/regist" method="post">
                     <div class="form-floating mb-3" id="regist">
+                        <input type="hidden" name="rating" id="rating">
+                        <div class="rating">
+                            <i class="rating__star far fa-star"></i>
+                            <i class="rating__star far fa-star"></i>
+                            <i class="rating__star far fa-star"></i>
+                            <i class="rating__star far fa-star"></i>
+                            <i class="rating__star far fa-star"></i>
+                        </div>
                         <input type="hidden" name="user_id" id="user_id" value="${memberDTO.user_id}">
                         <input type="hidden" name="book_idx" id="book_idx"  value="${param['book_idx']}">
                         <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
@@ -312,6 +355,30 @@
         frm.submit();
     })  ;
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.rating__star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                ratingInput.value = index + 1;
+
+                updateStars(index);
+            });
+        });
+
+        function updateStars(index) {
+            stars.forEach((star, idx) => {
+                if(idx <= index) {
+                    star.classList.add('fas');
+                    star.classList.remove('far');
+                } else {
+                    star.classList.add('far');
+                    star.classList.remove('fas');
+                }
+            });
+        }
+    });
 
 </script>
 </body>

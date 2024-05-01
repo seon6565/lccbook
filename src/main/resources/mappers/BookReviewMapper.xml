@@ -19,4 +19,16 @@
         delete from lcc_bookreview
         where review_idx=#{review_idx}
     </delete>
+
+    <select id="commentListByPage" resultType="org.fullstack4.lccbook.domain.BookReviewVO">
+        select review_idx,book_idx,user_id, reg_date, review_content, rating
+        from lcc_bookreview
+        order by reg_date desc
+        limit #{page_skip_count}, #{page_size}
+    </select>
+
+    <select id="commentTotalCount" resultType="int">
+        select count(*)
+        from lcc_bookreview
+    </select>
 </mapper>
