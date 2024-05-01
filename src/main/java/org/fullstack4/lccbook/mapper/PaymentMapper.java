@@ -24,4 +24,6 @@ public interface PaymentMapper {
     List<PaymentVO> bbsListByPage(PageRequestDTO pageRequestDTO);
 
     int statusModify(PaymentVO paymentVO);
+
+    List<PaymentVO> complete(@Param(value="user_id") String user_id, @Param(value = "payment_idx") int payment_idx);
 }

@@ -19,4 +19,6 @@ public interface PaymentServiceIf {
 
 
     int statusModify(int paymentIdx, int bookIdx, String paymentStatus);
+
+    List<PaymentDTO> complete(String user_id, int payment_idx);
 }

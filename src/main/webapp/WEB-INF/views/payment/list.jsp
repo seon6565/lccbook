@@ -76,7 +76,7 @@
 
                     <div class="form-group">
                         <label for="delivery_memo" class="text-black">배송 메모</label>
-                        <textarea name="c_order_notes" name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
+                        <textarea name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
 
                     </div>
 
@@ -100,7 +100,7 @@
                                     <td > <img src="${list.book_img}" alt="" width="100" height="100">  ${list.book_name} <strong class="mx-2">x ${list.quantity} </strong></td>
                                     <input type="hidden" id="product_names${status.count}" name="product_names" value="${list.book_name}">
                                     <input type="hidden" id="product_quantitys${status.count}" name="product_quantitys" value="${list.quantity}">
-                                    <td><br><br><br><del class="origin_price"><fmt:formatNumber value="${list.price * list.quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${list.sale_price * list.quantity}"/>원</span></td>
+                                    <td><br><del class="origin_price"><fmt:formatNumber value="${list.price * list.quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${list.sale_price * list.quantity}"/>원</span></td>
                                     <input type="hidden" id="product_prices${status.count}" name="product_prices" value="${list.price}">
                                     <input type="hidden" id="product_sale_prices${status.count}" name="product_sale_prices" value="${list.sale_price}">
 
