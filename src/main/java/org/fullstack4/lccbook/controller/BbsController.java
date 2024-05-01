@@ -7,6 +7,7 @@ import org.fullstack4.lccbook.service.BbsFileServiceIf;
 import org.fullstack4.lccbook.service.BbsReplyServiceIf;
 import org.fullstack4.lccbook.service.BbsServiceIf;
 import org.fullstack4.lccbook.util.CommonFileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -32,6 +34,7 @@ public class BbsController {
     private final BbsReplyServiceIf bbsReplyServiceIf;
     private final BbsFileServiceIf bbsFileServiceIf;
     private final CommonFileUtil commonFileUtil;
+    private final ServletContext servletContext;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
         log.info("===============================");
@@ -79,9 +82,6 @@ public class BbsController {
     }
     @GetMapping("/regist")
     public void registGET(){
-        log.info("============================");
-        log.info("bbsController registGET");
-        log.info("============================");
     }
     @Transactional
     @PostMapping("/regist")
@@ -99,7 +99,8 @@ public class BbsController {
             return "redirect:/bbs/regist";
         }
 
-        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
         List<String> filenames = null;
         filenames = commonFileUtil.fileuploads(files,saveDirectory);;
         int result = bbsServiceIf.regist(bbsDTO);
@@ -165,14 +166,16 @@ public class BbsController {
 
     @GetMapping(value = "/fileDownload")
     public void fileDownload(String file_name, HttpServletResponse response, HttpServletRequest request){
-        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
         commonFileUtil.fileDownload(saveDirectory,file_name,response,request);
     }
 
     @GetMapping(value = "/fileDelete")
     public String fileDelete(int file_idx, String idx){
         BbsFileDTO bbsFileDTO = bbsFileServiceIf.view(file_idx);
-        String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
         int result = bbsFileServiceIf.delete(file_idx);
         if(result>0) {
             commonFileUtil.fileDelite(bbsFileDTO.getFile_directory(), bbsFileDTO.getFile_name());
