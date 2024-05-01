@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,22 +92,36 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/regist")
-    public void regist( PaymentDTO paymentDTO
-                                    ,Model model) {
+    public String regist(PaymentDTO paymentDTO
+                                    , Model model, RedirectAttributes redirectAttributes) {
 
         System.out.println("paymentDTO : " + paymentDTO.toString());
         System.out.println("paymentDTO product_name: " + paymentDTO.getProduct_name());
         int result = paymentServiceIf.regist(paymentDTO);
 
+        redirectAttributes.addAttribute("user_id", paymentDTO.getUser_id());
+        redirectAttributes.addAttribute("payment_idx", paymentDTO.getPayment_idx());
+
+        return "redirect:/payment/complete";
+
 
     }
-    @GetMapping(value = "/modify")
-    public void modify() {
+    @GetMapping(value = "/complete")
+    public void modify(@RequestParam(name="user_id",required = false) String user_id ,
+                       @RequestParam(name="payment_idx",required = false) int payment_idx,Model model ) {
 
+        List<PaymentDTO> paymentDTO  = paymentServiceIf.complete(user_id,payment_idx);
+        for( PaymentDTO p : paymentDTO){
+            System.out.println("paymentDTO : " + p.toString());
+        }
+
+        model.addAttribute("paymentDTO",paymentDTO);
     }
 
     @GetMapping(value = "/delete")
     public void delete() {
 
     }
+
+
 }

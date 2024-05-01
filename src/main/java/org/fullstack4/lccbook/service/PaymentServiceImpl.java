@@ -50,7 +50,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
             for (int i = 0; i < book_idxs.length; i++) {
 
-                System.out.println("여기 실행됨?");
+
                 paymentDTO.setBook_idx(book_idxs[i]);
 
                 paymentDTO.setPayment_idx(result3);
@@ -67,7 +67,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
         }
         else{
-            System.out.println("여기로 들어와야함");
+
             paymentDTO.setPayment_idx(result3);
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
             result = paymentMapper.regist(paymentVO);
@@ -86,10 +86,9 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
     @Override
     public List<PaymentDTO> listUser(String user_id) {
-        System.out.println("paymentSerivceImpl before");
-        System.out.println("paymentDTO user_id : " + user_id);
+
         List<PaymentDTO> paymentDTOList = paymentMapper.listUser(user_id).stream().map(vo->modelMapper.map(vo,PaymentDTO.class)).collect(Collectors.toList());
-        System.out.println("paymentSerivceImpl after");
+
         for(PaymentDTO dto : paymentDTOList){
             System.out.println("유저 결제내역  :" + dto.toString());
         }
@@ -152,6 +151,13 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
         return result;
 
+    }
+
+    @Override
+    public List<PaymentDTO> complete(String user_id, int payment_idx) {
+        List<PaymentDTO> paymentDTOList = paymentMapper.complete(user_id,payment_idx).stream().map(vo->modelMapper.map(vo,PaymentDTO.class)).collect(Collectors.toList());
+
+        return paymentDTOList;
     }
 
 
