@@ -51,7 +51,20 @@
         <div class="container px-5 my-5">
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6 order-first order-lg-last">
-                    <img class="img-fluid rounded mb-5 mb-lg-0" src="/resources/img/introduce/introduce02.png" alt="위치 이미지" /></div>
+                    <div id="daumRoughmapContainer1714540903527" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+                    <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+                    <script charset="UTF-8">
+                        new daum.roughmap.Lander({
+                            "timestamp" : "1714540903527",
+                            "key" : "2j7tj",
+                            "mapWidth" : "640",
+                            "mapHeight" : "360"
+                        }).render();
+                    </script>
+                    <!-- 카카오 API 막힐 시 이미지+링크
+                    <a href="https://kko.to/X_BQPQ9tVm" ><img class="img-fluid rounded mb-5 mb-lg-0" src="/resources/img/introduce/introduce02.png" alt="위치 이미지" /></a>
+                    -->
+                </div>
                 <div class="col-lg-6">
                     <h2 class="fw-bolder">오시는길</h2>
                     <p class="lead fw-normal text-muted mb-0">서울 금천구 디지털로9길 23 마리오아울렛2관
