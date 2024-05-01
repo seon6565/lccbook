@@ -15,7 +15,7 @@
     </insert>
 
     <select id="list" resultType="org.fullstack4.lccbook.domain.CartVO">
-        select A.cart_idx,A.user_id,A.book_idx,A.quantity,A.cart_regdate,A.checked,B.book_name,B.book_img,B.sale_price,B.price,A.total_price,A.total_sale_price
+        select A.cart_idx,A.user_id,A.book_idx,A.quantity,A.cart_regdate,A.checked,B.book_name,B.book_img,B.sale_price,B.price,A.total_price,A.total_sale_price,B.book_quantity
         from lcc_cart AS A
 
         INNER JOIN lcc_book AS B ON A.book_idx = B.book_idx

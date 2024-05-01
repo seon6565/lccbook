@@ -136,9 +136,9 @@
                     <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
                 </div>
                 <div class="box" style="border-bottom: none">
-                    <button type="button" class="btn btn-outline-secondary" id="cart_button" >장바구니</button>
+                    <button type="button" class="btn btn-outline-secondary" id="cart_button"  data-book-quantity="${book.book_quantity}">장바구니</button>
                     <button type="button" class="btn btn-outline-secondary">관심등록</button>
-                    <button class="btn btn-primary" id="purchase_button" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
+                    <button class="btn btn-primary" data-book-quantity="${book.book_quantity}"  id="purchase_button" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
             </div>
         </div>
@@ -259,8 +259,12 @@
     const cart_button =document.querySelector("#cart_button");
     cart_button.addEventListener("click",function (e){
        e.preventDefault();
+        var bookQuantity = parseInt(this.getAttribute("data-book-quantity"));
 
-
+        if (bookQuantity <= 0) {
+            alert("품절입니다.");
+            return false;
+        }
 
 
            const book_idx = $('#book_idx1').val();
@@ -307,6 +311,14 @@
     purchase_button.addEventListener("click",function (e){
 
         e.preventDefault();
+
+        var bookQuantity = parseInt(this.getAttribute("data-book-quantity"));
+        if (bookQuantity <= 0) {
+            alert("품절된 상품입니다.");
+            return false;
+        } else {
+            // 구매 로직 실행
+        }
 
         const form = document.querySelector("#cart");
         form.action = '/payment/directList';

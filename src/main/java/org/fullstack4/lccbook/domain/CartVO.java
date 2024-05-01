@@ -24,6 +24,9 @@ public class CartVO
     private int price;
     private int total_sale_price;
 
+    //
+    private int book_quantity;
+
 
 
 

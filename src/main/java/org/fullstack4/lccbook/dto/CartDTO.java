@@ -25,6 +25,9 @@ public class CartDTO
     private int total_sale_price;
     private String book_img;
 
+    //book_quantity
+    private int book_quantity;
+
 
 
 

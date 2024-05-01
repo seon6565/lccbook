@@ -121,10 +121,10 @@
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity1">
                                                 <div class="pro-qty">
-                                                    <span id="quantity_minus" class="dec qtybtn" data-index="${status.count}">-</span>
+                                                    <span id="quantity_minus" class="dec qtybtn" data-index="${status.count}"  >- </span>
                                                     <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}">
 
-                                                    <span id="quantity_plus" class="dec qtybtn" data-index="${status.count}">+</span>
+                                                    <span id="quantity_plus" class="dec qtybtn" data-index="${status.count}" data-book-quantity="${list.book_quantity}">+</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -221,12 +221,19 @@
             button.addEventListener('click', function () {
                 const index = this.getAttribute('data-index'); // 현재 버튼의 data-index 값을 가져옵니다.
                 const quantityInput = document.querySelector('input[class="quantity"][data-index="' + index + '"]');
+
+                const bookQuantity = parseInt(this.getAttribute('data-book-quantity'));
                 var quantity = parseInt(quantityInput.value);
 
                 if (this.id === 'quantity_minus' && quantity > 1) {
                     quantity -= 1;
                 } else if (this.id === 'quantity_plus') {
-                    quantity += 1;
+                    if (quantity < bookQuantity) { // 재고보다 작은 경우에만 수량을 증가시킵니다.
+                        quantity += 1;
+                    } else {
+                        // 재고보다 많아지려고 할 때 경고 메시지를 띄웁니다.
+                        alert("더 이상 재고가 없습니다.");
+                    }
                 }
 
                 quantityInput.value = quantity; // 수량 업데이트
