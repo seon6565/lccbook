@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -31,12 +32,12 @@
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div>
-                                        <form name="frmSearch" id="search" action="/admin/aqna/list">
+                                        <form name="frmSearch" id="search" action="/admin/apayment/list">
                                             <div class="input-group mb-1">
                                                 <span class="input-group-text ">검색범위</span>
                                                 <div class="input-group-text">
                                                     <div class="form-check form-switch form-check-inline" >
-                                                        <label class="form-check-label" for="search_type_0">제목</label>
+                                                        <label class="form-check-label" for="search_type_0">책 제목</label>
                                                         <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0}>
                                                     </div>
                                                     <div class="form-check form-switch form-check-inline" >
@@ -61,29 +62,57 @@
                                     <table class="table">
                                         <thead>
                                         <tr class="table-secondary">
-                                            <th scope="col"></th>
+                                            <%--<th scope="col"></th>--%>
+                                            <th scope="col">결제번호</th>
                                             <th scope="col">주문자</th>
                                             <th scope="col">주문상품</th>
-                                            <th scope="col">총주문금액</th>
-                                            <th scope="col">환불승인</th>
+                                            <th scope="col">수량</th>
+                                            <th scope="col">총 상품금액</th>
                                             <th scope="col">결제일</th>
+                                            <th scope="col">결제상태</th>
                                         </tr>
                                         </thead>
-                                        <form action="/admin/apayment/cancelall" method="post" id="frmDelete" name="frmDelete">
-                                            <c:forEach var="list" items="${responseDTO.dtoList}">
+                                        <form action="/admin/apayment/modify" method="post" id="frm" name="frm">
+                                           <%-- <c:set var="total_price" value="0"/>
+                                            <c:forEach items="${responseDTO.dtoList}" var="lists">
+                                                <c:set var="total_price" value="${lists.product_sale_price + total_price}"/>
+                                            </c:forEach>--%>
+
+
+                                            <c:forEach var="list" items="${responseDTO.dtoList}" varStatus="status">
                                                 <tbody>
                                                 <tr>
-                                                    <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${list.qna_idx}"></td>
+                                                 <%--   <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${status.count}"></td>--%>
+                                                    <input type="hidden" name="payment_idx" value="${list.payment_idx}"/>
+                                                    <input type="hidden" name="book_idx" value="${list.book_idx}"/>
+                                                    <td>${list.payment_idx}</td>
                                                     <td>${list.user_id}</td>
-                                                    <td>${list.answer_yn}</td>
-                                                    <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>
-                                                    <td> <a href="admin/apayment/refund"> 환불 승인</a></td>
-                                                    <td>${list.question_regdate}</td>
+                                                    <td>${list.product_name}</td>
+                                                  <%--  <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>--%>
+                                                    <td>${list.product_quantity}</td>
+                                                    <td> <fmt:formatNumber value="${list.product_sale_price}"/>원</td>
+                                                    <td>${list.payment_date}</td>
+                                                    <td>   <select name="payment_status" id="payment_status">
+                                                 <%--       <option value="${list.payment_status}" selected>${list.payment_status}</option>
+                                                        <option value="베송시작">베송시작</option>
+                                                        <option value="배송중">배송중</option>
+                                                        <option value="배송완료">배송완료</option>
+                                                        <option value="구매완료">구매완료</option>
+                                                        <option value="환불">환불</option>--%>
+                                                        <option value="결제완료" ${list.payment_status == '결제완료' ? 'selected' : ''}>결제완료</option>
+                                                        <option value="배송시작" ${list.payment_status == '배송시작' ? 'selected' : ''}>배송시작</option>
+                                                        <option value="배송중" ${list.payment_status == '배송중' ? 'selected' : ''}>배송중</option>
+                                                        <option value="배송완료" ${list.payment_status == '배송완료' ? 'selected' : ''}>배송완료</option>
+                                                        <option value="구매완료" ${list.payment_status == '구매완료' ? 'selected' : ''}>구매완료</option>
+                                                        <option value="환불" ${list.payment_status == '환불' ? 'selected' : ''}>환불</option>
+
+                                                    </select></td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
+
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">주문취소하기</button>
+                                                <button class="btn btn-outline-primary" type="submit" onclick="goSave()">저장하기</button>
                                             </div>
                                         </form>
                                     </table>
@@ -130,11 +159,15 @@
 <script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 ${errorAlert}
 <script>
-    function goDelete(){
-        const frm = document.getElementById("frmDelete");
-        if(confirm("해당 주문을 취소하시겠습니까?")){
-            frm.submit();
-        }
+    function goSave(){
+
+        const frm = document.getElementById("frm");
+       const confirm_message = confirm("정말로 결제상태를 변경하시겠습니까?");
+       if(confirm_message){
+
+               frm.submit();
+
+       }
     }
 </script>
 </body>

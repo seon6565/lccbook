@@ -14,7 +14,7 @@
 <div class="container">
     <div class="list-group">
         <c:forEach var="list" items="${paymentDTOList}">
-            <a href="/payment/view?idx=${list.payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <a href="/payment/view?payment_idx=${list.payment_idx}&book_idx=${list.book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
                         <h6 class="mb-0">${list.product_name}</h6>

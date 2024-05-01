@@ -45,6 +45,8 @@ public class PaymentDTO
   private int[] product_sale_prices;
   private String[] product_names;
   private int[] product_quantitys;
+  private int[] payment_idxs;
+  private String[] payment_statuses;
 
 
 }

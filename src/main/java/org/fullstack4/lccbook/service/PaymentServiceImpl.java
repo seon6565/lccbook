@@ -2,9 +2,9 @@ package org.fullstack4.lccbook.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.fullstack4.lccbook.domain.DeliveryVO;
 import org.fullstack4.lccbook.domain.PaymentVO;
-import org.fullstack4.lccbook.dto.CartDTO;
-import org.fullstack4.lccbook.dto.PaymentDTO;
+import org.fullstack4.lccbook.dto.*;
 import org.fullstack4.lccbook.mapper.CartMapper;
 import org.fullstack4.lccbook.mapper.PaymentMapper;
 import org.modelmapper.ModelMapper;
@@ -41,7 +41,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         result3= paymentMapper.lastindex();
 
         if(paymentDTO.getBook_idxs() != null) {
-            System.out.println("여기로 들어오면 안됨");
+
             int[] book_idxs = paymentDTO.getBook_idxs();
             int[] product_prices = paymentDTO.getProduct_prices();
             int[] product_sale_prices = paymentDTO.getProduct_sale_prices();
@@ -103,6 +103,16 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         PaymentDTO paymentDTO = modelMapper.map(paymentVO,PaymentDTO.class);
         return paymentDTO;
     }
+
+    @Override
+    public PaymentDTO DetailView(int payment_idx, int book_idx) {
+        PaymentVO paymentVO = paymentMapper.DetailView(payment_idx,book_idx);
+        PaymentDTO paymentDTO = modelMapper.map(paymentVO,PaymentDTO.class);
+        return paymentDTO;
+
+    }
+
+
     @Override
     public int modify(PaymentDTO paymentDTO) {
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
@@ -114,6 +124,34 @@ public class PaymentServiceImpl implements PaymentServiceIf {
     @Override
     public int delete(int idx) {
         return paymentMapper.delete(idx);
+    }
+
+    @Override
+    public PageResponseDTO<PaymentDTO> bbsListByPage(PageRequestDTO pageRequestDTO) {
+        List<PaymentVO> voList = paymentMapper.bbsListByPage(pageRequestDTO);
+        List<PaymentDTO> dtoList = voList.stream()
+                .map(vo -> modelMapper.map(vo, PaymentDTO.class))
+                .collect(Collectors.toList());
+        int total_count = paymentMapper.bbsTotalCount(pageRequestDTO);
+        PageResponseDTO<PaymentDTO> responseDTO = PageResponseDTO.<PaymentDTO>withAll()
+                .requestDTO(pageRequestDTO)
+                .dtoList(dtoList)
+                .total_count(total_count)
+                .build();
+        return responseDTO;
+    }
+
+    @Override
+    public int statusModify(int paymentIdx, int bookIdx, String paymentStatus) {
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setPayment_idx(paymentIdx);
+        paymentDTO.setBook_idx(bookIdx);
+        paymentDTO.setPayment_status(paymentStatus);
+        PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+        int result = paymentMapper.statusModify(paymentVO);
+
+        return result;
+
     }
 
 

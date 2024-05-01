@@ -27,11 +27,11 @@
 </div>
 <div class="mb-3">
     수량
-    <span class="form-control"> ${paymentDTO.quantity} </span>
+    <span class="form-control"> ${paymentDTO.product_quantity} </span>
 </div>
 <div class="mb-3">
     총가격
-    <span class="form-control"> ${paymentDTO.total} </span>
+    <span class="form-control"> ${paymentDTO.product_sale_price} </span>
 </div>
 
 <%@ include file="../common/footer.jsp"%>
