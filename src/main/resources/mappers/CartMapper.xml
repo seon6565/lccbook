@@ -17,7 +17,9 @@
     <select id="list" resultType="org.fullstack4.lccbook.domain.CartVO">
         select A.cart_idx,A.user_id,A.book_idx,A.quantity,A.cart_regdate,A.checked,B.book_name,B.book_img,B.sale_price,B.price,A.total_price,A.total_sale_price
         from lcc_cart AS A
+
         INNER JOIN lcc_book AS B ON A.book_idx = B.book_idx
+        where A.user_id =#{user_id}
         order by cart_idx desc
     </select>
 

@@ -35,8 +35,8 @@ public class CartServiceImpl implements CartServiceIf{
 
 
     @Override
-    public List<CartDTO> list() {
-        List<CartDTO> cartDTOList = cartMapper.list().stream().map(vo->modelMapper.map(vo,CartDTO.class)).collect(Collectors.toList());
+    public List<CartDTO> list(String user_id) {
+        List<CartDTO> cartDTOList = cartMapper.list(user_id).stream().map(vo->modelMapper.map(vo,CartDTO.class)).collect(Collectors.toList());
         return cartDTOList;
     }
 

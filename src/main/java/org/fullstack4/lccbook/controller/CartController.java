@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,9 +35,13 @@ public class CartController {
     @GetMapping(value = "/list")
     public void list(@Valid
              RedirectAttributes redirectAttributes
-            , Model model) {
+            , Model model, HttpServletRequest request
+    ) {
 
-        List<CartDTO> cartList = cartServiceIf.list();
+        HttpSession session = request.getSession();
+        MemberDTO memberDTO  = (MemberDTO) session.getAttribute("memberDTO");
+        String user_id = memberDTO.getUser_id();
+        List<CartDTO> cartList = cartServiceIf.list(user_id);
 
         cartList.forEach(list -> System.out.println("quantity : " +list.getQuantity()));
         model.addAttribute("cartList", cartList);
