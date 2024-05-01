@@ -21,51 +21,7 @@
         <!--  Main wrapper -->
         <div class="body-wrapper">
             <!--  Header Start -->
-            <header class="app-header">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <ul class="navbar-nav">
-                        <li class="nav-item d-block d-xl-none">
-                            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                                <i class="ti ti-menu-2"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                                <i class="ti ti-bell-ringing"></i>
-                                <div class="notification bg-primary rounded-circle"></div>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <a href="/faq/list" target="_blank" class="btn btn-primary">Home</a>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                                    <div class="message-body">
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-user fs-6"></i>
-                                            <p class="mb-0 fs-3">My Profile</p>
-                                        </a>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-mail fs-6"></i>
-                                            <p class="mb-0 fs-3">My Account</p>
-                                        </a>
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-list-check fs-6"></i>
-                                            <p class="mb-0 fs-3">My Task</p>
-                                        </a>
-                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
+            <%@ include file="../../common/adminheader.jsp"%>
             <!--  Header End -->
             <div class="container-fluid">
                 <div class="container-fluid">
@@ -75,17 +31,21 @@
                                 <h5 class="card-title fw-semibold mb-4">배송관리</h5>
                             </div>
                             <form id="frm" action="/admin/adelivery/modify" method="post">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                    <button type="button" class="btn btn-primary justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="0">송장 등록</button>
+                                </div>
                                 <input type="hidden" name="delivery_idx" id="delivery_idx" value="${deliveryDTO['delivery_idx']}"/>
                                 <div class="card">
                                     <div class="card-body p-4">
                                         <div class="mb-3">
                                             <label for="delivery_number" class="form-label">운송장 번호</label>
-                                            <input type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" >
+                                            <input type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" readonly >
                                         </div>
                                         <div class="mb-3">
                                             <label for="company_name" class="form-label">배송회사</label>
                                             <select class="form-select" id="company_name" name="company_name" aria-label="Default select example">
-                                                <option ${deliveryDTO.company_name=="한진택배" ? "selected" : ""} value="한진택배">한진택배</option>
+                                                <option value="대한통운" ${deliveryDTO.company_name=="한진택배" ? "selected" : ""}>대한통운</option>
+                                                <option value="한진택배" ${deliveryDTO.company_name=="한진택배" ? "selected" : ""}>한진택배</option>
                                                 <option value="롯데택배" ${deliveryDTO.company_name=="롯데택배" ? "selected" : ""}>롯데택배</option>
                                                 <option value="우체국택배" ${deliveryDTO.company_name=="우체국택배" ? "selected" : ""}>우체국택배</option>
                                             </select>
@@ -93,6 +53,7 @@
                                         <div class="mb-3">
                                             <label for="company_number" class="form-label">배송회사번호</label>
                                             <select class="form-select" id="company_number" name="company_number" aria-label="Default select example">
+                                                <option ${deliveryDTO.company_number=="02-156-4507" ? "selected" : ""} value="1588-1255">대한통운:1588-1255</option>
                                                 <option ${deliveryDTO.company_number=="02-156-4507" ? "selected" : ""} value="02-156-4507">한진택배:02-156-4507</option>
                                                 <option ${deliveryDTO.company_number=="02-156-4507" ? "selected" : ""} value="02-189-5366">롯데택배:02-189-5366</option>
                                                 <option ${deliveryDTO.company_number=="02-156-4507" ? "selected" : ""} value="02-666-7894">우체국택배:02-666-7894</option>
@@ -130,6 +91,36 @@
     </div>
 </div>
 <%@ include file="../../common/footer.jsp"%>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">운송장 등록</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">운송장번호</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_regist">취소</button>
+                <button type="button" class="btn btn-primary" onclick="registnumber()">운송장 번호 입력</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function registnumber(){
+        const recipient = document.getElementById('recipient-name');
+        const modalBodyInput = document.getElementById('delivery_number');
+        modalBodyInput.value = recipient.value;
+        document.getElementById('close_regist').click();
+    }
+</script>
 <script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/assets/js/sidebarmenu.js"></script>
