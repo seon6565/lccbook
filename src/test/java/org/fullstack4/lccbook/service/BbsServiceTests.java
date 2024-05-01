@@ -24,7 +24,6 @@ public class BbsServiceTests {
                 .user_id("test")
                 .title("제목 테스트")
                 .content("내용 테스트")
-                .display_date(LocalDate.parse("2024-04-18"))
                 .read_cnt(0)
                 .build();
         int result = bbsServiceIf.regist(bbsDTO);

@@ -25,10 +25,8 @@ public class BbsDTO {
     @PositiveOrZero
     @Min(value=0)
     private int read_cnt=0;
-    private LocalDate display_date;
     private LocalDate reg_date;
     private LocalDate modify_date;
-    private String interest;
     @Builder.Default
     @PositiveOrZero
     @Min(value=0)

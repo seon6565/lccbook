@@ -30,24 +30,24 @@
         </where>
     </sql>
     <insert id="regist">
-        insert into lcc_bbs(user_id,title,content,display_date,interest)
-        values (#{user_id},#{title},#{content},#{display_date},#{interest})
+        insert into lcc_bbs(user_id,title,content)
+        values (#{user_id},#{title},#{content})
     </insert>
 
 <!--    <insert id="regist" parameterType="org.fullstack4.lccbook.domain.BbsVO" useGeneratedKeys="true" keyProperty="int">-->
-<!--        insert into lcc_bbs(user_id,title,content,display_date,interest)-->
-<!--        values (#{user_id},#{title},#{content},#{display_date},#{interest})-->
+<!--        insert into lcc_bbs(user_id,title,content)-->
+<!--        values (#{user_id},#{title},#{content})-->
 <!--        returning idx-->
 <!--    </insert>-->
 
     <select id="listAll" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx,user_id,title,content,display_date,read_cnt,interest,reg_date
+        select idx,user_id,title,content,read_cnt,reg_date
         from lcc_bbs
         order by idx desc
     </select>
 
     <select id="view" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx,user_id,title,content,display_date,read_cnt,interest,reg_date
+        select idx,user_id,title,content,read_cnt,reg_date
         from lcc_bbs
         where idx=#{idx}
     </select>
@@ -56,8 +56,6 @@
         update lcc_bbs
         set title = #{title},
         content = #{content},
-        interest = #{interest},
-        display_date = #{display_date},
         modify_date = now()
         where idx=#{idx}
     </update>
@@ -75,7 +73,7 @@
     </select>
 
     <select id="bbsListByPage" resultType="org.fullstack4.lccbook.domain.BbsVO">
-        select idx,user_id,title,content,display_date,read_cnt,interest,reg_date
+        select idx,user_id,title,content,read_cnt,reg_date
         from lcc_bbs
         <include refid="whereCondition"></include>
         order by idx desc
