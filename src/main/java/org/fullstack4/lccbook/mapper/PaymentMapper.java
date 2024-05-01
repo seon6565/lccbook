@@ -29,4 +29,6 @@ public interface PaymentMapper {
 
 
     int updateQuantity(@Param(value="book_quantity")int book_quantity ,@Param(value="book_idx") int book_idx);
+
+    int insertDelivery(PaymentVO paymentVO);
 }

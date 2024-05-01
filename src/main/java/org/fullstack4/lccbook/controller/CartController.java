@@ -53,7 +53,7 @@ public class CartController {
 
                        BindingResult bindingResult
                     , RedirectAttributes redirectAttributes) {
-        System.out.println("cartDTO" + cartDTO.toString());
+
 
 
         int result = cartServiceIf.regist(cartDTO);

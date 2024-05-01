@@ -12,6 +12,10 @@
     <link href="/resources/css/payment/style.css" rel="stylesheet">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- 테스트-->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+
     <style>
         .origin_price{
             font-size:14px;
@@ -137,12 +141,9 @@
 
                                 </tbody>
                             </table>
-                            <span>결제수단</span><br><br>
-                            <div class="border p-3 mb-3">
-                                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">무통장입금</a></h3>
-
-
-                            </div>
+                            <span style="font-weight: bold;font-size: 16px; color: black">결제수단</span>
+                            <div id="payment-method"></div>
+                            <div id="agreement"></div>
 
 
 
@@ -178,6 +179,37 @@
         }).open();
     }
     //data.zonecode; //우편번호
+
+
+    const button = document.getElementById("payment-button");
+    const amount = 50000;
+
+    const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const customerKey = "2dI-IUgpzpjb_8i3ux6zK";
+    const paymentWidget = PaymentWidget(widgetClientKey, customerKey);
+
+    const paymentMethodWidget = paymentWidget.renderPaymentMethods(
+        "#payment-method",
+        { value: amount },
+        { variantKey: "DEFAULT" }
+    );
+    paymentWidget.renderAgreement(
+        "#agreement",
+        { variantKey: "AGREEMENT" }
+    );
+    button.addEventListener("click", function () {
+        // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
+        // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+        paymentWidget.requestPayment({
+            orderId: "1W_pCfO4rzG9szJEcThKe",
+            orderName: "토스 티셔츠 외 2건",
+            successUrl: window.location.origin + "/success",
+            failUrl: window.location.origin + "/fail",
+            customerEmail: "customer123@gmail.com",
+            customerName: "김토스",
+            customerMobilePhone: "01012341234",
+        });
+    });
 </script>
 <%@ include file="../common/footer.jsp"%>
 </body>

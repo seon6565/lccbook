@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
     <!-- 테스트-->
-    <script src="https://js.tosspayments.com/v1/payment-widget"/>
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 
     <style>
         .origin_price{
@@ -105,7 +105,7 @@
                                             <td > <img src="${book_img}" alt="" width="100" height="100">  ${book_name} <strong class="mx-2">x ${quantity} </strong></td>
                                             <input type="hidden" id="product_name" name="product_name" value="${book_name}">
                                             <input type="hidden" id="product_quantity" name="product_quantity" value="${quantity}">
-                                            <td><br><del class="origin_price"><fmt:formatNumber value="${price * quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${sale_price * quantity}"/>원</span></td>
+                                            <td><br><del class="origin_price"><fmt:formatNumber value="${price * quantity}" />원</del><br><span class="sale_price" style="font-weight: bold"><fmt:formatNumber value="${sale_price * quantity}"/>원</span></td>
                                             <input type="hidden" id="product_price" name="product_price" value="${price}">
                                             <input type="hidden" id="product_sale_price" name="product_sale_price" value="${sale_price}">
 
@@ -133,26 +133,26 @@
                                           </c:if>
 
                                         <td class="text-black font-weight-bold"><strong>배송비</strong></td>
-                                        <td class="text-black">${delivery_fee}</td>
+                                        <td class="text-black">${delivery_fee}원</td>
                                         <input type="hidden" name="payment_delivery_fee" id="payment_delivery_fee" value="${delivery_fee}"/>
                                     </tr>
                                     <c:set var="total_price" value="${delivery_fee + totalPrice}"></c:set>
                                     <tr>
                                         <td class="text-black font-weight-bold"><strong>총 주문 금액</strong></td>
-                                        <td class="text-black font-weight-bold"><strong style="color:rgb(40,95,177)"><fmt:formatNumber value="${sale_price * quantity }"/></strong></td>
+                                        <td class="text-black font-weight-bold"><strong style="color:rgb(40,95,177)"><fmt:formatNumber value="${sale_price * quantity }"/>원</strong></td>
                                         <input type="hidden" name="payment_amount" id="payment_amount" value="${sale_price * quantity }"/>
                                     </tr>
 
                                     </tbody>
                                 </table>
-                                <span>결제수단</span><br><br>
+                                <span style="font-weight: bold;font-size: 16px; color: black">결제수단</span>
                                 <div id="payment-method"></div>
                                 <div id="agreement"></div>
 
 
                                 <div class="d-grid gap-2 col-6 mx-auto">
                                     <input type="submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
-                                    <button id="payment-button">결제하기</button>
+
                                 </div>
 
                                 <!-- 결제하기 버튼 -->
