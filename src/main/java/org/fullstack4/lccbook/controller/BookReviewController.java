@@ -20,7 +20,6 @@ public class BookReviewController {
 
     private final BookReviewServiceIf bookReviewService;
 
-
     @PostMapping("/regist")
     public String registPost(BookReviewDTO bookReviewDTO,
                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -57,7 +56,7 @@ public class BookReviewController {
             //redirectAttributes.addAttribute("review_idx",review_idx);
             return "redirect:/book/view?book_idx="+bookDTO.getBook_idx();
         } else {
-           return "/bbs/view?book_idx="+bookDTO.getBook_idx();
+           return "/book/view?book_idx="+bookDTO.getBook_idx();
         }
     }
 }
