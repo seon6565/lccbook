@@ -32,23 +32,27 @@
     <textarea rows="10" cols="60" style="resize: none;" class="form-control">${bbsDTO.content} </textarea>
 </div>
 <div class="mb-3">
-    출력날짜
+    등록일
     <span class="form-control"> ${bbsDTO.reg_date} </span>
 </div>
 <div class="mb-3">
     파일 리스트
-    <div class="card mb-3">
-    <c:forEach var="list" items="${bbsFileDTOList}">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <ul>
-                        <li><a href="/bbs/fileDownload?file_name=${list.file_name}">${list.file_name}</a></li>
-                        <li><a href="/bbs/fileDelete?file_idx=${list.file_idx}&idx=${bbsDTO.idx}">파일삭제</a></li>
-                    </ul>
-                </div>
-            </div>
-    </c:forEach>
-    </div>
+    <table class="table">
+        <thead>
+        <tr class="table-secondary">
+            <th scope="col">파일 이름</th>
+            <th scope="col">파일 삭제</th>
+        </tr>
+        </thead>
+        <c:forEach var="list" items="${bbsFileDTOList}">
+            <tbody>
+            <tr>
+                <td><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/bbs/fileDownload?file_name=${list.file_name}">${list.file_name}</a></td>
+                <td><a class="btn-close" onclick="return confirm('파일을 삭제하시겠습니까')" href="/bbs/fileDelete?file_idx=${list.file_idx}&idx=${bbsDTO.idx}"></a></td>
+            </tr>
+            </tbody>
+        </c:forEach>
+    </table>
 </div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="btn btn-outline-primary" type="button"
