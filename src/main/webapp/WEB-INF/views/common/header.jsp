@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: chltp
-  Date: 2024-04-24
-  Time: 오후 11:06
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -67,7 +60,6 @@
             padding-right: 3px;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="padding: 0;">
@@ -89,6 +81,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/member/view?user_id=${memberDTO.user_id}">마이페이지</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart/list">장바구니</a>
+                    </li>
                 </c:if>
                 <c:if test="${empty memberDTO}">
                     <li class="nav-item">
@@ -98,12 +93,6 @@
                         <a class="nav-link" href="/login/autologin">로그인</a>
                     </li>
                 </c:if>
-                <li class="nav-item">
-                    <a class="nav-link" href="/member/payment">주문조회</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cart/list">장바구니</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/qna/list" style="margin-right: 100px;">고객센터</a>
                 </li>
@@ -156,6 +145,5 @@
         </div>
     </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

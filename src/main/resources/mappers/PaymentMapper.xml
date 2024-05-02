@@ -57,11 +57,11 @@
 
     <insert id="regist">
 
-        insert into lcc_payment(payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
+        insert into lcc_payment(payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,user_phone_number,user_name,user_email,
         recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
         payment_amount,payment_delivery_fee,delivery_memo)
 
-        values (#{payment_idx},#{book_idx},#{product_price},#{product_sale_price},#{product_name},#{product_quantity},#{user_id},
+        values (#{payment_idx},#{book_idx},#{product_price},#{product_sale_price},#{product_name},#{product_quantity},#{user_id},#{user_phone_number},#{user_name},#{user_email},
         #{recipient_name} ,#{recipient_phone},#{recipient_addr1},#{recipient_addr2},#{recipient_email},#{recipient_zipcode}
         ,#{payment_amount},#{payment_delivery_fee},#{delivery_memo})
 

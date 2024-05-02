@@ -134,6 +134,17 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
+    <header class="py-3">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-6">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder mb-3" style="border: none;">교재</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <div id="search">
         <form id="search_form" name="search_form" action="/book/list" method="get">
             <select name="search_type" class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" style="width: 100px !important;border-radius: 0 !important;font-size: small !important; height : 60px;">
@@ -262,10 +273,7 @@
 <%--                                </div>--%>
 <%--                            </div>--%>
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#" id="cart_on"   ><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="#" id="cart_on"><i class="fa fa-heart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text card-body p-4" style="width: 200px;">

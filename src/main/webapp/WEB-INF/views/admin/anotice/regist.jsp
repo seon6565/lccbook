@@ -31,6 +31,7 @@
                                 <button class="btn btn-primary" type="button">글 등록</button>
                             </div>
                             <form id="frm" action="/admin/anotice/regist" method="post">
+                                <input type="hidden" name="notice_state" id="notice_state" value="Y">
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="mb-3">
