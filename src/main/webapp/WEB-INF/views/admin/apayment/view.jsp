@@ -39,6 +39,7 @@
                                             <th scope="col">주문금액</th>
                                             <th scope="col">주문상태</th>
                                             <th scope="col">결제일</th>
+
                                         </tr>
                                         </thead>
                                         <form action="/admin/apayment/cancel" method="post" id="frmDelete" name="frmDelete">

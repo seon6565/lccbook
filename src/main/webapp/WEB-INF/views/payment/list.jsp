@@ -32,12 +32,59 @@
     <div class="container">
         <form id="frm" name="frm" method="post" action="/payment/regist">
             <input type="hidden" id="user_id" name="user_id" value="${sessionScope.memberDTO.user_id}">
-            <input type="hidden" id="user_phone_number" name="user_phone_number" value="13123">
-            <input type="hidden" id="user_name" name="user_name" value="채종윤">
-            <input type="hidden" id="user_email" name="user_email" value="asd@naver.com">
+
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
-                <h2 class="h3 mb-3 text-black">배송지</h2>
+                <h2 class="h3 mb-3 text-black">고객 정보</h2>
+
+                <div class="p-3 p-lg-5 border bg-white">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="user_name" class="text-black"> 고객 성함 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_name" name="user_name" value="${memberDTO.name}" readonly>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <div class="form-group row">
+                        <div class="col-md-9">
+                            <label for="addr1" class="text-black">주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="addr1" name="addr1" value="${memberDTO.addr1}" readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="addr_number" class="text-black">우편번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="addr_number" name="addr_number" value="${memberDTO.addr_number}" readonly>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group mt-3">
+                        <label for="addr2" class="text-black">상세 주소 <span class="text-danger">*</span></label>
+                        <input type="text" id="addr2" name="addr2" class="form-control" value="${memberDTO.addr2}" readonly>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group row mb-5">
+                        <div class="col-md-6">
+                            <label for="user_email" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_email" name="user_email" value="${memberDTO.email}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="user_phone_number" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_phone_number" name="user_phone_number" value="${memberDTO.phone_number}" readonly>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <br>
+                <h2 class="h3 mb-3 text-black">배송정보</h2>
+
+
                 <div class="p-3 p-lg-5 border bg-white">
 
                     <div class="form-group row">

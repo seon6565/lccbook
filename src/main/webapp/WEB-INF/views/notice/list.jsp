@@ -50,19 +50,24 @@
                     </div>
                 </form>
             </div>
-            <ul class="list-group">
-                <c:forEach var="list" items="${responseDTO.dtoList}">
-                    <a href="/notice/view?${responseDTO.linkParams}&idx=${list.notice_idx}&page=${responseDTO.page}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                        <div class="d-flex gap-2 w-100 justify-content-between">
-                            <div>
-                                <h6 class="mb-0">${list.title}</h6>
-                                <p class="mb-0 opacity-75">${list.content}</p>
-                            </div>
-                            <small class="opacity-50 text-nowrap">${list.reg_date}</small>
-                        </div>
-                    </a>
+
+            <table class="table" >
+                <thead>
+                <tr class="table-secondary row">
+                    <th class="col-11 text-truncate">공지사항 제목</th>
+                    <th class="col-1 text-truncate">등록일</th>
+                </tr>
+                </thead>
+                <c:forEach items="${responseDTO.dtoList}" var="list">
+                    <tbody>
+                    <tr class="row">
+                        <td class="col-11 text-truncate"><a href="/notice/view?${responseDTO.linkParams}&idx=${list.notice_idx}&page=${responseDTO.page}">${list.title}</a></td>
+                        <td class="col-1 text-truncate">${list.reg_date}</td>
+                    </tr>
+                    </tbody>
                 </c:forEach>
-            </ul>
+            </table>
+
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item

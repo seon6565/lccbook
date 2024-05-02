@@ -48,6 +48,14 @@ public class PaymentDTO
   private int[] payment_idxs;
   private String[] payment_statuses;
 
+  /*private String name;
+  private String email;
+  private String phone_number;
+  private String addr1;
+  private String addr2;
+  private String addr_number;*/
+
+
 
 }
 

@@ -77,7 +77,7 @@
     <select id="listUser" resultType="org.fullstack4.lccbook.domain.PaymentVO">
         select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
         recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
-        payment_amount,payment_delivery_fee,delivery_memo,payment_status
+        payment_amount,payment_delivery_fee,delivery_memo,payment_status,payment_date
         from lcc_payment
         where user_id = #{user_id}
         order by payment_idx desc
