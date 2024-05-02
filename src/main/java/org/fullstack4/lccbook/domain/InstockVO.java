@@ -9,10 +9,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class InStockVO {
+public class InstockVO {
 
     private int instock_idx;
-    private int delivery_idx;
+    private int book_idx;
+    private String delivery_number;
     private int quantity;
     private LocalDate reg_date;
 }
