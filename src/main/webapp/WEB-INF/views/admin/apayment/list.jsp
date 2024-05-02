@@ -10,6 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+
+    <style>
+        .disabled-tbody{
+            pointer-events: none;
+            opacity:0.5;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
@@ -45,7 +53,7 @@
                                                         <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
                                                     </div>
                                                 </div>
-                                                </div>
+
                                                 <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
                                             </div>
                                             <div class="input-group mb-1">
@@ -81,14 +89,16 @@
 
 
                                             <c:forEach var="list" items="${responseDTO.dtoList}" varStatus="status">
-                                                <tbody>
+                                                <tbody class="${list.payment_status == 'C' ? 'disabled-tbody' : ''}">
                                                 <tr>
+                                                  
                                                  <%--   <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${status.count}"></td>--%>
                                                     <input type="hidden" name="payment_idx" value="${list.payment_idx}"/>
                                                     <input type="hidden" name="book_idx" value="${list.book_idx}"/>
+                                                     <input type="hidden" name="product_quantity" value="${list.product_quantity}"/>
                                                     <td>${list.payment_idx}</td>
                                                     <td>${list.user_id} </td>
-                                                    <td>${list.product_name}</td>
+                                                     <td><a href="/admin/apayment/view?payment_idx=${list.payment_idx}&book_idx=${list.book_idx}">${list.product_name} </a></td>
                                                   <%--  <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>--%>
                                                     <td>${list.product_quantity}</td>
                                                     <td> <fmt:formatNumber value="${list.product_sale_price}"/>원</td>
@@ -103,6 +113,8 @@
                                                         <option value="N" ${list.payment_status == 'N' ? 'selected' : ''}>결제완료</option>
                                                         <option value="Y" ${list.payment_status == 'Y' ? 'selected' : ''}>구매확정</option>
                                                         <option value="RF" ${list.payment_status == 'RF' ? 'selected' : ''}>환불</option>
+                                                        <option value="C" ${list.payment_status == 'C' ? 'selected' : '' } disabled>결제취소</option>
+
 
                                                     </select></td>
                                                 </tr>

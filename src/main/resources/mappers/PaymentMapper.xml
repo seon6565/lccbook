@@ -158,10 +158,26 @@
         where book_quantity >= #{book_quantity} and book_idx =#{book_idx}
     </update>
 
+    <update id="cancelQuantity">
+        update lcc_book
+        set book_quantity= book_quantity + ${book_quantity}
+        where book_idx =#{book_idx}
+    </update>
+
     <insert id="insertDelivery">
         insert into lcc_delivery(payment_idx,recipient_name,recipient_number,addr1,addr2,zip_code,email,memo)
         values (#{payment_idx},#{recipient_name},#{recipient_phone},#{recipient_addr1},#{recipient_addr2},#{recipient_zipcode},#{recipient_email},#{delivery_memo})
 
 
     </insert>
+
+    <select id="adminView" resultType="org.fullstack4.lccbook.domain.PaymentVO">
+        select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,user_phone_number,user_name,user_email,
+        recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
+        payment_amount,payment_delivery_fee,delivery_memo
+        from lcc_payment
+        where payment_idx=#{payment_idx} and book_idx=#{book_idx}
+
+
+    </select>
 </mapper>
