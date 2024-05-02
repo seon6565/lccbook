@@ -197,6 +197,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         return responseDTO;
     }
 
+
     @Override
     public int statusModify(int paymentIdx, int bookIdx, String paymentStatus) {
         PaymentDTO paymentDTO = new PaymentDTO();
@@ -204,7 +205,15 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         paymentDTO.setBook_idx(bookIdx);
         paymentDTO.setPayment_status(paymentStatus);
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+
+        //결제상태 변경
         int result = paymentMapper.statusModify(paymentVO);
+        if(result<=0){
+            throw new RuntimeException("RuntimeException for rollback 결제상태 변경오류");
+        }
+
+        // 상품 수량 변경
+
 
         return result;
 
@@ -215,6 +224,44 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         List<PaymentDTO> paymentDTOList = paymentMapper.complete(user_id,payment_idx).stream().map(vo->modelMapper.map(vo,PaymentDTO.class)).collect(Collectors.toList());
 
         return paymentDTOList;
+    }
+
+    @Override
+    public PaymentDTO adminView(int paymentIdx, int bookIdx) {
+        PaymentVO paymentVO = paymentMapper.adminView(paymentIdx,bookIdx);
+        PaymentDTO paymentDTO = modelMapper.map(paymentVO,PaymentDTO.class);
+        return paymentDTO;
+    }
+
+    @Transactional
+    @Override
+    public void cancel(int paymentIdx, int bookIdx, int productQuantity, String payment_status) {
+
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setPayment_idx(paymentIdx);
+        paymentDTO.setBook_idx(bookIdx);
+        paymentDTO.setProduct_quantity(productQuantity);
+        paymentDTO.setPayment_status(payment_status);
+
+        System.out.println("cancel : " + paymentDTO);
+
+        PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+
+        //결제상태 변경
+        int result = paymentMapper.statusModify(paymentVO);
+        if(result <=0){
+            throw new RuntimeException("RuntimeException for rollback");
+        }
+
+        //수량 감소
+        System.out.println("paymentcacel bookIDX: " + bookIdx + "paymentCancel productQuantity : " + productQuantity);
+        int quantityResult = paymentMapper.cancelQuantity(bookIdx,productQuantity);
+        System.out.println("quantityResult aadsada" + quantityResult);
+        if(quantityResult <=0){
+            throw new RuntimeException("RuntimeException for rollback cancel 롤백");
+        }
+
+
     }
 
 
