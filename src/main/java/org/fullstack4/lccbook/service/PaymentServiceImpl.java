@@ -32,6 +32,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         int result1=0;
         int quantity_result =0;
         int delivery_result =0;
+        int cart_delete_result =0;
 
 
         String user_id = paymentDTO.getUser_id();
@@ -88,6 +89,11 @@ public class PaymentServiceImpl implements PaymentServiceIf {
                     throw new RuntimeException("RuntimeException for rollback, 재고가 없습니다");
                 }
 
+                //카트 비우기
+                cart_delete_result = paymentMapper.cartDelete(user_id,book_idxs[i]);
+                if(cart_delete_result <=0){
+                    throw new RuntimeException("RuntimeException for rollback, 카트 삭제 오류");
+                }
 
 
 
