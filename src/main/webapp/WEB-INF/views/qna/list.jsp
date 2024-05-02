@@ -53,19 +53,28 @@
                     </div>
                 </form>
             </div>
-            <ul class="list-group">
-                <c:forEach var="list" items="${responseDTO.dtoList}">
-                    <a href="/qna/view?${responseDTO.linkParams}&idx=${list.qna_idx}&page=${responseDTO.page}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                        <div class="d-flex gap-2 w-100 justify-content-between">
-                            <div>
-                                <h6 class="mb-0">작성자: ${list.user_id} 답변여부: ${list.answer_yn}</h6>
-                                <h6 class="mb-0">${list.question_title}</h6>
-                            </div>
-                            <small class="opacity-50 text-nowrap">${list.question_regdate}</small>
-                        </div>
-                    </a>
+
+            <table class="table" >
+                <thead>
+                <tr class="table-secondary row">
+                    <th class="col-2 text-truncate">작성자</th>
+                    <th class="col-6 text-truncate">제목</th>
+                    <th class="col-2 text-truncate">답변여부</th>
+                    <th class="col-2 text-truncate">등록일</th>
+                </tr>
+                </thead>
+                <c:forEach items="${responseDTO.dtoList}" var="list">
+                    <tbody>
+                    <tr class="row">
+                        <td class="col-2 text-truncate">${list.user_id}</td>
+                        <td class="col-6 text-truncate"><a href="/qna/view?${responseDTO.linkParams}&idx=${list.qna_idx}&page=${responseDTO.page}">${list.question_title}</a></td>
+                        <td class="col-2 text-truncate">${list.answer_yn}</td>
+                        <td class="col-2 text-truncate">${list.question_regdate}</td>
+                    </tr>
+                    </tbody>
                 </c:forEach>
-            </ul>
+            </table>
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
                 <button class="btn btn-outline-primary" type="button" onclick="location.href='/qna/regist'">질문하기</button>
             </div>
