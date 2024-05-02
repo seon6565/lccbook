@@ -7,7 +7,6 @@ import org.fullstack4.lccbook.service.BbsFileServiceIf;
 import org.fullstack4.lccbook.service.BbsReplyServiceIf;
 import org.fullstack4.lccbook.service.BbsServiceIf;
 import org.fullstack4.lccbook.util.CommonFileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -37,10 +36,6 @@ public class BbsController {
     private final ServletContext servletContext;
     @GetMapping("/list")
     public void list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model){
-        log.info("===============================");
-        log.info("BbsController >> list() START");
-        log.info("pageRequestDTO : "+ pageRequestDTO.toString());
-
         if (bindingResult.hasErrors()){
             log.info("BbsController >> list Error");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -58,27 +53,16 @@ public class BbsController {
                 }
             }
         }
-
-        log.info("responseDTO : "+ responseDTO.toString());
-        log.info("BbsController >> list() END");
-        log.info("===============================");
     }
     @GetMapping("/view")
     public void view(@RequestParam(name="idx", defaultValue = "0") int idx, Model model){
-        log.info("============================");
-        log.info("bbsController view");
-        log.info("idx : " +idx);
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
         List<BbsReplyDTO> bbsReplyDTO = bbsReplyServiceIf.reply_list(idx);
-        log.info("bbsDTO : " +bbsDTO);
-        log.info("============================");
         model.addAttribute("bbsDTO",bbsDTO);
         model.addAttribute("bbsReplyDTO",bbsReplyDTO);
         int bbs_idx = idx;
         List<BbsFileDTO> bbsFileDTOList = bbsFileServiceIf.list(bbs_idx);
-        log.info("bbsFileDTOList : " +bbsFileDTOList);
-        log.info("============================");
-        model.addAttribute("bbsFileDTOList", bbsFileDTOList);
+        model.addAttribute("bbsFileDTOList",bbsFileDTOList);
     }
     @GetMapping("/regist")
     public void registGET(){
@@ -87,10 +71,6 @@ public class BbsController {
     @PostMapping("/regist")
     public String registPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, MultipartHttpServletRequest files
             ,RedirectAttributes redirectAttributes){
-        log.info("============================");
-        log.info("bbsController registPOST");
-        log.info("bbsDTO : " +bbsDTO);
-        log.info("============================");
 
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bbsDTO);
@@ -99,8 +79,9 @@ public class BbsController {
             return "redirect:/bbs/regist";
         }
 
-        String saveDirectory = servletContext.getRealPath("/resources/uploads");
-        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\upload";
         List<String> filenames = null;
         filenames = commonFileUtil.fileuploads(files,saveDirectory);;
         int result = bbsServiceIf.regist(bbsDTO);
@@ -122,18 +103,13 @@ public class BbsController {
     }
     @GetMapping("/modify")
     public void modifyGET(@RequestParam(name="idx", defaultValue = "0") int idx, Model model){
-        log.info("============================");
-        log.info("bbsController modifyGET");
-        log.info("============================");
         BbsDTO bbsDTO = bbsServiceIf.view(idx);
         model.addAttribute("bbsDTO",bbsDTO);
     }
+    @Transactional
     @PostMapping("/modify")
-    public String modifyPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        log.info("============================");
-        log.info("bbsController modifyPOST");
-        log.info("modifyPOST bbsDTO"+bbsDTO);
-        log.info("============================");
+    public String modifyPOST(@Valid BbsDTO bbsDTO, BindingResult bindingResult, MultipartHttpServletRequest files
+            ,RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bbsDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
@@ -141,8 +117,20 @@ public class BbsController {
             redirectAttributes.addAttribute("idx",bbsDTO.getIdx());
             return "redirect:/bbs/modify";
         }
+        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\upload";
+        List<String> filenames = null;
+        filenames = commonFileUtil.fileuploads(files,saveDirectory);;
         int result = bbsServiceIf.modify(bbsDTO);
         if(result > 0 ){
+            if(filenames!=null) {
+                for (String filename : filenames) {
+                    BbsFileDTO bbsFileDTO = BbsFileDTO.builder().bbs_idx(bbsFileServiceIf.lastindex()).file_directory(saveDirectory)
+                            .file_name(filename).build();
+                    int file_result = bbsFileServiceIf.regist(bbsFileDTO);
+                }
+            }
             return "redirect:/bbs/view?idx="+bbsDTO.getIdx();
         }
         else{
@@ -152,9 +140,6 @@ public class BbsController {
     }
     @PostMapping("/delete")
     public String deletePOST(@RequestParam(name="idx", defaultValue = "0") int idx){
-        log.info("============================");
-        log.info("bbsController deletePOST");
-        log.info("============================");
         int result = bbsServiceIf.delete(idx);
         if(result > 0 ){
             return "redirect:/bbs/list";
@@ -166,16 +151,18 @@ public class BbsController {
 
     @GetMapping(value = "/fileDownload")
     public void fileDownload(String file_name, HttpServletResponse response, HttpServletRequest request){
-        String saveDirectory = servletContext.getRealPath("/resources/uploads");
-        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\upload";
         commonFileUtil.fileDownload(saveDirectory,file_name,response,request);
     }
 
     @GetMapping(value = "/fileDelete")
     public String fileDelete(int file_idx, String idx){
         BbsFileDTO bbsFileDTO = bbsFileServiceIf.view(file_idx);
-        String saveDirectory = servletContext.getRealPath("/resources/uploads");
-        //String saveDirectory = "D:\\java4\\spring\\springweb\\springmvc\\src\\main\\webapp\\uploads";
+        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
+        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\upload";
         int result = bbsFileServiceIf.delete(file_idx);
         if(result>0) {
             commonFileUtil.fileDelite(bbsFileDTO.getFile_directory(), bbsFileDTO.getFile_name());
