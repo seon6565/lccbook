@@ -51,15 +51,15 @@
             <table class="table" >
                 <thead>
                 <tr class="table-secondary row">
-                    <th class="col-11 text-truncate">공지사항 제목</th>
-                    <th class="col-1 text-truncate">등록일</th>
+                    <th class="col-10 text-truncate">공지사항 제목</th>
+                    <th class="col-2 text-truncate">등록일</th>
                 </tr>
                 </thead>
                 <c:forEach items="${responseDTO.dtoList}" var="list">
                     <tbody>
                     <tr class="row">
-                        <td class="col-11 text-truncate"><a href="/notice/view?${responseDTO.linkParams}&idx=${list.notice_idx}&page=${responseDTO.page}">${list.title}</a></td>
-                        <td class="col-1 text-truncate">${list.reg_date}</td>
+                        <td class="col-10 text-truncate"><a href="/notice/view?${responseDTO.linkParams}&idx=${list.notice_idx}&page=${responseDTO.page}">${list.title}</a></td>
+                        <td class="col-2 text-truncate">${list.reg_date}</td>
                     </tr>
                     </tbody>
                 </c:forEach>
