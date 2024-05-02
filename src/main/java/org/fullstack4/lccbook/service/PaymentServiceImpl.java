@@ -64,7 +64,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
 
 
                 paymentDTO.setBook_idx(book_idxs[i]);
-            
+
                 paymentDTO.setPayment_idx(result3);
                 paymentDTO.setProduct_price(product_prices[i]);
                 paymentDTO.setProduct_sale_price(product_sale_prices[i]);

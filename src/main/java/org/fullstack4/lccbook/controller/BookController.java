@@ -38,12 +38,12 @@ public class BookController {
         log.info("==========");
 
         BookDTO bookDTO = bookServiceIf.view(book_idx);
-        //List<BookReviewDTO> bookReviewDTOList = bookReviewServiceIf.review_list(book_idx);
-        PageResponseDTO<BookReviewDTO> responseDTO = bookReviewServiceIf.commentListByPage(pageRequestDTO);
+        List<BookReviewDTO> bookReviewDTOList = bookReviewServiceIf.review_list(book_idx);
+        //PageResponseDTO<BookReviewDTO> responseDTO = bookReviewServiceIf.commentListByPage(pageRequestDTO);
 
-        model.addAttribute("responseDTO", responseDTO);
+        //model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("book", bookDTO);
-        //model.addAttribute("bookReview", bookReviewDTOList);
+        model.addAttribute("bookReview", bookReviewDTOList);
 
     }
 

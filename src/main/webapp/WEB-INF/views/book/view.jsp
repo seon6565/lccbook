@@ -62,8 +62,9 @@
             padding: 20px;
         }
         #reviewText {
-            padding-top: 10px;
+            padding-top: 20px;
             padding-left: 10px;
+            width: 1030px;
         }
         #reviewText > h6 {
             font-size: large;
@@ -87,12 +88,19 @@
 
         .rating {
             width: 180px;
+            padding-top: 10px;
+            font-size: larger;
         }
 
         .rating__star {
             cursor: pointer;
             color: #dabd18b2;
         }
+
+        #delete_btn {
+            border: 1px solid #ccc;
+        }
+
 
     </style>
 </head>
@@ -177,8 +185,8 @@
             <div id="review">
                 <h5>교재후기</h5>
                 <c:choose>
-                <c:when test="${not empty responseDTO.dtoList}">
-                    <c:forEach items="${responseDTO.dtoList}" var="list">
+                <c:when test="${not empty bookReview}">
+                    <c:forEach items="${bookReview}" var="list">
                         <div id="reviewContent">
                             <img src="${book.book_img}" style="width: 100px;">
                             <div id="reviewText">
@@ -196,7 +204,9 @@
                             <form id="delete" name="delete" action="/bookReview/delete" method="post">
                                 <input type="hidden" name="review_idx" id="review_idx"  value="${list['review_idx']}">
                                 <input type="hidden" name="book_idx"   value="${list['book_idx']}">
-                                <button type="submit">삭제</button>
+                                <c:if test="${memberDTO.user_id == list.user_id}">
+                                <button type="submit" id="delete_btn" onclick="godelete(event)">삭제</button>
+                                </c:if>
                             </form>
                         </div>
                     </c:forEach>
@@ -207,30 +217,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item
-                        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-                            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-                            <a class="page-link"
-                               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-                               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-                        </li>
-                        <c:forEach begin="${responseDTO.page_block_start}"
-                                   end="${responseDTO.page_block_end}"
-                                   var="page_num">
-                            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                                <a class="page-link" data-num="${page_num}"
-                                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-                            </li>
-                        </c:forEach>
-                        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-                            <a class="page-link"
-                               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-                               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
                 <form id="frm" name="frm" action="/bookReview/regist" method="post">
                     <div class="form-floating mb-3" id="regist">
@@ -364,7 +350,17 @@
             return false;
         }
         frm.submit();
-    })  ;
+    });
+
+    function godelete(e) {
+        e.preventDefault();
+        if(confirm("댓글을 정말 삭제하시겠습니까?")) {
+            alert("삭제되었습니다.");
+            document.getElementById("delete").submit();
+        } else {
+            return false;
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.rating__star');
