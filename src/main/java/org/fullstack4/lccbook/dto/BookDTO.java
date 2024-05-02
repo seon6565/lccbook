@@ -28,6 +28,7 @@ public class BookDTO {
     private String book_video;
     private int book_quantity;
     private LocalDate modify_date;
+    private int reply_cnt;
 
     private String category;
     private String age;

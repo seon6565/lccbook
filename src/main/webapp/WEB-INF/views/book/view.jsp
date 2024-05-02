@@ -156,7 +156,7 @@
                     <a class="nav-link active" aria-current="page" href="#info">상세정보</a>
                 </li>
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#review">교재후기()</a>
+                    <a class="nav-link active" aria-current="page" href="#review">교재후기(${book.reply_cnt})</a>
                 </li>
                 <li class="nav-item1">
                     <a class="nav-link active" aria-current="page" href="#delivery">배송/환불정책</a>

@@ -71,6 +71,7 @@
         <result column="book_img" property="book_img"/>
         <result column="book_video" property="book_video"/>
         <result column="book_quantity" property="book_quantity"/>
+        <result column="reply_cnt" property="reply_cnt"/>
         <result column="category" property="category"/>
         <result column="age" property="age"/>
         <result column="cate" property="cate"/>
@@ -102,7 +103,7 @@
 
     <select id="view" resultMap="BookVO">
         SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
-        ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        ,lb.book_img,lb.book_video,lb.book_quantity,lb.reply_cnt,substring_index(lc.category_name, ',',1) AS category
         ,substring_index(substring_index(lc.category_name, ',',-2),',',1) AS age
         FROM lcc_book AS lb
         INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx

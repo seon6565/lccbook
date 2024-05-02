@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,84 +150,27 @@
                 <span style="font-size: large;font-weight: bold;">베스트셀러</span>
                 <span>/ 보리북의 금주 베스트 교재입니다.</span>
             </div>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
                 <div class="col mb-5">
                     <div class="card h-100">
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book1.png" alt="..." />
+                        <c:forEach items="${bookDTOBestList}" var="list">
+                        <a href="/book/view?book_idx=${list.book_idx}">
+                        <img class="card-img-top" src="${list.book_img}" alt="..." />
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <span style="color: #6c757d">영유아</span>
-                                <h6 class="fw-bolder">돌잡이 한글</h6>
+                                <span style="color: #6c757d">[${list.category}] ${list.age}</span>
+                                <h6 class="fw-bolder">${list.book_name}</h6>
                                 <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">109,000원</span>
-                                -> <span style="color: #0d6efd">98,100원</span>
+                                <span class="text-muted text-decoration-line-through">${list.price}원</span>
+                                -> <span style="color: #0d6efd">${list.sale_price}원</span>
                             </div>
                         </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/bookk2.png" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->>
-                                <!-- Product price-->
-                                <span style="color: #6c757d">초등</span>
-                                <h6 class="fw-bolder">우등생 수학 3-1</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">16,500원</span>
-                                -> <span style="color: #0d6efd">14,850원</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book3.png" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <span style="color: #6c757d">중학</span>
-                                <h6 class="fw-bolder">체크체크 수학 중 2-1</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">16,500원</span>
-                                -> <span style="color: #0d6efd">14,850원</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book4.png" alt="..." height="355px"/>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <!-- Product price-->
-                                <span style="color: #6c757d">고등</span>
-                                <h6 class="fw-bolder">셀파 기본서 확률과 통계</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">13,000원</span>
-                                -> <span style="color: #0d6efd">11,700원</span>
-                            </div>
-                        </div>
+                        </a>
+                        </c:forEach>
                         <!-- Product actions-->
                     </div>
                 </div>
@@ -241,82 +186,25 @@
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
                         <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book5.png" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <span style="color: #6c757d">영유아</span>
-                                <h6 class="fw-bolder">모야몽 앤 프렌즈 탱탱볼</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">8,000원</span>
-                                -> <span style="color: #0d6efd">5,500원</span>
+                        <c:forEach items="${bookDTONewList}" var="list">
+                            <a href="/book/view?book_idx=${list.book_idx}">
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
+                            <img class="card-img-top" src="${list.book_img}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <span style="color: #6c757d">[${list.category}] ${list.age}</span>
+                                    <h6 class="fw-bolder">${list.book_name}</h6>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">${list.price}원</span>
+                                    -> <span style="color: #0d6efd">${list.sale_price}원</span>
+                                </div>
                             </div>
+                            </a>
+                        </c:forEach>
                         </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book6.png" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->>
-                                <!-- Product price-->
-                                <span style="color: #6c757d">초등</span>
-                                <h6 class="fw-bolder">LIVE 과학 첨단과학 1-4</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">13,000원</span>
-                                -> <span style="color: #0d6efd">11,700원</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book7.png" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <span style="color: #6c757d">중학</span>
-                                <h6 class="fw-bolder">체크체크 베이직 수학 중</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">14,000원</span>
-                                -> <span style="color: #0d6efd">12,600원</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
-                        <!-- Product image-->
-                        <img class="card-img-top" src="/resources/img/book/book4.png" alt="..." height="355px"/>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <!-- Product price-->
-                                <span style="color: #6c757d">고등</span>
-                                <h6 class="fw-bolder">수능 국어 독서 DVA</h6>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">17,500원</span>
-                                -> <span style="color: #0d6efd">15,700원</span>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
                     </div>
                 </div>
             </div>
@@ -346,7 +234,7 @@
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
                             <strong class="d-inline-block mb-2 text-success">최고수준 초등수학(4-2)</strong>
-                            <h3 class="mb-0">최고수준 초등수학(4-2)</h3>
+                            <p style="font-weight: bold">최고수준 초등수학(4-2)</p>
                             <p class="mb-auto">기본개념서, 응용서 풀고 나면 마지막 심화서로 마무리하는데요, 1학년때부터 지금까지 꼭 잊지 않고 학습하는 교재가 최고수준이랍니다.</p>
                             <div class="mb-1 text-muted">이름 : 김*민</div>
                         </div>
@@ -363,80 +251,52 @@
             <div id="notice" class="box">
                 <span style="color: #0b5ed7">공지사항</span>
                 <a href="/notice/list"><span style="font-size: small; margin-left: 170px;">더보기 -> </span></a>
-                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>
-                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>
+                <c:forEach items="${noticeDTOList}" var="list">
+<%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
+<%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
                 <table class="table">
                     <tbody>
                     <tr>
-                        <td>[공지] 공지사항 내용...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[공지] 공지사항 내용...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[공지] 공지사항 내용...</td>
-                        <td colspan="2">2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[공지] 공지사항 내용...</td>
-                        <td colspan="2">2024-04-24</td>
+                        <td><a href="/notice/view?idx=${list.notice_idx}">[공지]<c:out value="${fn:substring(list.title,0,10)}"/>
+                            <c:if test="${fn:length(list.title) > 10}"> ...</c:if></a></td>
+                        <td>${list.reg_date}</td>
                     </tr>
                     </tbody>
                 </table>
+                </c:forEach>
             </div>
             <div id="Q&A" class="box">
                 <span style="color: #0b5ed7">Q&A</span>
                 <a href="/qna/list"><span style="font-size: small; margin-left: 200px;">더보기 -> </span></a>
-                <a href="/book/list"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[Q&A] 큐엔에이</p></a>
-                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td>[Q&A] Q&A 내용...</td>
-                        <td >2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[Q&A] Q&A 내용...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[Q&A] Q&A 내용...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[Q&A] Q&A 내용...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:forEach items="${qnaDTOList}" var="list">
+                    <%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
+                    <%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><a href="/qna/view?idx=${list.qna_idx}">[Q]<c:out value="${fn:substring(list.question_title,0,10)}"/>
+                                <c:if test="${fn:length(list.question_title) > 10}"> ...</c:if></a></td>
+                            <td>${list.question_regdate}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </c:forEach>
             </div>
             <div id="FAQ" class="box">
                 <span style="color: #0b5ed7">자주 묻는 질문</span>
                 <a href="/faq/list"><span style="font-size: small; margin-left: 130px;">더보기 -> </span></a>
-                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[FAQ] 5월 1일 근로자의 날 휴무 안내</p></a>
-                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td>[FAQ] 자주 묻는 질문...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[FAQ] 자주 묻는 질문...</td>
-                        <td>2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[FAQ] 자주 묻는 질문...</td>
-                        <td colspan="2">2024-04-24</td>
-                    </tr>
-                    <tr>
-                        <td>[FAQ] 자주 묻는 질문...</td>
-                        <td colspan="2">2024-04-24</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <c:forEach items="${faqDTOList}" var="list">
+                    <%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
+                    <%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><a href="/faq/list">[${list.faq_title}]<c:out value="${fn:substring(list.faq_content,0,10)}"/>
+                                <c:if test="${fn:length(list.faq_content) > 10}"> ...</c:if></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </c:forEach>
             </div>
         </div>
     </section>
