@@ -45,8 +45,7 @@ CREATE TABLE IF NOT EXISTS `lcc_bbs` (
   `read_cnt` int(11) DEFAULT 0,
   `reply_cnt` int(11) DEFAULT 0,
   PRIMARY KEY (`idx`) USING BTREE,
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_lcc_bbs_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 lccbook.lcc_bbs:~1 rows (대략적) 내보내기
@@ -63,8 +62,7 @@ CREATE TABLE IF NOT EXISTS `lcc_bbs_file` (
   `file_name` varchar(200) NOT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`file_idx`) USING BTREE,
-  KEY `FK_lcc_bbs_file_lcc_bbs` (`bbs_idx`),
-  CONSTRAINT `FK_lcc_bbs_file_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_bbs_file_lcc_bbs` (`bbs_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_bbs_file:~1 rows (대략적) 내보내기
@@ -83,9 +81,7 @@ CREATE TABLE IF NOT EXISTS `lcc_bbs_reply` (
   `modify_date` datetime DEFAULT NULL COMMENT '댓글 수정일',
   PRIMARY KEY (`idx`) USING BTREE,
   KEY `FK_lcc_bbs_reply_lcc_bbs` (`bbs_idx`),
-  KEY `FK_lcc_bbs_reply_lcc_member` (`user_id`),
-  CONSTRAINT `FK_lcc_bbs_reply_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `FK_lcc_bbs_reply_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_bbs_reply_lcc_member` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 lccbook.lcc_bbs_reply:~0 rows (대략적) 내보내기
@@ -111,8 +107,7 @@ CREATE TABLE IF NOT EXISTS `lcc_book` (
   `modify_date` datetime DEFAULT NULL,
   `reply_cnt` int(7) DEFAULT 0,
   PRIMARY KEY (`book_idx`),
-  KEY `FK_lcc_book_lcc_category` (`category_idx`),
-  CONSTRAINT `FK_lcc_book_lcc_category` FOREIGN KEY (`category_idx`) REFERENCES `lcc_category` (`category_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_book_lcc_category` (`category_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_book:~13 rows (대략적) 내보내기
@@ -143,9 +138,7 @@ CREATE TABLE IF NOT EXISTS `lcc_bookreview` (
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`review_idx`),
   KEY `FK_lcc_bookreview_lcc_book` (`book_idx`),
-  KEY `FK_lcc_bookreview_lcc_member` (`user_id`),
-  CONSTRAINT `FK_lcc_bookreview_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_lcc_bookreview_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_bookreview_lcc_member` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_bookreview:~3 rows (대략적) 내보내기
@@ -168,9 +161,7 @@ CREATE TABLE IF NOT EXISTS `lcc_cart` (
   `cart_regdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`cart_idx`),
   KEY `FK_lcc_cart_lcc_member` (`user_id`),
-  KEY `FK_lcc_cart_lcc_book` (`book_idx`),
-  CONSTRAINT `FK_lcc_cart_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_lcc_cart_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_cart_lcc_book` (`book_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_cart:~2 rows (대략적) 내보내기
@@ -285,8 +276,7 @@ CREATE TABLE IF NOT EXISTS `lcc_delivery` (
   `email` varchar(50) DEFAULT NULL,
   `memo` varchar(50) DEFAULT NULL COMMENT '배송메모',
   PRIMARY KEY (`delivery_idx`),
-  KEY `FK_lcc_delivery_lcc_payment` (`payment_idx`),
-  CONSTRAINT `FK_lcc_delivery_lcc_payment` FOREIGN KEY (`payment_idx`) REFERENCES `lcc_payment` (`payment_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_delivery_lcc_payment` (`payment_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='배송정보';
 
 -- 테이블 데이터 lccbook.lcc_delivery:~5 rows (대략적) 내보내기
@@ -330,8 +320,7 @@ CREATE TABLE IF NOT EXISTS `lcc_instock` (
   `quantity` int(5) NOT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`instock_idx`),
-  KEY `FK_lcc_instock_lcc_book` (`book_idx`),
-  CONSTRAINT `FK_lcc_instock_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_instock_lcc_book` (`book_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_instock:~0 rows (대략적) 내보내기
@@ -418,9 +407,7 @@ CREATE TABLE IF NOT EXISTS `lcc_outstock` (
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`outstock_idx`),
   KEY `FK_lcc_outstock_lcc_delivery` (`delivery_idx`),
-  KEY `FK_lcc_outstock_lcc_book` (`book_idx`),
-  CONSTRAINT `FK_lcc_outstock_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_lcc_outstock_lcc_delivery` FOREIGN KEY (`delivery_idx`) REFERENCES `lcc_delivery` (`delivery_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_outstock_lcc_book` (`book_idx`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_outstock:~0 rows (대략적) 내보내기
@@ -483,8 +470,7 @@ CREATE TABLE IF NOT EXISTS `lcc_qna` (
   `answer_regdate` datetime DEFAULT NULL,
   `question_modifydate` datetime DEFAULT NULL,
   PRIMARY KEY (`qna_idx`),
-  KEY `FK_lcc_qna_lcc_member` (`user_id`),
-  CONSTRAINT `FK_lcc_qna_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_lcc_qna_lcc_member` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_qna:~1 rows (대략적) 내보내기
@@ -492,17 +478,44 @@ DELETE FROM `lcc_qna`;
 INSERT INTO `lcc_qna` (`qna_idx`, `user_id`, `question_title`, `question_content`, `question_regdate`, `answer_yn`, `answer_id`, `answer_content`, `answer_regdate`, `question_modifydate`) VALUES
 	(10, 'test', '질문드립니다.', '질문드립니다.', '2024-05-02 11:18:00', 'N', NULL, NULL, NULL, NULL);
 
--- 프로시저 lccbook.USP_BBS_INSERT_DUMMY_DATE 구조 내보내기
-DROP PROCEDURE IF EXISTS `USP_BBS_INSERT_DUMMY_DATE`;
-DELIMITER //
-CREATE PROCEDURE `USP_BBS_INSERT_DUMMY_DATE`(
-	IN `ADD_COUNT` INT
-)
-BEGIN
- DECLARE i INT DEFAULT 1; DECLARE tmp_reg_date CHAR(10); DECLARE tmp_min_date_cnt INT DEFAULT -50; DECLARE last_idx INT default 0; set tmp_min_date_cnt = FLOOR(ADD_COUNT/10)*-1; while i<=ADD_COUNT DO
-	if MOD(i,10) = 0 then
-  		set tmp_min_date_cnt = tmp_min_date_cnt+1; END if; INSERT INTO lcc_notice(title, content) VALUES(CONCAT('게시글 제목 ', i), CONCAT('게시글 내용 ', i)); SET i = i+1; END while; END//
-DELIMITER ;
+
+ALTER TABLE lcc_bbs ADD 
+CONSTRAINT `FK_lcc_bbs_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_bbs_file add
+CONSTRAINT `FK_lcc_bbs_file_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_bbs_reply ADD
+CONSTRAINT `FK_lcc_bbs_reply_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE lcc_bbs_reply ADD 
+CONSTRAINT `FK_lcc_bbs_reply_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_book ADD 
+CONSTRAINT `FK_lcc_book_lcc_category` FOREIGN KEY (`category_idx`) REFERENCES `lcc_category` (`category_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_bookreview ADD 
+CONSTRAINT `FK_lcc_bookreview_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE lcc_bookreview ADD 
+CONSTRAINT `FK_lcc_bookreview_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_cart ADD 
+CONSTRAINT `FK_lcc_cart_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE lcc_cart ADD 
+CONSTRAINT `FK_lcc_cart_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_delivery ADD 
+CONSTRAINT `FK_lcc_delivery_lcc_payment` FOREIGN KEY (`payment_idx`) REFERENCES `lcc_payment` (`payment_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_instock ADD 
+CONSTRAINT `FK_lcc_instock_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_outstock ADD 
+CONSTRAINT `FK_lcc_outstock_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE lcc_outstock ADD 
+CONSTRAINT `FK_lcc_outstock_lcc_delivery` FOREIGN KEY (`delivery_idx`) REFERENCES `lcc_delivery` (`delivery_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE lcc_qna ADD 
+CONSTRAINT `FK_lcc_qna_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
