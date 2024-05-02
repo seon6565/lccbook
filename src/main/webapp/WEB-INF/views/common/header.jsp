@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="/resources/css/styles.css" rel="stylesheet" />
     <style>
         #navbarNav{
             justify-content: flex-end;
@@ -59,6 +60,7 @@
             padding-top: 10px;
             padding-right: 3px;
         }
+
     </style>
 </head>
 <body>
