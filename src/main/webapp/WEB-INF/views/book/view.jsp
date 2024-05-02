@@ -131,7 +131,8 @@
                     <input type="hidden" id="price" name="price" value="${book.price}"/>
                     <span style="margin-right: 37px;">판매가</span><span>${book.sale_price}원</span><br>
                     <input type="hidden" id="sale_price" name="sale_price" value="${book.sale_price}"/>
-                    <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span>
+                    <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span> <br>
+                    <span style="margin-right: 50px;">재고</span><span >${book.book_quantity} 권</span>
                 </div>
                 <div class="box" style="border-bottom: none">
                     <span style="margin-right: 37px;">배송비</span><span>2500원(15,000원 이상 구매 시 무료배송)</span><span style="font-size: small; color: #5c636a">[제주&도서산간지역 추가 3,000원]</span><br>
@@ -139,7 +140,7 @@
                         <div id="btn_acount">
                             <button type="button" id="quantity_minus" name="minus">-</button>
                             <input type="text" id="quantity" name="quantity" value="1" readonly style="width: 30px; text-align: center;">
-                            <button type="button" id="quantity_plus" name="plus">+</button>
+                            <button type="button" id="quantity_plus" name="plus"  data-book-quantity ="${book.book_quantity}">+</button>
                         </div><br>
                     <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
                 </div>
@@ -333,14 +334,26 @@
     quantity_plus.addEventListener("click",function(e){
         e.preventDefault();
 
+        const index = this.getAttribute('data-book-quantity');
+        const total_quantity = parseInt(index);
+
+
         const quantity =  document.querySelector("#quantity");
-       const number = parseInt(quantity.value);
-       quantity.value = number+1;
+
+        const number = parseInt(quantity.value);
+        if(number<total_quantity){
+            quantity.value = number+1;
+        }
+        else{
+            alert("재고가 없습니다.")
+        }
+
 
     });
 
     quantity_minus.addEventListener("click",function(e){
         e.preventDefault();
+
 
         const quantity =  document.querySelector("#quantity");
         const number = parseInt(quantity.value);

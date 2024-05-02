@@ -180,4 +180,11 @@
 
 
     </select>
+
+    <delete id="cartDelete">
+        delete
+        from lcc_cart
+        where user_id=#{user_id} and book_idx=#{book_idx}
+
+    </delete>
 </mapper>

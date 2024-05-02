@@ -23,60 +23,35 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title fw-semibold mb-4">회원 관리</h5>
+                            <h5 class="card-title fw-semibold mb-4">상품 관리</h5>
 
                             <div class="card">
                                 <div class="card-body p-4">
-                                    <div>
-                                        <form name="frmSearch" id="search" action="/admin/amember/list">
-                                            <div class="input-group mb-1">
-                                                <span class="input-group-text ">검색범위</span>
-                                                <div class="input-group-text">
-                                                    <div class="form-check form-switch form-check-inline" >
-                                                        <label class="form-check-label" for="search_type_1">유저이름</label>
-                                                        <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1} >
-                                                    </div>
-                                                </div>
-                                                <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
-                                            </div>
-                                            <div class="input-group mb-1">
-                                                <span class="input-group-text">검색기간</span>
-                                                <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
-                                                <span class="input-group-text">~</span>
-                                                <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
-                                            </div>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                                <button class="btn btn-outline-primary" type="submit">검색</button>
-                                                <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/admin/amember/list'">검색 초기화</button>
-                                            </div>
-                                        </form>
-                                    </div>
                                     <table class="table">
                                         <thead>
                                         <tr class="table-secondary">
                                             <th scope="col"></th>
-                                            <th scope="col">아이디</th>
-                                            <th scope="col">성함</th>
-                                            <th scope="col">회원상태</th>
+                                            <th scope="col">카테고리</th>
+                                            <th scope="col">책 이름</th>
+                                            <th scope="col">책 수량</th>
                                             <th scope="col">등록일</th>
-                                            <th scope="col">탈퇴일</th>
                                         </tr>
                                         </thead>
-                                        <form action="/admin/amember/deletecheck" method="post" id="frmDelete" name="frmDelete">
+                                        <form action="/admin/abook/deletecheck" method="post" id="frmDelete" name="frmDelete">
                                             <c:forEach var="list" items="${responseDTO.dtoList}">
                                                 <tbody>
                                                 <tr>
-                                                    <td><input type="checkbox" value="${list.user_id}" name="user_id" id="user_id${list.user_id}"></td>
-                                                    <td>${list.user_id}</td>
-                                                    <td>${list.name}</td>
-                                                    <td>${list.user_state}</td>
+                                                    <td><input type="checkbox" value="${list.book_idx}" name="book_idx" id="book_idx${list.book_idx}"></td>
+                                                    <td>${list.category_idx}</td>
+                                                    <td><a href="/admin/abook/view${responseDTO.linkParams}&book_idx=${list.book_idx}&page=${responseDTO.page}">${list.book_name}</a></td>
+                                                    <td>${list.book_quantity}</td>
                                                     <td>${list.reg_date}</td>
-                                                    <td>${list.leave_date}</td>
                                                 </tr>
                                                 </tbody>
                                             </c:forEach>
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">유저 삭제</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="location.href='/admin/abook/regist'">상품 등록</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="goDelete()">상품 삭제</button>
                                             </div>
                                         </form>
                                     </table>
@@ -120,7 +95,7 @@ ${errorAlert}
 <script>
     function goDelete(){
         const frm = document.getElementById("frmDelete");
-        if(confirm("!경고 유저를 삭제하시겠습니까?")){
+        if(confirm("해당 상품을 삭제하시겠습니까?")){
             frm.submit();
         }
     }

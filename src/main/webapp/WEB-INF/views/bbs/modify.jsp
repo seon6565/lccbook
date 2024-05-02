@@ -24,7 +24,7 @@
     </header>
     <div class="card">
         <div class="card-body p-4">
-            <form name="frmModify" id="frmModify" method="post" action="/bbs/modify">
+            <form name="frmModify" id="frmModify" method="post" action="/bbs/modify" enctype="multipart/form-data">
                 <input type="hidden" id="idx" name="idx" value="${bbsDTO.idx}">
                 <div class="mb-3">
                     <label for="user_id" class="form-label">아이디</label>

@@ -56,8 +56,7 @@
                 <thead>
                 <tr class="table-secondary row">
                     <th class="col-2 text-truncate">작성자</th>
-                    <th class="col-6 text-truncate">제목</th>
-                    <th class="col-2 text-truncate">답변여부</th>
+                    <th class="col-8 text-truncate">제목</th>
                     <th class="col-2 text-truncate">등록일</th>
                 </tr>
                 </thead>
@@ -65,8 +64,7 @@
                     <tbody>
                     <tr class="row">
                         <td class="col-2 text-truncate">${list.user_id}</td>
-                        <td class="col-6 text-truncate"><a href="/bbs/view?${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">${list.title}</a></td>
-                        <td class="col-2 text-truncate">${list.content}</td>
+                        <td class="col-8 text-truncate"><a href="/bbs/view?${responseDTO.linkParams}&idx=${list.idx}&page=${responseDTO.page}">${list.title}</a></td>
                         <td class="col-2 text-truncate">${list.reg_date}</td>
                     </tr>
                     </tbody>
