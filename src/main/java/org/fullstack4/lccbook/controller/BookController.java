@@ -71,9 +71,5 @@ public class BookController {
             model.addAttribute("search_type", responseDTO.getSearch_type()[0]);
         }
 
-        if(responseDTO.getCategory()!=null){
-            model.addAttribute("category", responseDTO.getCategory());
-        }
-
     }
 }

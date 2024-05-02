@@ -25,9 +25,6 @@ public class PageResponseDTO<E> {
     private String search_word;
     private String search_date1;
     private String search_date2;
-    private String category;
-    private String sub;
-    private String age;
     private String cate;
     private String cate1;
     private String cate2;
@@ -63,9 +60,6 @@ public class PageResponseDTO<E> {
         search_word = requestDTO.getSearch_word()!=null?requestDTO.getSearch_word():null;
         search_date1 = requestDTO.getSearch_date1()!=null?requestDTO.getSearch_date1():null;
         search_date2 = requestDTO.getSearch_date2()!=null?requestDTO.getSearch_date2():null;
-        category = requestDTO.getCategory()!=null?requestDTO.getCategory():null;
-        sub = requestDTO.getSub()!=null?requestDTO.getSub():null;
-        age = requestDTO.getAge()!=null?requestDTO.getAge():null;
         cate = requestDTO.getCate()!=null?requestDTO.getCate():null;
         cate1 = requestDTO.getCate1()!=null?requestDTO.getCate1():null;
         cate2 = requestDTO.getCate2()!=null?requestDTO.getCate2():null;
@@ -88,15 +82,6 @@ public class PageResponseDTO<E> {
         }
         if(search_date2!=null) {
             search_type_String.append("&search_date2=" + search_date2);
-        }
-        if(category != null) {
-            search_type_String.append("&category=" + category);
-        }
-        if(sub != null) {
-            search_type_String.append("&sub=" + sub);
-        }
-        if(age != null) {
-            search_type_String.append("&age=" + age);
         }
         if(cate != null) {
             search_type_String.append("&cate=" + cate);
