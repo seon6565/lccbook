@@ -6,19 +6,6 @@
 
     <sql id="whereCondition">
         <where>
-            1=1
-            <if test="cate != null">
-                and left(lb.category_idx, LENGTH(#{cate}))= #{cate}
-            </if>
-            <if test="cate1 != null">
-                and left(lb.category_idx, 2) = #{cate1}
-            </if>
-            <if test="cate2 != null">
-                and mid(lb.category_idx, 3, 2) = #{cate2}
-            </if>
-            <if test="cate3 != null">
-                and right(lb.category_idx, 2) = #{cate3}
-            </if>
             <if test="search_type != null">
                 <foreach collection="search_type" item="type" open="(" close=")" separator=" OR ">
                     <if test="type == 'all'.toString()">
@@ -39,6 +26,18 @@
                         left(lb.category_idx,2)='40' and book_name LIKE CONCAT('%', #{search_word}, '%')
                     </if>
                 </foreach>
+            </if>
+            <if test="cate != null">
+                and left(lb.category_idx, LENGTH(#{cate}))= #{cate}
+            </if>
+            <if test="cate1 != null">
+                and left(lb.category_idx, 2) = #{cate1}
+            </if>
+            <if test="cate2 != null">
+                and mid(lb.category_idx, 3, 2) = #{cate2}
+            </if>
+            <if test="cate3 != null">
+                and right(lb.category_idx, 2) = #{cate3}
             </if>
         </where>
     </sql>

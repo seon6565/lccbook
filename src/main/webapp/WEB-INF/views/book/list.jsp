@@ -106,9 +106,18 @@
 
         #cate {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            font-size: large;
+        }
+
+        #sub {
+
         }
         #sub > ul {
             list-style: none;
+            display: flex;
+            justify-content: center;
         }
         #sub > ul > li {
             display: inline;
@@ -120,6 +129,22 @@
             text-decoration: none;
             color: #5c636a;
         }
+
+        #sub a:hover, a:focus {
+            color: #000;
+        }
+        .category {
+            color: #000;
+        }
+
+        .category a:hover, a:focus {
+            color: #d63384 !important;
+        }
+
+        .category a:active, a:target {
+            color: #d63384 !important;
+        }
+
 
     </style>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
@@ -164,14 +189,14 @@
     <div class="container">
         <div class="row">
             <div id="cate">
-                <ul id="main-menu">
-                    <li><a class="nav-link active" aria-current="page" href="/book/list">전체</a>
+                <ul id="main-menu" class="category">
+                    <li><a class="nav-link" aria-current="page" href="/book/list">전체</a>
                     </li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=10">영유아</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=10">영유아</a>
                         <ul class="sub-menu">
                             <li><a href="/book/list?cate=1010" style="font-size: 14px;">만6세이하</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=20">초등</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=20">초등</a>
                         <ul class="sub-menu" class="sub-menu1">
                             <li><a href="/book/list?cate=2010" style="font-size: 14px;">초1</a></li>
                             <li><a href="/book/list?cate=2020" style="font-size: 14px;">초2</a></li>
@@ -180,13 +205,13 @@
                             <li><a href="/book/list?cate=2050" style="font-size: 14px;">초5</a></li>
                             <li><a href="/book/list?cate=2060" style="font-size: 14px;">초6</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=30">중학</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=30">중학</a>
                         <ul class="sub-menu" class="sub-menu1">
                             <li><a href="/book/list?cate=3010" style="font-size: 14px;">중1</a></li>
                             <li><a href="/book/list?cate=3020" style="font-size: 14px;">중2</a></li>
                             <li><a href="/book/list?cate=3030" style="font-size: 14px;">중3</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=40">고등</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=40">고등</a>
                         <ul class="sub-menu">
                             <li><a href="/book/list?cate=4010" style="font-size: 14px;">고1</a></li>
                             <li><a href="/book/list?cate=4020" style="font-size: 14px;">고2</a></li>
@@ -203,7 +228,7 @@
                     <li><a href="/book/list?cate3=30">영어</a></li>
                     <li><a href="/book/list?cate3=40">사회</a></li>
                     <li><a href="/book/list?cate3=50">과학</a></li>
-                    <li><a href="/book/list?cate3=60">한글</a></li>
+                    <li style="margin-right: 20px;"><a href="/book/list?cate3=60">한글</a></li>
                 </ul>
                 </c:if>
                 <c:if test="${ cate eq '1010' or cate eq '10' or cate eq '101020' or cate eq '101030' or cate eq '101060' }">
@@ -211,14 +236,14 @@
                     <ul>
                         <li ><a href="/book/list?cate=101020">수학</a></li>
                         <li><a href="/book/list?cate=101030">영어</a></li>
-                        <li><a href="/book/list?cate=101060">한글</a></li>
+                        <li style="margin-right: 20px;"><a href="/book/list?cate=101060">한글</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '20' or cate eq'2010'or cate eq'2020' or cate eq'2030' or cate eq'2040' or cate eq'2050' or cate eq'2060'}">
                     <ul>
                         <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
-                        <li><a href="/book/list?cate=${cate}&cate3=60">한글</a></li>
+                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=60">한글</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '30' or cate eq'3010'or cate eq'3020' or cate eq'3030' }">
@@ -227,17 +252,16 @@
                     <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
-                    <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
+                    <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
                   </ul>
                 </c:if>
                 <c:if test="${cate eq '40' or cate eq'4010'or cate eq'4020' or cate eq'4030' }">
                     <ul>
                         <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
                         <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
-
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
-                        <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
+                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
                     </ul>
                 </c:if>
             </div>
