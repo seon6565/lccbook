@@ -252,28 +252,33 @@
                 <div class="col-md-6">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
+                            <a href="/book/view?book_idx=25">
                             <strong class="d-inline-block mb-2 text-primary">단원평가 우등생 해법으로 대비</strong>
                             <p style="font-weight: bold">우등생 해법국어 3-2 : 우등생 국어</p>
                             <p class="card-text mb-auto">국어 학교에서 배우긴 하는데 막상 문제로 접하면 아이가 이해를 못하더군요. 초등에서 중간 기말고사는 사라졌지만
                                 수시로 단원평가는 보더라구요.</p>
                             <div class="mb-1 text-muted">이름 : 최*희</div>
+                            </a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
                             <img src="/resources/img/book/book9.png" width="200" height="250">
                         </div>
+
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
+                            <a href="/book/view?book_idx=26">
                             <strong class="d-inline-block mb-2 text-success">최고수준 초등수학(4-2)</strong>
                             <p style="font-weight: bold">최고수준 초등수학(4-2)</p>
                             <p class="mb-auto">기본개념서, 응용서 풀고 나면 마지막 심화서로 마무리하는데요, 1학년때부터 지금까지 꼭 잊지 않고 학습하는 교재가
                                 최고수준이랍니다.</p>
                             <div class="mb-1 text-muted">이름 : 김*민</div>
+                            </a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
-                            <img src="/resources/img/book/book10.png" width="200" height="250">
+                            <img src="/resources/img/book/ele4Math.png" width="200" height="250">
                         </div>
                     </div>
                 </div>

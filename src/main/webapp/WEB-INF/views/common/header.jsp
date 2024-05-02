@@ -69,7 +69,7 @@
         }
         #name{
             font-size: small;
-            padding-top: 10px;
+            padding-top: 7px;
             padding-right: 3px;
         }
 

@@ -174,9 +174,7 @@
                     <span style="margin-right: 37px;">페이지</span><span>${book.book_page}</span>
                 </div>
                 <h5>교재소개</h5>
-                <video controls width="800" style="margin-left: 100px;" autoplay>
-                    <source src="${book.book_video}" type="video/webm" />
-                </video>
+                <iframe src="${book.book_video}" width="800" height="500" style="margin-left: 100px; margin-top: 40px;"></iframe>
                 <img src="/resources/img/intro.png" style="padding: 60px; margin-left: 100px;">
             </div>
             <div id="review">
@@ -227,7 +225,7 @@
                         </div>
                         <input type="hidden" name="user_id" id="user_id" value="${memberDTO.user_id}">
                         <input type="hidden" name="book_idx" id="book_idx"  value="${param['book_idx']}">
-                        <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
+                        <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="200" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
                         <button class="btn btn-primary" type="submit" id="btn_comment" style="background-color :#d63384;border: #fff;float: right; width: 180px; height: 57px;margin-left: 10px;">후기등록</button>
                     </div>
                 </form>

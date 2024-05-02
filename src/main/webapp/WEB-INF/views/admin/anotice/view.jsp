@@ -65,7 +65,7 @@
     document.querySelector("#btn_modify").addEventListener("click", function(e) {
         e.preventDefault();
         if(confirm("해당 글을 수정하시겠습니까?")){
-            location.href='/admin/afaq/modify?faq_idx=${faq.faq_idx}';
+            location.href='/admin/anotice/modify?notice_idx=${notice.notice_idx}';
         };
     });
 
