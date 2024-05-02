@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fullstack4.lccbook.mapper.BbsFileMapper">
+
+    <update id="registimg">
+        update lcc_book
+        set book_img= #{book_img}
+        where book_idx=#{book_idx}
+    </update>
+
+    <update id="deleteimg">
+        update lcc_book
+        set book_img= null
+        where book_idx=#{book_idx}
+    </update>
+
+    <update id="registvideo">
+        update lcc_book
+        set book_video = #{book_video}
+        where book_idx=#{book_idx}
+    </update>
+
+    <update id="deletevideo">
+        update lcc_book
+        set book_video = null
+        where book_idx=#{book_idx}
+    </update>
+
+
+</mapper>
