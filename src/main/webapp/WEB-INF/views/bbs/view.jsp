@@ -60,7 +60,7 @@
             <div class="mb-3">
                 <table class="table">
                     <thead>
-                    <tr class="table-secondary row">
+                    <tr class="table-secondary">
                         <th class="col-11">파일 이름</th>
                         <th class="col-1">삭제</th>
                     </tr>
@@ -75,7 +75,6 @@
                     </c:forEach>
                 </table>
             </div>
-
             </form>
             <div class="mb-3">
                 <form name="frmReplydelete" id="frmReplydelete" method="post" action="/bbsreply/delete">

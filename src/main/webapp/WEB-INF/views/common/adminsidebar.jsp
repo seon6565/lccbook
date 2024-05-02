@@ -65,11 +65,27 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/abook/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-book"></i>
+                </span>
+                        <span class="hide-menu">상품관리</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/admin/adelivery/list" aria-expanded="false">
                 <span>
                   <i class="ti ti-typography"></i>
                 </span>
                         <span class="hide-menu">배송관리</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/admin/ainstock/list" aria-expanded="false">
+                <span>
+                  <i class="ti ti-car"></i>
+                </span>
+                        <span class="hide-menu">입고관리</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

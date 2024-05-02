@@ -92,7 +92,7 @@ public class AqnaController {
             return "redirect:/admin/aqna/view?idx="+qnaDTO.getQna_idx();
         }
         else{
-            return "/admin/aqna/regist?idx="+qnaDTO.getQna_idx();
+            return "/admin/aqna/list";
         }
 
     }

@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
                                                 <button class="btn btn-outline-primary" type="submit">검색</button>
-                                                <button class="btn btn-outline-primary" type="button" onclick="window.location.href='admin/aqna/list'">검색 초기화</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/admin/aqna/list'">검색 초기화</button>
                                             </div>
                                         </form>
                                     </div>
