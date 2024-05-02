@@ -55,6 +55,11 @@ public class BookReviewServiceImpl implements BookReviewServiceIf{
     }
 
     @Override
+    public int update_reply_cnt(int book_idx) {
+        return bookReviewMapper.update_reply_cnt(book_idx);
+    }
+
+    @Override
     public PageResponseDTO<BookReviewDTO> commentListByPage(PageRequestDTO pageRequestDTO) {
         List<BookReviewVO> voList = bookReviewMapper.commentListByPage(pageRequestDTO);
         List<BookReviewDTO> dtoList = voList.stream()

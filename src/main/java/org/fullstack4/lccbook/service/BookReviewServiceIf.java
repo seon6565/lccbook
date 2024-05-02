@@ -13,4 +13,5 @@ public interface BookReviewServiceIf {
     int delete(int review_idx);
     PageResponseDTO<BookReviewDTO> commentListByPage(PageRequestDTO requestDTO);
     int commentTotalCount(PageRequestDTO requestDTO);
+    int update_reply_cnt(int book_idx);
 }

@@ -31,4 +31,8 @@
         select count(*)
         from lcc_bookreview
     </select>
+
+    <update id="update_reply_cnt">
+        UPDATE lcc_book SET reply_cnt = reply_cnt+1 WHERE book_idx=#{book_idx}
+    </update>
 </mapper>

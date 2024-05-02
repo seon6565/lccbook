@@ -54,7 +54,7 @@
             padding-bottom: 10px;
             font-weight: bold;
             margin-top: 70px !important;
-            font-weight: bold;
+            font-weight: bold !important;
         }
         #reviewContent {
             display: flex;
@@ -153,16 +153,13 @@
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">상세정보</a>
+                    <a class="nav-link active" aria-current="page" href="#info">상세정보</a>
                 </li>
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">교재후기(550)</a>
+                    <a class="nav-link active" aria-current="page" href="#review">교재후기()</a>
                 </li>
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">FAQ</a>
-                </li>
-                <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">배송/환불정책</a>
+                    <a class="nav-link active" aria-current="page" href="#delivery">배송/환불정책</a>
                 </li>
             </ul>
             <div id="info">
@@ -181,7 +178,6 @@
                 </video>
                 <img src="/resources/img/intro.png" style="padding: 60px; margin-left: 100px;">
             </div>
-
             <div id="review">
                 <h5>교재후기</h5>
                 <c:choose>
@@ -235,6 +231,28 @@
                     </div>
                 </form>
             </div>
+        <div id="delivery">
+            <h5>출고/배송 및 배송비안내</h5>
+            <div>
+                <p style="font-size: large;padding-top: 10px;">출고안내</p>
+                <div style="color: #777474;">
+                    <p>평일 기준으로 당일 오후 1시까지 결재완료를 기준으로 당일 출고됩니다.<br>
+                        ※ 교과서 구매시 출고일정이 지연될 수도 있습니다.<br>
+                        평일 오후 1시 이후, 토,일·휴무일, 공휴일에 주문하신 경우에는 다음날 평일에 출고됩니다.</p>
+                </div>
+                <p style="font-size: large;padding-top: 10px;">배송기간안내</p>
+                <div style="color: #777474;">
+                    <p>출고일로부터 2-5일 이내(토, 일 휴무일, 공휴일 제외)<br>
+                        단, 택배사 주문 폭주기간(설, 추석 명절기간)은 배송기간이 다소 차이가 있을 수 있으니 양해 바랍니다.</p>
+                </div>
+            </div>
+            <h5>취소/교환/반품 안내</h5>
+            <div style="color: #777474;">
+                <p>고객 변심 또는 오주문에 의한 취소/교환/반품시 배송비는 고객님 부담입니다.<br>
+                    제품 불량 및 오배송 등의 이유로 취소/교환/반품 하실 경우 배송비는 무료 입니다.<br>
+                    취소/교환/반품에 대한 요구는 제품 수령일로부터 7일 이내에 하셔야 합니다.</p>
+            </div>
+        </div>
         </div>
     </div>
 </section>
