@@ -48,8 +48,16 @@
                 <span class="form-control">${memberDTO.birthday} </span>
             </div>
             <div class="mb-3">
+                우편번호
+                <span class="form-control">${memberDTO.addr_number}</span>
+            </div>
+            <div class="mb-3">
                 주소
-                <span class="form-control">${memberDTO.addr_number}+${memberDTO.addr1} + ${memberDTO.addr2} </span>
+                <span class="form-control">${memberDTO.addr1}</span>
+            </div>
+            <div class="mb-3">
+                상세 주소
+                <span class="form-control">${memberDTO.addr2} </span>
             </div>
             <div class="mb-3">
             <div class="list-group">
@@ -103,7 +111,7 @@
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[0].product_name}</h6>
-                                <p class="mb-0 opacity-75">${paymentDTOList[0].recipient_name}</p>
+                                <p class="mb-0 opacity-75">${paymentDTOList[0].user_id}</p>
                             </div>
                             <small class="opacity-50 text-nowrap">${paymentDTOList[0].payment_date}</small>
                         </div>
@@ -114,7 +122,7 @@
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[1].product_name}</h6>
-                                <p class="mb-0 opacity-75">${paymentDTOList[1].recipient_name}</p>
+                                <p class="mb-0 opacity-75">${paymentDTOList[1].user_id}</p>
                             </div>
                             <small class="opacity-50 text-nowrap">${paymentDTOList[1].payment_date}</small>
                         </div>
@@ -125,7 +133,7 @@
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[2].product_name}</h6>
-                                <p class="mb-0 opacity-75">${paymentDTOList[2].recipient_name}</p>
+                                <p class="mb-0 opacity-75">${paymentDTOList[2].user_id}</p>
                             </div>
                             <small class="opacity-50 text-nowrap">${paymentDTOList[2].payment_date}</small>
                         </div>
