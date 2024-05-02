@@ -21,4 +21,8 @@ public interface PaymentServiceIf {
     int statusModify(int paymentIdx, int bookIdx, String paymentStatus);
 
     List<PaymentDTO> complete(String user_id, int payment_idx);
+
+    PaymentDTO adminView(int paymentIdx, int bookIdx);
+
+    void cancel(int paymentIdx, int bookIdx, int productQuantity,String payment_status);
 }

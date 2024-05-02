@@ -6,7 +6,22 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+
+    <style>
+        .disabled-tbody{
+            pointer-events: none;
+            opacity:0.5;
+        }
+
+    </style>
+  
 </head>
 <body>
 <div class="container">
@@ -42,7 +57,7 @@
                                                         <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
                                                     </div>
                                                 </div>
-                                                </div>
+
                                                 <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
                                             </div>
                                             <div class="input-group mb-1">
@@ -71,35 +86,39 @@
                                         </tr>
                                         </thead>
                                         <form action="/admin/apayment/modify" method="post" id="frm" name="frm">
-                                           <%-- <c:set var="total_price" value="0"/>
-                                            <c:forEach items="${responseDTO.dtoList}" var="lists">
-                                                <c:set var="total_price" value="${lists.product_sale_price + total_price}"/>
-                                            </c:forEach>--%>
+                                            <%-- <c:set var="total_price" value="0"/>
+                                             <c:forEach items="${responseDTO.dtoList}" var="lists">
+                                                 <c:set var="total_price" value="${lists.product_sale_price + total_price}"/>
+                                             </c:forEach>--%>
 
 
                                             <c:forEach var="list" items="${responseDTO.dtoList}" varStatus="status">
-                                                <tbody>
+                                                <tbody class="${list.payment_status == 'C' ? 'disabled-tbody' : ''}">
                                                 <tr>
-                                                 <%--   <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${status.count}"></td>--%>
+
+                                                        <%--   <td><input type="checkbox" value="${list.payment_idx}" name="payment_idx" id="payment_idx${status.count}"></td>--%>
                                                     <input type="hidden" name="payment_idx" value="${list.payment_idx}"/>
                                                     <input type="hidden" name="book_idx" value="${list.book_idx}"/>
+                                                    <input type="hidden" name="product_quantity" value="${list.product_quantity}"/>
                                                     <td>${list.payment_idx}</td>
                                                     <td>${list.user_id} </td>
-                                                    <td>${list.product_name}</td>
-                                                  <%--  <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>--%>
+                                                    <td><a href="/admin/apayment/view?payment_idx=${list.payment_idx}&book_idx=${list.book_idx}">${list.product_name} </a></td>
+                                                        <%--  <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>--%>
                                                     <td>${list.product_quantity}</td>
                                                     <td> <fmt:formatNumber value="${list.product_sale_price}"/>원</td>
                                                     <td>${list.payment_date}</td>
                                                     <td>   <select name="payment_status" id="payment_status">
-                                                 <%--       <option value="${list.payment_status}" selected>${list.payment_status}</option>
-                                                        <option value="베송시작">베송시작</option>
-                                                        <option value="배송중">배송중</option>
-                                                        <option value="배송완료">배송완료</option>
-                                                        <option value="구매완료">구매완료</option>
-                                                        <option value="환불">환불</option>--%>
+                                                            <%--       <option value="${list.payment_status}" selected>${list.payment_status}</option>
+                                                                   <option value="베송시작">베송시작</option>
+                                                                   <option value="배송중">배송중</option>
+                                                                   <option value="배송완료">배송완료</option>
+                                                                   <option value="구매완료">구매완료</option>
+                                                                   <option value="환불">환불</option>--%>
                                                         <option value="N" ${list.payment_status == 'N' ? 'selected' : ''}>결제완료</option>
                                                         <option value="Y" ${list.payment_status == 'Y' ? 'selected' : ''}>구매확정</option>
                                                         <option value="RF" ${list.payment_status == 'RF' ? 'selected' : ''}>환불</option>
+                                                        <option value="C" ${list.payment_status == 'C' ? 'selected' : '' } disabled>결제취소</option>
+
 
                                                     </select></td>
                                                 </tr>
@@ -152,12 +171,12 @@ ${errorAlert}
     function goSave(){
 
         const frm = document.getElementById("frm");
-       const confirm_message = confirm("정말로 결제상태를 변경하시겠습니까?");
-       if(confirm_message){
-                alert("상태가 변경되었습니다.")
-               frm.submit();
+        const confirm_message = confirm("정말로 결제상태를 변경하시겠습니까?");
+        if(confirm_message){
+            alert("상태가 변경되었습니다.")
+            frm.submit();
 
-       }
+        }
     }
 </script>
 </body>
