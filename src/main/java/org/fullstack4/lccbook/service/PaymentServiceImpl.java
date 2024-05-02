@@ -33,7 +33,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         int quantity_result =0;
         int delivery_result =0;
         int cart_delete_result =0;
-
+        int count = 0; // 전체 롤백 카운트
 
         String user_id = paymentDTO.getUser_id();
 
