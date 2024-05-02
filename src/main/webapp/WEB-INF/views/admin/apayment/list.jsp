@@ -45,6 +45,7 @@
                                                         <input class="form-check-input" role="switch" type="checkbox" value="u" name="search_type" id="search_type_1" ${search_typeflag_1}>
                                                     </div>
                                                 </div>
+                                                </div>
                                                 <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
                                             </div>
                                             <div class="input-group mb-1">
@@ -86,7 +87,7 @@
                                                     <input type="hidden" name="payment_idx" value="${list.payment_idx}"/>
                                                     <input type="hidden" name="book_idx" value="${list.book_idx}"/>
                                                     <td>${list.payment_idx}</td>
-                                                    <td>${list.user_id}</td>
+                                                    <td>${list.user_id} </td>
                                                     <td>${list.product_name}</td>
                                                   <%--  <td> <a href="/admin/apayment/view${responseDTO.linkParams}&payment_idx=${list.payment_idx}&page=${responseDTO.page}">${list.question_title}</a></td>--%>
                                                     <td>${list.product_quantity}</td>
@@ -99,12 +100,9 @@
                                                         <option value="배송완료">배송완료</option>
                                                         <option value="구매완료">구매완료</option>
                                                         <option value="환불">환불</option>--%>
-                                                        <option value="결제완료" ${list.payment_status == '결제완료' ? 'selected' : ''}>결제완료</option>
-                                                        <option value="배송시작" ${list.payment_status == '배송시작' ? 'selected' : ''}>배송시작</option>
-                                                        <option value="배송중" ${list.payment_status == '배송중' ? 'selected' : ''}>배송중</option>
-                                                        <option value="배송완료" ${list.payment_status == '배송완료' ? 'selected' : ''}>배송완료</option>
-                                                        <option value="구매완료" ${list.payment_status == '구매완료' ? 'selected' : ''}>구매완료</option>
-                                                        <option value="환불" ${list.payment_status == '환불' ? 'selected' : ''}>환불</option>
+                                                        <option value="N" ${list.payment_status == 'N' ? 'selected' : ''}>결제완료</option>
+                                                        <option value="Y" ${list.payment_status == 'Y' ? 'selected' : ''}>구매확정</option>
+                                                        <option value="RF" ${list.payment_status == 'RF' ? 'selected' : ''}>환불</option>
 
                                                     </select></td>
                                                 </tr>

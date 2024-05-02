@@ -38,4 +38,13 @@ public class PaymentVO
   private String delivery_memo;
   private LocalDate refund_date;
 
+/*
+  private String name;
+  private String email;
+  private String phone_number;
+  private String addr1;
+  private String addr2;
+  private String addr_number;
+*/
+
 }
