@@ -32,6 +32,9 @@
     <div class="container">
         <form id="frm" name="frm" method="post" action="/payment/regist">
             <input type="hidden" id="user_id" name="user_id" value="${sessionScope.memberDTO.user_id}">
+            <input type="hidden" id="user_phone_number" name="user_phone_number" value="13123">
+            <input type="hidden" id="user_name" name="user_name" value="채종윤">
+            <input type="hidden" id="user_email" name="user_email" value="asd@naver.com">
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">배송지</h2>

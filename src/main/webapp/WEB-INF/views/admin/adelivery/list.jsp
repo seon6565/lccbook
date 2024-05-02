@@ -28,11 +28,12 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">배송관리</h5>
                             <div class="card">
-                                <div class="card-body p-4">
-                                    <div class="card-body p-4">
+                                <div class="card-body p-6">
+                                    <div class="card-body p-6">
                                         <table class="table">
                                             <thead>
                                             <tr class="table-secondary">
+                                                <th scope="col">배송번호</th>
                                                 <th scope="col">결제번호</th>
                                                 <th scope="col">배송회사</th>
                                                 <th scope="col">배송회사번호</th>
@@ -46,6 +47,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
+                                                    <td>${list.payment_idx}</td>
                                                     <td>${list.company_name}</td>
                                                     <td>${list.company_number}</td>
                                                     <td>${list.start_date}</td>

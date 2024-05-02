@@ -137,7 +137,6 @@
                 </div>
                 <div class="box" style="border-bottom: none">
                     <button type="button" class="btn btn-outline-secondary" id="cart_button"  data-book-quantity="${book.book_quantity}">장바구니</button>
-                    <button type="button" class="btn btn-outline-secondary">관심등록</button>
                     <button class="btn btn-primary" data-book-quantity="${book.book_quantity}"  id="purchase_button" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
             </div>
