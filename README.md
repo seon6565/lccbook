@@ -14,7 +14,10 @@ Tomcat(9.x), JDK(11), Intellij, mariadb
 jstl, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib
 
 ## 발표 순서
-이재선 최세아 채종윤
+이재선, 최세아, 채종윤
 
 ## 발표 내용
 프로젝트 개요, DB ERD, 구현 결과물, Q&A
+
+## 미리 보기
+![메인이미지](./src/main/webapp/resources/img/introduce/introduce01.png)
