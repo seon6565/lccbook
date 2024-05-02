@@ -5,8 +5,7 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="container">
@@ -86,13 +85,7 @@
     </ul>
 </nav>
 </div>
-<%@ include file="../../common/footer.jsp"%>
 
-<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/js/sidebarmenu.js"></script>
-<script src="/resources/assets/js/app.min.js"></script>
-<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
     function godelete(e) {
         e.preventDefault();
