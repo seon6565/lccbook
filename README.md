@@ -80,6 +80,9 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 프로젝트 개요, DB ERD, 구현 결과물, Q&A
 
 ## DB Schema
+###### :file_folder: Schema: https://github.com/seon6565/lccbook/blob/main/src/main/resources/lcc_DBSchema_20240503.sql
+###### :file_folder: Constraint: https://github.com/seon6565/lccbook/blob/main/src/main/resources/lcc_DB_constraint_20240503.sql
+###### :file_folder: DummyData https://github.com/seon6565/lccbook/blob/main/src/main/resources/lcc_DBDummyData_20240503.sql
 ![DBERD](./src/main/resources/lcc_database_schema.png)
 
 ## lcc_admin_member ( 관리자 등록 테이블)
