@@ -32,12 +32,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="question_title" class="form-label">문의 제목</label>
-                    <input type="text" class="form-control" name="question_title" id="question_title" value="${qnaDTO.question_title}">
+                    <input type="text" class="form-control" name="question_title" id="question_title" value="${qnaDTO.question_title}" maxlength="30">
                     <div id="div_err_title" style="display:none"></div>
                 </div>
                 <div class="mb-3">
                     <label for="question_content" class="form-label">문의 내용</label>
-                    <textarea class="form-control" name="question_content" id="question_content" rows="10" cols="60" style="resize: none;">${qnaDTO.question_content}</textarea>
+                    <textarea class="form-control" name="question_content" id="question_content" rows="10" cols="60" style="resize: none;" maxlength="400">${qnaDTO.question_content}</textarea>
                     <div id="div_err_content" style="display:none"></div>
                 </div>
                 <div class="d-grid gap-2">

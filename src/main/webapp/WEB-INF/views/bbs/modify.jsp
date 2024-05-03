@@ -33,12 +33,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="user_id" class="form-label">제목</label>
-                    <input type="text" class="form-control" name="title" id="title" value="${bbsDTO.title}">
+                    <input type="text" class="form-control" name="title" id="title" value="${bbsDTO.title}" maxlength="30">
                     <div id="div_err_title" style="display:none"></div>
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">내용</label>
-                    <textarea class="form-control" name="content" id="content" rows="10" cols="60" style="resize: none;">${bbsDTO.content}</textarea>
+                    <textarea class="form-control" name="content" id="content" rows="10" cols="60" style="resize: none;" maxlength="400">${bbsDTO.content}</textarea>
                     <div id="div_err_content" style="display:none"></div>
                 </div>
                 <div class="mb-3">

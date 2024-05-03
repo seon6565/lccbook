@@ -100,7 +100,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">운송장번호</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="recipient-name" maxlength="20">
                     </div>
                 </form>
             </div>

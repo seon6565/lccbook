@@ -146,11 +146,11 @@
                 <form id="delivery_frm" name="delivery_frm" method="post" action="/admin/ainstock/regist">
                     <div class="mb-3">
                         <label for="book_idx" class="col-form-label">책 번호</label>
-                        <input type="text" class="form-control" id="book_idx" class="book_idx"  name="book_idx" >
+                        <input type="text" class="form-control" id="book_idx" class="book_idx"  name="book_idx"  maxlength="11">
                         <label for="delivery_number" class="col-form-label">운송장번호</label>
-                        <input type="text" class="form-control" id="delivery_number" class="delivery_number" name="delivery_number">
+                        <input type="text" class="form-control" id="delivery_number" class="delivery_number" name="delivery_number" maxlength="20">
                         <label for="quantity" class="col-form-label">재고 </label>
-                        <input type="text" class="form-control" id="quantity" class="quantity" name="quantity">
+                        <input type="text" class="form-control" id="quantity" class="quantity" name="quantity" maxlength="5">
                     </div>
                 </form>
             </div>
