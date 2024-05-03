@@ -31,7 +31,6 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         int result= 0;
         int result1=0;
         int quantity_result =0;
-        int delivery_result =0;
 
 
         String user_id = paymentDTO.getUser_id();
@@ -74,31 +73,23 @@ public class PaymentServiceImpl implements PaymentServiceIf {
                 // System.out.println("payMentDTO : " + paymentDTO.toString());
                 PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
 
-                // 결제 처리
-                result = paymentMapper.regist(paymentVO);
+
+                result = paymentMapper.regist(paymentVO); // 결제 처리
                 if(result <=0){
                     throw new RuntimeException("RuntimeException for rollback");
                 }
 
-
-
+                System.out.println("quantity_result 업데이트 전 product_quantitys[i] 값 : " + product_quantitys[i]);
+                System.out.println("quantity_result 업데이트 전 book_idxs[i] 값 : " + book_idxs[i]);
                 //수량업데이트
-                quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]);
+                quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]); //재고 업데이트
+
+
                 if(quantity_result <=0){
-                    throw new RuntimeException("RuntimeException for rollback, 재고가 없습니다");
+                    throw new RuntimeException("RuntimeException for rollback");
                 }
+                System.out.println("quantity_result 업데이트 후 값 : " + quantity_result);
 
-
-
-
-            }
-
-            PaymentVO paymentVO2 = modelMapper.map(paymentDTO, PaymentVO.class);
-            // 배송테이블 삽입
-
-            delivery_result = paymentMapper.insertDelivery(paymentVO2);
-            if(delivery_result <=0){
-                throw new RuntimeException("RuntimeException for rollback");
             }
 
         }
@@ -107,24 +98,12 @@ public class PaymentServiceImpl implements PaymentServiceIf {
             paymentDTO.setPayment_idx(result3);
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
 
-
             result = paymentMapper.regist(paymentVO);
             if(result <=0){
                 throw new RuntimeException("RuntimeException for rollback");
             }
-
-
-            quantity_result =  paymentMapper.updateQuantity(paymentDTO.getProduct_quantity(),paymentDTO.getBook_idx());
-
-
+            quantity_result =  paymentMapper.updateQuantity(paymentDTO.getProduct_quantity(),paymentDTO.getPayment_idx());
             if(quantity_result <=0){
-                throw new RuntimeException("RuntimeException for rollback");
-            }
-
-            // 배송테이블 삽입
-
-            delivery_result = paymentMapper.insertDelivery(paymentVO);
-            if(delivery_result <=0){
                 throw new RuntimeException("RuntimeException for rollback");
             }
 

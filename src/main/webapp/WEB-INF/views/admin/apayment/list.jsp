@@ -164,7 +164,7 @@ ${errorAlert}
         const frm = document.getElementById("frm");
        const confirm_message = confirm("정말로 결제상태를 변경하시겠습니까?");
        if(confirm_message){
-                alert("상태가 변경되었습니다.")
+
                frm.submit();
 
        }
