@@ -135,7 +135,7 @@
                                             <div class="quantity1">
                                                 <div class="pro-qty">
                                                     <span id="quantity_minus" class="dec qtybtn" data-index="${status.count}"  >- </span>
-                                                    <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}">
+                                                    <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}" readonly>
 
                                                     <span id="quantity_plus" class="dec qtybtn" data-index="${status.count}" data-book-quantity="${list.book_quantity}">+</span>
                                                 </div>

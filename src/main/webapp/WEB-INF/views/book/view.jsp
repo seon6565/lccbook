@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -100,6 +101,15 @@
         #delete_btn {
             border: 1px solid #ccc;
         }
+        #quantity_plus{
+            width: 30px;
+            background: white;
+        }
+        #quantity_minus{
+            width: 30px;
+            background: white;
+        }
+
 
 
     </style>
@@ -120,7 +130,7 @@
             </c:if>
         <div id="intro">
             <div id="img">
-                <img src="${book.book_img}" width="300px" height="400px">
+                <img src="${book.book_img}" width="300px" height="400px" alt="">
                 <input type="hidden" id="book_img" name="book_img" value="${book.book_img}"/>
 
             </div>
@@ -132,9 +142,9 @@
                 </div>
                 <div class="box">
                     <span style="margin-right: 37px;">적립금</span><span style="font-size: small; color: #5c636a">[VIP회원 5% / 골드회원 4% / 일반회원 3%]</span><br>
-                    <span style="margin-right: 54px;">정가</span><span class="text-muted text-decoration-line-through">${book.price}원</span><br>
+                    <span style="margin-right: 54px;">정가</span><span class="text-muted text-decoration-line-through">${book.price}원  </span><br>
                     <input type="hidden" id="price" name="price" value="${book.price}"/>
-                    <span style="margin-right: 37px;">판매가</span><span>${book.sale_price}원</span><br>
+                    <span style="margin-right: 37px;">판매가</span><span class="p_sale_price" data-sale-price="${book.sale_price}">${book.sale_price}원</span><br>
                     <input type="hidden" id="sale_price" name="sale_price" value="${book.sale_price}"/>
                     <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span> <br>
                     <span style="margin-right: 50px;">재고</span><span >${book.book_quantity} 권</span>
@@ -147,7 +157,7 @@
                             <input type="text" id="quantity" name="quantity" value="1" readonly style="width: 30px; text-align: center;">
                             <button type="button" id="quantity_plus" name="plus"  data-book-quantity ="${book.book_quantity}">+</button>
                         </div><br>
-                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
+                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;" id="total_price" class="total_price"> <fmt:formatNumber value="${book.price}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
                 </div>
                 <div class="box" style="border-bottom: none">
                     <button type="button" class="btn btn-outline-secondary" id="cart_button"  data-book-quantity="${book.book_quantity}">장바구니</button>
@@ -333,6 +343,16 @@
         form.submit();
     });
 
+    //총 가격 수정
+    function updateTotalPrice() {
+        const quantity = parseInt(document.querySelector("#quantity").value);
+        const sale_price_div =  document.querySelector(".p_sale_price");
+        const sale_price =sale_price_div.getAttribute('data-sale-price');
+
+        const totalPrice = quantity * sale_price;
+        document.querySelector("#total_price").innerText = formatToKRW(totalPrice) ; // 구매 가격을 업데이트하는 부분
+    }
+
 
     quantity_plus.addEventListener("click",function(e){
         e.preventDefault();
@@ -350,7 +370,7 @@
         else{
             alert("재고가 없습니다.")
         }
-
+        updateTotalPrice();
 
     });
 
@@ -363,6 +383,7 @@
         if(quantity.value >1) {
             quantity.value = number - 1;
         }
+        updateTotalPrice();
     });
 
 
@@ -420,6 +441,10 @@
             });
         }
     });
+
+    function formatToKRW(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"; // 화폐 포맷으로 변환
+    }
 
 </script>
 </body>

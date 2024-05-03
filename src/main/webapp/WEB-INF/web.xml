@@ -38,6 +38,7 @@
         <url-pattern>/qna/modify</url-pattern>
         <url-pattern>/qna/delete</url-pattern>
         <url-pattern>/cart/list</url-pattern>
+        <url-pattern>/payment/*</url-pattern>
     </filter-mapping>
 
     <servlet>
