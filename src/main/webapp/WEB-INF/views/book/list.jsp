@@ -235,34 +235,34 @@
                 <c:if test="${ cate eq '1010' or cate eq '10' or cate eq '101020' or cate eq '101030' or cate eq '101060' }">
 
                     <ul>
-                        <li ><a href="/book/list?cate=101020">수학</a></li>
+                        <li style="margin-left: 20px;"><a href="/book/list?cate=101020">수학</a></li>
                         <li><a href="/book/list?cate=101030">영어</a></li>
-                        <li style="margin-right: 20px;"><a href="/book/list?cate=101060">한글</a></li>
+                        <li><a href="/book/list?cate=101060">한글</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '20' or cate eq'2010'or cate eq'2020' or cate eq'2030' or cate eq'2040' or cate eq'2050' or cate eq'2060'}">
                     <ul>
-                        <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                        <li style="margin-left: 20px;"><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
-                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=70">한자</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=70">한자</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '30' or cate eq'3010'or cate eq'3020' or cate eq'3030' }">
                   <ul>
-                    <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
-                    <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                    <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                    <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
-                    <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
+                    <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
                   </ul>
                 </c:if>
                 <c:if test="${cate eq '40' or cate eq'4010'or cate eq'4020' or cate eq'4030' }">
                     <ul>
-                        <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
-                        <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                        <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
-                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
                     </ul>
                 </c:if>
             </div>
@@ -274,30 +274,29 @@
                 <option value="expensive" ${order=="expensive" ? "selected" : ""}>가격높은순</option>
             </select>
         </div>
-  <%--      <form id="frm" name="frm" method="post" action="/cart/directRegist">--%>
         <div class="row featured__filter" style="margin-left: 15px;border-top: 1px solid #ccc;margin-top: 10px;">
             <c:forEach items="${responseDTO.dtoList}" var="list">
-             <%--   <input hidden name="book_idx" id="book_idx" value="${list.book_idx}"/>
-                <input hidden name="book_img" id="book_img" value="${list.book_img}"/>
-                <input hidden name="price" id="price" value="${list.price}"/>
-                <input hidden name="sale_price" id="sale_price" value="${list.sale_price}"/>
-                <input hidden name="user_id" id="user_id" value="${sessionScope.memberDTO.user_id}"/>
-                <input hidden name="quantity" id="quantity" value="1"/>--%>
                 <a href="/book/view?book_idx=${list.book_idx}" style="width: 0;">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" >
+
                             <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
+
 <%--                            <div class="card-body p-4">--%>
 <%--                                <div class="text-center">--%>
 <%--                                    <!-- Product name-->--%>
+                            <c:if test="${list.book_quantity == 0}">
+                                <div class="badge bg-danger text-white position-absolute"
+                                     style="top: 0.5rem; right: 0.5rem">품절
+                                </div>
+                            </c:if>
+
                                     <h6 class="fw-bolder">${list.book_name}</h6>
                                     <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                     -> <span style="color: #0d6efd">${list.sale_price}원</span>
-<%--                                </div>--%>
-<%--                            </div>--%>
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#" id="cart_on"><i class="fa fa-heart"></i></a></li>
+                                <li style="display: none"><a href="#" id="cart_on"></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text card-body p-4" style="width: 200px;">
@@ -313,8 +312,7 @@
                 </div>
                 </a>
             </c:forEach>
-        </div><%--
-        </form>--%>
+        </div>
     </div>
 </section>
 <nav>

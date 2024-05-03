@@ -156,13 +156,13 @@
                 <a class="nav-link" href="/book/list">전체</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">영유아</a>
+                <a class="nav-link" href="/book/list?cate=20">영유아</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">중학</a>
+                <a class="nav-link" href="/book/list?cate=30">중학</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">고등</a>
+                <a class="nav-link" href="/book/list?cate=40">고등</a>
             </li>
         </ul>
     </div>
@@ -291,8 +291,6 @@
                 <span style="color: #0b5ed7">공지사항</span>
                 <a href="/notice/list"><span style="font-size: small; margin-left: 170px;">더보기 -> </span></a>
                 <c:forEach items="${noticeDTOList}" var="list">
-                    <%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
-                    <%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
                     <table class="table">
                         <tbody>
                         <tr>
@@ -309,8 +307,6 @@
                 <span style="color: #0b5ed7">Q&A</span>
                 <a href="/qna/list"><span style="font-size: small; margin-left: 200px;">더보기 -> </span></a>
                 <c:forEach items="${qnaDTOList}" var="list">
-                    <%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
-                    <%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
                     <table class="table">
                         <tbody>
                         <tr>
@@ -327,8 +323,6 @@
                 <span style="color: #0b5ed7">자주 묻는 질문</span>
                 <a href="/faq/list"><span style="font-size: small; margin-left: 130px;">더보기 -> </span></a>
                 <c:forEach items="${faqDTOList}" var="list">
-                    <%--                <a href="#"><p style="font-weight: bold; font-size: large; padding-top: 10px;">[공지] 5월 1일 근로자의 날 휴무 안내</p></a>--%>
-                    <%--                <span style="font-size: 15px; color: #6c757d">2024-04-24</span>--%>
                     <table class="table">
                         <tbody>
                         <tr>

@@ -113,6 +113,11 @@
             <input type="hidden" id="user_id1" name="user_id" value="${sessionScope.memberDTO.user_id}">
             <input type="hidden" id="book_name" name="book_name" value="${book.book_name}">
             <h3>${book.book_name}</h3>
+            <c:if test="${book.book_quantity == 0}">
+                <div class="badge bg-danger text-white"
+                     style="top: 0.5rem; right: 0.5rem">품절
+                </div>
+            </c:if>
         <div id="intro">
             <div id="img">
                 <img src="${book.book_img}" width="300px" height="400px">
