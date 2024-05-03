@@ -3,7 +3,6 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.NoticeDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.dto.PaymentDTO;
@@ -106,9 +105,12 @@ public class ApaymentController {
                                @RequestParam(name="book_idx", defaultValue = "0") int[] book_idx,
                                @RequestParam(name="payment_status", defaultValue = "0") String[] payment_status,
                                     Model model,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes, HttpServletRequest request){
 
-
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         System.out.println("statusModify : " + payment_idx.length);
         for(int i : payment_idx){
             System.out.println("payment_idx ads : " + i);
