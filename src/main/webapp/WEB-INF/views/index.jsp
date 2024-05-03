@@ -156,13 +156,13 @@
                 <a class="nav-link" href="/book/list">전체</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">영유아</a>
+                <a class="nav-link" href="/book/list?cate=20">영유아</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">중학</a>
+                <a class="nav-link" href="/book/list?cate=30">중학</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/book/list">고등</a>
+                <a class="nav-link" href="/book/list?cate=40">고등</a>
             </li>
         </ul>
     </div>
