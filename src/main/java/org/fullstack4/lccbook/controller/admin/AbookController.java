@@ -116,15 +116,14 @@ public class AbookController {
 
     @GetMapping("/modify")
     public String modifyGET(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
-        BookDTO bookDTO = bookServiceIf.view(book_idx);
-        String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
-        model.addAttribute("book_img",book_img);
-        model.addAttribute("bookDTO",bookDTO);
-
         HttpSession session = request.getSession();
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
+        BookDTO bookDTO = bookServiceIf.view(book_idx);
+        String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
+        model.addAttribute("book_img",book_img);
+        model.addAttribute("bookDTO",bookDTO);
         return "/admin/abook/modify";
     }
     @Transactional
