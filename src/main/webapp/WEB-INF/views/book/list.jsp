@@ -274,30 +274,18 @@
                 <option value="expensive" ${order=="expensive" ? "selected" : ""}>가격높은순</option>
             </select>
         </div>
-  <%--      <form id="frm" name="frm" method="post" action="/cart/directRegist">--%>
         <div class="row featured__filter" style="margin-left: 15px;border-top: 1px solid #ccc;margin-top: 10px;">
             <c:forEach items="${responseDTO.dtoList}" var="list">
-             <%--   <input hidden name="book_idx" id="book_idx" value="${list.book_idx}"/>
-                <input hidden name="book_img" id="book_img" value="${list.book_img}"/>
-                <input hidden name="price" id="price" value="${list.price}"/>
-                <input hidden name="sale_price" id="sale_price" value="${list.sale_price}"/>
-                <input hidden name="user_id" id="user_id" value="${sessionScope.memberDTO.user_id}"/>
-                <input hidden name="quantity" id="quantity" value="1"/>--%>
                 <a href="/book/view?book_idx=${list.book_idx}" style="width: 0;">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" >
                             <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
-<%--                            <div class="card-body p-4">--%>
-<%--                                <div class="text-center">--%>
-<%--                                    <!-- Product name-->--%>
                                     <h6 class="fw-bolder">${list.book_name}</h6>
                                     <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                     -> <span style="color: #0d6efd">${list.sale_price}원</span>
-<%--                                </div>--%>
-<%--                            </div>--%>
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#" id="cart_on"><i class="fa fa-heart"></i></a></li>
+                                <li style="display: none"><a href="#" id="cart_on"></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text card-body p-4" style="width: 200px;">
@@ -313,8 +301,7 @@
                 </div>
                 </a>
             </c:forEach>
-        </div><%--
-        </form>--%>
+        </div>
     </div>
 </section>
 <nav>
