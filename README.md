@@ -28,7 +28,7 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 jstl, jquery, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib, jackson-databind
 
 |||
-| | version |
+|---|---|
 | jstl |
 | jquery |
 
