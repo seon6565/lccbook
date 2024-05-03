@@ -67,7 +67,6 @@ public class PageResponseDTO<E> {
         order = requestDTO.getOrder()!=null?requestDTO.getOrder():null;
 
 
-
         StringBuilder search_type_String = new StringBuilder();
         if(search_type!=null) {
             for (String i : search_type) {
