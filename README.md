@@ -19,5 +19,8 @@ jstl, jquery, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernat
 ## 발표 내용
 프로젝트 개요, DB ERD, 구현 결과물, Q&A
 
-## 미리 보기
+## DB Schema
+![DBERD](./src/main/resources/lcc_database_schema.png)
+
+## Preview
 ![메인이미지](./src/main/webapp/resources/img/introduce/introduce01.png)
