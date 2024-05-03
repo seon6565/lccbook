@@ -7,24 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="container">
-    <header class="mb-auto">
-        <%@ include file="../common/header.jsp"%>
-    </header>
-
-    <main class="px-3">
-        <h1>404: 페이지를 찾을수 없습니다.</h1>
-        <p class="lead">올바른 페이지를 입력해 주세요.</p>
-        <p class="lead">
-            <button onclick="reload()" class="btn btn-outline-primary">Reload</button>
-        </p>
-    </main>
-
-    <footer class="mt-auto text-white-50">
-        <%@ include file="../common/footer.jsp"%>
-    </footer>
-</div>
-
+<%@ include file="../common/header.jsp"%>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title fw-semibold mb-4"><h1>404: 페이지를 찾을수 없습니다.</h1></h5>
+                <img src="/resources/img/icon2-removebg-preview.png" alt="Logo" width="400" height="400" style="margin-right: 5px;margin-left: 100px; transform: translate(-10px, -17px);" class="d-inline-block align-text-top">
+                    <button onclick="reload()" class="btn btn-outline-primary">Reload</button>
+                </p>
+            </div>
+        </div>
+    </div>
+<%@ include file="../common/footer.jsp"%>
 <script>
     function reload(){
         window.location.reload();
