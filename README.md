@@ -170,29 +170,30 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 ![image](https://github.com/seon6565/lccbook/assets/26207034/a47ae376-3070-4c66-8fc8-e92a33894cf7)
 
 ## 관리자 공지사항 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/0bd484d1-9188-4639-8ab7-92a06ab6aeb3)
+![image](https://github.com/seon6565/lccbook/assets/26207034/16ed1f12-7fc8-4420-b4d8-6efe6118bc84)
 
 ## 관리자 FAQ 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/93329e6e-53d9-49e6-9dc0-842751b507f2)
+![image](https://github.com/seon6565/lccbook/assets/26207034/88978be3-227b-496f-8122-72d7875f774b)
 
 ## 관리자 Q&A 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/677ec866-b597-4779-9056-1fc94945b020)
+![image](https://github.com/seon6565/lccbook/assets/26207034/b1489e4a-9dcf-44f5-8c23-933af1c978bf)
 
 ## 관리자 회원 관리 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/b5b928a9-8c1c-4a04-bb91-1e460c6c6e85)
+![image](https://github.com/seon6565/lccbook/assets/26207034/a999ab01-abff-4269-966e-a4d122681933)
 
 ## 관리자 상품 관리 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/b415d629-543f-480c-ad11-4071d55af3be)
+![image](https://github.com/seon6565/lccbook/assets/26207034/988941e0-4cc9-4053-8a77-60aec72872eb)
 
 ## 관리자 배송 관리 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/d815c724-074b-4801-8803-b1820b45c96b)
+![image](https://github.com/seon6565/lccbook/assets/26207034/4f9ed07f-6423-46e4-8a61-bb1f23de3d3f)
 
 ## 관리자 입고 관리 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/fb92d02b-01ce-4f57-ac00-f252d04acc95)
+![image](https://github.com/seon6565/lccbook/assets/26207034/615c8743-def4-48b7-8e43-d1e5d64ebfd7)
 
 ## 관리자 결제 내역 페이지
 
 ## 관리자 관리 페이지
-![image](https://github.com/seon6565/lccbook/assets/26207034/844ef873-9167-443e-bd03-ca2f81076c36)
+![image](https://github.com/seon6565/lccbook/assets/26207034/49bf2e4c-d991-4421-994e-c1fa201cbdaa)
+
 
 
