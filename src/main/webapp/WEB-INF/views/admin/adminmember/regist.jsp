@@ -28,15 +28,15 @@
                             <div class="card">
                                 <div class="card-body p-4">
 
-                                    <form name="frmRegist" id="frmRegist" method="post" action="/admin/adminmember/regist">
+                                    <form name="frmRegist" id="frmRegist" method="post" action="/admin/adminmember/regist" >
                                         <div class="mb-3">
                                             <label for="admin_id" class="form-label">등록할 관리자 아이디</label>
-                                            <input type="text" class="form-control" name="admin_id" id="admin_id" value="" >
+                                            <input type="text" class="form-control" name="admin_id" id="admin_id" value=""  maxlength="300">
                                             <div id="div_err_admin_id" style="display:none"></div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="admin_pwd" class="form-label">등록할 관리자 비밀번호</label>
-                                            <input type="text" class="form-control" name="admin_pwd" id="admin_pwd" value="" >
+                                            <input type="text" class="form-control" name="admin_pwd" id="admin_pwd" value="" maxlength="300" >
                                             <div id="div_err_admin_pwd" style="display:none"></div>
                                         </div>
                                         <div class="d-grid gap-2">

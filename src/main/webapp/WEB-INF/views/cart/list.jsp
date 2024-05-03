@@ -96,10 +96,33 @@
                                     <th>가격</th>
                                     <th>수량</th>
                                     <th>총합</th>
+
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <c:choose>
+                                <c:when test="${empty cartList}">
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                      <h3>
+                                            장바구니에 상품이 없습니다.
+                                      </h3>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                </c:when>
+
+
+                                    <c:otherwise>
 
                                 <c:forEach items="${cartList}" var="list" varStatus="status">
 
@@ -137,7 +160,10 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
+                                </c:otherwise>
 
+
+                                </c:choose>
 
                             </table>
                             </tbody>
@@ -154,15 +180,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="shoping__continue">
-                            <div class="shoping__discount">
-                                <h5>할인 쿠폰</h5>
-                                <%--<form action="#">--%>
-                                    <input type="text" placeholder="쿠폰번호를 입력해주세요.">
-                                    <button type="submit" class="site-btn">쿠폰 적용</button>
-                                <%--</form>--%>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="col-lg-6">

@@ -33,11 +33,11 @@
                                     <div class="card-body p-4">
                                         <div class="mb-3">
                                             <label for="title" class="form-label">제목</label>
-                                            <input type="text" class="form-control" name="title" id="title" value="${notice.title}" placeholder="제목을 입력해주세요">
+                                            <input type="text" class="form-control" name="title" id="title" value="${notice.title}" placeholder="제목을 입력해주세요" maxlength="40">
                                         </div>
                                         <div class="mb-3">
                                             <label for="content" class="form-label">내용</label>
-                                            <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 10자 이상 입력해주세요.">${notice.content}</textarea>
+                                            <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 10자 이상 입력해주세요." maxlength="400">${notice.content}</textarea>
                                         </div>
                                         <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
                                             <button class="btn btn-primary" type="submit" id="btn_regist">등록</button>

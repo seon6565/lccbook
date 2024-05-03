@@ -25,11 +25,11 @@
             <form id="frmLogin" name="frmLogin" method="post" action="/admin/login">
                 <div class="mb-3">
                     <label for="admin_id" class="form-label">관리자 아이디</label>
-                    <input type="text" class="form-control" name="admin_id" id="admin_id">
+                    <input type="text" class="form-control" name="admin_id" id="admin_id" maxlength="300">
                 </div>
                 <div class="mb-3">
                     <label for="admin_pwd" class="form-label">비밀번호</label>
-                    <input type="password" class="form-control" name="admin_pwd" id="admin_pwd">
+                    <input type="password" class="form-control" name="admin_pwd" id="admin_pwd" maxlength="300">
                 </div>
                 <p style="color: red">${errors}</p>
                 ${errorAlert}

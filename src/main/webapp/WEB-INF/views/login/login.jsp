@@ -33,12 +33,12 @@
                 <input type="hidden" name="acc_url" id="acc_url" value="${acc_url}">
                 <div class="mb-3">
                     <label for="user_id" class="form-label">아이디</label>
-                    <input type="text" class="form-control" name="user_id" id="user_id" value="${cookie.save_id.value}">
+                    <input type="text" class="form-control" name="user_id" id="user_id" value="${cookie.save_id.value}" maxlength="20">
                     <div id="div_err_user_id" style="display:none"></div>
                 </div>
                 <div class="mb-3">
                     <label for="pwd" class="form-label">비밀번호</label>
-                    <input type="text" class="form-control" name="pwd" id="pwd" value="${loginDTO.pwd}">
+                    <input type="text" class="form-control" name="pwd" id="pwd" value="${loginDTO.pwd}"maxlength="128">
                     <div id="div_err_pwd" style="display:none"></div>
                 </div>
                 <div class="mb-3">

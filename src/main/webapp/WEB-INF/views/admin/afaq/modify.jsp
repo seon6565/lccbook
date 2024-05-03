@@ -46,11 +46,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="faq_content" class="form-label">Q. 질문</label>
-                                            <input type="text" class="form-control" name="faq_content" id="faq_content" value="${faq.faq_content}" placeholder="질문을 입력해주세요">
+                                            <input type="text" class="form-control" name="faq_content" id="faq_content" value="${faq.faq_content}" placeholder="질문을 입력해주세요" maxlength="100">
                                         </div>
                                         <div class="mb-3">
                                             <label for="answer_content" class="form-label">A. 답변</label>
-                                            <textarea class="form-control" id="answer_content" name="answer_content" rows="5" placeholder="답변을 입력해주세요.">${faq.answer_content}</textarea>
+                                            <textarea class="form-control" id="answer_content" name="answer_content" rows="5" placeholder="답변을 입력해주세요." maxlength="400">${faq.answer_content}</textarea>
                                         </div>
                                         <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
                                             <button class="btn btn-primary" type="submit" id="btn_regist">등록</button>
