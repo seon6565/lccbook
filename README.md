@@ -12,6 +12,11 @@ Java Spring MVC패턴으로 구현
 
 ## 개발 환경
 Tomcat(9.x), JDK(11), Intellij, mariadb
+
+## 기술 스택
+
+
+
 ## 라이브러리 및 프레임워크
 jstl, jquery, junit, spring, mybatis, lombok, log4j, HikariCP, mariadb, hibernate, modelmapper, commons-fileupload, commons-io, aspectjrt, aspectjweaver, cglib, jackson-databind
 
