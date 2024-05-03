@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -38,6 +39,7 @@ public class BookController {
         log.info("==========");
 
         BookDTO bookDTO = bookServiceIf.view(book_idx);
+        bookDTO.setBook_img(bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/"));
         List<BookReviewDTO> bookReviewDTOList = bookReviewServiceIf.review_list(book_idx);
         //PageResponseDTO<BookReviewDTO> responseDTO = bookReviewServiceIf.commentListByPage(pageRequestDTO);
 
@@ -60,7 +62,14 @@ public class BookController {
             log.info("BookController >> list errors");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
+        List<BookDTO> bookDTOList = new ArrayList<>();
         PageResponseDTO<BookDTO> responseDTO = bookServiceIf.bbsListByPage(pageRequestDTO);
+        for(BookDTO bookimg : responseDTO.getDtoList()){
+            bookimg.setBook_img(bookimg.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/"));
+            bookDTOList.add(bookimg);
+        }
+        responseDTO.setDtoList(bookDTOList);
+
         model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("cate", responseDTO.getCate());
         model.addAttribute("cate2", responseDTO.getCate2());

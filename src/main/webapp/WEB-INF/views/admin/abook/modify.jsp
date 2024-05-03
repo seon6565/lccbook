@@ -27,7 +27,7 @@
                             <div class="card">
                                 <div class="card-body p-4">
 
-                                    <form name="frmModify" id="frmModify" method="post" action="/admin/abook/modify">
+                                    <form name="frmModify" id="frmModify" method="post" action="/admin/abook/modify" enctype="multipart/form-data">
                                         <input type="hidden" class="form-control" name="book_idx" id="book_idx" value="${bookDTO.book_idx}" maxlength="11">
                                         <div class="mb-3">
                                             <label for="category_idx" class="form-label">카테고리 idx</label>
