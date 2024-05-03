@@ -25,8 +25,7 @@
     </header>
     <div class="card">
         <div class="card-body p-4">
-            <form name="frmRegist" id="frmRegist" method="post" action="/member/join" onsubmit="checklast('user_id','div_err_user_id','pwd','div_err_pwd','name','div_err_name','email','div_err_email','phone_number','div_err_phone_number','birthday','div_err_birthday','okflagid','addr_number','div_err_addr_number',
-                                                                                                            'addr1','div_err_addr1','addr2','div_err_addr2')">
+            <form name="frmRegist" id="frmRegist" method="post" action="/member/join" onsubmit="checklast('user_id','div_err_user_id','pwd','div_err_pwd','name','div_err_name','email','div_err_email','phone_number','div_err_phone_number','birthday','div_err_birthday','okflagid','addr_number','div_err_addr_number','addr1','div_err_addr1','addr2','div_err_addr2')">
                 <div class="mb-3">
                     <label for="user_id" class="form-label">아이디</label>
                     <input type="text" class="form-control col-auto" name="user_id" id="user_id" value="${memberDTO.user_id}" onkeyup="checkInputId('user_id','div_err_user_id','okflagid')" maxlength="20">
@@ -68,12 +67,12 @@
                 <div class="mb-3">
                     <label for="addr1" class="form-label">주소</label>
                     <input type="text" class="form-control" name="addr1" id="addr1" value="${memberDTO.addr1}" onclick="addressSearch()" readonly >
-                    <div class="form-text" id="div_err_addr1" style="display:none; color:red">주소는 한글로 입력해 주세요.</div>
+                    <div class="form-text" id="div_err_addr1" style="display:none; color:red">값을 입력해 주세요.</div>
                 </div>
                 <div class="mb-3">
                     <label for="addr2" class="form-label">상세주소</label>
                     <input type="text" class="form-control" name="addr2" id="addr2" value="${memberDTO.addr2}" onkeyup="checkInputCommon('addr2','div_err_addr2')" maxlength="50">
-                    <div class="form-text" id="div_err_addr2" style="display:none; color:red">주소는 한글로 입력해 주세요.</div>
+                    <div class="form-text" id="div_err_addr2" style="display:none; color:red">값을 입력해 주세요.</div>
                 </div>
                 <div class="d-grid gap-2">
                     <button class="btn btn-primary" type="submit">회원가입</button>

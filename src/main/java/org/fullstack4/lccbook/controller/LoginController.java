@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.LoginDTO;
 import org.fullstack4.lccbook.dto.MemberDTO;
 import org.fullstack4.lccbook.service.LoginServiceIf;
+import org.fullstack4.lccbook.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class LoginController {
     private final LoginServiceIf loginServiceIf;
+    private final CommonUtil commonUtil;
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public void loginGET(HttpServletRequest req, Model model){
         String acc_url = req.getHeader("referer");
@@ -33,9 +35,6 @@ public class LoginController {
 //            throw new RuntimeException(e);
 //        }
         model.addAttribute("acc_url", uri);
-        log.info("============================");
-        log.info("LoginController loginGET");
-        log.info("============================");
     }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String loginPOST(LoginDTO loginDTO,
@@ -46,9 +45,7 @@ public class LoginController {
                             HttpServletResponse response){
         String save_id = null;
         String auto_login = null;
-        log.info("============================");
-        log.info("LoginController loginPOST");
-        log.info("============================");
+        loginDTO.setPwd(commonUtil.encryptPwd(loginDTO.getPwd()));
         MemberDTO LoginMemberDTO = loginServiceIf.login_info(loginDTO);
         String uri = acc_url;
 //        try {

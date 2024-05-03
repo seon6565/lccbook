@@ -2,7 +2,7 @@ function checkInputCommon(id,textid){
 	let Check = document.getElementById(id);
 	let Char = Check.value;
 	let text = document.getElementById(textid);
-	const regex = /^[가-힣]{1,10}$/;
+	const regex = /^[가-힣0-9A-Za-z]{1,10}$/;
 	if(regex.test(Char)){
 		text.style.display = "none";
 	}
