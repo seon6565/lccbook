@@ -70,7 +70,6 @@ public class AdminMemberController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        log.info("qna_idx = "+admin_id);
         for(String i : admin_id) {
             adminServiceIf.delete(i);
         }

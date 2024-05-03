@@ -21,10 +21,6 @@ public class BbsReplyController {
     private final BbsReplyServiceIf bbsReplyServiceIf;
     @PostMapping("/regist")
     public String registPOST(@Valid BbsReplyDTO bbsReplyDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        log.info("============================");
-        log.info("BbsReplyController registPOST");
-        log.info("bbsDTO : " +bbsReplyDTO);
-        log.info("============================");
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bbsReplyDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
@@ -37,13 +33,8 @@ public class BbsReplyController {
     }
     @PostMapping("/delete")
     public String deletePOST(@RequestParam(name="idx", defaultValue = "0") int idx, @RequestParam(name="bbs_idx") int bbs_idx){
-        log.info("============================");
-        log.info("bbsController deletePOST");
-        log.info("============================");
         int result = bbsReplyServiceIf.delete(idx);
-
         return "redirect:/bbs/view?idx="+bbs_idx;
-
     }
 
 
