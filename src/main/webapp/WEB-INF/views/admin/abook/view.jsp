@@ -68,14 +68,17 @@
                                             페이지수
                                             <span class="form-control">${bookDTO.book_page}</span>
                                         </div>
-                                        <div class="mb-3">
-                                            이미지
-                                            <span class="form-control">${bookDTO.book_img}</span>
+                                        <div class="card">
+                                            <div class="card-body p-4">
+                                                <p>이미지</p>
+                                                <img src="${book_img}" id="tempimg" width="auto" height="200" style="margin-left: 100px; margin-top: 40px;">
+                                            </div>
                                         </div>
                                         <div class="mb-3">
-                                            비디오
-                                            <span class="form-control">${bookDTO.book_video}</span>
+                                            <p>비디오</p>
+                                            <iframe src="${bookDTO.book_video}" id="tempvideo" width="auto" height="200" style="margin-left: 100px; margin-top: 40px;"></iframe>
                                         </div>
+
                                         <div class="mb-3">
                                             북수량
                                             <span class="form-control">${bookDTO.book_quantity}</span>

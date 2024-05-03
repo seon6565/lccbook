@@ -10,6 +10,5 @@ public interface BbsFileMapper {
     List<BbsFileVO> list(@Param("bbs_idx") int bbs_idx);
     BbsFileVO view(int file_idx);
     int delete(@Param("file_idx") int file_idx);
-
     int lastindex();
 }
