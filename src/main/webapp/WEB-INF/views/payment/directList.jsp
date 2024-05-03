@@ -70,11 +70,13 @@
                         <div class="form-group row mb-5">
                             <div class="col-md-6">
                                 <label for="recipient_email" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="recipient_email" name="recipient_email">
+                                <input type="email" class="form-control" id="recipient_email" name="recipient_email">
+                                <div id="result"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="recipient_phone" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="recipient_phone" name="recipient_phone" placeholder="-를 빼고 입력해주세요.">
+                                <div id="result2"></div>
                             </div>
                         </div>
 
@@ -151,7 +153,7 @@
 
 
                                 <div class="d-grid gap-2 col-6 mx-auto">
-                                    <input type="submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
+                                    <input type="submit" id="payment_submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
 
                                 </div>
 
@@ -167,7 +169,9 @@
     </div>
 </div>
 <script>
-
+    window.onbeforeunload = function() {
+        return "정말로 페이지를 떠나시겠습니까? 진행 중인 결제가 취소될 수 있습니다.";
+    };
 
     function address() {
         new daum.Postcode({
@@ -203,7 +207,7 @@
         "#agreement",
         { variantKey: "AGREEMENT" }
     );
-    button.addEventListener("click", function () {
+   /* button.addEventListener("click", function () {
         // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
         // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
         paymentWidget.requestPayment({
@@ -215,7 +219,79 @@
             customerName: "김토스",
             customerMobilePhone: "01012341234",
         });
+    });*/
+    function emailCheck(email_address){
+        email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+        if(!email_regex.test(email_address)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function telValidator(args) {
+
+
+
+        if (/^[0-9]{10,11}$/.test(args)) {
+            return true;
+        }
+        // alert(msg);
+        return false;
+    }
+
+    const payment_submit = document.querySelector("#payment_submit");
+    payment_submit.addEventListener("click",function(e){
+       e.preventDefault();
+        window.onbeforeunload = null;
+        const recipient_name = document.querySelector("#recipient_name");
+        const recipient_addr1 = document.querySelector("#recipient_addr1");
+        const recipient_addr2 = document.querySelector("#recipient_addr2");
+        const recipient_zipcode = document.querySelector("#recipient_zipcode");
+        const recipient_email = document.querySelector("#recipient_email");
+        const recipient_phone = document.querySelector("#recipient_phone");
+        const delivery_memo = document.querySelector("#delivery_memo");
+        var email = recipient_email.value;
+        var resultDiv = document.getElementById('result');
+        var resultDiv2 = document.getElementById('result2');
+        var phone = recipient_phone.value;
+
+
+        //빈칸체크
+        if(recipient_name.value.length ===0 || recipient_addr1.value.length ===0 || recipient_addr2.value.length ===0 || recipient_zipcode.value ===0 ||
+            recipient_email.value.length===0 || recipient_phone.value.length===0 || delivery_memo.value.length ===0 ){
+
+            alert("필수값을 입력해주세요.");
+            return false;
+        }
+
+
+        //이메일 체크
+
+
+        if (emailCheck(email)) {
+            resultDiv.innerHTML = '유효한 이메일 주소입니다.';
+            resultDiv.style.color ="blue";
+        } else {
+            resultDiv.innerHTML = '유효하지 않은 이메일 주소입니다.';
+            resultDiv.style.color ="red";
+            return false;
+        }
+
+        if(telValidator(phone )){
+            resultDiv2.innerHTML = '유효한 핸드폰 번호입니다.';
+            resultDiv2.style.color ="blue";
+        }else{
+            resultDiv2.innerHTML = '유효하지 않은 핸드폰 번호입니다.';
+            resultDiv2.style.color ="red";
+            return false;
+        }
+
+
+
+        document.frm.submit();
+
     });
+
 
 </script>
 <%@ include file="../common/footer.jsp"%>

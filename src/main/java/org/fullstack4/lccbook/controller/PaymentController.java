@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.BookDTO;
 import org.fullstack4.lccbook.dto.CartDTO;
+import org.fullstack4.lccbook.dto.MemberDTO;
 import org.fullstack4.lccbook.dto.PaymentDTO;
 import org.fullstack4.lccbook.service.CartServiceIf;
 import org.fullstack4.lccbook.service.MemberServiceIf;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ import java.util.List;
 public class PaymentController {
     private final PaymentServiceIf paymentServiceIf;
     private final CartServiceIf cartServiceIf;
+    private final MemberServiceIf memberServiceIf;
 
 
     @GetMapping(value = "/view")
@@ -46,16 +50,24 @@ public class PaymentController {
                      @RequestParam(name="sale_price",required = false ) int sale_price,
                      @RequestParam(name="quantity",required = false ) int quantity,
                      @RequestParam(name="book_img",required = false) String book_img,
+                     HttpServletRequest request,
                      Model model)
-                        {
+    {
+        HttpSession session = request.getSession();
+        MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 
-            model.addAttribute("book_idx",book_idx);
-            model.addAttribute("book_name",book_name);
+        String user_id = dto.getUser_id();
 
-            model.addAttribute("price",price);
-            model.addAttribute("sale_price",sale_price);
-            model.addAttribute("quantity",quantity);
-            model.addAttribute("book_img",book_img);
+        MemberDTO memberDTO = memberServiceIf.view(user_id);
+
+        model.addAttribute("memberDTO",memberDTO);
+        model.addAttribute("book_idx",book_idx);
+        model.addAttribute("book_name",book_name);
+
+        model.addAttribute("price",price);
+        model.addAttribute("sale_price",sale_price);
+        model.addAttribute("quantity",quantity);
+        model.addAttribute("book_img",book_img);
 
 
     }
@@ -96,10 +108,10 @@ public class PaymentController {
 
     @PostMapping(value = "/regist")
     public String regist(PaymentDTO paymentDTO
-                                    , Model model, RedirectAttributes redirectAttributes) {
+            , Model model, RedirectAttributes redirectAttributes) {
 
         System.out.println("paymentDTO : " + paymentDTO.toString());
-        System.out.println("paymentDTO product_name: " + paymentDTO.getProduct_name());
+
         int result = paymentServiceIf.regist(paymentDTO);
 
         redirectAttributes.addAttribute("user_id", paymentDTO.getUser_id());
