@@ -77,7 +77,7 @@
 <%@ include file="../common/header.jsp"%>
 <div class="container">
     <div>
-        <form id="frm" class="frm" method="get" action="/payment/list" >
+        <form id="frm" name="frm" class="frm" method="get" action="/payment/list" >
 
         <section class="shoping-cart spad">
             <div class="container">
@@ -96,7 +96,6 @@
                                     <th>가격</th>
                                     <th>수량</th>
                                     <th>총합</th>
-
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -104,26 +103,17 @@
                                 <c:choose>
                                 <c:when test="${empty cartList}">
                                 <tr>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                       <h3>
                                             장바구니에 상품이 없습니다.
                                       </h3>
                                     </td>
-                                    <td>
-
-                                    </td>
+                                    <td></td>
                                 </tr>
                                 </c:when>
-
-
                                     <c:otherwise>
-
                                 <c:forEach items="${cartList}" var="list" varStatus="status">
 
 
@@ -361,6 +351,14 @@
     //주문하기
    const order_submit = document.querySelector("#order_submit");
     order_submit.addEventListener("click",function (e){
+        e.preventDefault();
+        const checkedProducts = document.querySelectorAll('input.product_check:checked');
+        if(checkedProducts.length === 0) {
+            // 체크된 상품이 없으면 alert 창 표시
+            alert('상품을 담아주세요.');
+            return false;
+        }
+
 
         document.querySelectorAll('input.product_check').forEach(function(checkbox) {
             if (!checkbox.checked) {
@@ -375,6 +373,7 @@
                 });
             }
         });
+        document.frm.submit();
         return true;
 
     });
