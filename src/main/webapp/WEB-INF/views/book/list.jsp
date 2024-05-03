@@ -287,10 +287,16 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" >
+
                             <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
 <%--                            <div class="card-body p-4">--%>
 <%--                                <div class="text-center">--%>
 <%--                                    <!-- Product name-->--%>
+                            <c:if test="${list.book_quantity == 0}">
+                                <div class="badge bg-danger text-white position-absolute"
+                                     style="top: 0.5rem; right: 0.5rem">품절
+                                </div>
+                            </c:if>
                                     <h6 class="fw-bolder">${list.book_name}</h6>
                                     <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                     -> <span style="color: #0d6efd">${list.sale_price}원</span>
