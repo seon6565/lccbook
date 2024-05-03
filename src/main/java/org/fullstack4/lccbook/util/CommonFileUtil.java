@@ -50,6 +50,11 @@ public class CommonFileUtil {
         file.delete();
     }
 
+    public void fileDelite(String file_full_directory){
+        File file = new File(file_full_directory);
+        file.delete();
+    }
+
     public void fileDownload(String saveDirectory, String file_name, HttpServletResponse response, HttpServletRequest request){
         String orgFileName = file_name;
         try{

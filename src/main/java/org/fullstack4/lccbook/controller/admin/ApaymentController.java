@@ -3,7 +3,6 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.NoticeDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.dto.PaymentDTO;
@@ -57,23 +56,33 @@ public class ApaymentController {
     }
 
     @GetMapping("/view")
-    public String view(@RequestParam(name="payment_idx", defaultValue = "0") int idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
+    public String view(@RequestParam(name="payment_idx", defaultValue = "0") int payment_idx,
+                       @RequestParam(name="book_idx" , defaultValue = "0") int book_idx,
+                       Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
         HttpSession session = request.getSession();
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        PaymentDTO paymentDTO = paymentServiceIf.view(idx);
+        PaymentDTO paymentDTO = paymentServiceIf.adminView(payment_idx,book_idx);
         model.addAttribute("paymentDTO",paymentDTO);
         return "/admin/apayment/view";
     }
 
     @PostMapping("/cancel")
-    public String cancelPOST(@RequestParam(name="payment_idx", defaultValue = "0") int payment_idx, RedirectAttributes redirectAttributes, HttpServletRequest request){
+    public String cancelPOST(@RequestParam(name="payment_idx", defaultValue = "0") int payment_idx,
+                             @RequestParam(name="book_idx",defaultValue = "0") int book_idx,
+                             @RequestParam(name="product_quantity",defaultValue = "0") int product_quantity,
+                             @RequestParam(name="payment_status",defaultValue = "0") String payment_status,
+                             RedirectAttributes redirectAttributes, HttpServletRequest request,
+                             Model model){
+
         HttpSession session = request.getSession();
+
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        //paymentServiceIf.cancel(payment_idx);
+
+        paymentServiceIf.cancel(payment_idx,book_idx,product_quantity,payment_status);
         return "redirect:/admin/apayment/list";
     }
 
@@ -96,8 +105,16 @@ public class ApaymentController {
                                @RequestParam(name="book_idx", defaultValue = "0") int[] book_idx,
                                @RequestParam(name="payment_status", defaultValue = "0") String[] payment_status,
                                     Model model,
-                                    RedirectAttributes redirectAttributes){
+                                    RedirectAttributes redirectAttributes, HttpServletRequest request){
 
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        System.out.println("statusModify : " + payment_idx.length);
+        for(int i : payment_idx){
+            System.out.println("payment_idx ads : " + i);
+        }
 
         for(int i=0; i < payment_idx.length; i++) {
            int result = paymentServiceIf.statusModify(payment_idx[i],book_idx[i],payment_status[i]);

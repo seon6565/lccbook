@@ -35,6 +35,7 @@ public class BookReviewController {
         log.info("bbsReplyDTO : " + bookReviewDTO.toString());
 
         int result = bookReviewService.review_regist(bookReviewDTO);
+        int reply_result = bookReviewService.update_reply_cnt(bookReviewDTO.getBook_idx());
         log.info("result : " + result);
         log.info("==========");
 

@@ -77,7 +77,7 @@
 <%@ include file="../common/header.jsp"%>
 <div class="container">
     <div>
-        <form id="frm" class="frm" method="get" action="/payment/list" >
+        <form id="frm" name="frm" class="frm" method="get" action="/payment/list" >
 
         <section class="shoping-cart spad">
             <div class="container">
@@ -100,7 +100,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <c:choose>
+                                <c:when test="${empty cartList}">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                      <h3>
+                                            장바구니에 상품이 없습니다.
+                                      </h3>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </c:when>
+                                    <c:otherwise>
                                 <c:forEach items="${cartList}" var="list" varStatus="status">
 
 
@@ -122,7 +135,7 @@
                                             <div class="quantity1">
                                                 <div class="pro-qty">
                                                     <span id="quantity_minus" class="dec qtybtn" data-index="${status.count}"  >- </span>
-                                                    <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}">
+                                                    <input type="text" class="quantity" id="quantity${status.count}" name="quantity" value="${list.quantity}" data-index="${status.count}" readonly>
 
                                                     <span id="quantity_plus" class="dec qtybtn" data-index="${status.count}" data-book-quantity="${list.book_quantity}">+</span>
                                                 </div>
@@ -137,7 +150,10 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
+                                </c:otherwise>
 
+
+                                </c:choose>
 
                             </table>
                             </tbody>
@@ -154,15 +170,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="shoping__continue">
-                            <div class="shoping__discount">
-                                <h5>할인 쿠폰</h5>
-                                <%--<form action="#">--%>
-                                    <input type="text" placeholder="쿠폰번호를 입력해주세요.">
-                                    <button type="submit" class="site-btn">쿠폰 적용</button>
-                                <%--</form>--%>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="col-lg-6">
@@ -343,6 +351,14 @@
     //주문하기
    const order_submit = document.querySelector("#order_submit");
     order_submit.addEventListener("click",function (e){
+        e.preventDefault();
+        const checkedProducts = document.querySelectorAll('input.product_check:checked');
+        if(checkedProducts.length === 0) {
+            // 체크된 상품이 없으면 alert 창 표시
+            alert('상품을 담아주세요.');
+            return false;
+        }
+
 
         document.querySelectorAll('input.product_check').forEach(function(checkbox) {
             if (!checkbox.checked) {
@@ -357,6 +373,7 @@
                 });
             }
         });
+        document.frm.submit();
         return true;
 
     });

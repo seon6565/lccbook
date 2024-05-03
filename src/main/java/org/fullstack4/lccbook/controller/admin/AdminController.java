@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.AdminDTO;
 import org.fullstack4.lccbook.service.AdminServiceIf;
+import org.fullstack4.lccbook.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminServiceIf adminServiceIf;
+    private final CommonUtil commonUtil;
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public void adminLoginGET(){
     }
@@ -26,11 +28,12 @@ public class AdminController {
     public String adminLoginPOST(AdminDTO adminDTO,
                                  HttpServletRequest req,
                                  RedirectAttributes redirectAttributes){
+        adminDTO.setAdmin_pwd(commonUtil.encryptPwd(adminDTO.getAdmin_pwd()));
         AdminDTO resultadminDTO = adminServiceIf.adminLogin(adminDTO);
         if(resultadminDTO !=null){
             HttpSession session = req.getSession();
             session.setAttribute("adminDTO",adminDTO);
-                return "redirect:/admin/anotice/list";
+            return "redirect:/admin/anotice/list";
         }
         redirectAttributes.addFlashAttribute("errors","사용자 정보가 일치하지 않습니다.");
         redirectAttributes.addFlashAttribute("errorAlert","<script> alert('정확한 관리자 계정 정보를 입력하세요.') </script>");

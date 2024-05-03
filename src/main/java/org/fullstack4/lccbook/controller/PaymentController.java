@@ -52,22 +52,22 @@ public class PaymentController {
                      @RequestParam(name="book_img",required = false) String book_img,
                      HttpServletRequest request,
                      Model model)
-    {
-        HttpSession session = request.getSession();
-        MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
+                        {
+            HttpSession session = request.getSession();
+            MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 
-        String user_id = dto.getUser_id();
+            String user_id = dto.getUser_id();
 
-        MemberDTO memberDTO = memberServiceIf.view(user_id);
+            MemberDTO memberDTO = memberServiceIf.view(user_id);
 
-        model.addAttribute("memberDTO",memberDTO);
-        model.addAttribute("book_idx",book_idx);
-        model.addAttribute("book_name",book_name);
+            model.addAttribute("memberDTO",memberDTO);
+            model.addAttribute("book_idx",book_idx);
+            model.addAttribute("book_name",book_name);
 
-        model.addAttribute("price",price);
-        model.addAttribute("sale_price",sale_price);
-        model.addAttribute("quantity",quantity);
-        model.addAttribute("book_img",book_img);
+            model.addAttribute("price",price);
+            model.addAttribute("sale_price",sale_price);
+            model.addAttribute("quantity",quantity);
+            model.addAttribute("book_img",book_img);
 
 
     }
@@ -80,9 +80,8 @@ public class PaymentController {
                      Model model) {
 
 
-        System.out.println("paymentContoller : "+cart_idx.length);
-        System.out.println("paymentContoller : "+quantity.length);
-        System.out.println("paymentContoller : "+book_idx.length);
+
+
 
         for(int i =0; i<quantity.length;i++){
             int result = cartServiceIf.modify(cart_idx[i],quantity[i],book_idx[i]);
@@ -108,7 +107,7 @@ public class PaymentController {
 
     @PostMapping(value = "/regist")
     public String regist(PaymentDTO paymentDTO
-            , Model model, RedirectAttributes redirectAttributes) {
+                                    , Model model, RedirectAttributes redirectAttributes) {
 
         System.out.println("paymentDTO : " + paymentDTO.toString());
 

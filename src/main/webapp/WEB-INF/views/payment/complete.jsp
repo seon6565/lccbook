@@ -11,6 +11,7 @@
 
 </head>
 <body>
+
 <%@ include file="../common/header.jsp"%>
 
 <div class="container text-center">
@@ -79,4 +80,8 @@
 
 <%@ include file="../common/footer.jsp"%>
 </body>
+<Script>
+
+
+</Script>
 </html>

@@ -5,10 +5,7 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="container">
@@ -28,11 +25,12 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">배송관리</h5>
                             <div class="card">
-                                <div class="card-body p-4">
-                                    <div class="card-body p-4">
+                                <div class="card-body p-6">
+                                    <div class="card-body p-6">
                                         <table class="table">
                                             <thead>
                                             <tr class="table-secondary">
+                                                <th scope="col">배송번호</th>
                                                 <th scope="col">결제번호</th>
                                                 <th scope="col">배송회사</th>
                                                 <th scope="col">배송회사번호</th>
@@ -46,6 +44,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td><a href="/admin/adelivery/view?delivery_idx=${list.delivery_idx}">${list.delivery_idx}</a></td>
+                                                    <td>${list.payment_idx}</td>
                                                     <td>${list.company_name}</td>
                                                     <td>${list.company_number}</td>
                                                     <td>${list.start_date}</td>
@@ -90,11 +89,5 @@
         </ul>
     </nav>
 </div>
-<%@ include file="../../common/footer.jsp"%>
-<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/js/sidebarmenu.js"></script>
-<script src="/resources/assets/js/app.min.js"></script>
-<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 </body>
 </html>

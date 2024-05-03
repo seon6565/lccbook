@@ -12,6 +12,10 @@
     <link href="/resources/css/payment/style.css" rel="stylesheet">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- 테스트-->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+
     <style>
         .origin_price{
             font-size:14px;
@@ -28,15 +32,65 @@
     <div class="container">
         <form id="frm" name="frm" method="post" action="/payment/regist">
             <input type="hidden" id="user_id" name="user_id" value="${sessionScope.memberDTO.user_id}">
+
         <div class="row">
             <div class="col-md-6 mb-5 mb-md-0">
-                <h2 class="h3 mb-3 text-black">배송지</h2>
+                <h2 class="h3 mb-3 text-black">고객 정보</h2>
+
+                <div class="p-3 p-lg-5 border bg-white">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="user_name" class="text-black"> 고객 성함 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_name" name="user_name" value="${memberDTO.name}" readonly>
+                        </div>
+
+                    </div>
+                    <br>
+
+                    <div class="form-group row">
+                        <div class="col-md-9">
+                            <label for="addr1" class="text-black">주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="addr1" name="addr1" value="${memberDTO.addr1}" readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="addr_number" class="text-black">우편번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="addr_number" name="addr_number" value="${memberDTO.addr_number}" readonly>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group mt-3">
+                        <label for="addr2" class="text-black">상세 주소 <span class="text-danger">*</span></label>
+                        <input type="text" id="addr2" name="addr2" class="form-control" value="${memberDTO.addr2}" readonly>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group row mb-5">
+                        <div class="col-md-6">
+                            <label for="user_email" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_email" name="user_email" value="${memberDTO.email}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="user_phone_number" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="user_phone_number" name="user_phone_number" value="${memberDTO.phone_number}" readonly>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <br>
+                <h2 class="h3 mb-3 text-black">배송정보</h2>
+
+
                 <div class="p-3 p-lg-5 border bg-white">
 
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="recipient_name" class="text-black"> 성함 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="recipient_name" name="recipient_name">
+                            <input type="text" class="form-control" id="recipient_name" name="recipient_name" maxlength="20">
                         </div>
 
                     </div>
@@ -45,7 +99,7 @@
                     <div class="form-group row">
                         <div class="col-md-9">
                             <label for="recipient_addr1" class="text-black">주소 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="recipient_addr1"name="recipient_addr1" onclick="address();" >
+                            <input type="text" class="form-control" id="recipient_addr1"name="recipient_addr1" onclick="address();"  maxlength="50">
                         </div>
                         <div class="col-md-3">
                             <label for="recipient_zipcode" class="text-black">우편번호 <span class="text-danger">*</span></label>
@@ -56,7 +110,7 @@
                     <br>
                     <div class="form-group mt-3">
                         <label for="recipient_addr2" class="text-black">상세 주소 <span class="text-danger">*</span></label>
-                        <input type="text" id="recipient_addr2" name="recipient_addr2" class="form-control" >
+                        <input type="text" id="recipient_addr2" name="recipient_addr2" class="form-control"  maxlength="50">
                     </div>
 
                     <br>
@@ -64,11 +118,13 @@
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
                             <label for="recipient_email" class="text-black">이메일 주소 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="recipient_email" name="recipient_email">
+                            <input type="text" class="form-control" id="recipient_email" name="recipient_email" maxlength="30">
+                            <div id="result"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="recipient_phone" class="text-black">핸드폰번호 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="recipient_phone" name="recipient_phone" placeholder="-를 빼고 입력해주세요.">
+                            <input type="text" class="form-control" id="recipient_phone" name="recipient_phone" placeholder="-를 빼고 입력해주세요." maxlength="20">
+                            <div id="result2"></div>
                         </div>
                     </div>
 
@@ -76,7 +132,7 @@
 
                     <div class="form-group">
                         <label for="delivery_memo" class="text-black">배송 메모</label>
-                        <textarea name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요."></textarea>
+                        <textarea name="delivery_memo" id="delivery_memo" cols="30" rows="5" class="form-control" placeholder="배송메모를 입력해주세요." maxlength="50"></textarea>
 
                     </div>
 
@@ -137,17 +193,14 @@
 
                                 </tbody>
                             </table>
-                            <span>결제수단</span><br><br>
-                            <div class="border p-3 mb-3">
-                                <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">무통장입금</a></h3>
-
-
-                            </div>
+                            <span style="font-weight: bold;font-size: 16px; color: black">결제수단</span>
+                            <div id="payment-method"></div>
+                            <div id="agreement"></div>
 
 
 
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                <input type="submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
+                                <input type="submit" id="payment_submit" class="btn btn-primary" value="결제하기" style="background: rgb(40,95,177)"></button>
 
                             </div>
 
@@ -161,7 +214,9 @@
     </div>
 </div>
 <script>
-
+    window.onbeforeunload = function() {
+        return "정말로 페이지를 떠나시겠습니까? 진행 중인 결제가 취소될 수 있습니다.";
+    };
 
     function address() {
         new daum.Postcode({
@@ -178,6 +233,113 @@
         }).open();
     }
     //data.zonecode; //우편번호
+
+
+    const button = document.getElementById("payment-button");
+    const amount = 50000;
+
+    const widgetClientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const customerKey = "2dI-IUgpzpjb_8i3ux6zK";
+    const paymentWidget = PaymentWidget(widgetClientKey, customerKey);
+
+    const paymentMethodWidget = paymentWidget.renderPaymentMethods(
+        "#payment-method",
+        { value: amount },
+        { variantKey: "DEFAULT" }
+    );
+    paymentWidget.renderAgreement(
+        "#agreement",
+        { variantKey: "AGREEMENT" }
+    );
+ /*   button.addEventListener("click", function () {
+        // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
+        // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
+        paymentWidget.requestPayment({
+            orderId: "1W_pCfO4rzG9szJEcThKe",
+            orderName: "토스 티셔츠 외 2건",
+            successUrl: window.location.origin + "/success",
+            failUrl: window.location.origin + "/fail",
+            customerEmail: "customer123@gmail.com",
+            customerName: "김토스",
+            customerMobilePhone: "01012341234",
+        });
+    });*/
+
+    function emailCheck(email_address){
+        email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+        if(!email_regex.test(email_address)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function telValidator(args) {
+
+
+
+        if (/^[0-9]{10,11}$/.test(args)) {
+            return true;
+        }
+        // alert(msg);
+        return false;
+    }
+
+    const payment_submit = document.querySelector("#payment_submit");
+    payment_submit.addEventListener("click",function(e){
+        e.preventDefault();
+
+        window.onbeforeunload = null;
+
+        const recipient_name = document.querySelector("#recipient_name");
+        const recipient_addr1 = document.querySelector("#recipient_addr1");
+        const recipient_addr2 = document.querySelector("#recipient_addr2");
+        const recipient_zipcode = document.querySelector("#recipient_zipcode");
+        const recipient_email = document.querySelector("#recipient_email");
+        const recipient_phone = document.querySelector("#recipient_phone");
+        const delivery_memo = document.querySelector("#delivery_memo");
+        var email = recipient_email.value;
+        var resultDiv = document.getElementById('result');
+        var resultDiv2 = document.getElementById('result2');
+        var phone = recipient_phone.value;
+
+
+        //빈칸체크
+        if(recipient_name.value.length ===0 || recipient_addr1.value.length ===0 || recipient_addr2.value.length ===0 || recipient_zipcode.value ===0 ||
+            recipient_email.value.length===0 || recipient_phone.value.length===0 || delivery_memo.value.length ===0 ){
+
+            alert("필수사항을 입력해주세요.");
+            return false;
+        }
+
+
+        //이메일 체크
+
+
+        if (emailCheck(email)) {
+            resultDiv.innerHTML = '유효한 이메일 주소입니다.';
+            resultDiv.style.color ="blue";
+        } else {
+            resultDiv.innerHTML = '유효하지 않은 이메일 주소입니다.';
+            resultDiv.style.color ="red";
+            return false;
+        }
+
+        if(telValidator(phone )){
+            resultDiv2.innerHTML = '유효한 핸드폰 번호입니다.';
+            resultDiv2.style.color ="blue";
+        }else{
+            resultDiv2.innerHTML = '유효하지 않은 핸드폰 번호입니다.';
+            resultDiv2.style.color ="red";
+            return false;
+        }
+
+
+
+        document.frm.submit();
+
+    });
+
+
 </script>
 <%@ include file="../common/footer.jsp"%>
 </body>

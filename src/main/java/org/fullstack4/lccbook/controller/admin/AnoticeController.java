@@ -2,7 +2,6 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.FaqDTO;
 import org.fullstack4.lccbook.dto.NoticeDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
@@ -49,30 +48,38 @@ public class AnoticeController {
         PageResponseDTO<NoticeDTO> responseDTO = noticeService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
 
-        return "admin/anotice/list";
+        return "/admin/anotice/list";
     }
 
 
     @GetMapping(value = "/view")
-    public void anoticeView(Model model,
-                            @RequestParam(name="notice_idx", defaultValue = "0") int notice_idx){
+    public String anoticeView(Model model,
+                            @RequestParam(name="notice_idx", defaultValue = "0") int notice_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         NoticeDTO noticeDTO = noticeService.view(notice_idx);
         model.addAttribute("notice",noticeDTO);
+        return "/admin/anotice/view";
     }
 
     @GetMapping(value = "/regist")
-    public void anoticeRegistGet(){
-        log.info("==========");
-        log.info("AdminController >> anoticeRegistGet()");
-        log.info("==========");
+    public String anoticeRegistGet(HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        return "/admin/anotice/regist";
     }
 
     @PostMapping(value = "/regist")
     public String anoticeRegistPost(NoticeDTO noticeDTO,
-                                    RedirectAttributes redirectAttributes){
-
-        log.info("==========");
-        log.info("AdminController >> anoticeRegistPost()");
+                                    RedirectAttributes redirectAttributes,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         int result = noticeService.regist(noticeDTO);
         if(result > 0) {
@@ -83,18 +90,25 @@ public class AnoticeController {
     }
 
     @GetMapping(value = "/modify")
-    public void anoticeModifyGet(Model model,
-                                 @RequestParam(name="notice_idx", defaultValue = "0") int notice_idx){
+    public String anoticeModifyGet(Model model,
+                                 @RequestParam(name="notice_idx", defaultValue = "0") int notice_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         NoticeDTO noticeDTO = noticeService.view(notice_idx);
         model.addAttribute("notice",noticeDTO);
+
+        return "/admin/anotice/modify";
     }
 
     @PostMapping(value = "/modify")
     public String anoticeModifyPost(NoticeDTO noticeDTO,
-                                    RedirectAttributes redirectAttributes){
-
-        log.info("==========");
-        log.info("AdminController >> anoticeModifyPost()");
+                                    RedirectAttributes redirectAttributes, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         int result = noticeService.modify(noticeDTO);
         if(result > 0) {
@@ -105,9 +119,11 @@ public class AnoticeController {
     }
 
     @PostMapping("/delete")
-    public String anoticeDeletePost(@RequestParam(name="notice_idx", defaultValue = "0") int notice_idx){
-        log.info("==========");
-        log.info("AdminController >> anoticeDeletePost()");
+    public String anoticeDeletePost(@RequestParam(name="notice_idx", defaultValue = "0") int notice_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         int result = noticeService.delete(notice_idx);
         if(result > 0) {
             return "redirect:/admin/anotice/list";
@@ -117,10 +133,11 @@ public class AnoticeController {
     }
 
     @PostMapping("/deleteCheck")
-    public String deleteCheck(@RequestParam(name="notice_idx", defaultValue = "0") int[] notice_idx){
-        log.info("==========");
-        log.info("AdminController >> deleteCheck()");
-
+    public String deleteCheck(@RequestParam(name="notice_idx", defaultValue = "0") int[] notice_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         for(int i : notice_idx) {
             noticeService.delete(i);
         }

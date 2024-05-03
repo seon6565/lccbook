@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@
             padding-bottom: 10px;
             font-weight: bold;
             margin-top: 70px !important;
-            font-weight: bold;
+            font-weight: bold !important;
         }
         #reviewContent {
             display: flex;
@@ -62,8 +63,9 @@
             padding: 20px;
         }
         #reviewText {
-            padding-top: 10px;
+            padding-top: 20px;
             padding-left: 10px;
+            width: 1030px;
         }
         #reviewText > h6 {
             font-size: large;
@@ -87,12 +89,28 @@
 
         .rating {
             width: 180px;
+            padding-top: 10px;
+            font-size: larger;
         }
 
         .rating__star {
             cursor: pointer;
             color: #dabd18b2;
         }
+
+        #delete_btn {
+            border: 1px solid #ccc;
+        }
+        #quantity_plus{
+            width: 30px;
+            background: white;
+        }
+        #quantity_minus{
+            width: 30px;
+            background: white;
+        }
+
+
 
     </style>
 </head>
@@ -105,9 +123,14 @@
             <input type="hidden" id="user_id1" name="user_id" value="${sessionScope.memberDTO.user_id}">
             <input type="hidden" id="book_name" name="book_name" value="${book.book_name}">
             <h3>${book.book_name}</h3>
+            <c:if test="${book.book_quantity == 0}">
+                <div class="badge bg-danger text-white"
+                     style="top: 0.5rem; right: 0.5rem">품절
+                </div>
+            </c:if>
         <div id="intro">
             <div id="img">
-                <img src="${book.book_img}" width="300px" height="400px">
+                <img src="${book.book_img}" width="300px" height="400px" alt="">
                 <input type="hidden" id="book_img" name="book_img" value="${book.book_img}"/>
 
             </div>
@@ -119,11 +142,12 @@
                 </div>
                 <div class="box">
                     <span style="margin-right: 37px;">적립금</span><span style="font-size: small; color: #5c636a">[VIP회원 5% / 골드회원 4% / 일반회원 3%]</span><br>
-                    <span style="margin-right: 54px;">정가</span><span class="text-muted text-decoration-line-through">${book.price}원</span><br>
+                    <span style="margin-right: 54px;">정가</span><span class="text-muted text-decoration-line-through">${book.price}원  </span><br>
                     <input type="hidden" id="price" name="price" value="${book.price}"/>
-                    <span style="margin-right: 37px;">판매가</span><span>${book.sale_price}원</span><br>
+                    <span style="margin-right: 37px;">판매가</span><span class="p_sale_price" data-sale-price="${book.sale_price}">${book.sale_price}원</span><br>
                     <input type="hidden" id="sale_price" name="sale_price" value="${book.sale_price}"/>
-                    <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span>
+                    <span style="margin-right: 20px;">소득공제</span><span>비대상도서</span> <br>
+                    <span style="margin-right: 50px;">재고</span><span >${book.book_quantity} 권</span>
                 </div>
                 <div class="box" style="border-bottom: none">
                     <span style="margin-right: 37px;">배송비</span><span>2500원(15,000원 이상 구매 시 무료배송)</span><span style="font-size: small; color: #5c636a">[제주&도서산간지역 추가 3,000원]</span><br>
@@ -131,13 +155,12 @@
                         <div id="btn_acount">
                             <button type="button" id="quantity_minus" name="minus">-</button>
                             <input type="text" id="quantity" name="quantity" value="1" readonly style="width: 30px; text-align: center;">
-                            <button type="button" id="quantity_plus" name="plus">+</button>
+                            <button type="button" id="quantity_plus" name="plus"  data-book-quantity ="${book.book_quantity}">+</button>
                         </div><br>
-                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;">${book.price}원</span>
+                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;" id="total_price" class="total_price"> <fmt:formatNumber value="${book.price}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
                 </div>
                 <div class="box" style="border-bottom: none">
                     <button type="button" class="btn btn-outline-secondary" id="cart_button"  data-book-quantity="${book.book_quantity}">장바구니</button>
-                    <button type="button" class="btn btn-outline-secondary">관심등록</button>
                     <button class="btn btn-primary" data-book-quantity="${book.book_quantity}"  id="purchase_button" type="submit" style="background-color :#d63384; border: #fff;">바로구매</button>
                 </div>
             </div>
@@ -146,16 +169,13 @@
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">상세정보</a>
+                    <a class="nav-link active" aria-current="page" href="#info">상세정보</a>
                 </li>
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">교재후기(550)</a>
+                    <a class="nav-link active" aria-current="page" href="#review">교재후기(${book.reply_cnt})</a>
                 </li>
                 <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">FAQ</a>
-                </li>
-                <li class="nav-item1">
-                    <a class="nav-link active" aria-current="page" href="#">배송/환불정책</a>
+                    <a class="nav-link active" aria-current="page" href="#delivery">배송/환불정책</a>
                 </li>
             </ul>
             <div id="info">
@@ -169,17 +189,14 @@
                     <span style="margin-right: 37px;">페이지</span><span>${book.book_page}</span>
                 </div>
                 <h5>교재소개</h5>
-                <video controls width="800" style="margin-left: 100px;" autoplay>
-                    <source src="${book.book_video}" type="video/webm" />
-                </video>
+                <iframe src="${book.book_video}" width="800" height="500" style="margin-left: 100px; margin-top: 40px;"></iframe>
                 <img src="/resources/img/intro.png" style="padding: 60px; margin-left: 100px;">
             </div>
-
             <div id="review">
                 <h5>교재후기</h5>
                 <c:choose>
-                <c:when test="${not empty responseDTO.dtoList}">
-                    <c:forEach items="${responseDTO.dtoList}" var="list">
+                <c:when test="${not empty bookReview}">
+                    <c:forEach items="${bookReview}" var="list">
                         <div id="reviewContent">
                             <img src="${book.book_img}" style="width: 100px;">
                             <div id="reviewText">
@@ -197,7 +214,9 @@
                             <form id="delete" name="delete" action="/bookReview/delete" method="post">
                                 <input type="hidden" name="review_idx" id="review_idx"  value="${list['review_idx']}">
                                 <input type="hidden" name="book_idx"   value="${list['book_idx']}">
-                                <button type="submit">삭제</button>
+                                <c:if test="${memberDTO.user_id == list.user_id}">
+                                <button type="submit" id="delete_btn" onclick="godelete(event)">삭제</button>
+                                </c:if>
                             </form>
                         </div>
                     </c:forEach>
@@ -208,30 +227,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item
-                        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-                            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-                            <a class="page-link"
-                               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-                               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-                        </li>
-                        <c:forEach begin="${responseDTO.page_block_start}"
-                                   end="${responseDTO.page_block_end}"
-                                   var="page_num">
-                            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                                <a class="page-link" data-num="${page_num}"
-                                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-                            </li>
-                        </c:forEach>
-                        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-                            <a class="page-link"
-                               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-                               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
                 <form id="frm" name="frm" action="/bookReview/regist" method="post">
                     <div class="form-floating mb-3" id="regist">
@@ -245,11 +240,33 @@
                         </div>
                         <input type="hidden" name="user_id" id="user_id" value="${memberDTO.user_id}">
                         <input type="hidden" name="book_idx" id="book_idx"  value="${param['book_idx']}">
-                        <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="20" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
+                        <input type="text" class="form-control" name="review_content" id="review_content" value="" maxlength="200" placeholder="" style="width: 1000px;border: 1px solid #ccc;">
                         <button class="btn btn-primary" type="submit" id="btn_comment" style="background-color :#d63384;border: #fff;float: right; width: 180px; height: 57px;margin-left: 10px;">후기등록</button>
                     </div>
                 </form>
             </div>
+        <div id="delivery">
+            <h5>출고/배송 및 배송비안내</h5>
+            <div>
+                <p style="font-size: large;padding-top: 10px;">출고안내</p>
+                <div style="color: #777474;">
+                    <p>평일 기준으로 당일 오후 1시까지 결재완료를 기준으로 당일 출고됩니다.<br>
+                        ※ 교과서 구매시 출고일정이 지연될 수도 있습니다.<br>
+                        평일 오후 1시 이후, 토,일·휴무일, 공휴일에 주문하신 경우에는 다음날 평일에 출고됩니다.</p>
+                </div>
+                <p style="font-size: large;padding-top: 10px;">배송기간안내</p>
+                <div style="color: #777474;">
+                    <p>출고일로부터 2-5일 이내(토, 일 휴무일, 공휴일 제외)<br>
+                        단, 택배사 주문 폭주기간(설, 추석 명절기간)은 배송기간이 다소 차이가 있을 수 있으니 양해 바랍니다.</p>
+                </div>
+            </div>
+            <h5>취소/교환/반품 안내</h5>
+            <div style="color: #777474;">
+                <p>고객 변심 또는 오주문에 의한 취소/교환/반품시 배송비는 고객님 부담입니다.<br>
+                    제품 불량 및 오배송 등의 이유로 취소/교환/반품 하실 경우 배송비는 무료 입니다.<br>
+                    취소/교환/반품에 대한 요구는 제품 수령일로부터 7일 이내에 하셔야 합니다.</p>
+            </div>
+        </div>
         </div>
     </div>
 </section>
@@ -326,24 +343,47 @@
         form.submit();
     });
 
+    //총 가격 수정
+    function updateTotalPrice() {
+        const quantity = parseInt(document.querySelector("#quantity").value);
+        const sale_price_div =  document.querySelector(".p_sale_price");
+        const sale_price =sale_price_div.getAttribute('data-sale-price');
+
+        const totalPrice = quantity * sale_price;
+        document.querySelector("#total_price").innerText = formatToKRW(totalPrice) ; // 구매 가격을 업데이트하는 부분
+    }
+
 
     quantity_plus.addEventListener("click",function(e){
         e.preventDefault();
 
+        const index = this.getAttribute('data-book-quantity');
+        const total_quantity = parseInt(index);
+
+
         const quantity =  document.querySelector("#quantity");
-       const number = parseInt(quantity.value);
-       quantity.value = number+1;
+
+        const number = parseInt(quantity.value);
+        if(number<total_quantity){
+            quantity.value = number+1;
+        }
+        else{
+            alert("재고가 없습니다.")
+        }
+        updateTotalPrice();
 
     });
 
     quantity_minus.addEventListener("click",function(e){
         e.preventDefault();
 
+
         const quantity =  document.querySelector("#quantity");
         const number = parseInt(quantity.value);
         if(quantity.value >1) {
             quantity.value = number - 1;
         }
+        updateTotalPrice();
     });
 
 
@@ -365,7 +405,17 @@
             return false;
         }
         frm.submit();
-    })  ;
+    });
+
+    function godelete(e) {
+        e.preventDefault();
+        if(confirm("댓글을 정말 삭제하시겠습니까?")) {
+            alert("삭제되었습니다.");
+            document.getElementById("delete").submit();
+        } else {
+            return false;
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.rating__star');
@@ -391,6 +441,10 @@
             });
         }
     });
+
+    function formatToKRW(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원"; // 화폐 포맷으로 변환
+    }
 
 </script>
 </body>

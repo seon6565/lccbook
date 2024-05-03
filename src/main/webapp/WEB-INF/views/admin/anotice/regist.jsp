@@ -5,10 +5,7 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="container">
@@ -31,15 +28,16 @@
                                 <button class="btn btn-primary" type="button">글 등록</button>
                             </div>
                             <form id="frm" action="/admin/anotice/regist" method="post">
+                                <input type="hidden" name="notice_state" id="notice_state" value="Y" >
                             <div class="card">
                                 <div class="card-body p-4">
                                     <div class="mb-3">
                                         <label for="title" class="form-label">제목</label>
-                                        <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해주세요" maxlength="40">
                                     </div>
                                     <div class="mb-3">
                                         <label for="content" class="form-label">내용</label>
-                                        <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 10자 이상 입력해주세요."></textarea>
+                                        <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 10자 이상 입력해주세요." maxlength="400"></textarea>
                                     </div>
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;display: flex !important;justify-content: center;">
                                         <button class="btn btn-primary" type="submit" id="btn_regist">등록</button>
@@ -55,12 +53,6 @@
         </div>
     </div>
 </div>
-<%@ include file="../../common/footer.jsp"%>
-<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/js/sidebarmenu.js"></script>
-<script src="/resources/assets/js/app.min.js"></script>
-<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
     document.querySelector("#btn_regist").addEventListener("click", function (e){
         e.preventDefault();

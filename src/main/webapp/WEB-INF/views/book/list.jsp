@@ -106,9 +106,18 @@
 
         #cate {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            font-size: large;
+        }
+
+        #sub {
+
         }
         #sub > ul {
             list-style: none;
+            display: flex;
+            justify-content: center;
         }
         #sub > ul > li {
             display: inline;
@@ -120,6 +129,22 @@
             text-decoration: none;
             color: #5c636a;
         }
+
+        #sub a:hover, a:focus {
+            color: #000;
+        }
+        .category {
+            color: #000;
+        }
+
+        .category a:hover, a:focus {
+            color: #d63384 !important;
+        }
+
+        .category a:active, a:target {
+            color: #d63384 !important;
+        }
+
 
     </style>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
@@ -134,6 +159,17 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <div class="container">
+    <header class="py-3">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-6">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder mb-3" style="border: none;">교재</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <div id="search">
         <form id="search_form" name="search_form" action="/book/list" method="get">
             <select name="search_type" class="form-select form-select-lg mb-3"  aria-label=".form-select-lg example" style="width: 100px !important;border-radius: 0 !important;font-size: small !important; height : 60px;">
@@ -153,14 +189,14 @@
     <div class="container">
         <div class="row">
             <div id="cate">
-                <ul id="main-menu">
-                    <li><a class="nav-link active" aria-current="page" href="/book/list">전체</a>
+                <ul id="main-menu" class="category">
+                    <li><a class="nav-link" aria-current="page" href="/book/list">전체</a>
                     </li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=10">영유아</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=10">영유아</a>
                         <ul class="sub-menu">
                             <li><a href="/book/list?cate=1010" style="font-size: 14px;">만6세이하</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=20">초등</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=20">초등</a>
                         <ul class="sub-menu" class="sub-menu1">
                             <li><a href="/book/list?cate=2010" style="font-size: 14px;">초1</a></li>
                             <li><a href="/book/list?cate=2020" style="font-size: 14px;">초2</a></li>
@@ -169,13 +205,13 @@
                             <li><a href="/book/list?cate=2050" style="font-size: 14px;">초5</a></li>
                             <li><a href="/book/list?cate=2060" style="font-size: 14px;">초6</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=30">중학</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=30">중학</a>
                         <ul class="sub-menu" class="sub-menu1">
                             <li><a href="/book/list?cate=3010" style="font-size: 14px;">중1</a></li>
                             <li><a href="/book/list?cate=3020" style="font-size: 14px;">중2</a></li>
                             <li><a href="/book/list?cate=3030" style="font-size: 14px;">중3</a></li>
                         </ul></li>
-                    <li><a class="nav-link active" aria-current="page" href="/book/list?cate=40">고등</a>
+                    <li><a class="nav-link" aria-current="page" href="/book/list?cate=40">고등</a>
                         <ul class="sub-menu">
                             <li><a href="/book/list?cate=4010" style="font-size: 14px;">고1</a></li>
                             <li><a href="/book/list?cate=4020" style="font-size: 14px;">고2</a></li>
@@ -193,27 +229,28 @@
                     <li><a href="/book/list?cate3=40">사회</a></li>
                     <li><a href="/book/list?cate3=50">과학</a></li>
                     <li><a href="/book/list?cate3=60">한글</a></li>
+                    <li><a href="/book/list?cate3=70">한자</a></li>
                 </ul>
                 </c:if>
                 <c:if test="${ cate eq '1010' or cate eq '10' or cate eq '101020' or cate eq '101030' or cate eq '101060' }">
 
                     <ul>
-                        <li ><a href="/book/list?cate=101020">수학</a></li>
+                        <li style="margin-left: 20px;"><a href="/book/list?cate=101020">수학</a></li>
                         <li><a href="/book/list?cate=101030">영어</a></li>
                         <li><a href="/book/list?cate=101060">한글</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '20' or cate eq'2010'or cate eq'2020' or cate eq'2030' or cate eq'2040' or cate eq'2050' or cate eq'2060'}">
                     <ul>
-                        <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                        <li style="margin-left: 20px;"><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
-                        <li><a href="/book/list?cate=${cate}&cate3=60">한글</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=70">한자</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '30' or cate eq'3010'or cate eq'3020' or cate eq'3030' }">
                   <ul>
-                    <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
-                    <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                    <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                    <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
@@ -221,9 +258,8 @@
                 </c:if>
                 <c:if test="${cate eq '40' or cate eq'4010'or cate eq'4020' or cate eq'4030' }">
                     <ul>
-                        <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
-                        <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
-
+                        <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=50">과학</a></li>
@@ -234,38 +270,33 @@
         <div>
             <select name="order" style="margin-top: 20px;border: 1px solid #ccc;height: 40px;">
                 <option value="new" ${order=="new" ? "selected" : ""}>최신순</option>
-
                 <option value="cheap" ${order=="cheap" ? "selected" : ""}>가격낮은순</option>
                 <option value="expensive" ${order=="expensive" ? "selected" : ""}>가격높은순</option>
             </select>
         </div>
-  <%--      <form id="frm" name="frm" method="post" action="/cart/directRegist">--%>
         <div class="row featured__filter" style="margin-left: 15px;border-top: 1px solid #ccc;margin-top: 10px;">
             <c:forEach items="${responseDTO.dtoList}" var="list">
-             <%--   <input hidden name="book_idx" id="book_idx" value="${list.book_idx}"/>
-                <input hidden name="book_img" id="book_img" value="${list.book_img}"/>
-                <input hidden name="price" id="price" value="${list.price}"/>
-                <input hidden name="sale_price" id="sale_price" value="${list.sale_price}"/>
-                <input hidden name="user_id" id="user_id" value="${sessionScope.memberDTO.user_id}"/>
-                <input hidden name="quantity" id="quantity" value="1"/>--%>
                 <a href="/book/view?book_idx=${list.book_idx}" style="width: 0;">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix kids" style="width: 205px;padding: 15px;">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" >
+
                             <img class="featured__item__pic set-bg" src="${list.book_img}" alt="..." />
+
 <%--                            <div class="card-body p-4">--%>
 <%--                                <div class="text-center">--%>
 <%--                                    <!-- Product name-->--%>
+                            <c:if test="${list.book_quantity == 0}">
+                                <div class="badge bg-danger text-white position-absolute"
+                                     style="top: 0.5rem; right: 0.5rem">품절
+                                </div>
+                            </c:if>
+
                                     <h6 class="fw-bolder">${list.book_name}</h6>
                                     <span class="text-muted text-decoration-line-through">${list.price}원</span>
                                     -> <span style="color: #0d6efd">${list.sale_price}원</span>
-<%--                                </div>--%>
-<%--                            </div>--%>
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#" id="cart_on"   ><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li style="display: none"><a href="#" id="cart_on"></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text card-body p-4" style="width: 200px;">
@@ -281,8 +312,7 @@
                 </div>
                 </a>
             </c:forEach>
-        </div><%--
-        </form>--%>
+        </div>
     </div>
 </section>
 <nav>
@@ -330,21 +360,47 @@
         frm.submit();
 
     });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // 'order' select 메뉴의 선택 변경을 감지합니다.
+    //     document.querySelector('select[name="order"]').addEventListener('change', function() {
+    //         // 선택된 값(value)을 얻습니다.
+    //         var selectedOrder = this.value;
+    //
+    //         // 현재 URL을 분석하여 기존의 query parameter를 유지하면서 정렬 조건만 업데이트합니다.
+    //         var url = new URL(window.location);
+    //
+    //         // 'order' 파라미터를 현재 선택된 값으로 설정(또는 업데이트)합니다.
+    //         url.searchParams.set('order', selectedOrder);
+    //
+    //         // 변경된 URL로 페이지를 리디렉션합니다.
+    //         window.location.href = url.href;
+    //
+    //     });
+    // });
+
     document.addEventListener('DOMContentLoaded', function() {
+        // 현재 URL을 분석합니다.
+        var url = new URL(window.location);
+
+        // 'order' 파라미터의 값을 얻습니다.
+        var orderParam = url.searchParams.get('order');
+
+        // 'order' 파라미터가 없거나 비어있는 경우, 기본값을 'new'로 설정합니다.
+        if (!orderParam) {
+            url.searchParams.set('order', 'new');
+            window.location.href = url.href;
+        }
+
         // 'order' select 메뉴의 선택 변경을 감지합니다.
         document.querySelector('select[name="order"]').addEventListener('change', function() {
             // 선택된 값(value)을 얻습니다.
             var selectedOrder = this.value;
-
-            // 현재 URL을 분석하여 기존의 query parameter를 유지하면서 정렬 조건만 업데이트합니다.
-            var url = new URL(window.location);
 
             // 'order' 파라미터를 현재 선택된 값으로 설정(또는 업데이트)합니다.
             url.searchParams.set('order', selectedOrder);
 
             // 변경된 URL로 페이지를 리디렉션합니다.
             window.location.href = url.href;
-
         });
     });
 

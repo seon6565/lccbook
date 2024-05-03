@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- 호스트:                          127.0.0.1
--- 서버 버전:                        10.11.7-MariaDB - mariadb.org binary distribution
+-- 호스트:                          10.41.2.63
+-- 서버 버전:                        10.11.6-MariaDB - mariadb.org binary distribution
 -- 서버 OS:                        Win64
 -- HeidiSQL 버전:                  12.6.0.6765
 -- --------------------------------------------------------
@@ -47,10 +47,12 @@ CREATE TABLE IF NOT EXISTS `lcc_bbs` (
   PRIMARY KEY (`idx`) USING BTREE,
   KEY `user_id` (`user_id`),
   CONSTRAINT `FK_lcc_bbs_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- 테이블 데이터 lccbook.lcc_bbs:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_bbs:~1 rows (대략적) 내보내기
 DELETE FROM `lcc_bbs`;
+INSERT INTO `lcc_bbs` (`idx`, `user_id`, `title`, `content`, `reg_date`, `modify_date`, `read_cnt`, `reply_cnt`) VALUES
+	(1, 'test', 'test', 'test', '2024-05-02 11:19:37', NULL, 0, 2);
 
 -- 테이블 lccbook.lcc_bbs_file 구조 내보내기
 DROP TABLE IF EXISTS `lcc_bbs_file`;
@@ -80,12 +82,14 @@ CREATE TABLE IF NOT EXISTS `lcc_bbs_reply` (
   PRIMARY KEY (`idx`) USING BTREE,
   KEY `FK_lcc_bbs_reply_lcc_bbs` (`bbs_idx`),
   KEY `FK_lcc_bbs_reply_lcc_member` (`user_id`),
-  CONSTRAINT `FK_lcc_bbs_reply_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_lcc_bbs_reply_lcc_bbs` FOREIGN KEY (`bbs_idx`) REFERENCES `lcc_bbs` (`idx`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `FK_lcc_bbs_reply_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- 테이블 데이터 lccbook.lcc_bbs_reply:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_bbs_reply:~1 rows (대략적) 내보내기
 DELETE FROM `lcc_bbs_reply`;
+INSERT INTO `lcc_bbs_reply` (`idx`, `bbs_idx`, `user_id`, `title`, `reg_date`, `modify_date`) VALUES
+	(21, 1, 'test', 'test', '2024-05-02 13:03:10', NULL);
 
 -- 테이블 lccbook.lcc_book 구조 내보내기
 DROP TABLE IF EXISTS `lcc_book`;
@@ -105,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `lcc_book` (
   `book_quantity` int(5) NOT NULL DEFAULT 0,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   `modify_date` datetime DEFAULT NULL,
+  `reply_cnt` int(3) DEFAULT 0,
   PRIMARY KEY (`book_idx`),
   KEY `FK_lcc_book_lcc_category` (`category_idx`),
   CONSTRAINT `FK_lcc_book_lcc_category` FOREIGN KEY (`category_idx`) REFERENCES `lcc_category` (`category_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -112,20 +117,20 @@ CREATE TABLE IF NOT EXISTS `lcc_book` (
 
 -- 테이블 데이터 lccbook.lcc_book:~13 rows (대략적) 내보내기
 DELETE FROM `lcc_book`;
-INSERT INTO `lcc_book` (`book_idx`, `category_idx`, `book_name`, `price`, `sale_price`, `publisher`, `author`, `size`, `isbn`, `book_page`, `book_img`, `book_video`, `book_quantity`, `reg_date`, `modify_date`) VALUES
-	(8, '101060', '돌잡이한글', 90000, 81000, '천재교육', '천재교육 편집부', '기타', '9791125957683', 1, '/resources/img/book/book1.png', '0', 100, '2024-04-26 11:29:28', NULL),
-	(9, '101020', '돌잡이수학', 110000, 99000, '천재교육', '천재교육 편집부', '기타', '9791125957690', 1, '/resources/img/book/kidsmath.png', '0', 100, '2024-04-26 11:32:22', NULL),
-	(10, '101060', '동물탐험스티커', 5000, 500, '천재교육', '편집부', '기타', '0', 20, '/resources/img/book/kidsKo.png', '0', 100, '2024-04-26 11:39:06', NULL),
-	(11, '101060', '탈것탐험스티커', 5000, 4500, '천재교육', '편집부', '기타', '1', 20, '/resources/img/book/kidsKo2.png', '0', 100, '2024-04-26 11:40:04', NULL),
-	(12, '101020', '빅키즈수학', 120000, 108000, '천재교육', '편집부', '기타', '8809331290850', 10, '/resources/img/book/kidsmath2.png', '0', 100, '2024-04-26 11:40:24', NULL),
-	(13, '101020', '빅키즈수학', 95000, 89000, '천재교육', '편집부', '기타', '8809331290850', 10, '/resources/img/book/kidsmath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-26 11:40:24', NULL),
-	(14, '101060', '동물탐험스티커', 5000, 4500, '천재교육', '편집부', '기타', '0', 20, '/resources/img/book/kidsKo.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-26 11:39:06', NULL),
-	(15, '201020', '해법 계산박사 2단계', 8500, 7650, '천재교육', '최용준', '220X304', '9791125975427', 176, '/resources/img/book/elemath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:36:58', NULL),
-	(16, '202020', '개념 수학리더 2-2', 14500, 13500, '천재교육', '최용준', '228*304', '', 236, '/resources/img/book/elemath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:41:11', NULL),
-	(17, '302020', '체크체크 기출심화N제 수학 중2-1', 15000, 13500, '천재교육', '해법수학연구회', '220*297', '9791125976042', 244, '/resources/img/book/midmath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:43:58', NULL),
-	(18, '301020', '개념 해결의 법칙 수학 중 1-1', 17000, 15000, '천재교육', '최용준, 해법수학연구회', '기타220*297', '9791125978695', 324, '/resources/img/book/midmath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:45:34', NULL),
-	(19, '403020', '고등 짤강 공통수학1 (2025)', 11000, 9900, '천재교육', '최용준', '220*297', '9791125976844', 280, '/resources/img/book/himath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 16:38:07', NULL),
-	(20, '201030', '똑똑한 하루 Phonics 2B (연속자음+이중자음)', 15000, 13500, '천재교육', '천재교육 초등영어팀 편집부', '220*304', '9791125965749', 220, '/resources/img/book/eleEn.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-30 14:35:22', NULL);
+INSERT INTO `lcc_book` (`book_idx`, `category_idx`, `book_name`, `price`, `sale_price`, `publisher`, `author`, `size`, `isbn`, `book_page`, `book_img`, `book_video`, `book_quantity`, `reg_date`, `modify_date`, `reply_cnt`) VALUES
+	(8, '101060', '돌잡이한글', 90000, 81000, '천재교육', '천재교육 편집부', '기타', '9791125957683', 1, '/resources/img/book/book1.png', '0', 0, '2024-04-26 11:29:28', NULL, 1),
+	(9, '101020', '돌잡이수학', 110000, 99000, '천재교육', '천재교육 편집부', '기타', '9791125957690', 1, '/resources/img/book/kidsmath.png', '0', 99, '2024-04-26 11:32:22', NULL, 0),
+	(10, '101060', '동물탐험스티커', 5000, 500, '천재교육', '편집부', '기타', '0', 20, '/resources/img/book/kidsKo.png', '0', 99, '2024-04-26 11:39:06', NULL, 0),
+	(11, '101060', '탈것탐험스티커', 5000, 4500, '천재교육', '편집부', '기타', '1', 20, '/resources/img/book/kidsKo2.png', '0', 98, '2024-04-26 11:40:04', NULL, 0),
+	(12, '101020', '빅키즈수학', 120000, 108000, '천재교육', '편집부', '기타', '8809331290850', 10, '/resources/img/book/kidsmath2.png', '0', 100, '2024-04-26 11:40:24', NULL, 0),
+	(13, '101020', '빅키즈수학', 95000, 89000, '천재교육', '편집부', '기타', '8809331290850', 10, '/resources/img/book/kidsmath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-26 11:40:24', NULL, 0),
+	(14, '101060', '동물탐험스티커', 5000, 4500, '천재교육', '편집부', '기타', '0', 20, '/resources/img/book/kidsKo.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-26 11:39:06', NULL, 0),
+	(15, '201020', '해법 계산박사 2단계', 8500, 7650, '천재교육', '최용준', '220X304', '9791125975427', 176, '/resources/img/book/elemath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:36:58', NULL, 0),
+	(16, '202020', '개념 수학리더 2-2', 14500, 13500, '천재교육', '최용준', '228*304', '', 236, '/resources/img/book/elemath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:41:11', NULL, 0),
+	(17, '302020', '체크체크 기출심화N제 수학 중2-1', 15000, 13500, '천재교육', '해법수학연구회', '220*297', '9791125976042', 244, '/resources/img/book/midmath2.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:43:58', NULL, 0),
+	(18, '301020', '개념 해결의 법칙 수학 중 1-1', 17000, 15000, '천재교육', '최용준, 해법수학연구회', '기타220*297', '9791125978695', 324, '/resources/img/book/midmath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 14:45:34', NULL, 0),
+	(19, '403020', '고등 짤강 공통수학1 (2025)', 11000, 9900, '천재교육', '최용준', '220*297', '9791125976844', 280, '/resources/img/book/himath.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-27 16:38:07', NULL, 0),
+	(20, '201030', '똑똑한 하루 Phonics 2B (연속자음+이중자음)', 15000, 13500, '천재교육', '천재교육 초등영어팀 편집부', '220*304', '9791125965749', 220, '/resources/img/book/eleEn.png', '/resources/video/welcomeboard(3).mp4', 100, '2024-04-30 14:35:22', NULL, 0);
 
 -- 테이블 lccbook.lcc_bookreview 구조 내보내기
 DROP TABLE IF EXISTS `lcc_bookreview`;
@@ -134,17 +139,26 @@ CREATE TABLE IF NOT EXISTS `lcc_bookreview` (
   `book_idx` int(11) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   `review_content` varchar(200) NOT NULL,
-  `rating` int(11) DEFAULT NULL,
+  `rating` int(2) DEFAULT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`review_idx`),
   KEY `FK_lcc_bookreview_lcc_book` (`book_idx`),
   KEY `FK_lcc_bookreview_lcc_member` (`user_id`),
   CONSTRAINT `FK_lcc_bookreview_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_lcc_bookreview_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_bookreview:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_bookreview:~8 rows (대략적) 내보내기
 DELETE FROM `lcc_bookreview`;
+INSERT INTO `lcc_bookreview` (`review_idx`, `book_idx`, `user_id`, `review_content`, `rating`, `reg_date`) VALUES
+	(3, 20, 'test', '후기 등록 테스트입니댜.', 5, '2024-05-02 10:01:00'),
+	(4, 13, 'test', '후기 등록 테스트입니댜.22', 4, '2024-05-02 10:02:02'),
+	(5, 9, 'test', '후기 등록 테스트입니댜.', 5, '2024-05-02 12:55:50'),
+	(7, 8, 'test', '후기 등록 테스트입니댜.', 4, '2024-05-02 13:28:09'),
+	(8, 8, 'seah', '다른 아이디 삭제 테스트', 5, '2024-05-02 13:32:05'),
+	(9, 10, 'seah', '동물탐험스티커 최고입니다!!!', 5, '2024-05-02 13:41:51'),
+	(10, 15, 'seah', '예비초1입니다. 열심히 하겠습니다', 4, '2024-05-02 13:42:27'),
+	(11, 11, 'test', '너무너무 좋아요!!!!', 5, '2024-05-02 14:18:04');
 
 -- 테이블 lccbook.lcc_cart 구조 내보내기
 DROP TABLE IF EXISTS `lcc_cart`;
@@ -162,10 +176,13 @@ CREATE TABLE IF NOT EXISTS `lcc_cart` (
   KEY `FK_lcc_cart_lcc_book` (`book_idx`),
   CONSTRAINT `FK_lcc_cart_lcc_book` FOREIGN KEY (`book_idx`) REFERENCES `lcc_book` (`book_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_lcc_cart_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_cart:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_cart:~2 rows (대략적) 내보내기
 DELETE FROM `lcc_cart`;
+INSERT INTO `lcc_cart` (`cart_idx`, `user_id`, `book_idx`, `quantity`, `checked`, `total_price`, `total_sale_price`, `cart_regdate`) VALUES
+	(2, 'test', 9, 1, 'N', 110000, 99000, '2024-05-02 10:41:57'),
+	(4, 'test', 11, 1, 'N', 5000, 4500, '2024-05-02 10:58:45');
 
 -- 테이블 lccbook.lcc_category 구조 내보내기
 DROP TABLE IF EXISTS `lcc_category`;
@@ -263,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `lcc_delivery` (
   `company_number` varchar(20) DEFAULT NULL COMMENT '배송회사 번호',
   `start_date` datetime DEFAULT NULL COMMENT '배송시작일',
   `end_date` datetime DEFAULT NULL COMMENT '배송종료일',
-  `delivery_state` varchar(2) DEFAULT NULL COMMENT '배송상태',
+  `delivery_state` varchar(5) DEFAULT NULL COMMENT '배송상태',
   `delivery_number` varchar(20) DEFAULT NULL COMMENT '운송장번호',
   `recipient_name` varchar(50) DEFAULT NULL COMMENT '수신인 이름',
   `recipient_number` varchar(20) DEFAULT NULL COMMENT '수신인 번호',
@@ -275,10 +292,14 @@ CREATE TABLE IF NOT EXISTS `lcc_delivery` (
   PRIMARY KEY (`delivery_idx`),
   KEY `FK_lcc_delivery_lcc_payment` (`payment_idx`),
   CONSTRAINT `FK_lcc_delivery_lcc_payment` FOREIGN KEY (`payment_idx`) REFERENCES `lcc_payment` (`payment_idx`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='배송정보';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='배송정보';
 
--- 테이블 데이터 lccbook.lcc_delivery:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_delivery:~3 rows (대략적) 내보내기
 DELETE FROM `lcc_delivery`;
+INSERT INTO `lcc_delivery` (`delivery_idx`, `payment_idx`, `company_name`, `company_number`, `start_date`, `end_date`, `delivery_state`, `delivery_number`, `recipient_name`, `recipient_number`, `addr1`, `addr2`, `zip_code`, `email`, `memo`) VALUES
+	(3, 7, '대한통운', '1588-1255', '2024-05-02 00:00:00', '2024-05-03 00:00:00', '배송중', '584419432894', '최세', '123', '서울 노원구 공릉로 95', '123123', 1849, '123', '2=메모'),
+	(4, 10, NULL, NULL, NULL, NULL, NULL, NULL, '채종윤', '123', '서울 노원구 공릉로 95', '123', 1849, '213', '213'),
+	(5, 11, NULL, NULL, NULL, NULL, NULL, NULL, '채종윤', '123', '서울 노원구 공릉로 95', '123', 1849, '123', '213');
 
 -- 테이블 lccbook.lcc_faq 구조 내보내기
 DROP TABLE IF EXISTS `lcc_faq`;
@@ -288,19 +309,19 @@ CREATE TABLE IF NOT EXISTS `lcc_faq` (
   `faq_content` varchar(100) NOT NULL,
   `answer_content` varchar(400) NOT NULL,
   PRIMARY KEY (`faq_idx`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_faq:~8 rows (대략적) 내보내기
 DELETE FROM `lcc_faq`;
 INSERT INTO `lcc_faq` (`faq_idx`, `faq_title`, `faq_content`, `answer_content`) VALUES
-	(4, '아이디/비밀번호찾기', '아이디와 비밀번호 확인은 어디서 하나요?', '홈페이지에서는 [아이디/비밀번호 찾기]를 통해 확인이 가능합니다.'),
 	(5, '이벤트', '이벤트 당첨 확인은 어디서 하나요?', '이벤트 당첨자 확인은 [쇼핑이벤트] > [당첨자발표] 또는 홈페이지 [공지사항]에서 확인이 가능합니다.'),
 	(6, '이벤트', 'SMS 문자 서비스를 해지하고 싶어요.', 'SMS 문자 서비스는 [마이페이지] > [회원정보] > [회원정보수정] 에서 해지가 가능합니다.'),
 	(7, '회원가입/회원탈퇴', 'SNS 계정 로그인하기가 무엇인가요?', '회원님이 사용하고 계신 [네이버/페이스북/카카오/구글] 아이디로 로그인하여 천재교육 사이트를 이용하실 수 있습니다.'),
 	(8, '배송비', '배송비는 얼마인가요?', '1만 5천원 이상 구매 시 무료배송이고, 1만 5천원 미만 구매 시 2,500원 입니다. '),
 	(9, '결제/입금확인', '비회원일 경우, 결제 영수증 발급은 어디에서 하나요?', '홈페이지 상단 카테고리 > 마이페이지 > 주문배송조회 > 비회원 주문 조회화면 이동 '),
 	(10, '주문/배송', '비회원일 경우, 구매내역 확인은 어디에서 하나요?', '홈페이지 상단 카테고리 > 마이페이지 > 주문배송조회 > 비회원 주문 조회화면 이동 하신 후'),
-	(11, '초등', '교사용 교재를 구하고 싶어요', '교사용 교재는 지역 총판에서 영업용으로 사용하는 것으로 따로 판매하지 않으며 담당 총판을 통해 구하실 수 있습니다.  ');
+	(11, '초등', '교사용 교재를 구하고 싶어요', '교사용 교재는 지역 총판에서 영업용으로 사용하는 것으로 따로 판매하지 않으며 담당 총판을 통해 구하실 수 있습니다.  '),
+	(13, '아이디/비밀번호찾기', '아이디 찾기 기능은 없나요?', '죄송합니다. 아직 구현 중입니다. 별도로 연락해 주세요.');
 
 -- 테이블 lccbook.lcc_instock 구조 내보내기
 DROP TABLE IF EXISTS `lcc_instock`;
@@ -338,11 +359,12 @@ CREATE TABLE IF NOT EXISTS `lcc_member` (
   `leave_date` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `member_idx` (`member_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 lccbook.lcc_member:~1 rows (대략적) 내보내기
 DELETE FROM `lcc_member`;
 INSERT INTO `lcc_member` (`user_id`, `member_idx`, `pwd`, `name`, `email`, `phone_number`, `birthday`, `addr1`, `addr2`, `addr_number`, `user_state`, `reg_date`, `leave_date`) VALUES
+	('seah', 9, '1234', '체보리', 'bori@naver.com', '010-1111-4444', '2022-04-04', '주소1', '상세주소', 100001, 'Y', '2024-05-02 13:34:51', NULL),
 	('test', 3, '1234', '최세아', 'adf@naver.com', '010-111-1122', '1998-02-05', '주소1', '상세주소', 10001, 'Y', '2024-04-25 21:27:31', NULL);
 
 -- 테이블 lccbook.lcc_notice 구조 내보내기
@@ -355,10 +377,12 @@ CREATE TABLE IF NOT EXISTS `lcc_notice` (
   `reg_date` datetime NOT NULL DEFAULT current_timestamp(),
   `modify_date` datetime DEFAULT NULL,
   PRIMARY KEY (`notice_idx`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_notice:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_notice:~1 rows (대략적) 내보내기
 DELETE FROM `lcc_notice`;
+INSERT INTO `lcc_notice` (`notice_idx`, `title`, `content`, `notice_state`, `reg_date`, `modify_date`) VALUES
+	(4, '보리북에 오신걸 환영합니다.', '보리북에 오신걸 환영합니다. 보리북은 초등, 중등, 고등 도서 판매를 목적으로 하는 사이트입니다. \r\n많은 이용 부탁드립니다. 감사합니다.', 'Y', '2024-05-02 12:25:11', NULL);
 
 -- 테이블 lccbook.lcc_order 구조 내보내기
 DROP TABLE IF EXISTS `lcc_order`;
@@ -367,10 +391,15 @@ CREATE TABLE IF NOT EXISTS `lcc_order` (
   `user_id` varchar(20) DEFAULT NULL,
   `reg_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`payment_idx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_order:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_order:~4 rows (대략적) 내보내기
 DELETE FROM `lcc_order`;
+INSERT INTO `lcc_order` (`payment_idx`, `user_id`, `reg_date`) VALUES
+	(5, 'test', '2024-05-02 10:54:17'),
+	(7, 'test', '2024-05-02 10:59:26'),
+	(10, 'test', '2024-05-02 13:03:23'),
+	(11, 'test', '2024-05-02 13:05:23');
 
 -- 테이블 lccbook.lcc_outstock 구조 내보내기
 DROP TABLE IF EXISTS `lcc_outstock`;
@@ -414,15 +443,21 @@ CREATE TABLE IF NOT EXISTS `lcc_payment` (
   `payment_number` int(11) DEFAULT NULL COMMENT '결제번호',
   `payment_amount` int(11) DEFAULT NULL COMMENT '결제총액',
   `payment_delivery_fee` int(11) DEFAULT NULL,
-  `payment_status` varchar(2) NOT NULL DEFAULT 'N' COMMENT 'N=결제결과확인중',
+  `payment_status` varchar(5) NOT NULL DEFAULT 'N' COMMENT 'N=결제결과확인중',
   `delivery_memo` varchar(50) DEFAULT NULL,
   `payment_date` datetime DEFAULT current_timestamp(),
   `refund_date` datetime DEFAULT NULL,
   PRIMARY KEY (`payment_idx`,`book_idx`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_payment:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_payment:~5 rows (대략적) 내보내기
 DELETE FROM `lcc_payment`;
+INSERT INTO `lcc_payment` (`payment_idx`, `book_idx`, `product_price`, `product_sale_price`, `product_name`, `product_quantity`, `user_id`, `user_phone_number`, `user_name`, `user_email`, `recipient_name`, `recipient_phone`, `recipient_addr1`, `recipient_addr2`, `recipient_email`, `recipient_zipcode`, `payment_method`, `payment_company`, `payment_number`, `payment_amount`, `payment_delivery_fee`, `payment_status`, `delivery_memo`, `payment_date`, `refund_date`) VALUES
+	(5, 8, 90000, 81000, '돌잡이한글', 1, 'test', '13123', '채종윤', 'asd@naver.com', '최세아는천재', '123123', '서울 노원구 공릉로 95', '2층', '2@naver.com', 1849, NULL, NULL, NULL, 81000, 0, 'N', '배송메모', '2024-05-02 10:54:17', NULL),
+	(7, 11, 5000, 4500, '탈것탐험스티커', 1, 'test', '13123', '채종윤', 'asd@naver.com', '최세', '123', '서울 노원구 공릉로 95', '123123', '123', 1849, NULL, NULL, NULL, 4500, 2500, 'N', '2=메모', '2024-05-02 10:59:26', NULL),
+	(10, 10, 5000, 500, '동물탐험스티커', 1, 'test', '010-111-1122', '최세아', 'adf@naver.com', '채종윤', '123', '서울 노원구 공릉로 95', '123', '213', 1849, NULL, NULL, NULL, 500, 2500, 'N', '213', '2024-05-02 13:03:23', NULL),
+	(11, 9, 110000, 99000, '돌잡이수학', 1, 'test', '010-111-1122', '최세아', 'adf@naver.com', '채종윤', '123', '서울 노원구 공릉로 95', '123', '123', 1849, NULL, NULL, NULL, 103500, 0, 'N', '213', '2024-05-02 13:05:23', NULL),
+	(11, 11, 5000, 4500, '탈것탐험스티커', 1, 'test', '010-111-1122', '최세아', 'adf@naver.com', '채종윤', '123', '서울 노원구 공릉로 95', '123', '123', 1849, NULL, NULL, NULL, 103500, 0, 'RF', '213', '2024-05-02 13:05:23', NULL);
 
 -- 테이블 lccbook.lcc_qna 구조 내보내기
 DROP TABLE IF EXISTS `lcc_qna`;
@@ -440,10 +475,24 @@ CREATE TABLE IF NOT EXISTS `lcc_qna` (
   PRIMARY KEY (`qna_idx`),
   KEY `FK_lcc_qna_lcc_member` (`user_id`),
   CONSTRAINT `FK_lcc_qna_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 테이블 데이터 lccbook.lcc_qna:~0 rows (대략적) 내보내기
+-- 테이블 데이터 lccbook.lcc_qna:~1 rows (대략적) 내보내기
 DELETE FROM `lcc_qna`;
+INSERT INTO `lcc_qna` (`qna_idx`, `user_id`, `question_title`, `question_content`, `question_regdate`, `answer_yn`, `answer_id`, `answer_content`, `answer_regdate`, `question_modifydate`) VALUES
+	(10, 'test', '질문드립니다.', '질문드립니다.', '2024-05-02 11:18:00', 'N', NULL, NULL, NULL, NULL);
+
+-- 프로시저 lccbook.USP_BBS_INSERT_DUMMY_DATE 구조 내보내기
+DROP PROCEDURE IF EXISTS `USP_BBS_INSERT_DUMMY_DATE`;
+DELIMITER //
+CREATE PROCEDURE `USP_BBS_INSERT_DUMMY_DATE`(
+	IN `ADD_COUNT` INT
+)
+BEGIN
+ DECLARE i INT DEFAULT 1; DECLARE tmp_reg_date CHAR(10); DECLARE tmp_min_date_cnt INT DEFAULT -50; DECLARE last_idx INT default 0; set tmp_min_date_cnt = FLOOR(ADD_COUNT/10)*-1; while i<=ADD_COUNT DO
+	if MOD(i,10) = 0 then
+  		set tmp_min_date_cnt = tmp_min_date_cnt+1; END if; INSERT INTO lcc_notice(title, content) VALUES(CONCAT('게시글 제목 ', i), CONCAT('게시글 내용 ', i)); SET i = i+1; END while; END//
+DELIMITER ;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

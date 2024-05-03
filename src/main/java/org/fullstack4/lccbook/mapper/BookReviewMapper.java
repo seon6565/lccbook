@@ -11,4 +11,5 @@ public interface BookReviewMapper {
     int delete(int review_idx);
     int commentTotalCount(PageRequestDTO requestDTO);
     List<BookReviewVO> commentListByPage(PageRequestDTO requestDTO);
+    int update_reply_cnt(int book_idx);
 }

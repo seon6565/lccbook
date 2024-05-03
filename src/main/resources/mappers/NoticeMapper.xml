@@ -74,7 +74,7 @@
 
         <include refid="whereCondition"></include>
 
-        order by notice_idx desc
+        order by reg_date desc
         limit #{page_skip_count}, #{page_size}
     </select>
 

@@ -4,5 +4,83 @@
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.fullstack4.lccbook.mapper.IndexMapper">
 
+    <resultMap id="BookVO" type="org.fullstack4.lccbook.domain.BookVO">
+        <id column="book_idx" property="book_idx"/>
+        <result column="book_name" property="book_name"/>
+        <result column="price" property="price"/>
+        <result column="sale_price" property="sale_price"/>
+        <result column="category_idx" property="category_idx"/>
+        <result column="reg_date" property="reg_date"/>
+        <result column="publisher" property="publisher"/>
+        <result column="author" property="author"/>
+        <result column="size" property="size"/>
+        <result column="isbn" property="isbn"/>
+        <result column="book_page" property="book_page"/>
+        <result column="book_img" property="book_img"/>
+        <result column="book_video" property="book_video"/>
+        <result column="book_quantity" property="book_quantity"/>
+        <result column="reply_cnt" property="reply_cnt"/>
+        <result column="category" property="category"/>
+        <result column="age" property="age"/>
+        <result column="cate" property="cate"/>
+        <result column="cate1" property="cate1"/>
+        <result column="cate2" property="cate2"/>
+        <result column="cate3" property="cate3"/>
+        <association property="categoryVO" resultMap="CategoryVO"/>
+    </resultMap>
+
+    <resultMap id="CategoryVO" type="org.fullstack4.lccbook.domain.CategoryVO">
+        <id column="category_idx" property="category_idx"/>
+        <result column="category_name" property="category_name"/>
+    </resultMap>
+
+    <select id="newList" resultMap="BookVO">
+        SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
+        ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        ,substring_index(substring_index(lc.category_name, ',',-2),',',1) AS age
+        ,lb.category_idx AS cate
+        ,left(lb.category_idx, 2) AS cate1
+        ,mid(lb.category_idx, 3, 2) AS cate2
+        ,right(lb.category_idx, 2) AS cate3
+        FROM lcc_book AS lb
+        INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
+        order by book_idx desc
+        limit 4
+    </select>
+
+    <select id="bestList" resultMap="BookVO">
+        SELECT lb.book_idx,lb.book_name,lb.price,lb.sale_price,lb.category_idx,lb.reg_date,lb.publisher,lb.author,lb.size,lb.isbn,lb.book_page
+        ,lb.book_img,lb.book_video,lb.book_quantity,substring_index(lc.category_name, ',',1) AS category
+        ,substring_index(substring_index(lc.category_name, ',',-2),',',1) AS age
+        ,lb.category_idx AS cate
+        ,left(lb.category_idx, 2) AS cate1
+        ,mid(lb.category_idx, 3, 2) AS cate2
+        ,right(lb.category_idx, 2) AS cate3
+        FROM lcc_book AS lb
+        INNER JOIN lcc_category AS lc ON lb.category_idx = lc.category_idx
+        order by book_quantity asc
+        limit 4
+    </select>
+
+    <select id="faqList" resultType="org.fullstack4.lccbook.domain.FaqVO">
+        select faq_idx, faq_content,faq_title,answer_content
+        from lcc_faq
+        order by faq_idx desc
+        limit 5
+    </select>
+
+    <select id="noticeList" resultType="org.fullstack4.lccbook.domain.NoticeVO">
+        select notice_idx,content,title,reg_date,notice_state,modify_date,reg_date
+        from lcc_notice
+        order by reg_date desc
+        limit 5
+    </select>
+
+    <select id="qnaList" resultType="org.fullstack4.lccbook.domain.QnaVO">
+        select qna_idx,user_id, question_title,question_content,question_regdate,answer_id,answer_content,answer_regdate,answer_yn
+        from lcc_qna
+        order by qna_idx desc
+        limit 5
+    </select>
 
 </mapper>

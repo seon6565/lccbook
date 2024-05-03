@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.fullstack4.lccbook.dto.AdminDTO;
 import org.fullstack4.lccbook.service.AdminServiceIf;
 import org.fullstack4.lccbook.util.CommonLoginCheck;
+import org.fullstack4.lccbook.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,12 +27,12 @@ import java.util.List;
 public class AdminMemberController {
     private final AdminServiceIf adminServiceIf;
     private final CommonLoginCheck commonLoginCheck;
+    private final CommonUtil commonUtil;
     @GetMapping("/list")
     public String list(RedirectAttributes redirectAttributes, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("adminDTO")==null){
-            redirectAttributes.addFlashAttribute("errorAlert","<script> alert('해당페이지는 관리자 로그인이 필요합니다.') </script>");
-            return "redirect:/admin/login";
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
         List<AdminDTO> adminDTOList = adminServiceIf.list();
         model.addAttribute("adminDTOList", adminDTOList);
@@ -56,6 +57,7 @@ public class AdminMemberController {
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             return "redirect:/admin/adminmember/regist";
         }
+        adminDTO.setAdmin_pwd(commonUtil.encryptPwd(adminDTO.getAdmin_pwd()));
         int result = adminServiceIf.regist(adminDTO);
         return "redirect:/admin/adminmember/list";
 
@@ -68,7 +70,6 @@ public class AdminMemberController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        log.info("qna_idx = "+admin_id);
         for(String i : admin_id) {
             adminServiceIf.delete(i);
         }

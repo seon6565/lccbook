@@ -31,7 +31,9 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         int result= 0;
         int result1=0;
         int quantity_result =0;
-
+        int delivery_result =0;
+        int cart_delete_result =0;
+        int count = 0; // 전체 롤백 카운트
 
         String user_id = paymentDTO.getUser_id();
 
@@ -73,23 +75,36 @@ public class PaymentServiceImpl implements PaymentServiceIf {
                 // System.out.println("payMentDTO : " + paymentDTO.toString());
                 PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
 
-
-                result = paymentMapper.regist(paymentVO); // 결제 처리
+                // 결제 처리
+                result = paymentMapper.regist(paymentVO);
                 if(result <=0){
                     throw new RuntimeException("RuntimeException for rollback");
                 }
 
-                System.out.println("quantity_result 업데이트 전 product_quantitys[i] 값 : " + product_quantitys[i]);
-                System.out.println("quantity_result 업데이트 전 book_idxs[i] 값 : " + book_idxs[i]);
+
+
                 //수량업데이트
-                quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]); //재고 업데이트
-
-
+                quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]);
                 if(quantity_result <=0){
-                    throw new RuntimeException("RuntimeException for rollback");
+                    throw new RuntimeException("RuntimeException for rollback, 재고가 없습니다");
                 }
-                System.out.println("quantity_result 업데이트 후 값 : " + quantity_result);
 
+                //카트 비우기
+                cart_delete_result = paymentMapper.cartDelete(user_id,book_idxs[i]);
+                if(cart_delete_result <=0){
+                    throw new RuntimeException("RuntimeException for rollback, 카트 삭제 오류");
+                }
+
+
+
+            }
+
+            PaymentVO paymentVO2 = modelMapper.map(paymentDTO, PaymentVO.class);
+            // 배송테이블 삽입
+
+            delivery_result = paymentMapper.insertDelivery(paymentVO2);
+            if(delivery_result <=0){
+                throw new RuntimeException("RuntimeException for rollback");
             }
 
         }
@@ -98,12 +113,24 @@ public class PaymentServiceImpl implements PaymentServiceIf {
             paymentDTO.setPayment_idx(result3);
             PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
 
+
             result = paymentMapper.regist(paymentVO);
             if(result <=0){
                 throw new RuntimeException("RuntimeException for rollback");
             }
-            quantity_result =  paymentMapper.updateQuantity(paymentDTO.getProduct_quantity(),paymentDTO.getPayment_idx());
+
+
+            quantity_result =  paymentMapper.updateQuantity(paymentDTO.getProduct_quantity(),paymentDTO.getBook_idx());
+
+
             if(quantity_result <=0){
+                throw new RuntimeException("RuntimeException for rollback");
+            }
+
+            // 배송테이블 삽입
+
+            delivery_result = paymentMapper.insertDelivery(paymentVO);
+            if(delivery_result <=0){
                 throw new RuntimeException("RuntimeException for rollback");
             }
 
@@ -176,6 +203,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         return responseDTO;
     }
 
+
     @Override
     public int statusModify(int paymentIdx, int bookIdx, String paymentStatus) {
         PaymentDTO paymentDTO = new PaymentDTO();
@@ -183,7 +211,15 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         paymentDTO.setBook_idx(bookIdx);
         paymentDTO.setPayment_status(paymentStatus);
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+
+        //결제상태 변경
         int result = paymentMapper.statusModify(paymentVO);
+        if(result<=0){
+            throw new RuntimeException("RuntimeException for rollback 결제상태 변경오류");
+        }
+
+        // 상품 수량 변경
+
 
         return result;
 
@@ -196,7 +232,43 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         return paymentDTOList;
     }
 
+    @Override
+    public PaymentDTO adminView(int paymentIdx, int bookIdx) {
+        PaymentVO paymentVO = paymentMapper.adminView(paymentIdx,bookIdx);
+        PaymentDTO paymentDTO = modelMapper.map(paymentVO,PaymentDTO.class);
+        return paymentDTO;
+    }
 
+    @Transactional
+    @Override
+    public void cancel(int paymentIdx, int bookIdx, int productQuantity, String payment_status) {
+
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setPayment_idx(paymentIdx);
+        paymentDTO.setBook_idx(bookIdx);
+        paymentDTO.setProduct_quantity(productQuantity);
+        paymentDTO.setPayment_status(payment_status);
+
+        System.out.println("cancel : " + paymentDTO);
+
+        PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+
+        //결제상태 변경
+        int result = paymentMapper.statusModify(paymentVO);
+        if(result <=0){
+            throw new RuntimeException("RuntimeException for rollback");
+        }
+
+        //수량 감소
+        System.out.println("paymentcacel bookIDX: " + bookIdx + "paymentCancel productQuantity : " + productQuantity);
+        int quantityResult = paymentMapper.cancelQuantity(bookIdx,productQuantity);
+        System.out.println("quantityResult aadsada" + quantityResult);
+        if(quantityResult <=0){
+            throw new RuntimeException("RuntimeException for rollback cancel 롤백");
+        }
+
+
+    }
 
 
 

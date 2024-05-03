@@ -5,6 +5,7 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -40,30 +41,6 @@
             </div>
         </div>
     </div>
-<nav>
-    <ul class="pagination justify-content-center">
-        <li class="page-item
-        <c:if test="${responseDTO.prev_page_flag ne true}"> disabled</c:if>">
-            <!--a class="page-link" data-num="1" href="page=1">Previous</a-->
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.page_block_start-1}</c:when><c:otherwise>1</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.prev_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_start-10}</c:when><c:otherwise>#</c:otherwise></c:choose>">Previous</a>
-        </li>
-        <c:forEach begin="${responseDTO.page_block_start}"
-                   end="${responseDTO.page_block_end}"
-                   var="page_num">
-            <li class="page-item<c:if test="${responseDTO.page == page_num}"> active</c:if> ">
-                <a class="page-link" data-num="${page_num}"
-                   href="<c:choose><c:when test="${responseDTO.page == page_num}">#</c:when><c:otherwise>${responseDTO.linkParams}&page=${page_num}</c:otherwise></c:choose>">${page_num}</a>
-            </li>
-        </c:forEach>
-        <li class="page-item<c:if test="${responseDTO.next_page_flag ne true}"> disabled</c:if>">
-            <a class="page-link"
-               data-num="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.page_block_end+1}</c:when><c:otherwise>${responseDTO.page_block_end}</c:otherwise></c:choose>"
-               href="<c:choose><c:when test="${responseDTO.next_page_flag}">${responseDTO.linkParams}&page=${responseDTO.page_block_end+1}</c:when><c:otherwise>#</c:otherwise></c:choose>">Next</a>
-        </li>
-    </ul>
-</nav>
 </div>
 <%@ include file="../common/footer.jsp"%>
 </body>

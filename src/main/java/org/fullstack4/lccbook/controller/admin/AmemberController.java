@@ -59,7 +59,6 @@ public class AmemberController {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
         for(String i : user_id) {
-            log.info("user_id = " +i);
             memberServiceIf.delete(i);
         }
         return "redirect:/admin/amember/list";

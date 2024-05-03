@@ -6,10 +6,8 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link rel="shortcut icon" type="image/png" href="/resources/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/resources/assets/css/styles.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
 <div class="container">
@@ -32,14 +30,14 @@
                             </div>
                             <form id="frm" action="/admin/adelivery/modify" method="post">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                    <button type="button" class="btn btn-primary justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="0">송장 등록</button>
+                                    <button id="numbtn" type="button" class="btn btn-primary justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="0">송장 등록</button>
                                 </div>
                                 <input type="hidden" name="delivery_idx" id="delivery_idx" value="${deliveryDTO['delivery_idx']}"/>
                                 <div class="card">
                                     <div class="card-body p-4">
                                         <div class="mb-3">
                                             <label for="delivery_number" class="form-label">운송장 번호</label>
-                                            <input type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" readonly >
+                                            <input onclick="clickbtn()" type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" readonly >
                                         </div>
                                         <div class="mb-3">
                                             <label for="company_name" class="form-label">배송회사</label>
@@ -102,7 +100,7 @@
                 <form>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">운송장번호</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                        <input type="text" class="form-control" id="recipient-name" maxlength="20">
                     </div>
                 </form>
             </div>
@@ -121,15 +119,15 @@
         document.getElementById('close_regist').click();
     }
 </script>
-<script src="/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="/resources/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/resources/assets/js/sidebarmenu.js"></script>
-<script src="/resources/assets/js/app.min.js"></script>
-<script src="/resources/assets/libs/simplebar/dist/simplebar.js"></script>
 <script>
     document.querySelector("#btn_regist").addEventListener("click", function(e) {
         alert("정상적으로 수정되었습니다.");
     });
+</script>
+<script>
+    function clickbtn(){
+        document.getElementById("numbtn").click();
+    }
 </script>
 </body>
 </html>

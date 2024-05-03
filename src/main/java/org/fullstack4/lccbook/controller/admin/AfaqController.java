@@ -2,12 +2,10 @@ package org.fullstack4.lccbook.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.fullstack4.lccbook.dto.BookDTO;
 import org.fullstack4.lccbook.dto.FaqDTO;
 import org.fullstack4.lccbook.dto.PageRequestDTO;
 import org.fullstack4.lccbook.dto.PageResponseDTO;
 import org.fullstack4.lccbook.service.FaqServiceIf;
-import org.fullstack4.lccbook.service.NoticeServiceIf;
 import org.fullstack4.lccbook.util.CommonLoginCheck;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 @Log4j2
 @Controller
@@ -50,29 +47,38 @@ public class AfaqController {
         PageResponseDTO<FaqDTO> responseDTO = faqService.bbsListByPage(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
 
-        return "admin/afaq/list";
+        return "/admin/afaq/list";
     }
 
     @GetMapping(value = "/view")
-    public void afaqView(Model model,
-                         @RequestParam(name="faq_idx", defaultValue = "0") int faq_idx){
+    public String afaqView(Model model,
+                         @RequestParam(name="faq_idx", defaultValue = "0") int faq_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         FaqDTO faqDTO = faqService.view(faq_idx);
         model.addAttribute("faq",faqDTO);
+
+        return "/admin/afaq/view";
     }
 
     @GetMapping(value = "/regist")
-    public void afaqRegistGet(){
-        log.info("==========");
-        log.info("AdminController >> afaqRegistGet()");
-        log.info("==========");
+    public String afaqRegistGet(HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        return "/admin/afaq/regist";
     }
 
     @PostMapping(value = "/regist")
     public String afaqRegistPost(FaqDTO faqDTO,
-                                 RedirectAttributes redirectAttributes){
-
-        log.info("==========");
-        log.info("AdminController >> afaqRegistPost()");
+                                 RedirectAttributes redirectAttributes, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         int result = faqService.regist(faqDTO);
         if(result > 0) {
@@ -83,18 +89,25 @@ public class AfaqController {
     }
 
     @GetMapping(value = "/modify")
-    public void afaqModifyGet(Model model,
-                              @RequestParam(name="faq_idx", defaultValue = "0") int faq_idx){
+    public String afaqModifyGet(Model model,
+                              @RequestParam(name="faq_idx", defaultValue = "0") int faq_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         FaqDTO faqDTO = faqService.view(faq_idx);
         model.addAttribute("faq",faqDTO);
+
+        return "/admin/afaq/modify";
     }
 
     @PostMapping(value = "/modify")
     public String afaqModifyPost(FaqDTO faqDTO,
-                                 RedirectAttributes redirectAttributes){
-
-        log.info("==========");
-        log.info("AdminController >> afaqModifyGet()");
+                                 RedirectAttributes redirectAttributes,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
 
         int result = faqService.modify(faqDTO);
         if(result > 0) {
@@ -105,9 +118,11 @@ public class AfaqController {
     }
 
     @PostMapping("/delete")
-    public String afaqDeletePost(@RequestParam(name="faq_idx", defaultValue = "0") int faq_idx){
-        log.info("==========");
-        log.info("AdminController >> afaqDeletePost()");
+    public String afaqDeletePost(@RequestParam(name="faq_idx", defaultValue = "0") int faq_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         int result = faqService.delete(faq_idx);
         if(result > 0) {
             return "redirect:/admin/afaq/list";
@@ -117,10 +132,11 @@ public class AfaqController {
     }
 
     @PostMapping("/deleteCheck")
-    public String deleteCheck(@RequestParam(name="faq_idx", defaultValue = "0") int[] faq_idx){
-        log.info("==========");
-        log.info("AdminController >> deleteCheck()");
-
+    public String deleteCheck(@RequestParam(name="faq_idx", defaultValue = "0") int[] faq_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         for(int i : faq_idx) {
             faqService.delete(i);
         }

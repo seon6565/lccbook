@@ -29,4 +29,12 @@ public interface PaymentMapper {
 
 
     int updateQuantity(@Param(value="book_quantity")int book_quantity ,@Param(value="book_idx") int book_idx);
+
+    int insertDelivery(PaymentVO paymentVO);
+
+    PaymentVO adminView(@Param(value="payment_idx") int payment_idx,@Param(value="book_idx") int book_idx);
+
+    int cancelQuantity(@Param(value="book_idx") int book_idx,@Param(value="book_quantity") int book_quantity);
+
+    int cartDelete(@Param(value="user_id") String userId, @Param(value="book_idx") int bookIdx);
 }
