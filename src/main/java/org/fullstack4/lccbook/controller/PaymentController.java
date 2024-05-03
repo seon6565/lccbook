@@ -43,7 +43,7 @@ public class PaymentController {
 
     }
 
-    @GetMapping(value="/directList")
+    @PostMapping(value="/directList")
     public void list(@RequestParam(name="book_idx",required = false ) int book_idx,
                      @RequestParam(name="book_name",required = false ) String book_name,
                      @RequestParam(name="price",required = false ) int price,
@@ -51,8 +51,11 @@ public class PaymentController {
                      @RequestParam(name="quantity",required = false ) int quantity,
                      @RequestParam(name="book_img",required = false) String book_img,
                      HttpServletRequest request,
+
                      Model model)
                         {
+
+
             HttpSession session = request.getSession();
             MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
 
@@ -73,7 +76,7 @@ public class PaymentController {
     }
 
 
-    @GetMapping(value = "/list")
+    @PostMapping(value = "/list")
     public void list(@RequestParam(name="cart_idx",required = false) int[] cart_idx,
                      @RequestParam(name="quantity",required = false) int[] quantity,
                      @RequestParam(name="book_idx",required = false) int[] book_idx,

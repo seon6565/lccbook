@@ -339,7 +339,7 @@
 
         const form = document.querySelector("#cart");
         form.action = '/payment/directList';
-        form.method = 'GET';
+        form.method = 'POST';
         form.submit();
     });
 

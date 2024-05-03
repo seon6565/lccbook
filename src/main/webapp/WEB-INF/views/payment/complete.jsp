@@ -6,6 +6,7 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
@@ -81,7 +82,13 @@
 <%@ include file="../common/footer.jsp"%>
 </body>
 <Script>
-
+    //indexOf 함수는 특정 문자열이 포함되어 있으면 그 위치를 반환하고, 없으면 -1을 반환
+    window.onload = function() {
+        if (document.referrer.indexOf('/directList') !== -1) {
+            alert("만료된 페이지입니다.");
+            window.location.href = "/"; // 메인 페이지로 리디렉션
+        }
+    };
 
 </Script>
 </html>

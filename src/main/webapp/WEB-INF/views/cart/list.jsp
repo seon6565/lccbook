@@ -77,7 +77,7 @@
 <%@ include file="../common/header.jsp"%>
 <div class="container">
     <div>
-        <form id="frm" name="frm" class="frm" method="get" action="/payment/list" >
+        <form id="frm" name="frm" class="frm" method="post" action="/payment/list" >
 
         <section class="shoping-cart spad">
             <div class="container">
