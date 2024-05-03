@@ -228,7 +228,8 @@
                     <li><a href="/book/list?cate3=30">영어</a></li>
                     <li><a href="/book/list?cate3=40">사회</a></li>
                     <li><a href="/book/list?cate3=50">과학</a></li>
-                    <li style="margin-right: 20px;"><a href="/book/list?cate3=60">한글</a></li>
+                    <li><a href="/book/list?cate3=60">한글</a></li>
+                    <li><a href="/book/list?cate3=70">한자</a></li>
                 </ul>
                 </c:if>
                 <c:if test="${ cate eq '1010' or cate eq '10' or cate eq '101020' or cate eq '101030' or cate eq '101060' }">
@@ -243,7 +244,7 @@
                     <ul>
                         <li ><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
-                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=60">한글</a></li>
+                        <li style="margin-right: 20px;"><a href="/book/list?cate=${cate}&cate3=70">한자</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '30' or cate eq'3010'or cate eq'3020' or cate eq'3030' }">
@@ -269,7 +270,6 @@
         <div>
             <select name="order" style="margin-top: 20px;border: 1px solid #ccc;height: 40px;">
                 <option value="new" ${order=="new" ? "selected" : ""}>최신순</option>
-
                 <option value="cheap" ${order=="cheap" ? "selected" : ""}>가격낮은순</option>
                 <option value="expensive" ${order=="expensive" ? "selected" : ""}>가격높은순</option>
             </select>
@@ -362,21 +362,47 @@
         frm.submit();
 
     });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // 'order' select 메뉴의 선택 변경을 감지합니다.
+    //     document.querySelector('select[name="order"]').addEventListener('change', function() {
+    //         // 선택된 값(value)을 얻습니다.
+    //         var selectedOrder = this.value;
+    //
+    //         // 현재 URL을 분석하여 기존의 query parameter를 유지하면서 정렬 조건만 업데이트합니다.
+    //         var url = new URL(window.location);
+    //
+    //         // 'order' 파라미터를 현재 선택된 값으로 설정(또는 업데이트)합니다.
+    //         url.searchParams.set('order', selectedOrder);
+    //
+    //         // 변경된 URL로 페이지를 리디렉션합니다.
+    //         window.location.href = url.href;
+    //
+    //     });
+    // });
+
     document.addEventListener('DOMContentLoaded', function() {
+        // 현재 URL을 분석합니다.
+        var url = new URL(window.location);
+
+        // 'order' 파라미터의 값을 얻습니다.
+        var orderParam = url.searchParams.get('order');
+
+        // 'order' 파라미터가 없거나 비어있는 경우, 기본값을 'new'로 설정합니다.
+        if (!orderParam) {
+            url.searchParams.set('order', 'new');
+            window.location.href = url.href;
+        }
+
         // 'order' select 메뉴의 선택 변경을 감지합니다.
         document.querySelector('select[name="order"]').addEventListener('change', function() {
             // 선택된 값(value)을 얻습니다.
             var selectedOrder = this.value;
-
-            // 현재 URL을 분석하여 기존의 query parameter를 유지하면서 정렬 조건만 업데이트합니다.
-            var url = new URL(window.location);
 
             // 'order' 파라미터를 현재 선택된 값으로 설정(또는 업데이트)합니다.
             url.searchParams.set('order', selectedOrder);
 
             // 변경된 URL로 페이지를 리디렉션합니다.
             window.location.href = url.href;
-
         });
     });
 
