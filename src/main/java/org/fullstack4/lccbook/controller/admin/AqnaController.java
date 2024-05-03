@@ -30,13 +30,13 @@ public class AqnaController {
 
     @GetMapping("/list")
     public String list(@Valid PageRequestDTO pageRequestDTO, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes, Model model){
-        if (bindingResult.hasErrors()){
-            log.info("BbsController >> list Error");
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-        }
         HttpSession session = request.getSession();
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        if (bindingResult.hasErrors()){
+            log.info("BbsController >> list Error");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
         }
         PageResponseDTO<QnaDTO> responseDTO = qnaServiceIf.bbsListByPage(pageRequestDTO);
         log.info("responseDTO test"+responseDTO);
@@ -66,26 +66,26 @@ public class AqnaController {
     }
     @GetMapping("/regist")
     public String registGET(@RequestParam(name="idx", defaultValue = "0") int idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
-        QnaDTO qnaDTO = qnaServiceIf.view(idx);
-        model.addAttribute("qnaDTO",qnaDTO);
         HttpSession session = request.getSession();
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
+        QnaDTO qnaDTO = qnaServiceIf.view(idx);
+        model.addAttribute("qnaDTO",qnaDTO);
         return "admin/aqna/regist";
     }
 
     @PostMapping("/regist")
     public String registPOST(QnaDTO qnaDTO, BindingResult bindingResult
             ,HttpServletRequest request,RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("qnaDTO",qnaDTO);
             return "redirect:/admin/aqna/regist";
-        }
-        HttpSession session = request.getSession();
-        if(session.getAttribute("adminDTO")==null) {
-            return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
         int result = qnaServiceIf.regist_answer(qnaDTO);
         if(result > 0 ){
@@ -117,7 +117,6 @@ public class AqnaController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        log.info("qna_idx = "+qna_idx);
         for(int i : qna_idx) {
             qnaServiceIf.delete(i);
         }

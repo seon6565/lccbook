@@ -62,15 +62,24 @@ public class AbookController {
         return "/admin/abook/list";
     }
     @GetMapping("/view")
-    public void view(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model){
+    public String view(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         BookDTO bookDTO = bookServiceIf.view(book_idx);
         String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
         model.addAttribute("book_img",book_img);
         model.addAttribute("bookDTO",bookDTO);
+        return "/admin/abook/view";
     }
     @GetMapping("/regist")
-    public void registGET(){
-
+    public String registGET(HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        return "/admin/abook/regist";
     }
 
     @PostMapping("/regist")
@@ -106,11 +115,16 @@ public class AbookController {
 
 
     @GetMapping("/modify")
-    public void modifyGET(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model){
+    public String modifyGET(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         BookDTO bookDTO = bookServiceIf.view(book_idx);
         String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
         model.addAttribute("book_img",book_img);
         model.addAttribute("bookDTO",bookDTO);
+        return "/admin/abook/modify";
     }
     @Transactional
     @PostMapping("/modify")
@@ -145,7 +159,11 @@ public class AbookController {
         }
     }
     @PostMapping("/delete")
-    public String deletePOST(@RequestParam(name="book_idx", defaultValue = "0") int book_idx){
+    public String deletePOST(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
         BookDTO bookDTO = bookServiceIf.view(book_idx);
         String file_full_directory = bookDTO.getBook_img();
         int result = bookServiceIf.delete(book_idx);

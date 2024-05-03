@@ -31,9 +31,8 @@ public class AdminMemberController {
     @GetMapping("/list")
     public String list(RedirectAttributes redirectAttributes, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("adminDTO")==null){
-            redirectAttributes.addFlashAttribute("errorAlert","<script> alert('해당페이지는 관리자 로그인이 필요합니다.') </script>");
-            return "redirect:/admin/login";
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
         List<AdminDTO> adminDTOList = adminServiceIf.list();
         model.addAttribute("adminDTOList", adminDTOList);
@@ -71,7 +70,6 @@ public class AdminMemberController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        log.info("qna_idx = "+admin_id);
         for(String i : admin_id) {
             adminServiceIf.delete(i);
         }

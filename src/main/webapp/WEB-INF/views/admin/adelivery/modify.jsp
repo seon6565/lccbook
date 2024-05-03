@@ -30,14 +30,14 @@
                             </div>
                             <form id="frm" action="/admin/adelivery/modify" method="post">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
-                                    <button type="button" class="btn btn-primary justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="0">송장 등록</button>
+                                    <button id="numbtn" type="button" class="btn btn-primary justify-content-md-end" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="0">송장 등록</button>
                                 </div>
                                 <input type="hidden" name="delivery_idx" id="delivery_idx" value="${deliveryDTO['delivery_idx']}"/>
                                 <div class="card">
                                     <div class="card-body p-4">
                                         <div class="mb-3">
                                             <label for="delivery_number" class="form-label">운송장 번호</label>
-                                            <input type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" readonly >
+                                            <input onclick="clickbtn()" type="text" class="form-control" name="delivery_number" id="delivery_number" value="${deliveryDTO.delivery_number}" readonly >
                                         </div>
                                         <div class="mb-3">
                                             <label for="company_name" class="form-label">배송회사</label>
@@ -123,6 +123,11 @@
     document.querySelector("#btn_regist").addEventListener("click", function(e) {
         alert("정상적으로 수정되었습니다.");
     });
+</script>
+<script>
+    function clickbtn(){
+        document.getElementById("numbtn").click();
+    }
 </script>
 </body>
 </html>
