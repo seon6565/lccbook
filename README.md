@@ -191,6 +191,7 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 ![image](https://github.com/seon6565/lccbook/assets/26207034/615c8743-def4-48b7-8e43-d1e5d64ebfd7)
 
 ## 관리자 결제 내역 페이지
+![image](https://github.com/seon6565/lccbook/assets/26207034/0072fc66-0459-45f4-b47d-35adfabd31c6)
 
 ## 관리자 관리 페이지
 ![image](https://github.com/seon6565/lccbook/assets/26207034/49bf2e4c-d991-4421-994e-c1fa201cbdaa)
