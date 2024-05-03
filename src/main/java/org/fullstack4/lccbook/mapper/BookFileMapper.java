@@ -9,5 +9,6 @@ public interface BookFileMapper {
 
     int registvideo(BookVO bookVO);
     int deletevideo(@Param("book_idx") int book_idx);
+    int lastindex();
 
 }

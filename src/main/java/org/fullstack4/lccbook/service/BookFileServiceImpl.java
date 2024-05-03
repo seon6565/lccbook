@@ -40,6 +40,10 @@ public class BookFileServiceImpl implements BookFileServiceIf{
         return bookFileMapper.deletevideo(file_idx);
     }
 
+    @Override
+    public int lastindex() {
+        return bookFileMapper.lastindex();
+    }
 
 
 }

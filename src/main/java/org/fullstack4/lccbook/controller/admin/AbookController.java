@@ -64,7 +64,8 @@ public class AbookController {
     @GetMapping("/view")
     public void view(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model){
         BookDTO bookDTO = bookServiceIf.view(book_idx);
-        log.info("test bookdto "+ bookDTO);
+        String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
+        model.addAttribute("book_img",book_img);
         model.addAttribute("bookDTO",bookDTO);
     }
     @GetMapping("/regist")
@@ -74,7 +75,7 @@ public class AbookController {
 
     @PostMapping("/regist")
     public String registPOST(BookDTO bookDTO, BindingResult bindingResult
-            , HttpServletRequest request, RedirectAttributes redirectAttributes){
+            , HttpServletRequest request, RedirectAttributes redirectAttributes, MultipartHttpServletRequest files){
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
@@ -84,77 +85,16 @@ public class AbookController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        int result = bookServiceIf.regist(bookDTO);
-        if(result > 0 ){
-            return "redirect:/admin/abook/list";
-        }
-        else{
-            return "/admin/abook/list";
-        }
-
-    }
-
-
-    @GetMapping("/modify")
-    public void modifyGET(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model){
-        BookDTO bookDTO = bookServiceIf.view(book_idx);
-        log.info("bookDTO test " + bookDTO);
-        model.addAttribute("bookDTO",bookDTO);
-    }
-    @Transactional
-    @PostMapping("/modify")
-    public String modifyPOST(@Valid BookDTO bookDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
-            log.info("bindingResult Errors : " +bookDTO);
-            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
-            redirectAttributes.addAttribute("book_idx",bookDTO.getBook_idx());
-            return "redirect:/admin/abook/modify";
-        }
-        int result = bookServiceIf.modify(bookDTO);
-        if(result > 0 ){
-            return "redirect:/admin/abook/view?book_idx="+bookDTO.getBook_idx();
-        }
-        else{
-            return "/admin/abook/modify";
-        }
-
-    }
-    @PostMapping("/delete")
-    public String deletePOST(@RequestParam(name="book_idx", defaultValue = "0") int book_idx){
-        int result = bookServiceIf.delete(book_idx);
-        if(result > 0 ){
-            return "redirect:/admin/abook/list";
-        }
-        else{
-            return "/admin/abook/view?book_idx="+book_idx;
-        }
-    }
-
-    @Transactional
-    @PostMapping("/registimg")
-    public String registimgPOST(@Valid BookDTO bookDTO, BindingResult bindingResult, MultipartHttpServletRequest files
-            ,RedirectAttributes redirectAttributes){
-
-        if(bindingResult.hasErrors()){
-            log.info("bindingResult Errors : " +bookDTO);
-            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
-            redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
-            return "redirect:/admin/abook/regist";
-        }
-
-        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
-        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
-        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book";
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\";
         List<String> filenames = null;
         filenames = commonFileUtil.fileuploads(files,saveDirectory);;
-        int result = bookFileServiceIf.registimg(bookDTO);
-        log.info("test result : "+result);
+        int result = bookServiceIf.regist(bookDTO);
         if(result > 0 ){
             if(filenames!=null) {
                 for (String filename : filenames) {
-                    BookDTO bookFileDTO = BookDTO.builder().book_idx(bookDTO.getBook_idx()).book_img(saveDirectory+filename).build();
-                    int file_result = bookFileServiceIf.registimg(bookFileDTO);
+                    bookDTO.setBook_img(saveDirectory+filename);
+                    bookDTO.setBook_idx(bookFileServiceIf.lastindex());
+                    bookFileServiceIf.registimg(bookDTO);
                 }
             }
             return "redirect:/admin/abook/list";
@@ -162,79 +102,62 @@ public class AbookController {
         else{
             return "/admin/abook/regist";
         }
-
     }
 
-    @Transactional
-    @PostMapping("/registvideo")
-    public String registvideoPOST(@Valid BookDTO bookDTO, BindingResult bindingResult, MultipartHttpServletRequest files
-            ,RedirectAttributes redirectAttributes){
 
+    @GetMapping("/modify")
+    public void modifyGET(@RequestParam(name="book_idx", defaultValue = "0") int book_idx, Model model){
+        BookDTO bookDTO = bookServiceIf.view(book_idx);
+        String book_img = bookDTO.getBook_img().replace("D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\","/resources/img/book/");
+        model.addAttribute("book_img",book_img);
+        model.addAttribute("bookDTO",bookDTO);
+    }
+    @Transactional
+    @PostMapping("/modify")
+    public String modifyPOST(@Valid BookDTO bookDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes,HttpServletRequest request, MultipartHttpServletRequest files){
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +bookDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addFlashAttribute("bookDTO",bookDTO);
-            return "redirect:/abook/regist";
+            redirectAttributes.addAttribute("book_idx",bookDTO.getBook_idx());
+            return "redirect:/admin/abook/modify";
         }
-
-        //String saveDirectory = servletContext.getRealPath("/resources/uploads");
-        //String saveDirectory = "D:\java4\spring\lccbook\lccbook\build\libs\exploded\lccbook-1.0-SNAPSHOT.war\resources";
-        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\video";
+        HttpSession session = request.getSession();
+        if(session.getAttribute("adminDTO")==null) {
+            return commonLoginCheck.adminCheck(request, redirectAttributes);
+        }
+        String saveDirectory = "D:\\java4\\spring\\lccbook\\lccbook\\src\\main\\webapp\\resources\\img\\book\\";
         List<String> filenames = null;
         filenames = commonFileUtil.fileuploads(files,saveDirectory);;
-        int result = bookFileServiceIf.registimg(bookDTO);
+        int result = bookServiceIf.modify(bookDTO);
         log.info("test result : "+result);
         if(result > 0 ){
             if(filenames!=null) {
                 for (String filename : filenames) {
-                    BookDTO bookFileDTO = BookDTO.builder().book_idx(bookDTO.getBook_idx()).book_video(saveDirectory+filename).build();
-                    int file_result = bookFileServiceIf.registimg(bookFileDTO);
+                    bookDTO.setBook_img(saveDirectory+filename);
+                    int file_result = bookFileServiceIf.registimg(bookDTO);
                 }
             }
-            return "redirect:/abook/list";
+            return "redirect:/admin/abook/view?book_idx="+bookDTO.getBook_idx();
         }
         else{
-            return "/abook/regist";
+            return "/admin/abook/modify";
         }
     }
-
-    @GetMapping(value = "/deleteimg")
-    public String deleteimgPOST(int book_idx){
+    @PostMapping("/delete")
+    public String deletePOST(@RequestParam(name="book_idx", defaultValue = "0") int book_idx){
         BookDTO bookDTO = bookServiceIf.view(book_idx);
-        String directoryfilename = bookDTO.getBook_img();
-        String directory = bookDTO.getBook_img().substring(bookDTO.getBook_img().lastIndexOf("\\"));
-        String filename = bookDTO.getBook_img().substring(0,bookDTO.getBook_img().lastIndexOf("\\"));
-        log.info("directory test : " + directory);
-        log.info("filename test : " + filename);
-
-        int result = bookFileServiceIf.deleteimg(book_idx);
-        if(result>0) {
-            commonFileUtil.fileDelite(directory, filename);
+        String file_full_directory = bookDTO.getBook_img();
+        int result = bookServiceIf.delete(book_idx);
+        if(result > 0 ){
+            commonFileUtil.fileDelite(file_full_directory);
+            return "redirect:/admin/abook/list";
         }
         else{
-            log.info("파일삭제실패");
+            return "/admin/abook/view?book_idx="+book_idx;
         }
-        return "redirect:/abook/view?book_idx="+book_idx;
     }
 
-    @GetMapping(value = "/deletevideo")
-    public String deletevideoPOST(int book_idx){
-        BookDTO bookDTO = bookServiceIf.view(book_idx);
-        String directoryfilename = bookDTO.getBook_video();
-        String directory = bookDTO.getBook_video().substring(bookDTO.getBook_video().lastIndexOf("\\"));
-        String filename = bookDTO.getBook_video().substring(0,bookDTO.getBook_video().lastIndexOf("\\"));
-        log.info("directory test : " + directory);
-        log.info("filename test : " + filename);
-
-        int result = bookFileServiceIf.deleteimg(book_idx);
-        if(result>0) {
-            commonFileUtil.fileDelite(directory, filename);
-        }
-        else{
-            log.info("파일삭제실패");
-        }
-        return "redirect:/abook/view?book_idx="+book_idx;
-    }
     @PostMapping("/deletecheck")
     public String deleteCheckPOST(@RequestParam(name="book_idx", defaultValue = "0") int[] book_idx, RedirectAttributes redirectAttributes, HttpServletRequest request){
         HttpSession session = request.getSession();

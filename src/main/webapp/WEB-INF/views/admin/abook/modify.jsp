@@ -79,7 +79,31 @@
                                             <input type="text" class="form-control" name="book_quantity" id="book_quantity" value="${bookDTO.book_quantity}">
                                             <div id="div_err_book_quantity" style="display:none"></div>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="book_video" class="form-label">북 이미지</label>
+                                            <input type="text" class="form-control" name="book_img" id="book_img" value="${bookDTO.book_img}" readonly onclick="fileclick()" placeholder="이미지를 첨부해 주세요">
+                                            <div id="div_err_book_img" style="display:none"></div>
+                                        </div>
+                                        <div class="card">
+                                            <label for="tempimg" class="form-label">이미지 미리보기</label>
+                                            <div class="card-body p-4">
+                                                <p> <button type="button" onclick="deleteimg()" class="btn btn-primary">이미지 제거</button></p>
+                                                <img src="${book_img}" id="tempimg" width="auto" height="200" style="margin-left: 100px; margin-top: 40px;">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="book_video" class="form-label">북 비디오</label>
+                                            <input type="text" class="form-control" name="book_video" id="book_video" value="${bookDTO.book_video}" placeholder="비디오 링크를 입력해 주세요.">
+                                            <div id="div_err_book_video" style="display:none"></div>
+                                        </div>
+                                        <div class="card">
+                                            <label for="tempvideo" class="form-label">비디오 미리보기</label>
+                                            <div class="card-body p-4">
+                                            <iframe src="${bookDTO.book_video}" id="tempvideo" width="auto" height="200" style="margin-left: 100px; margin-top: 40px;"></iframe>
+                                            </div>
+                                        </div>
 
+                                        <input type="file" name="files" id="files" style="display: none">
                                         <div class="d-grid gap-2">
                                             <button class="btn btn-primary" type="submit">상품 정보 수정</button>
                                         </div>
@@ -94,6 +118,29 @@
     </div>
 </div>
 ${errorAlert}
+<script>
+    function deleteimg(){
+        document.getElementById('book_img').value ="";
+        document.getElementById('tempimg').src ="";
+    }
+    function fileclick(){
+        document.getElementById('files').click();
+    }
+    document.getElementById('files').addEventListener("change",()=>{
+        let files = document.getElementById('files').files;
+        let tempimg = document.getElementById('tempimg');
+        let href = window.URL.createObjectURL(files[0]);
+        tempimg.src = href;
+        setTimeout(function(){
+            window.URL.revokeObjectURL(href);
+        },1000*60*5)
+    });
+    document.getElementById('book_video').addEventListener("change",()=>{
+        let url = document.getElementById('book_video').value;
+        let tempvideo = document.getElementById('tempvideo');
+        tempvideo.src = url;
+    });
+</script>
 <script>
     const result = {};
     <c:forEach items="${errors}" var="err">

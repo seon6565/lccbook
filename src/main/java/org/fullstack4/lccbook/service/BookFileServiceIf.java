@@ -7,5 +7,6 @@ public interface BookFileServiceIf {
     int registvideo(BookDTO bookDTO);
     int deleteimg(int book_idx);
     int deletevideo(int book_idx);
+    int lastindex();
 
 }

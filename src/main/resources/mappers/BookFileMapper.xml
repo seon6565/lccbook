@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
         "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.fullstack4.lccbook.mapper.BbsFileMapper">
+<mapper namespace="org.fullstack4.lccbook.mapper.BookFileMapper">
 
     <update id="registimg">
         update lcc_book
@@ -28,5 +28,8 @@
         where book_idx=#{book_idx}
     </update>
 
+    <select id="lastindex">
+        SELECT LAST_INSERT_ID(book_idx) FROM lcc_book order by book_idx desc LIMIT 1
+    </select>
 
 </mapper>
