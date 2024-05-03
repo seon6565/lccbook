@@ -11,6 +11,7 @@
 
 </head>
 <body>
+
 <%@ include file="../common/header.jsp"%>
 
 <div class="container text-center">
@@ -81,18 +82,6 @@
 </body>
 <Script>
 
-    // 페이지 로드 시 실행되는 함수
-    window.onload = function() {
-        // 현재 히스토리 상태를 대체하여 뒤로 가기 시 메인 페이지로 리다이렉트하기 위한 준비
-        window.history.replaceState(null, null, window.location.href);
-        // 새로운 상태를 히스토리 스택에 추가
-        window.history.pushState(null, null, window.location.href);
-    };
 
-    // 뒤로 가기 감지
-    window.onpopstate = function() {
-        // 사용자가 뒤로 가기를 클릭하면 메인 페이지로 리다이렉트
-        window.location.href = '/';
-    };
 </Script>
 </html>
