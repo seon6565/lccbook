@@ -38,7 +38,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="pwd" class="form-label">비밀번호</label>
-                    <input type="text" class="form-control" name="pwd" id="pwd" value="${loginDTO.pwd}"maxlength="128">
+                    <input type="password" class="form-control" name="pwd" id="pwd" value="${loginDTO.pwd}"maxlength="128">
                     <div id="div_err_pwd" style="display:none"></div>
                 </div>
                 <div class="mb-3">

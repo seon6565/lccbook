@@ -11,10 +11,15 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title fw-semibold mb-4"><h1>404: 페이지를 찾을수 없습니다.</h1></h5>
-                <img src="/resources/img/icon2-removebg-preview.png" alt="Logo" width="400" height="400" style="margin-right: 5px;margin-left: 100px; transform: translate(-10px, -17px);" class="d-inline-block align-text-top">
-                    <button onclick="reload()" class="btn btn-outline-primary">Reload</button>
-                </p>
+                <main class="px-3">
+                    <h1>페이지를 찾을수 없습니다.</h1>
+                    <p class="lead">
+                        <img src="/resources/img/icon2-removebg-preview.png" alt="Logo" width="400" height="400" style="margin-right: 5px;margin-left: 100px; transform: translate(-10px, -17px);" class="d-inline-block align-text-top">
+                    </p>
+                    <p class="lead">
+                        <a onclick="reload()" class="btn btn-outline-primary">Reload</a>
+                    </p>
+                </main>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@
                     <input type="hidden" class="form-control col-auto" name="user_id" id="user_id" value="${memberDTO.user_id}" onkeyup="checkInputId('user_id','div_err_user_id','okflagid')">
                 <div class="mb-3">
                     <label for="pwd" class="form-label">비밀번호</label>
-                    <input type="text" class="form-control" name="pwd" id="pwd" value="${memberDTO.pwd}" onkeyup="checkInputPw('pwd','div_err_pwd')" maxlength="128">
+                    <input type="password" class="form-control" name="pwd" id="pwd" value="${memberDTO.pwd}" onkeyup="checkInputPw('pwd','div_err_pwd')" maxlength="128">
                     <div class="form-text" id="div_err_pwd" style="display:none; color:red">영문+숫자+특수문자 10~16자리로만 입력하세요.</div>
                 </div>
                 <div class="mb-3">
