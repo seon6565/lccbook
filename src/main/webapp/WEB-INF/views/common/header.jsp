@@ -110,9 +110,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/qna/list" style="margin-right: 100px;">고객센터</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/anotice/list" style="margin-right: 100px;">관리자페이지</a>
-                </li>
             </ul>
         </div>
     </div>
