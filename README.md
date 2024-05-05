@@ -1,6 +1,6 @@
 # 보리북 도서 쇼핑몰
 초등, 중등, 고등학생을 대상으로 하는 도서 쇼핑몰을
-Java Spring MVC패턴으로 구현
+Java Spring MVC, PRG, Singleton 패턴으로 구현
 
 ![스크린샷 2024-05-03 125357](https://github.com/seon6565/lccbook/assets/140371161/6ec34eac-a2e4-4d3c-a532-d153769ca6ce)
 
