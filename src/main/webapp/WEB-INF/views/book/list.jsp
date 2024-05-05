@@ -223,6 +223,7 @@
             <div id="sub">
                 <c:if test="${cate ==null}">
                 <ul>
+                    <li><a href="/book/list">전과목</a></li>
                     <li><a href="/book/list?cate3=10">국어</a></li>
                     <li><a href="/book/list?cate3=20">수학</a></li>
                     <li><a href="/book/list?cate3=30">영어</a></li>
@@ -233,23 +234,25 @@
                 </ul>
                 </c:if>
                 <c:if test="${ cate eq '1010' or cate eq '10' or cate eq '101020' or cate eq '101030' or cate eq '101060' }">
-
                     <ul>
-                        <li style="margin-left: 20px;"><a href="/book/list?cate=101020">수학</a></li>
+                        <li><a href="/book/list?cate=10">전과목</a></li>
+                        <li><a href="/book/list?cate=101020">수학</a></li>
                         <li><a href="/book/list?cate=101030">영어</a></li>
                         <li><a href="/book/list?cate=101060">한글</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '20' or cate eq'2010'or cate eq'2020' or cate eq'2030' or cate eq'2040' or cate eq'2050' or cate eq'2060'}">
                     <ul>
-                        <li style="margin-left: 20px;"><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
+                        <li><a href="/book/list?cate=${cate}">전과목</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=70">한자</a></li>
                     </ul>
                 </c:if>
                 <c:if test="${cate eq '30' or cate eq'3010'or cate eq'3020' or cate eq'3030' }">
                   <ul>
-                    <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                      <li><a href="/book/list?cate=${cate}">전과목</a></li>
+                    <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                     <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
@@ -258,7 +261,8 @@
                 </c:if>
                 <c:if test="${cate eq '40' or cate eq'4010'or cate eq'4020' or cate eq'4030' }">
                     <ul>
-                        <li style="margin-left: 15px;"><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
+                        <li><a href="/book/list?cate=${cate}">전과목</a></li>
+                        <li><a href="/book/list?cate=${cate}&cate3=10">국어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=20">수학</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=30">영어</a></li>
                         <li><a href="/book/list?cate=${cate}&cate3=40">사회</a></li>
