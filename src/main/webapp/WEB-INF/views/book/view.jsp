@@ -211,11 +211,11 @@
                                     </c:forEach>
                                 </p>
                             </div>
-                            <form id="delete" name="delete" action="/bookReview/delete" method="post">
-                                <input type="hidden" name="review_idx" id="review_idx"  value="${list['review_idx']}">
+                            <form id="delete_${list['review_idx']}" name="delete" action="/bookReview/delete" method="post">
+                                <input type="hidden" name="review_idx" id="review_idx_${list['review_idx']}"  value="${list['review_idx']}">
                                 <input type="hidden" name="book_idx"   value="${list['book_idx']}">
                                 <c:if test="${memberDTO.user_id == list.user_id}">
-                                <button type="submit" id="delete_btn" onclick="godelete(event)">삭제</button>
+                                <button type="submit" id="delete_btn_${list['review_idx']}" onclick="godelete(event, ${list['review_idx']})">삭제</button>
                                 </c:if>
                             </form>
                         </div>
@@ -394,6 +394,7 @@
         let user_id = `${memberDTO.user_id}`;
         let frm = document.querySelector("#frm");
         let review_content = document.querySelector("#review_content");
+        let rating = document.querySelector("#rating");
 
         if(user_id == "") {
             alert("로그인 후 이용하세요.");
@@ -404,14 +405,19 @@
             alert("후기는 10자 이상 입력해주세요.");
             return false;
         }
+
+        if(rating.value == "" || rating.value.length < 1 || rating.value == null){
+            alert("평점을 입력해주세요.");
+            return false;
+        }
         frm.submit();
     });
 
-    function godelete(e) {
+    function godelete(e, review_idx) {
         e.preventDefault();
         if(confirm("댓글을 정말 삭제하시겠습니까?")) {
             alert("삭제되었습니다.");
-            document.getElementById("delete").submit();
+            document.getElementById("delete_"+review_idx).submit();
         } else {
             return false;
         }
