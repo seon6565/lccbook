@@ -88,9 +88,6 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 ## lcc_admin_member ( 관리자 등록 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/fd6b5142-8d84-457a-8844-594cf46eb416)
 
-## lcc_bbs ( 게시판 테이블)
-![image](https://github.com/seon6565/lccbook/assets/140371161/34b90bb3-d54a-4cae-ab99-2519b529482e)
-
 ## lcc_member ( 회원 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/d14c6110-7881-4632-94da-a290349bf649)
 
@@ -103,17 +100,21 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 ## lcc_bookreview ( 상품 리뷰 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/82c953e6-2e59-4df6-8d47-7d2ed52c548e)
 
-## lcc_bbs_file ( 파일업로드 테이블)
-![image](https://github.com/seon6565/lccbook/assets/140371161/8797c115-8dc1-446a-8d8a-6892ce9eabf7)
+
+## lcc_bbs ( 게시판 테이블)
+![image](https://github.com/seon6565/lccbook/assets/140371161/34b90bb3-d54a-4cae-ab99-2519b529482e)
 
 ## lcc_bbs_reply ( 게시판 댓글 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/e4db253c-6911-4d5a-85a3-f4e026850143)
 
-## lcc_faq ( 자주묻는 질문 테이블)
-![image](https://github.com/seon6565/lccbook/assets/140371161/d2d8c89a-996f-40a6-b05c-a87bb647cc39)
+## lcc_bbs_file ( 파일업로드 테이블)
+![image](https://github.com/seon6565/lccbook/assets/140371161/8797c115-8dc1-446a-8d8a-6892ce9eabf7)
 
 ## lcc_notice (공지사항 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/b5f1e6db-fe40-46dc-8230-8916736093d1)
+
+## lcc_faq ( 자주묻는 질문 테이블)
+![image](https://github.com/seon6565/lccbook/assets/140371161/d2d8c89a-996f-40a6-b05c-a87bb647cc39)
 
 ## lcc_qna (질문과 답변 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/c957a620-5092-4e09-9899-31a765a4d402)
@@ -121,11 +122,11 @@ Tomcat(9.x), JDK(11), Intellij(2023.3.2) , mariadb(10.11.6)
 ## lcc_cart ( 장바구니 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/413e9587-16c7-4a78-b8ea-bdabd834ffba)
 
-## lcc_payment ( 결제내역 테이블)
-![image](https://github.com/seon6565/lccbook/assets/140371161/c89da9c1-4e98-4389-9a53-d3b1e1c25d89)
-
 ## lcc_order ( 주문 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/88679c2d-d47d-4881-89d6-0e604bcfaf57)
+
+## lcc_payment ( 결제내역 테이블)
+![image](https://github.com/seon6565/lccbook/assets/140371161/c89da9c1-4e98-4389-9a53-d3b1e1c25d89)
 
 ## lcc_instock ( 입고관리 테이블)
 ![image](https://github.com/seon6565/lccbook/assets/140371161/d9e87e81-375f-474f-9502-4b00db0efd0d)
