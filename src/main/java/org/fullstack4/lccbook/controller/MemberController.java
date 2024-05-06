@@ -120,7 +120,7 @@ public class MemberController {
         log.info("============================");
         log.info("MemberController modifyPOST");
         log.info("============================");
-
+        memberDTO.setPwd(commonUtil.encryptPwd(memberDTO.getPwd()));
         if(bindingResult.hasErrors()){
             log.info("bindingResult Errors : " +memberDTO);
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
