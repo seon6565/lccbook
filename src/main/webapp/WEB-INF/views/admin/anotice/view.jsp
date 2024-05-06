@@ -42,7 +42,7 @@
                                                 <td><span style="font-weight: bold;margin-right: 5px;">작성일</span>&nbsp;&nbsp;${notice.reg_date}</td>
                                             </tr>
                                             <tr>
-                                                <td>${notice.content}</td>
+                                                <td style="white-space: pre-wrap;">${notice.content}</td>
                                             </tr>
                                             </tbody>
 

@@ -29,6 +29,30 @@
                             </div>
                             <div class="card">
                                 <div class="card-body p-4">
+                                    <div>
+                                        <form name="frmSearch" id="search" action="/admin/anotice/list">
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text ">검색범위</span>
+                                                <div class="input-group-text">
+                                                    <div class="form-check form-switch form-check-inline" >
+                                                        <label class="form-check-label" for="search_type_0">제목</label>
+                                                        <input class="form-check-input" role="switch" type="checkbox" value="t" name="search_type" id="search_type_0" ${search_typeflag_0} checked>
+                                                    </div>
+                                                </div>
+                                                <input class="form-control" type="text" name="search_word" id="search_word" placeholder="검색어" value="${responseDTO.search_word}">
+                                            </div>
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text">검색기간</span>
+                                                <input type="date" class="form-control" name="search_date1" id="search_date1" placeholder="등록일 시작" value="${responseDTO.search_date1}">
+                                                <span class="input-group-text">~</span>
+                                                <input type="date" class="form-control" name="search_date2" id="search_date2" placeholder="등록일 끝" value="${responseDTO.search_date2}">
+                                            </div>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-1">
+                                                <button class="btn btn-outline-primary" type="submit">검색</button>
+                                                <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/admin/anotice/list'">검색 초기화</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <form name="frm" id="frm" action="/admin/anotice/deleteCheck" method="post">
                                     <div class="d-grid gap-2 d-md-block" style="margin-bottom: 10px;">
                                         <button class="btn btn-primary" id="btn_delete" type="submit" onclick="godelete(event)">삭제</button>
