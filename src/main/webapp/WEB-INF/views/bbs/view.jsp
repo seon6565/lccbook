@@ -83,8 +83,8 @@
                             <tr class="table-secondary row">
                                 <th class="col-1 text-truncate"></th>
                                 <th class="col-1 text-truncate">아이디</th>
-                                <th class="col-8 text-truncate">댓글내용</th>
-                                <th class="col-1 text-truncate">등록일</th>
+                                <th class="col-7 text-truncate">댓글내용</th>
+                                <th class="col-2 text-truncate">등록일</th>
                                 <th class="col-1 text-truncate">삭제</th>
                             </tr>
                         </thead>
@@ -95,8 +95,8 @@
                             <tr class="row">
                                 <td class="col-1 text-truncate"> <img src="/resources/img/android2.svg" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0"/></td>
                                 <td class="col-1 text-truncate">${list.user_id}</td>
-                                <td class="col-8 text-truncate">${list.title}</td>
-                                <td class="col-1 text-truncate">${list.reg_date}</td>
+                                <td class="col-7 text-truncate">${list.title}</td>
+                                <td class="col-2 text-truncate">${list.reg_date}</td>
                                 <td class="col-1 text-truncate">
                                     <c:if test="${list.user_id==memberDTO.user_id}">
                                         <button type="submit" class="btn-close" aria-label="Close" onclick="return confirm('댓글을 삭제하시겠습니까')"></button>
