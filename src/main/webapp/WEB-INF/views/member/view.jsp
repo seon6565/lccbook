@@ -105,7 +105,7 @@
                     <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
                 </a>
                 <c:if test="${not empty paymentDTOList[0].payment_idx}">
-                    <a href="/payment/view?idx=${paymentDTOList[0].payment_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                    <a href="/payment/view?payment_idx=${paymentDTOList[0].payment_idx}&book_idx=${paymentDTOList[0].book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[0].product_name}</h6>
@@ -116,7 +116,7 @@
                     </a>
                 </c:if>
                 <c:if test="${not empty paymentDTOList[1].payment_idx}">
-                    <a href="/payment/view?idx=${paymentDTOList[1].book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                    <a href="/payment/view?payment_idx=${paymentDTOList[1].payment_idx}&book_idx=${paymentDTOList[1].book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[1].product_name}</h6>
@@ -127,7 +127,7 @@
                     </a>
                 </c:if>
                 <c:if test="${not empty paymentDTOList[2].payment_idx}">
-                    <a href="/payment/view?idx=${paymentDTOList[2].book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                    <a href="/payment/view?payment_idx=${paymentDTOList[2].payment_idx}&book_idx=${paymentDTOList[2].book_idx}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                         <div class="d-flex gap-2 w-100 justify-content-between">
                             <div>
                                 <h6 class="mb-0">${paymentDTOList[2].product_name}</h6>
