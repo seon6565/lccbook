@@ -37,6 +37,7 @@ public class PaymentVO
   private LocalDate payment_date;
   private String delivery_memo;
   private LocalDate refund_date;
+  private String book_img;
 
 /*
   private String name;

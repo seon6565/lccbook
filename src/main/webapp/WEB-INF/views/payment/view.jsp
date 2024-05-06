@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,13 +26,18 @@
     상품명
     <span class="form-control"> ${paymentDTO.product_name} </span>
 </div>
+
 <div class="mb-3">
-    수량
-    <span class="form-control"> ${paymentDTO.product_quantity} </span>
+    상품이미지
+    <span class="form-control"><img src="${paymentDTO.book_img}" style="width: 100px;"> </span>
 </div>
 <div class="mb-3">
-    총가격
-    <span class="form-control"> ${paymentDTO.product_sale_price} </span>
+    수량
+    <span class="form-control"> ${paymentDTO.product_quantity}개 </span>
+</div>
+<div class="mb-3">
+    총 가격
+    <span class="form-control"> <fmt:formatNumber value="${paymentDTO.product_sale_price *paymentDTO.product_quantity}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
 </div>
 
 <%@ include file="../common/footer.jsp"%>

@@ -94,11 +94,12 @@
 
     <!-- 결제 내역 상세뷰 -->
     <select id="DetailView" resultType="org.fullstack4.lccbook.domain.PaymentVO">
-        select payment_idx,book_idx, product_price,product_sale_price,product_name,product_quantity,user_id,
-        recipient_name,recipient_phone,recipient_addr1,recipient_addr2,recipient_email,recipient_zipcode,
-        payment_amount,payment_delivery_fee,delivery_memo,payment_date,payment_status
-        from lcc_payment
-           where payment_idx=#{payment_idx} and book_idx=#{book_idx}
+        select A.payment_idx,A.book_idx, A.product_price,A.product_sale_price,A.product_name,A.product_quantity,A.user_id,
+        A.recipient_name,A.recipient_phone,A.recipient_addr1,A.recipient_addr2,A.recipient_email,A.recipient_zipcode,
+        A.payment_amount,A.payment_delivery_fee,A.delivery_memo,A.payment_date,A.payment_status,B.book_img
+        from lcc_payment as A
+        inner join lcc_book AS B ON A.book_idx = B.book_idx
+           where A.payment_idx=#{payment_idx} and A.book_idx=#{book_idx}
     </select>
 
     <!-- 결제상태,주문상태 변경 -->
