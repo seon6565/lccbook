@@ -211,6 +211,7 @@ public class PaymentServiceImpl implements PaymentServiceIf {
         paymentDTO.setBook_idx(bookIdx);
         paymentDTO.setPayment_status(paymentStatus);
         PaymentVO paymentVO = modelMapper.map(paymentDTO, PaymentVO.class);
+        System.out.println("paymentSErvice impl : " + paymentVO);
 
         //결제상태 변경
         int result = paymentMapper.statusModify(paymentVO);

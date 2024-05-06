@@ -111,12 +111,9 @@ public class ApaymentController {
         if(session.getAttribute("adminDTO")==null) {
             return commonLoginCheck.adminCheck(request, redirectAttributes);
         }
-        System.out.println("statusModify : " + payment_idx.length);
-        for(int i : payment_idx){
-            System.out.println("payment_idx ads : " + i);
-        }
+       
 
-        for(int i=0; i < payment_idx.length; i++) {
+        for(int i=0; i < payment_status.length; i++) {
            int result = paymentServiceIf.statusModify(payment_idx[i],book_idx[i],payment_status[i]);
         }
      /*   int result = noticeService.modify(noticeDTO);

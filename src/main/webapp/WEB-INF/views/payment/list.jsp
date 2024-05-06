@@ -214,6 +214,15 @@
     </div>
 </div>
 <script>
+    window.onload = function() {
+        // 모든 텍스트 입력 필드를 찾아서 반복 처리
+        document.querySelectorAll('input[type=text]').forEach(function(input) {
+            // 'required' 속성이 없는 입력 필드만 값을 초기화
+            if (!input.hasAttribute('readonly')) {
+                input.value = '';
+            }
+        });
+    };
     window.onbeforeunload = function() {
         return "정말로 페이지를 떠나시겠습니까? 진행 중인 결제가 취소될 수 있습니다.";
     };
