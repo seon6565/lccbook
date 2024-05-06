@@ -117,7 +117,7 @@
                                                         <option value="N" ${list.payment_status == 'N' ? 'selected' : ''}>결제완료</option>
                                                         <option value="Y" ${list.payment_status == 'Y' ? 'selected' : ''}>구매확정</option>
                                                         <option value="RF" ${list.payment_status == 'RF' ? 'selected' : ''}>환불</option>
-                                                        <option value="C" ${list.payment_status == 'C' ? 'selected' : '' } disabled>결제취소</option>
+                                                        <option value="C" ${list.payment_status == 'C' ? 'selected' : '' } >결제취소</option>
 
 
                                                     </select></td>

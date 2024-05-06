@@ -81,14 +81,7 @@
 
 <%@ include file="../common/footer.jsp"%>
 </body>
-<Script>
-    //indexOf 함수는 특정 문자열이 포함되어 있으면 그 위치를 반환하고, 없으면 -1을 반환
-    window.onload = function() {
-        if (document.referrer.indexOf('/directList') !== -1) {
-            alert("만료된 페이지입니다.");
-            window.location.href = "/"; // 메인 페이지로 리디렉션
-        }
-    };
+<script>
 
-</Script>
+</script>
 </html>
