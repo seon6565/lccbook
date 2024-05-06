@@ -157,8 +157,9 @@
                                     <tbody>
                                         <tr>
                                             <input type="hidden" id="book_idx"  name="book_idx" value="${book_idx}" />
-                                            <td > <img src="${book_img}" alt="" width="100" height="100">  ${book_name} <strong class="mx-2">x ${quantity} </strong></td>
+                                            <td > <img src="${book_img}" alt="" width="100" height="100"> <span class="book-name"> ${book_name}</span> <strong class="mx-2">x ${quantity} </strong></td>
                                             <input type="hidden" id="product_name" name="product_name" value="${book_name}">
+
                                             <input type="hidden" id="product_quantity" name="product_quantity" value="${quantity}">
                                             <td><br><del class="origin_price"><fmt:formatNumber value="${price * quantity}" />원</del><br><span class="sale_price" style="font-weight: bold"><fmt:formatNumber value="${sale_price * quantity}"/>원</span></td>
                                             <input type="hidden" id="product_price" name="product_price" value="${price}">
@@ -222,6 +223,11 @@
     </div>
 </div>
 <script>
+    const bookName = document.querySelector('.book-name'); // .book-name 클래스를 가진 요소를 찾아서
+    let text = bookName.textContent; // 현재 텍스트 내용을 가져옵니다.
+    if (text.length > 20) { // 텍스트 길이가 10자를 초과한다면
+        bookName.textContent = text.substring(0, 20) + '...'; // 앞의 10자만 보여주고, 나머지는 '...'으로 대체합니다.
+    }
     window.onload = function() {
         // 모든 텍스트 입력 필드를 찾아서 반복 처리
         document.querySelectorAll('input[type=text]').forEach(function(input) {
@@ -230,6 +236,8 @@
                 input.value = '';
             }
         });
+
+
     };
 
     window.onbeforeunload = function() {

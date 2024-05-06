@@ -153,7 +153,7 @@
                                     <c:forEach items="${cartList}" var="list" varStatus="status">
                                 <tr>
                                     <input type="hidden" id="book_idxs${status.count}"  name="book_idxs" value="${list.book_idx}"/>
-                                    <td > <img src="${list.book_img}" alt="" width="100" height="100">  ${list.book_name} <strong class="mx-2">x ${list.quantity} </strong></td>
+                                    <td > <img src="${list.book_img}" alt="" width="100" height="100"> <span class="book-name"> ${list.book_name} </span> <strong class="mx-2">x ${list.quantity} </strong></td>
                                     <input type="hidden" id="product_names${status.count}" name="product_names" value="${list.book_name}">
                                     <input type="hidden" id="product_quantitys${status.count}" name="product_quantitys" value="${list.quantity}">
                                     <td><br><del class="origin_price"><fmt:formatNumber value="${list.price * list.quantity}" />원</del><br><span class="sale_price"><fmt:formatNumber value="${list.sale_price * list.quantity}"/>원</span></td>
@@ -214,6 +214,15 @@
     </div>
 </div>
 <script>
+
+    const bookNames = document.querySelectorAll('.book-name'); // 모든 .book-name 요소를 찾음
+    bookNames.forEach(function(bookName) {
+        let text = bookName.textContent; // 현재 텍스트 내용
+        if (text.length > 20) { // 글자수가 10을 초과하는 경우
+            bookName.textContent = text.substring(0, 20) + '...'; // 처음 10글자 + '...'으로 변경
+        }
+    });
+
     window.onload = function() {
         // 모든 텍스트 입력 필드를 찾아서 반복 처리
         document.querySelectorAll('input[type=text]').forEach(function(input) {
