@@ -81,8 +81,6 @@ public class PaymentServiceImpl implements PaymentServiceIf {
                     throw new RuntimeException("RuntimeException for rollback");
                 }
 
-
-
                 //수량업데이트
                 quantity_result = paymentMapper.updateQuantity(product_quantitys[i], book_idxs[i]);
                 if(quantity_result <=0){

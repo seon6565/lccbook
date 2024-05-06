@@ -47,6 +47,7 @@ public class PaymentDTO
   private int[] product_quantitys;
   private int[] payment_idxs;
   private String[] payment_statuses;
+  private String book_img;
 
   /*private String name;
   private String email;

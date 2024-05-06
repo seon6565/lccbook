@@ -157,7 +157,7 @@
                             <input type="text" id="quantity" name="quantity" value="1" readonly style="width: 30px; text-align: center;">
                             <button type="button" id="quantity_plus" name="plus"  data-book-quantity ="${book.book_quantity}">+</button>
                         </div><br>
-                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;" id="total_price" class="total_price"> <fmt:formatNumber value="${book.price}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
+                    <span style="margin-right: 37px;">구매가</span><span style="color: #d63384; font-size: large;" id="total_price" class="total_price"> <fmt:formatNumber value="${book.sale_price}" type="number" groupingUsed="true" pattern="#,##0원"/></span>
                 </div>
                 <div class="box" style="border-bottom: none">
                     <button type="button" class="btn btn-outline-secondary" id="cart_button"  data-book-quantity="${book.book_quantity}">장바구니</button>
@@ -279,7 +279,7 @@
         var bookQuantity = parseInt(this.getAttribute("data-book-quantity"));
 
         if (bookQuantity <= 0) {
-            alert("품절입니다.");
+            alert("품절된 상품입니다.");
             return false;
         }
 
@@ -312,7 +312,8 @@
                    }
                },
                error: function(xhr, status, error) {
-                   alert("장바구니 등록에 실패하였습니다.");
+                   window.location.href ='/login/login'
+
                }
            });
 
