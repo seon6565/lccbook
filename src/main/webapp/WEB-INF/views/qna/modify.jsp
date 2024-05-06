@@ -25,6 +25,7 @@
     <div class="card">
         <div class="card-body p-4">
             <form name="frmRegist" id="frmRegist" method="post" action="/qna/modify">
+                <input type="hidden" name="qna_idx" id="qna_idx" value="${qnaDTO.qna_idx}">
                 <div class="mb-3">
                     <label for="user_id" class="form-label">아이디</label>
                     <input type="text" class="form-control" name="user_id" id="user_id" value="${memberDTO.user_id}" readonly>
