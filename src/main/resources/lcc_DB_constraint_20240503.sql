@@ -35,6 +35,3 @@ CONSTRAINT `FK_lcc_outstock_lcc_delivery` FOREIGN KEY (`delivery_idx`) REFERENCE
 
 ALTER TABLE lcc_qna ADD 
 CONSTRAINT `FK_lcc_qna_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE ADD lcc_qna
-CONSTRAINT `FK_lcc_qna_lcc_member` FOREIGN KEY (`user_id`) REFERENCES `lcc_member` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
