@@ -39,7 +39,7 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title fw-semibold mb-4">Q&A</h5>
+                            <h5 class="card-title fw-semibold mb-4">결제내역</h5>
 
                             <div class="card">
                                 <div class="card-body p-4">
